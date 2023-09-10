@@ -1,6 +1,4 @@
-import SideBar from '@/components/SideBar';
-
 function UserHome() {
-  return <SideBar />;
+  return <div className='user-home'></div>;
 }
 export default UserHome;
