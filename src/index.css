@@ -43,10 +43,11 @@ li {
   justify-content: center;
 }
 
-.app .outlet {
-  margin-left: 160px;
+.outlet {
+  margin-left: 230px;
 }
 
+/* SIDEBAR */
 .sidebar{
   width: 160px;
   height: 100vh;
@@ -65,7 +66,7 @@ li {
   width: 100%;
 }
 
-.sidebar .user-profile{
+/* .sidebar .user-profile{
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -94,7 +95,7 @@ li {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-}
+} */
 
 .sidebar li a{
   color: #454545;
@@ -111,6 +112,7 @@ li {
 .sidebar li a.active {
   border-left: 4px solid var(--text-yellow); 
   background-color: #fff;
+  font-weight: 700;
 }
 
 .sidebar li:hover, 
@@ -118,17 +120,98 @@ li {
   background-color: var(--background-white);
 }
 
-.sidebar .settings{
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 10px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.5s ease;
+/* USER HOME */
+.user-home {
+  margin-top: 45px;
 }
-.sidebar .settings a{
-  color: #454545;
+
+/* CONTAINER WRAPPER */
+.user-home .container-wrapper{
+  display: flex;
+  gap: 30px;
+}
+
+.user-home .post-container{
+  width: 350px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
+  padding: 10px;
+  cursor: pointer;
+}
+
+.user-home .post-container .post-container-header{
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
+.post-container-header .post-container-avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.post-container-header .post-container-avatar img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.post-container-header .post-container-placeholder{
+  color: #BDBDBD;
+  font-weight: 500;
+}
+
+.post-container .post-container-footer{
+  margin-top: 15px;
+  border-top: 1px solid #E0E0E0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.user-home .search{
+  width: 350px;
+  height: 50px;
+  position: relative;
+}
+
+.user-home .search input{
+  font-family: "Quicksand";
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
+  text-indent: 50px;
+}
+
+.user-home .search input::placeholder{
+  color: #BDBDBD;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.user-home .search input:focus{
+  outline: 1px solid var(--text-yellow);
+}
+
+.user-home .search .search-icon{
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+}
+
+
+
+
+
+
+
+
+
+
