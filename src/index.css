@@ -1,3 +1,18 @@
+:root{
+  --background-white: #FAFAFE;
+  --background-yellow: #FFF0DE;
+  --background-light-red: #80485B;
+  --background-dark-red: #EB5757;
+  --text-yellow: #F9A109;
+  --text-grey: #828282;
+  --text-black: #34333A;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: local('Quicksand'), url('@/assets/fonts/Quicksand-VariableFont_wght.ttf')
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +20,10 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Quicksand', 'Roboto';
+  background: var(--background-white);
+  height: 100vh;
+  color: var(--text-black);
 }
 
 a {
@@ -14,4 +32,103 @@ a {
 
 li {
   list-style: none;
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.app .outlet {
+  margin-left: 160px;
+}
+
+.sidebar{
+  width: 160px;
+  height: 100vh;
+  background: var(--background-yellow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar .navigation{
+  width: 100%;
+}
+
+.sidebar .user-profile{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 30px;
+  font-weight: 600;
+}
+
+.user-profile span {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+}
+
+.sidebar .user-avatar{
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--text-black);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.sidebar .user-avatar img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.sidebar li a{
+  color: #454545;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-block: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sidebar li a.active {
+  border-left: 4px solid var(--text-yellow); 
+  background-color: #fff;
+}
+
+.sidebar li:hover, 
+.sidebar .settings:hover{
+  background-color: var(--background-white);
+}
+
+.sidebar .settings{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.sidebar .settings a{
+  color: #454545;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
