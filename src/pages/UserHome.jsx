@@ -1,11 +1,11 @@
 import Search from '@/components/UserHome/Search';
-import PostContainer from '@/components/UserHome/PostContainer';
+import SpeechBubble from '@/components/UserHome/SpeechBubble';
 
 function UserHome() {
   return (
     <div className='user-home'>
       <div className='container-wrapper'>
-        <PostContainer />
+        <SpeechBubble />
         <Search />
       </div>
     </div>
