@@ -8,7 +8,7 @@ function CreatePostModal({ closeModal }) {
     <div className='modal' onClick={closeModal}>
       <div className='modal-content' onClick={(e) => e.stopPropagation()}>
         <div className='modal-header'>
-          <h4>Create Discussion</h4>
+          <h4>Create a Gem</h4>
           <button onClick={closeModal}>
             <CloseIcon fontSize='small' style={{ color: '#828282' }} />
           </button>
@@ -27,7 +27,7 @@ function CreatePostModal({ closeModal }) {
           </div>
         </div>
         <div className='modal-footer'>
-          <CreatePostContainer />
+          <CreatePostContainer closeModal={closeModal} />
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
@@ -9,11 +10,16 @@ import MediaTabContent from '@/components/UserHome/post-modal-tabs/MediaTabConte
 import PollTabContent from '@/components/UserHome/post-modal-tabs/PollTabContent';
 import EventTabContent from '@/components/UserHome/post-modal-tabs/EventTabContent';
 import GifTabContent from '@/components/UserHome/post-modal-tabs/GifTabContent';
+import Button from '@/components/Button';
 
-export default function CreatePostContainer() {
+export default function CreatePostContainer({ closeModal }) {
   const [activeTab, setActiveTab] = useState('post');
   const [postTitle, setPostTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
+
+  function clickHandler() {
+    closeModal();
+  }
 
   function handleActiveTab(tabName) {
     setActiveTab(tabName);
@@ -23,15 +29,15 @@ export default function CreatePostContainer() {
     setCharCount(e.target.value.length);
     setPostTitle(e.target.value);
 
-    if (e.target.value.length <= 50) {
-      e.target.style.height = '35px';
-    } else if (e.target.value.length > 50 && e.target.value.length <= 100) {
-      e.target.style.height = '55px';
-    } else if (e.target.value.length > 100 && e.target.value.length <= 150) {
-      e.target.style.height = '65px';
-    } else if (e.target.value.length > 150 && e.target.value.length <= 200) {
-      e.target.style.height = '85px';
-    }
+    // if (e.target.value.length <= 50) {
+    //   e.target.style.height = '35px';
+    // } else if (e.target.value.length > 50 && e.target.value.length <= 100) {
+    //   e.target.style.height = '55px';
+    // } else if (e.target.value.length > 100 && e.target.value.length <= 150) {
+    //   e.target.style.height = '65px';
+    // } else if (e.target.value.length > 150 && e.target.value.length <= 200) {
+    //   e.target.style.height = '85px';
+    // }
   }
 
   return (
@@ -101,7 +107,18 @@ export default function CreatePostContainer() {
         ) : activeTab === 'gif' ? (
           <GifTabContent />
         ) : null}
+
+        <Button
+          fillContainer
+          label='Post'
+          state={charCount === 0 ? 'inactive' : 'active'}
+          clickHandler={clickHandler}
+        />
       </div>
     </div>
   );
 }
+
+CreatePostContainer.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};
