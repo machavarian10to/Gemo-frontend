@@ -17,6 +17,30 @@ function PostTabContent() {
   const [numberedList, setNumberedList] = useState(false);
   const [quote, setQuote] = useState(false);
 
+  const [edit, setEdit] = useState(false);
+
+  function inputHandler(e) {
+    if (e.target.innerHTML.length > 0) {
+      setEdit(true);
+    } else {
+      setEdit(false);
+    }
+  }
+
+  function handleClick(type) {
+    const selection = window.getSelection();
+    console.log(selection.extendNode.parentElement);
+    // const selectedText = selection.toString();
+
+    if (type === 'bold') {
+      setBold((prev) => !prev);
+      document.execCommand('bold', false, null);
+    } else if (type === 'italic') {
+      setItalic((prev) => !prev);
+      document.execCommand('italic', false, null);
+    }
+  }
+
   const style = {
     bold: {
       color: bold ? '#100F16' : 'grey',
@@ -44,10 +68,10 @@ function PostTabContent() {
   return (
     <div className='editor'>
       <div className='editor-header'>
-        <button onClick={() => setBold((prev) => !prev)}>
+        <button onClick={() => handleClick('bold')}>
           <FormatBoldIcon style={style.bold} />
         </button>
-        <button onClick={() => setItalic((prev) => !prev)}>
+        <button onClick={() => handleClick('italic')}>
           <FormatItalicIcon style={style.italic} />
         </button>
         <button onClick={() => setUnderline((prev) => !prev)}>
@@ -69,10 +93,13 @@ function PostTabContent() {
           <FormatQuoteIcon style={style.quote} />
         </button>
       </div>
-      <textarea
-        placeholder='Additional info (optional)'
-        maxLength={200}
-      ></textarea>
+      <div
+        className={`editor-content ${edit ? 'edit' : ''}`}
+        contentEditable='true'
+        role='textbox'
+        spellCheck='true'
+        onInput={inputHandler}
+      ></div>
     </div>
   );
 }
