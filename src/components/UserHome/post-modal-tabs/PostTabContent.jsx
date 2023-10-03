@@ -13,6 +13,7 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Picker from '@emoji-mart/react';
+import Button from '@/components/Button';
 
 function PostTabContent() {
   const [bold, setBold] = useState(false);
@@ -25,20 +26,14 @@ function PostTabContent() {
   const [justifyLeft, setJustifyLeft] = useState(false);
   const [justifyCenter, setJustifyCenter] = useState(false);
   const [justifyRight, setJustifyRight] = useState(false);
-  const [link, setLink] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const [link, setLink] = useState(false);
+  const [linkTitle, setLinkTitle] = useState('');
+  const [linkUrl, setLinkUrl] = useState('');
 
   const [edit, setEdit] = useState(false);
   const inputRef = useRef(null);
-
-  const toggleEmojiPicker = () => {
-    setShowEmojiPicker((prev) => !prev);
-  };
-
-  const insertEmoji = (emoji) => {
-    inputRef.current.focus();
-    modifyText('insertText', false, emoji.native);
-  };
 
   function inputHandler(e) {
     if (e.target.innerHTML.length > 0 && e.target.innerHTML !== '<br>') {
@@ -50,6 +45,50 @@ function PostTabContent() {
 
   function modifyText(command, defaultUi, value) {
     document.execCommand(command, defaultUi, value);
+  }
+
+  function toggleEmojiPicker() {
+    setShowEmojiPicker((prev) => !prev);
+  }
+
+  function insertEmoji(emoji) {
+    inputRef.current.focus();
+    modifyText('insertText', false, emoji.native);
+  }
+
+  function createLink() {
+    setLink(!link);
+    // modifyText("insertHTML", false, "<a href='"+href+"'>"+selected+"</a>");
+    // modifyText('createLink', false, url);
+  }
+
+  function linkTitleHandler(e) {
+    setLinkTitle(e.target.value);
+  }
+
+  function linkUrlHandler(e) {
+    setLinkUrl(e.target.value);
+  }
+
+  function linkPreview() {
+    console.log('link preview');
+    // window.open(`https://${linkUrl}`, '_blank');
+  }
+
+  function addLinkHandler() {
+    inputRef.current.focus();
+    if (!linkTitle.length) {
+      setLinkTitle(linkUrl);
+    }
+
+    modifyText(
+      'insertHTML',
+      false,
+      `<a href='https://${linkUrl}' target='_blank'>${linkTitle}</a>`,
+    );
+    setLink(false);
+    setLinkTitle('');
+    setLinkUrl('');
   }
 
   function handleClick(type) {
@@ -73,18 +112,60 @@ function PostTabContent() {
     // console.log('base: ', selection.baseNode);
     // console.log('extend: ', selection.extendNode);
     // console.log('focus', selection.focusNode);
+    inputRef.current.focus();
+
+    if (type === 'bold') {
+      setBold(!bold);
+    } else if (type === 'italic') {
+      setItalic(!italic);
+    } else if (type === 'underline') {
+      setUnderline(!underline);
+    } else if (type === 'strikeThrough') {
+      setStrikeThrough(!strikeThrough);
+    } else if (type === 'title') {
+      setTitle(!title);
+    } else if (type === 'insertUnorderedList') {
+      setBulletList(!bulletList);
+      setNumberedList(false);
+    } else if (type === 'insertOrderedList') {
+      setNumberedList(!numberedList);
+      setBulletList(false);
+    } else if (type === 'justifyLeft') {
+      setJustifyLeft(!justifyLeft);
+      setJustifyCenter(false);
+      setJustifyRight(false);
+    } else if (type === 'justifyCenter') {
+      setJustifyCenter(!justifyCenter);
+      setJustifyLeft(false);
+      setJustifyRight(false);
+    } else if (type === 'justifyRight') {
+      setJustifyRight(!justifyRight);
+      setJustifyLeft(false);
+      setJustifyCenter(false);
+    }
+
+    if (type === 'createLink') {
+      createLink();
+      return;
+    }
+
+    if (type === 'fontSize') {
+      setTitle(!title);
+      if (title) {
+        modifyText(type, false, '3');
+        return;
+      }
+      modifyText(type, false, '5');
+      return;
+    }
 
     modifyText(type, false, null);
-
-    // if (type === 'fontSize') modifyText(type, false, '5');
-    // else if (type === 'createLink') modifyText(type, false, 'https://www.google.com');
-    inputRef.current.focus();
   }
 
   const style = {
     bold: {
       color: bold ? '#100F16' : 'grey',
-      fontSize: '22px',
+      fontSize: '23px',
     },
     italic: {
       color: italic ? '#100F16' : 'grey',
@@ -92,7 +173,7 @@ function PostTabContent() {
     },
     underline: {
       color: underline ? '#100F16' : 'grey',
-      fontSize: '20px',
+      fontSize: '21px',
     },
     strikeThrough: {
       color: strikeThrough ? '#100F16' : 'grey',
@@ -124,7 +205,7 @@ function PostTabContent() {
     },
     emoji: {
       color: showEmojiPicker ? '#100F16' : 'grey',
-      fontSize: '19px',
+      fontSize: '20px',
     },
   };
 
@@ -179,6 +260,33 @@ function PostTabContent() {
         onInput={inputHandler}
         ref={inputRef}
       ></div>
+
+      {link && (
+        <div className='link-inputs-wrapper'>
+          <div className='link-inputs'>
+            <input
+              onChange={linkTitleHandler}
+              value={linkTitle}
+              type='text'
+              placeholder='Enter the title of link'
+              className='link-title-field'
+            />
+            <input
+              onChange={linkUrlHandler}
+              value={linkUrl}
+              type='text'
+              placeholder='Enter the URL'
+              className='link-url-field'
+            />
+          </div>
+          <Button
+            label='Add'
+            size='extra-small'
+            state={linkUrl.length ? 'active' : 'inactive'}
+            clickHandler={addLinkHandler}
+          />
+        </div>
+      )}
 
       {showEmojiPicker && (
         <div className='emoji-picker'>
