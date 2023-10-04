@@ -58,8 +58,6 @@ function PostTabContent() {
 
   function createLink() {
     setLink(!link);
-    // modifyText("insertHTML", false, "<a href='"+href+"'>"+selected+"</a>");
-    // modifyText('createLink', false, url);
   }
 
   function linkTitleHandler(e) {
@@ -77,6 +75,7 @@ function PostTabContent() {
 
   function addLinkHandler() {
     inputRef.current.focus();
+
     if (!linkTitle.length) {
       setLinkTitle(linkUrl);
     }
@@ -84,7 +83,7 @@ function PostTabContent() {
     modifyText(
       'insertHTML',
       false,
-      `<a href='https://${linkUrl}' target='_blank'>${linkTitle}</a>`,
+      `<a onclick="linkPreview()" href='https://${linkUrl}' target='_blank'>${linkTitle}</a>`,
     );
     setLink(false);
     setLinkTitle('');
@@ -207,6 +206,9 @@ function PostTabContent() {
       color: showEmojiPicker ? '#100F16' : 'grey',
       fontSize: '20px',
     },
+    link: {
+      color: link ? '#E4E6EB' : 'grey',
+    },
   };
 
   return (
@@ -245,7 +247,10 @@ function PostTabContent() {
         <button onClick={() => handleClick('justifyRight')}>
           <FormatAlignRightIcon style={style.justifyRight} />
         </button>
-        <button onClick={() => handleClick('createLink')}>
+        <button
+          style={{ background: link && '#E4E6EB' }}
+          onClick={() => handleClick('createLink')}
+        >
           <InsertLinkIcon style={{ color: 'grey', fontSize: '22px' }} />
         </button>
         <button onClick={() => handleClick('removeFormat')}>
