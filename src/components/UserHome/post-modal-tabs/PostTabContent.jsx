@@ -31,9 +31,12 @@ function PostTabContent() {
   const [link, setLink] = useState(false);
   const [linkTitle, setLinkTitle] = useState('');
   const [linkUrl, setLinkUrl] = useState('');
+  const [showInvalidLinkError, setShowInvalidLinkError] = useState(false);
 
   const [edit, setEdit] = useState(false);
+
   const inputRef = useRef(null);
+  const linkUrlRef = useRef(null);
 
   function inputHandler(e) {
     if (e.target.innerHTML.length > 0 && e.target.innerHTML !== '<br>') {
@@ -58,6 +61,9 @@ function PostTabContent() {
 
   function createLink() {
     setLink(!link);
+    // if (link) {
+    //   linkUrlRef.current.focus();
+    // }
   }
 
   function linkTitleHandler(e) {
@@ -68,31 +74,37 @@ function PostTabContent() {
     setLinkUrl(e.target.value);
   }
 
-  function linkPreview() {
-    console.log('link preview');
-    // window.open(`https://${linkUrl}`, '_blank');
-  }
-
   function addLinkHandler() {
     inputRef.current.focus();
 
-    if (!linkTitle.length) {
-      setLinkTitle(linkUrl);
+    const urlRegex =
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
+    if (!urlRegex.test(linkUrl)) {
+      setShowInvalidLinkError(true);
+      return;
     }
 
     modifyText(
       'insertHTML',
       false,
-      `<a onclick="linkPreview()" href='https://${linkUrl}' target='_blank'>${linkTitle}</a>`,
+      `<div href='${
+        linkUrl.startsWith('https://') ? linkUrl : `https://${linkUrl}`
+      }'
+       class='link'
+       onclick='window.open(this.href, "_blank"); return false;'
+       >${linkTitle.length ? linkTitle : linkUrl}</div>`,
     );
+
     setLink(false);
-    setLinkTitle('');
-    setLinkUrl('');
+    if (link) {
+      setLinkTitle('');
+      setLinkUrl('');
+    }
   }
 
   function handleClick(type) {
     // const selection = window.getSelection();
-
     // if (selection.rangeCount > 0) {
     //   const range = selection.getRangeAt(0);
     //   const clonedSelection = range.cloneContents();
@@ -112,36 +124,6 @@ function PostTabContent() {
     // console.log('extend: ', selection.extendNode);
     // console.log('focus', selection.focusNode);
     inputRef.current.focus();
-
-    if (type === 'bold') {
-      setBold(!bold);
-    } else if (type === 'italic') {
-      setItalic(!italic);
-    } else if (type === 'underline') {
-      setUnderline(!underline);
-    } else if (type === 'strikeThrough') {
-      setStrikeThrough(!strikeThrough);
-    } else if (type === 'title') {
-      setTitle(!title);
-    } else if (type === 'insertUnorderedList') {
-      setBulletList(!bulletList);
-      setNumberedList(false);
-    } else if (type === 'insertOrderedList') {
-      setNumberedList(!numberedList);
-      setBulletList(false);
-    } else if (type === 'justifyLeft') {
-      setJustifyLeft(!justifyLeft);
-      setJustifyCenter(false);
-      setJustifyRight(false);
-    } else if (type === 'justifyCenter') {
-      setJustifyCenter(!justifyCenter);
-      setJustifyLeft(false);
-      setJustifyRight(false);
-    } else if (type === 'justifyRight') {
-      setJustifyRight(!justifyRight);
-      setJustifyLeft(false);
-      setJustifyCenter(false);
-    }
 
     if (type === 'createLink') {
       createLink();
@@ -272,17 +254,17 @@ function PostTabContent() {
             <input
               onChange={linkTitleHandler}
               value={linkTitle}
-              type='text'
               placeholder='Enter the title of link'
-              className='link-title-field'
             />
             <input
               onChange={linkUrlHandler}
               value={linkUrl}
-              type='text'
               placeholder='Enter the URL'
-              className='link-url-field'
+              ref={linkUrlRef}
             />
+            {showInvalidLinkError && (
+              <p className='not-valid-link'>Link is not valid!</p>
+            )}
           </div>
           <Button
             label='Add'

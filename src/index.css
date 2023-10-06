@@ -434,30 +434,37 @@ body {
   position: relative;
 }
 
-.editor-content a {
+.editor-content .link {
   color: var(--color-main-yellow);
   position: relative;
+  text-decoration: underline;
 }
 
-.editor-content a::before {
+.editor-content .link::before {
   content: attr(href);
   position: absolute;
-  top: 100%;
+  top: 120%;
   left: 0;
   background-color: var(--background-shade-30);
+  color: var(--background-main-white); 
   font-size: 14px;
-  color: white; 
   padding: 8px;
   border-radius: 5px;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
   z-index: 10;
   text-decoration: underline;
   cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.not-valid-link{
+  color: var(--background-main-red);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 
-.editor-content a:hover::before {
+.editor-content .link:hover::before {
   opacity: 1;
 }
 
