@@ -432,23 +432,25 @@ body {
   overflow-wrap: break-word;
   overflow: auto;
   position: relative;
+  line-height: 2;
 }
 
-.editor-content .link {
+.link {
   color: var(--color-main-yellow);
   position: relative;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .editor-content .link::before {
   content: attr(href);
   position: absolute;
-  top: 120%;
+  top: 110%;
   left: 0;
   background-color: var(--background-shade-30);
   color: var(--background-main-white); 
-  font-size: 14px;
-  padding: 8px;
+  font-size: 10px;
+  padding: 5px;
   border-radius: 5px;
   opacity: 0;
   z-index: 10;
@@ -458,6 +460,7 @@ body {
 }
 
 .not-valid-link{
+  text-align: center;
   color: var(--background-main-red);
   font-size: 12px;
   font-weight: 700;
@@ -541,7 +544,7 @@ body {
 .emoji-picker {
   position: absolute;
   top: 100px;
-  right: 300px;
+  right: 180px;
   z-index: 100;
 }
 
@@ -553,7 +556,7 @@ body {
 .link-inputs-wrapper {
   position: absolute;
   top: 310px;
-  right: 300px;
+  right: 500px;
   z-index: 100;
   border-radius: 10px;
   background-color: #fff;
@@ -683,3 +686,10 @@ body {
   transform: translateY(-50%);
 }
 
+#nav button[aria-selected] {
+  color: var(--color-main-yellow) !important;
+}
+
+#nav .bar {
+  background-color: var(--color-main-yellow) !important;
+}

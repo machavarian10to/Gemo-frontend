@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
@@ -38,6 +38,12 @@ function PostTabContent() {
   const inputRef = useRef(null);
   const linkUrlRef = useRef(null);
 
+  useEffect(() => {
+    if (link) {
+      linkUrlRef.current?.focus();
+    }
+  }, [link]);
+
   function inputHandler(e) {
     if (e.target.innerHTML.length > 0 && e.target.innerHTML !== '<br>') {
       setEdit(true);
@@ -55,15 +61,12 @@ function PostTabContent() {
   }
 
   function insertEmoji(emoji) {
-    inputRef.current.focus();
+    inputRef.current?.focus();
     modifyText('insertText', false, emoji.native);
   }
 
   function createLink() {
-    setLink(!link);
-    // if (link) {
-    //   linkUrlRef.current.focus();
-    // }
+    setLink((prevLink) => !prevLink);
   }
 
   function linkTitleHandler(e) {
@@ -74,32 +77,42 @@ function PostTabContent() {
     setLinkUrl(e.target.value);
   }
 
+  function enterKeyPress(e) {
+    if (e.key === 'Enter') {
+      addLinkHandler();
+    }
+  }
+
   function addLinkHandler() {
-    inputRef.current.focus();
+    inputRef.current?.focus();
 
     const urlRegex =
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
 
     if (!urlRegex.test(linkUrl)) {
       setShowInvalidLinkError(true);
+      linkUrlRef.current?.focus();
       return;
     }
 
     modifyText(
       'insertHTML',
       false,
-      `<div href='${
+      `<a href='${
         linkUrl.startsWith('https://') ? linkUrl : `https://${linkUrl}`
       }'
        class='link'
-       onclick='window.open(this.href, "_blank"); return false;'
-       >${linkTitle.length ? linkTitle : linkUrl}</div>`,
+       target='_blank'
+       rel='noopener noreferrer'
+       onClick='window.open(this.href, "_blank"); return false;'
+       >${linkTitle.length ? linkTitle : linkUrl}</a>`,
     );
 
     setLink(false);
     if (link) {
       setLinkTitle('');
       setLinkUrl('');
+      setShowInvalidLinkError(false);
     }
   }
 
@@ -123,7 +136,8 @@ function PostTabContent() {
     // console.log('base: ', selection.baseNode);
     // console.log('extend: ', selection.extendNode);
     // console.log('focus', selection.focusNode);
-    inputRef.current.focus();
+
+    inputRef.current?.focus();
 
     if (type === 'createLink') {
       createLink();
@@ -196,47 +210,66 @@ function PostTabContent() {
   return (
     <div className='editor'>
       <div className='editor-header'>
-        <button onClick={() => handleClick('bold')}>
+        <button title='Bold' onClick={() => handleClick('bold')}>
           <FormatBoldIcon style={style.bold} />
         </button>
-        <button onClick={() => handleClick('italic')}>
+        <button title='Italic' onClick={() => handleClick('italic')}>
           <FormatItalicIcon style={style.italic} />
         </button>
-        <button onClick={() => handleClick('underline')}>
+        <button title='Underline' onClick={() => handleClick('underline')}>
           <FormatUnderlinedIcon style={style.underline} />
         </button>
-        <button onClick={() => handleClick('strikeThrough')}>
+        <button
+          title='Strike through'
+          onClick={() => handleClick('strikeThrough')}
+        >
           <StrikethroughSIcon style={style.strikeThrough} />
         </button>
-        <button onClick={() => handleClick('fontSize')}>
+        <button title='Title' onClick={() => handleClick('fontSize')}>
           <TextFieldsIcon style={style.title} />
         </button>
-        <button onClick={toggleEmojiPicker}>
-          <EmojiEmotionsOutlinedIcon style={style.emoji} />
-        </button>
-        <button onClick={() => handleClick('insertUnorderedList')}>
-          <FormatListBulletedIcon style={style.bulletList} />
-        </button>
-        <button onClick={() => handleClick('insertOrderedList')}>
-          <FormatListNumberedIcon style={style.numberedList} />
-        </button>
-        <button onClick={() => handleClick('justifyLeft')}>
-          <FormatAlignLeftIcon style={style.justifyLeft} />
-        </button>
-        <button onClick={() => handleClick('justifyCenter')}>
-          <FormatAlignCenterIcon style={style.justifyCenter} />
-        </button>
-        <button onClick={() => handleClick('justifyRight')}>
-          <FormatAlignRightIcon style={style.justifyRight} />
-        </button>
         <button
+          title='Link'
           style={{ background: link && '#E4E6EB' }}
           onClick={() => handleClick('createLink')}
         >
           <InsertLinkIcon style={{ color: 'grey', fontSize: '22px' }} />
         </button>
-        <button onClick={() => handleClick('removeFormat')}>
-          <HighlightOffIcon style={{ color: 'grey', fontSize: '18px' }} />
+        <button
+          title='Bullet list'
+          onClick={() => handleClick('insertUnorderedList')}
+        >
+          <FormatListBulletedIcon style={style.bulletList} />
+        </button>
+        <button
+          title='Numbered list'
+          onClick={() => handleClick('insertOrderedList')}
+        >
+          <FormatListNumberedIcon style={style.numberedList} />
+        </button>
+        <button title='Justify left' onClick={() => handleClick('justifyLeft')}>
+          <FormatAlignLeftIcon style={style.justifyLeft} />
+        </button>
+        <button
+          title='Justify center'
+          onClick={() => handleClick('justifyCenter')}
+        >
+          <FormatAlignCenterIcon style={style.justifyCenter} />
+        </button>
+        <button
+          title='Justify right'
+          onClick={() => handleClick('justifyRight')}
+        >
+          <FormatAlignRightIcon style={style.justifyRight} />
+        </button>
+        <button title='Emoji' onClick={toggleEmojiPicker}>
+          <EmojiEmotionsOutlinedIcon style={style.emoji} />
+        </button>
+        <button
+          title='Remove styles'
+          onClick={() => handleClick('removeFormat')}
+        >
+          <HighlightOffIcon style={{ color: 'grey', fontSize: '20px' }} />
         </button>
       </div>
       <div
@@ -249,14 +282,16 @@ function PostTabContent() {
       ></div>
 
       {link && (
-        <div className='link-inputs-wrapper'>
+        <div className='link-inputs-wrapper' onKeyDown={enterKeyPress}>
           <div className='link-inputs'>
             <input
+              tabIndex={2}
               onChange={linkTitleHandler}
               value={linkTitle}
               placeholder='Enter the title of link'
             />
             <input
+              tabIndex={1}
               onChange={linkUrlHandler}
               value={linkUrl}
               placeholder='Enter the URL'
@@ -282,6 +317,7 @@ function PostTabContent() {
             perLine='7'
             theme='light'
             onEmojiSelect={(emoji) => insertEmoji(emoji)}
+            maxFrequentRows='1'
           />
         </div>
       )}
