@@ -544,7 +544,7 @@ body {
 .emoji-picker {
   position: absolute;
   top: 100px;
-  right: 180px;
+  right: 175px;
   z-index: 100;
 }
 

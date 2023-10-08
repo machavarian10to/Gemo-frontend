@@ -95,18 +95,26 @@ function PostTabContent() {
       return;
     }
 
-    modifyText(
-      'insertHTML',
-      false,
-      `<a href='${
-        linkUrl.startsWith('https://') ? linkUrl : `https://${linkUrl}`
-      }'
-       class='link'
-       target='_blank'
-       rel='noopener noreferrer'
-       onClick='window.open(this.href, "_blank"); return false;'
-       >${linkTitle.length ? linkTitle : linkUrl}</a>`,
-    );
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0).cloneRange();
+
+    const linkElement = document.createElement('a');
+    linkElement.href = linkUrl.startsWith('https://')
+      ? linkUrl
+      : `https://${linkUrl}`;
+    linkElement.className = 'link';
+    linkElement.rel = 'noopener noreferrer';
+    linkElement.addEventListener('click', (e) => {
+      window.open(linkElement.href, '_blank');
+      e.preventDefault();
+    });
+    linkElement.textContent = linkTitle.length ? linkTitle : linkUrl;
+    range.insertNode(linkElement);
+    range.setEndAfter(linkElement);
+    range.setStartAfter(linkElement);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
 
     setLink(false);
     if (link) {
@@ -198,12 +206,13 @@ function PostTabContent() {
       color: justifyRight ? '#100F16' : 'grey',
       fontSize: '19px',
     },
-    emoji: {
-      color: showEmojiPicker ? '#100F16' : 'grey',
-      fontSize: '20px',
-    },
     link: {
-      color: link ? '#E4E6EB' : 'grey',
+      color: 'grey',
+      fontSize: '22px',
+    },
+    emoji: {
+      color: 'grey',
+      fontSize: '22px',
     },
   };
 
@@ -233,7 +242,7 @@ function PostTabContent() {
           style={{ background: link && '#E4E6EB' }}
           onClick={() => handleClick('createLink')}
         >
-          <InsertLinkIcon style={{ color: 'grey', fontSize: '22px' }} />
+          <InsertLinkIcon style={style.link} />
         </button>
         <button
           title='Bullet list'
@@ -262,7 +271,11 @@ function PostTabContent() {
         >
           <FormatAlignRightIcon style={style.justifyRight} />
         </button>
-        <button title='Emoji' onClick={toggleEmojiPicker}>
+        <button
+          title='Emoji'
+          style={{ background: showEmojiPicker && '#E4E6EB' }}
+          onClick={toggleEmojiPicker}
+        >
           <EmojiEmotionsOutlinedIcon style={style.emoji} />
         </button>
         <button
