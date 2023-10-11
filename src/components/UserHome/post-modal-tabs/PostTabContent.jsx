@@ -7,7 +7,6 @@ import TextFieldsIcon from '@mui/icons-material/TextFields';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
@@ -23,7 +22,6 @@ function PostTabContent() {
   const [title, setTitle] = useState(false);
   const [bulletList, setBulletList] = useState(false);
   const [numberedList, setNumberedList] = useState(false);
-  const [justifyLeft, setJustifyLeft] = useState(false);
   const [justifyCenter, setJustifyCenter] = useState(false);
   const [justifyRight, setJustifyRight] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -43,6 +41,26 @@ function PostTabContent() {
       linkUrlRef.current?.focus();
     }
   }, [link]);
+
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      setBold(document.queryCommandState('bold'));
+      setItalic(document.queryCommandState('italic'));
+      setUnderline(document.queryCommandState('underline'));
+      setStrikeThrough(document.queryCommandState('strikeThrough'));
+      setTitle(document.queryCommandState('fontSize'));
+      setBulletList(document.queryCommandState('insertUnorderedList'));
+      setNumberedList(document.queryCommandState('insertOrderedList'));
+      setJustifyCenter(document.queryCommandState('justifyCenter'));
+      setJustifyRight(document.queryCommandState('justifyRight'));
+    };
+
+    document.addEventListener('selectionchange', handleSelectionChange);
+
+    return () => {
+      document.removeEventListener('selectionchange', handleSelectionChange);
+    };
+  }, []);
 
   function inputHandler(e) {
     if (e.target.innerHTML.length > 0 && e.target.innerHTML !== '<br>') {
@@ -104,9 +122,9 @@ function PostTabContent() {
       : `https://${linkUrl}`;
     linkElement.className = 'link';
     linkElement.rel = 'noopener noreferrer';
-    linkElement.addEventListener('click', (e) => {
+    linkElement.addEventListener('click', () => {
       window.open(linkElement.href, '_blank');
-      e.preventDefault();
+      // linkElement.classList.toggle('show-preview');
     });
     linkElement.textContent = linkTitle.length ? linkTitle : linkUrl;
     range.insertNode(linkElement);
@@ -125,27 +143,36 @@ function PostTabContent() {
   }
 
   function handleClick(type) {
-    // const selection = window.getSelection();
-    // if (selection.rangeCount > 0) {
-    //   const range = selection.getRangeAt(0);
-    //   const clonedSelection = range.cloneContents();
-    //   const div = document.createElement('div');
-    //   div.appendChild(clonedSelection);
-    //   const hasBTag = div.querySelector('b') !== null;
-    //   const hasITag = div.querySelector('i') !== null;
-    // }
-
-    // console.log('selection: ', selection);
-    // console.log('selected text: ', selection.toString());
-    // console.log('range: ', range);
-
-    // console.log('selected contains node: ', selection.containsNode());
-    // console.log('anchor child nodes: ', selection.anchorNode.childNodes);
-    // console.log('base: ', selection.baseNode);
-    // console.log('extend: ', selection.extendNode);
-    // console.log('focus', selection.focusNode);
-
     inputRef.current?.focus();
+
+    switch (type) {
+      case 'bold':
+        setBold((prevBold) => !prevBold);
+        break;
+      case 'italic':
+        setItalic((prevItalic) => !prevItalic);
+        break;
+      case 'underline':
+        setUnderline((prevUnderline) => !prevUnderline);
+        break;
+      case 'strikeThrough':
+        setStrikeThrough((prevStrikeThrough) => !prevStrikeThrough);
+        break;
+      case 'insertUnorderedList':
+        setBulletList((prevBulletList) => !prevBulletList);
+        break;
+      case 'insertOrderedList':
+        setNumberedList((prevNumberedList) => !prevNumberedList);
+        break;
+      case 'justifyCenter':
+        setJustifyCenter((prevJustifyCenter) => !prevJustifyCenter);
+        break;
+      case 'justifyRight':
+        setJustifyRight((prevJustifyRight) => !prevJustifyRight);
+        break;
+      default:
+        break;
+    }
 
     if (type === 'createLink') {
       createLink();
@@ -167,43 +194,39 @@ function PostTabContent() {
 
   const style = {
     bold: {
-      color: bold ? '#100F16' : 'grey',
+      color: bold ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     italic: {
-      color: italic ? '#100F16' : 'grey',
+      color: italic ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     underline: {
-      color: underline ? '#100F16' : 'grey',
+      color: underline ? '#5E5E5E' : 'grey',
       fontSize: '21px',
     },
     strikeThrough: {
-      color: strikeThrough ? '#100F16' : 'grey',
+      color: strikeThrough ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     title: {
-      color: title ? '#100F16' : 'grey',
+      color: title ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     bulletList: {
-      color: bulletList ? '#100F16' : 'grey',
+      color: bulletList ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     numberedList: {
-      color: numberedList ? '#100F16' : 'grey',
+      color: numberedList ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
-    justifyLeft: {
-      color: justifyLeft ? '#100F16' : 'grey',
-      fontSize: '19px',
-    },
     justifyCenter: {
-      color: justifyCenter ? '#100F16' : 'grey',
+      color: justifyCenter ? '#5E5E5E' : 'grey',
       fontSize: '19px',
     },
     justifyRight: {
-      color: justifyRight ? '#100F16' : 'grey',
+      color: justifyRight ? '#5E5E5E' : 'grey',
       fontSize: '19px',
     },
     link: {
@@ -219,22 +242,39 @@ function PostTabContent() {
   return (
     <div className='editor'>
       <div className='editor-header'>
-        <button title='Bold' onClick={() => handleClick('bold')}>
+        <button
+          style={{ background: bold && '#E4E6EB' }}
+          title='Bold'
+          onClick={() => handleClick('bold')}
+        >
           <FormatBoldIcon style={style.bold} />
         </button>
-        <button title='Italic' onClick={() => handleClick('italic')}>
+        <button
+          style={{ background: italic && '#E4E6EB' }}
+          title='Italic'
+          onClick={() => handleClick('italic')}
+        >
           <FormatItalicIcon style={style.italic} />
         </button>
-        <button title='Underline' onClick={() => handleClick('underline')}>
+        <button
+          style={{ background: underline && '#E4E6EB' }}
+          title='Underline'
+          onClick={() => handleClick('underline')}
+        >
           <FormatUnderlinedIcon style={style.underline} />
         </button>
         <button
+          style={{ background: strikeThrough && '#E4E6EB' }}
           title='Strike through'
           onClick={() => handleClick('strikeThrough')}
         >
           <StrikethroughSIcon style={style.strikeThrough} />
         </button>
-        <button title='Title' onClick={() => handleClick('fontSize')}>
+        <button
+          style={{ background: title && '#E4E6EB' }}
+          title='Title'
+          onClick={() => handleClick('fontSize')}
+        >
           <TextFieldsIcon style={style.title} />
         </button>
         <button
@@ -245,27 +285,28 @@ function PostTabContent() {
           <InsertLinkIcon style={style.link} />
         </button>
         <button
+          style={{ background: bulletList && '#E4E6EB' }}
           title='Bullet list'
           onClick={() => handleClick('insertUnorderedList')}
         >
           <FormatListBulletedIcon style={style.bulletList} />
         </button>
         <button
+          style={{ background: numberedList && '#E4E6EB' }}
           title='Numbered list'
           onClick={() => handleClick('insertOrderedList')}
         >
           <FormatListNumberedIcon style={style.numberedList} />
         </button>
-        <button title='Justify left' onClick={() => handleClick('justifyLeft')}>
-          <FormatAlignLeftIcon style={style.justifyLeft} />
-        </button>
         <button
+          style={{ background: justifyCenter && '#E4E6EB' }}
           title='Justify center'
           onClick={() => handleClick('justifyCenter')}
         >
           <FormatAlignCenterIcon style={style.justifyCenter} />
         </button>
         <button
+          style={{ background: justifyRight && '#E4E6EB' }}
           title='Justify right'
           onClick={() => handleClick('justifyRight')}
         >
