@@ -33,7 +33,7 @@ function PostTabContent() {
 
   const [edit, setEdit] = useState(false);
 
-  const inputRef = useRef(null);
+  const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
 
   useEffect(() => {
@@ -48,15 +48,30 @@ function PostTabContent() {
       setItalic(document.queryCommandState('italic'));
       setUnderline(document.queryCommandState('underline'));
       setStrikeThrough(document.queryCommandState('strikeThrough'));
-      setTitle(document.queryCommandState('fontSize'));
       setBulletList(document.queryCommandState('insertUnorderedList'));
       setNumberedList(document.queryCommandState('insertOrderedList'));
       setJustifyCenter(document.queryCommandState('justifyCenter'));
       setJustifyRight(document.queryCommandState('justifyRight'));
+
+      // Check if the selected text is a title
+      const selection = window.getSelection();
+      if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const container = range.commonAncestorContainer;
+        if (container.nodeType === Node.TEXT_NODE) {
+          const fontSize = window.getComputedStyle(
+            container.parentElement,
+          ).fontSize;
+          setTitle(fontSize === '24px');
+        } else {
+          setTitle(false);
+        }
+      } else {
+        setTitle(false);
+      }
     };
 
     document.addEventListener('selectionchange', handleSelectionChange);
-
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
@@ -79,7 +94,7 @@ function PostTabContent() {
   }
 
   function insertEmoji(emoji) {
-    inputRef.current?.focus();
+    editorContentRef.current?.focus();
     modifyText('insertText', false, emoji.native);
   }
 
@@ -102,7 +117,7 @@ function PostTabContent() {
   }
 
   function addLinkHandler() {
-    inputRef.current?.focus();
+    editorContentRef.current?.focus();
 
     const urlRegex =
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
@@ -143,7 +158,7 @@ function PostTabContent() {
   }
 
   function handleClick(type) {
-    inputRef.current?.focus();
+    editorContentRef.current?.focus();
 
     switch (type) {
       case 'bold':
@@ -203,15 +218,15 @@ function PostTabContent() {
     },
     underline: {
       color: underline ? '#5E5E5E' : 'grey',
-      fontSize: '21px',
+      fontSize: '22px',
     },
     strikeThrough: {
       color: strikeThrough ? '#5E5E5E' : 'grey',
-      fontSize: '22px',
+      fontSize: '23px',
     },
     title: {
       color: title ? '#5E5E5E' : 'grey',
-      fontSize: '22px',
+      fontSize: '23px',
     },
     bulletList: {
       color: bulletList ? '#5E5E5E' : 'grey',
@@ -231,7 +246,7 @@ function PostTabContent() {
     },
     link: {
       color: 'grey',
-      fontSize: '22px',
+      fontSize: '24px',
     },
     emoji: {
       color: 'grey',
@@ -323,7 +338,7 @@ function PostTabContent() {
           title='Remove styles'
           onClick={() => handleClick('removeFormat')}
         >
-          <HighlightOffIcon style={{ color: 'grey', fontSize: '20px' }} />
+          <HighlightOffIcon style={{ color: 'grey', fontSize: '22px' }} />
         </button>
       </div>
       <div
@@ -332,7 +347,7 @@ function PostTabContent() {
         role='textbox'
         spellCheck='true'
         onInput={inputHandler}
-        ref={inputRef}
+        ref={editorContentRef}
       ></div>
 
       {link && (

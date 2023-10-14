@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CreatePostModal from './CreatePostModal';
+import CreateGemModal from './CreateGemModal';
 
 function SpeechBubble() {
   const [showModal, setShowModal] = useState(false);
@@ -25,8 +25,7 @@ function SpeechBubble() {
           What should I eat?
         </div>
       </div>
-
-      {showModal && <CreatePostModal closeModal={() => setShowModal(false)} />}
+      {showModal && <CreateGemModal closeModal={() => setShowModal(false)} />}
     </>
   );
 }

@@ -107,6 +107,8 @@
   --background-shade-37: #474554;
   --background-shade-38: #303030;
   --background-shade-39: #100F16;
+  --background-shade-40: #e4e6eb7f;
+  --background-shade-41: #cdcfd47f;
 
   /* GREEN */
   --color-green-shade-01: #62BAAC;
@@ -266,10 +268,10 @@ body {
 }
 
 .modal-content {
-  width: 521px;
-  height: 550px;
+  max-width: 550px;
+  height: 570px;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
   padding: 15px;
 }
@@ -337,7 +339,7 @@ body {
 .create-post-container{
   margin-top: 15px;
   width: 100%;
-  height: 400px;
+  height: 420px;
   overflow: auto;
   border: 1px solid #E0E0E0;
   border-radius: 5px;
@@ -365,14 +367,19 @@ body {
 }
 
 .post-container-header > div.active {
-  color: var(--color-main-yellow);
   color: var(--color-yellow-shade-14);
   border-bottom: 2px solid var(--color-yellow-shade-14);
   font-weight: 600;
 }
 
 .post-container-header > div:hover:not(.active){
-  background-color: #e4e6eb7f;
+  background-color: var(--background-shade-40);
+  outline: 0.5px solid var(--background-shade-40);
+}
+
+.post-container-header > div:active:not(.active){
+  background-color: var(--background-shade-41);
+  outline: 0.5px solid var(--background-shade-41);
 }
 
 .active-tab-content{
@@ -398,8 +405,8 @@ body {
   overflow-x: hidden;
   overflow-wrap: break-word;
   width: 100%;
-  height: 35px;
-  padding: 8px 65px 10px 15px;
+  height: 50px;
+  padding: 8px 70px 8px 15px;
   margin-top: 8px;
   border-radius: 4px;
   outline: 1px solid #E0E0E0;
@@ -506,15 +513,16 @@ body {
 }
 
 .editor:focus-within {
-  outline: 1.5px solid var(--color-main-yellow);
+  outline: 2px solid var(--color-main-yellow);
 }
 
 .editor-header {
-  height: 35px;
+  height: 45px;
   background: #F6F7F8;
   display: flex;
   align-items: center;
   gap: 5px;
+  padding-left: 8px;
 }
 
 .editor-header button {
@@ -527,14 +535,6 @@ body {
   display: grid;
   place-items: center;
   padding: 3px;
-}
-
-.editor-header button:first-child {
-  margin-left: 5px;
-}
-
-.editor-header button:nth-child(2), .editor-header button:nth-child(3){
-  margin-left: -3px;
 }
 
 .editor-header button:hover {

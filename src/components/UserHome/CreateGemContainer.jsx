@@ -5,11 +5,11 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import GifBoxIcon from '@mui/icons-material/GifBox';
-import PostTabContent from '@/components/UserHome/post-modal-tabs/PostTabContent';
-import MediaTabContent from '@/components/UserHome/post-modal-tabs/MediaTabContent';
-import PollTabContent from '@/components/UserHome/post-modal-tabs/PollTabContent';
-import EventTabContent from '@/components/UserHome/post-modal-tabs/EventTabContent';
-import GifTabContent from '@/components/UserHome/post-modal-tabs/GifTabContent';
+import PostTabContent from '@/components/UserHome/create-gem-tabs/PostTabContent';
+import MediaTabContent from '@/components/UserHome/create-gem-tabs/MediaTabContent';
+import PollTabContent from '@/components/UserHome/create-gem-tabs/PollTabContent';
+import EventTabContent from '@/components/UserHome/create-gem-tabs/EventTabContent';
+import GifTabContent from '@/components/UserHome/create-gem-tabs/GifTabContent';
 import Button from '@/components/Button';
 
 export default function CreatePostContainer({ closeModal }) {
@@ -28,16 +28,6 @@ export default function CreatePostContainer({ closeModal }) {
   function setTitle(e) {
     setCharCount(e.target.value.length);
     setPostTitle(e.target.value);
-
-    // if (e.target.value.length <= 50) {
-    //   e.target.style.height = '35px';
-    // } else if (e.target.value.length > 50 && e.target.value.length <= 100) {
-    //   e.target.style.height = '55px';
-    // } else if (e.target.value.length > 100 && e.target.value.length <= 150) {
-    //   e.target.style.height = '65px';
-    // } else if (e.target.value.length > 150 && e.target.value.length <= 200) {
-    //   e.target.style.height = '85px';
-    // }
   }
 
   return (

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
-import CreatePostContainer from './CreatePostContainer';
+import CreateGemContainer from './CreateGemContainer';
 import PublicIcon from '@mui/icons-material/Public';
 
 function CreatePostModal({ closeModal }) {
@@ -27,7 +27,7 @@ function CreatePostModal({ closeModal }) {
           </div>
         </div>
         <div className='modal-footer'>
-          <CreatePostContainer closeModal={closeModal} />
+          <CreateGemContainer closeModal={closeModal} />
         </div>
       </div>
     </div>
