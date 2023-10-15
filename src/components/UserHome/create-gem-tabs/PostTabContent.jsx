@@ -12,65 +12,65 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Picker from '@emoji-mart/react';
-import Button from '@/components/Button';
+import CustomLink from '@/components/UserHome/CustomLink';
 
 function PostTabContent() {
-  const [bold, setBold] = useState(false);
-  const [italic, setItalic] = useState(false);
-  const [underline, setUnderline] = useState(false);
-  const [strikeThrough, setStrikeThrough] = useState(false);
-  const [title, setTitle] = useState(false);
-  const [bulletList, setBulletList] = useState(false);
-  const [numberedList, setNumberedList] = useState(false);
-  const [justifyCenter, setJustifyCenter] = useState(false);
-  const [justifyRight, setJustifyRight] = useState(false);
+  const [isBold, setIsBold] = useState(false);
+  const [isItalic, setIsItalic] = useState(false);
+  const [isUnderline, setIsUnderline] = useState(false);
+  const [isStrikeThrough, setIsStrikeThrough] = useState(false);
+  const [isTitle, setIsTitle] = useState(false);
+  const [isBulletList, setIsBulletList] = useState(false);
+  const [isNumberedList, setIsNumberedList] = useState(false);
+  const [isJustifyCenter, setIsJustifyCenter] = useState(false);
+  const [isJustifyRight, setIsJustifyRight] = useState(false);
+
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
+  const [showCustomLink, setShowCustomLink] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
-  const [link, setLink] = useState(false);
-  const [linkTitle, setLinkTitle] = useState('');
-  const [linkUrl, setLinkUrl] = useState('');
-  const [showInvalidLinkError, setShowInvalidLinkError] = useState(false);
-
-  const [edit, setEdit] = useState(false);
 
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
 
   useEffect(() => {
-    if (link) {
+    if (showCustomLink) {
       linkUrlRef.current?.focus();
     }
-  }, [link]);
+  }, [showCustomLink]);
 
   useEffect(() => {
     const handleSelectionChange = () => {
-      setBold(document.queryCommandState('bold'));
-      setItalic(document.queryCommandState('italic'));
-      setUnderline(document.queryCommandState('underline'));
-      setStrikeThrough(document.queryCommandState('strikeThrough'));
-      setBulletList(document.queryCommandState('insertUnorderedList'));
-      setNumberedList(document.queryCommandState('insertOrderedList'));
-      setJustifyCenter(document.queryCommandState('justifyCenter'));
-      setJustifyRight(document.queryCommandState('justifyRight'));
+      if (
+        editorContentRef.current &&
+        editorContentRef.current.contains(document.activeElement)
+      ) {
+        setIsBold(document.queryCommandState('bold'));
+        setIsItalic(document.queryCommandState('italic'));
+        setIsUnderline(document.queryCommandState('underline'));
+        setIsStrikeThrough(document.queryCommandState('strikeThrough'));
+        setIsBulletList(document.queryCommandState('insertUnorderedList'));
+        setIsNumberedList(document.queryCommandState('insertOrderedList'));
+        setIsJustifyCenter(document.queryCommandState('justifyCenter'));
+        setIsJustifyRight(document.queryCommandState('justifyRight'));
 
-      // Check if the selected text is a title
-      const selection = window.getSelection();
-      if (selection.rangeCount > 0) {
-        const range = selection.getRangeAt(0);
-        const container = range.commonAncestorContainer;
-        if (container.nodeType === Node.TEXT_NODE) {
-          const fontSize = window.getComputedStyle(
-            container.parentElement,
-          ).fontSize;
-          setTitle(fontSize === '24px');
+        // Check if the selected text is a title
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const container = range.commonAncestorContainer;
+          if (container.nodeType === Node.TEXT_NODE) {
+            const fontSize = window.getComputedStyle(
+              container.parentElement,
+            ).fontSize;
+            setIsTitle(fontSize === '24px');
+          } else {
+            setIsTitle(false);
+          }
         } else {
-          setTitle(false);
+          setIsTitle(false);
         }
-      } else {
-        setTitle(false);
       }
     };
-
     document.addEventListener('selectionchange', handleSelectionChange);
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
@@ -79,172 +79,108 @@ function PostTabContent() {
 
   function inputHandler(e) {
     if (e.target.innerHTML.length > 0 && e.target.innerHTML !== '<br>') {
-      setEdit(true);
+      setShowPlaceholder(true);
     } else {
-      setEdit(false);
+      setShowPlaceholder(false);
     }
   }
 
-  function modifyText(command, defaultUi, value) {
+  function execCommand(command, defaultUi, value) {
     document.execCommand(command, defaultUi, value);
-  }
-
-  function toggleEmojiPicker() {
-    setShowEmojiPicker((prev) => !prev);
   }
 
   function insertEmoji(emoji) {
     editorContentRef.current?.focus();
-    modifyText('insertText', false, emoji.native);
+    execCommand('insertText', false, emoji.native);
   }
 
-  function createLink() {
-    setLink((prevLink) => !prevLink);
-  }
-
-  function linkTitleHandler(e) {
-    setLinkTitle(e.target.value);
-  }
-
-  function linkUrlHandler(e) {
-    setLinkUrl(e.target.value);
-  }
-
-  function enterKeyPress(e) {
-    if (e.key === 'Enter') {
-      addLinkHandler();
-    }
-  }
-
-  function addLinkHandler() {
-    editorContentRef.current?.focus();
-
-    const urlRegex =
-      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
-
-    if (!urlRegex.test(linkUrl)) {
-      setShowInvalidLinkError(true);
-      linkUrlRef.current?.focus();
-      return;
-    }
-
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0).cloneRange();
-
-    const linkElement = document.createElement('a');
-    linkElement.href = linkUrl.startsWith('https://')
-      ? linkUrl
-      : `https://${linkUrl}`;
-    linkElement.className = 'link';
-    linkElement.rel = 'noopener noreferrer';
-    linkElement.addEventListener('click', () => {
-      window.open(linkElement.href, '_blank');
-      // linkElement.classList.toggle('show-preview');
-    });
-    linkElement.textContent = linkTitle.length ? linkTitle : linkUrl;
-    range.insertNode(linkElement);
-    range.setEndAfter(linkElement);
-    range.setStartAfter(linkElement);
-
-    selection.removeAllRanges();
-    selection.addRange(range);
-
-    setLink(false);
-    if (link) {
-      setLinkTitle('');
-      setLinkUrl('');
-      setShowInvalidLinkError(false);
-    }
-  }
-
-  function handleClick(type) {
+  function handleCommandClick(type) {
     editorContentRef.current?.focus();
 
     switch (type) {
       case 'bold':
-        setBold((prevBold) => !prevBold);
+        setIsBold((prevBold) => !prevBold);
         break;
       case 'italic':
-        setItalic((prevItalic) => !prevItalic);
+        setIsItalic((prevItalic) => !prevItalic);
         break;
       case 'underline':
-        setUnderline((prevUnderline) => !prevUnderline);
+        setIsUnderline((prevUnderline) => !prevUnderline);
         break;
       case 'strikeThrough':
-        setStrikeThrough((prevStrikeThrough) => !prevStrikeThrough);
+        setIsStrikeThrough((prevStrikeThrough) => !prevStrikeThrough);
         break;
       case 'insertUnorderedList':
-        setBulletList((prevBulletList) => !prevBulletList);
+        setIsBulletList((prevBulletList) => !prevBulletList);
         break;
       case 'insertOrderedList':
-        setNumberedList((prevNumberedList) => !prevNumberedList);
+        setIsNumberedList((prevNumberedList) => !prevNumberedList);
         break;
       case 'justifyCenter':
-        setJustifyCenter((prevJustifyCenter) => !prevJustifyCenter);
+        setIsJustifyCenter((prevJustifyCenter) => !prevJustifyCenter);
         break;
       case 'justifyRight':
-        setJustifyRight((prevJustifyRight) => !prevJustifyRight);
+        setIsJustifyRight((prevJustifyRight) => !prevJustifyRight);
         break;
       default:
         break;
     }
 
     if (type === 'createLink') {
-      createLink();
+      setShowCustomLink((prevLink) => !prevLink);
       return;
     }
 
     if (type === 'fontSize') {
-      setTitle(!title);
-      if (title) {
-        modifyText(type, false, '3');
+      setIsTitle((prevIsTitle) => !prevIsTitle);
+      if (isTitle) {
+        execCommand(type, false, '3');
         return;
       }
-      modifyText(type, false, '5');
+      execCommand(type, false, '5');
       return;
     }
-
-    modifyText(type, false, null);
+    execCommand(type, false, null);
   }
 
   const style = {
     bold: {
-      color: bold ? '#5E5E5E' : 'grey',
+      color: isBold ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     italic: {
-      color: italic ? '#5E5E5E' : 'grey',
+      color: isItalic ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     underline: {
-      color: underline ? '#5E5E5E' : 'grey',
+      color: isUnderline ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     strikeThrough: {
-      color: strikeThrough ? '#5E5E5E' : 'grey',
+      color: isStrikeThrough ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     title: {
-      color: title ? '#5E5E5E' : 'grey',
+      color: isTitle ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     bulletList: {
-      color: bulletList ? '#5E5E5E' : 'grey',
+      color: isBulletList ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     numberedList: {
-      color: numberedList ? '#5E5E5E' : 'grey',
+      color: isNumberedList ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
     justifyCenter: {
-      color: justifyCenter ? '#5E5E5E' : 'grey',
+      color: isJustifyCenter ? '#5E5E5E' : 'grey',
       fontSize: '19px',
     },
     justifyRight: {
-      color: justifyRight ? '#5E5E5E' : 'grey',
+      color: isJustifyRight ? '#5E5E5E' : 'grey',
       fontSize: '19px',
     },
-    link: {
+    showCustomLink: {
       color: 'grey',
       fontSize: '24px',
     },
@@ -258,91 +194,91 @@ function PostTabContent() {
     <div className='editor'>
       <div className='editor-header'>
         <button
-          style={{ background: bold && '#E4E6EB' }}
+          style={{ background: isBold && '#E4E6EB' }}
           title='Bold'
-          onClick={() => handleClick('bold')}
+          onClick={() => handleCommandClick('bold')}
         >
           <FormatBoldIcon style={style.bold} />
         </button>
         <button
-          style={{ background: italic && '#E4E6EB' }}
+          style={{ background: isItalic && '#E4E6EB' }}
           title='Italic'
-          onClick={() => handleClick('italic')}
+          onClick={() => handleCommandClick('italic')}
         >
           <FormatItalicIcon style={style.italic} />
         </button>
         <button
-          style={{ background: underline && '#E4E6EB' }}
+          style={{ background: isUnderline && '#E4E6EB' }}
           title='Underline'
-          onClick={() => handleClick('underline')}
+          onClick={() => handleCommandClick('underline')}
         >
           <FormatUnderlinedIcon style={style.underline} />
         </button>
         <button
-          style={{ background: strikeThrough && '#E4E6EB' }}
+          style={{ background: isStrikeThrough && '#E4E6EB' }}
           title='Strike through'
-          onClick={() => handleClick('strikeThrough')}
+          onClick={() => handleCommandClick('strikeThrough')}
         >
           <StrikethroughSIcon style={style.strikeThrough} />
         </button>
         <button
-          style={{ background: title && '#E4E6EB' }}
+          style={{ background: isTitle && '#E4E6EB' }}
           title='Title'
-          onClick={() => handleClick('fontSize')}
+          onClick={() => handleCommandClick('fontSize')}
         >
           <TextFieldsIcon style={style.title} />
         </button>
         <button
           title='Link'
-          style={{ background: link && '#E4E6EB' }}
-          onClick={() => handleClick('createLink')}
+          style={{ background: showCustomLink && '#E4E6EB' }}
+          onClick={() => handleCommandClick('createLink')}
         >
-          <InsertLinkIcon style={style.link} />
+          <InsertLinkIcon style={style.showCustomLink} />
         </button>
         <button
-          style={{ background: bulletList && '#E4E6EB' }}
+          style={{ background: isBulletList && '#E4E6EB' }}
           title='Bullet list'
-          onClick={() => handleClick('insertUnorderedList')}
+          onClick={() => handleCommandClick('insertUnorderedList')}
         >
           <FormatListBulletedIcon style={style.bulletList} />
         </button>
         <button
-          style={{ background: numberedList && '#E4E6EB' }}
+          style={{ background: isNumberedList && '#E4E6EB' }}
           title='Numbered list'
-          onClick={() => handleClick('insertOrderedList')}
+          onClick={() => handleCommandClick('insertOrderedList')}
         >
           <FormatListNumberedIcon style={style.numberedList} />
         </button>
         <button
-          style={{ background: justifyCenter && '#E4E6EB' }}
+          style={{ background: isJustifyCenter && '#E4E6EB' }}
           title='Justify center'
-          onClick={() => handleClick('justifyCenter')}
+          onClick={() => handleCommandClick('justifyCenter')}
         >
           <FormatAlignCenterIcon style={style.justifyCenter} />
         </button>
         <button
-          style={{ background: justifyRight && '#E4E6EB' }}
+          style={{ background: isJustifyRight && '#E4E6EB' }}
           title='Justify right'
-          onClick={() => handleClick('justifyRight')}
+          onClick={() => handleCommandClick('justifyRight')}
         >
           <FormatAlignRightIcon style={style.justifyRight} />
         </button>
         <button
           title='Emoji'
           style={{ background: showEmojiPicker && '#E4E6EB' }}
-          onClick={toggleEmojiPicker}
+          onClick={() => setShowEmojiPicker((prev) => !prev)}
         >
           <EmojiEmotionsOutlinedIcon style={style.emoji} />
         </button>
         <button
           title='Remove styles'
-          onClick={() => handleClick('removeFormat')}
+          onClick={() => handleCommandClick('removeFormat')}
         >
           <HighlightOffIcon style={{ color: 'grey', fontSize: '22px' }} />
         </button>
       </div>
       <div
-        className={`editor-content ${edit ? 'edit' : ''}`}
+        className={`editor-content ${showPlaceholder ? 'edit' : ''}`}
         contentEditable='true'
         role='textbox'
         spellCheck='true'
@@ -350,33 +286,13 @@ function PostTabContent() {
         ref={editorContentRef}
       ></div>
 
-      {link && (
-        <div className='link-inputs-wrapper' onKeyDown={enterKeyPress}>
-          <div className='link-inputs'>
-            <input
-              tabIndex={2}
-              onChange={linkTitleHandler}
-              value={linkTitle}
-              placeholder='Enter the title of link'
-            />
-            <input
-              tabIndex={1}
-              onChange={linkUrlHandler}
-              value={linkUrl}
-              placeholder='Enter the URL'
-              ref={linkUrlRef}
-            />
-            {showInvalidLinkError && (
-              <p className='not-valid-link'>Link is not valid!</p>
-            )}
-          </div>
-          <Button
-            label='Add'
-            size='extra-small'
-            state={linkUrl.length ? 'active' : 'inactive'}
-            clickHandler={addLinkHandler}
-          />
-        </div>
+      {showCustomLink && (
+        <CustomLink
+          execCommand={execCommand}
+          editorContentRef={editorContentRef}
+          showCustomLink={showCustomLink}
+          setShowCustomLink={setShowCustomLink}
+        />
       )}
 
       {showEmojiPicker && (
