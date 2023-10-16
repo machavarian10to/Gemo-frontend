@@ -7,6 +7,7 @@ function CustomLink({
   editorContentRef,
   showCustomLink,
   setShowCustomLink,
+  selection,
 }) {
   useEffect(() => {
     if (showCustomLink) {
@@ -46,25 +47,6 @@ function CustomLink({
         linkUrl.startsWith('https://') ? linkUrl : `https://${linkUrl}`
       }">${linkTitle || linkUrl}</a>`,
     );
-
-    // const selection = window.getSelection();
-    // const range = selection.getRangeAt(0).cloneRange();
-    // const linkElement = document.createElement('a');
-    // linkElement.href = linkUrl.startsWith('https://')
-    //   ? linkUrl
-    //   : `https://${linkUrl}`;
-    // linkElement.className = 'showCustomLink';
-    // linkElement.rel = 'noopener noreferrer';
-    // linkElement.addEventListener('click', () => {
-    //   window.open(linkElement.href, '_blank');
-    //   // linkElement.classList.toggle('show-preview');
-    // });
-    // linkElement.textContent = linkTitle.length ? linkTitle : linkUrl;
-    // range.insertNode(linkElement);
-    // range.setEndAfter(linkElement);
-    // range.setStartAfter(linkElement);
-    // selection.removeAllRanges();
-    // selection.addRange(range);
 
     setShowCustomLink(false);
     if (showCustomLink) {
@@ -109,6 +91,7 @@ CustomLink.propTypes = {
   editorContentRef: PropTypes.object.isRequired,
   showCustomLink: PropTypes.bool.isRequired,
   setShowCustomLink: PropTypes.func.isRequired,
+  selection: PropTypes.object.isRequired,
 };
 
 export default CustomLink;

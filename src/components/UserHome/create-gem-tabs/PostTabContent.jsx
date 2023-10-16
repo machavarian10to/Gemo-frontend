@@ -4,8 +4,10 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
@@ -22,8 +24,6 @@ function PostTabContent() {
   const [isTitle, setIsTitle] = useState(false);
   const [isBulletList, setIsBulletList] = useState(false);
   const [isNumberedList, setIsNumberedList] = useState(false);
-  const [isJustifyCenter, setIsJustifyCenter] = useState(false);
-  const [isJustifyRight, setIsJustifyRight] = useState(false);
 
   const [showPlaceholder, setShowPlaceholder] = useState(false);
   const [showCustomLink, setShowCustomLink] = useState(false);
@@ -50,8 +50,6 @@ function PostTabContent() {
         setIsStrikeThrough(document.queryCommandState('strikeThrough'));
         setIsBulletList(document.queryCommandState('insertUnorderedList'));
         setIsNumberedList(document.queryCommandState('insertOrderedList'));
-        setIsJustifyCenter(document.queryCommandState('justifyCenter'));
-        setIsJustifyRight(document.queryCommandState('justifyRight'));
 
         // Check if the selected text is a title
         const selection = window.getSelection();
@@ -116,12 +114,6 @@ function PostTabContent() {
       case 'insertOrderedList':
         setIsNumberedList((prevNumberedList) => !prevNumberedList);
         break;
-      case 'justifyCenter':
-        setIsJustifyCenter((prevJustifyCenter) => !prevJustifyCenter);
-        break;
-      case 'justifyRight':
-        setIsJustifyRight((prevJustifyRight) => !prevJustifyRight);
-        break;
       default:
         break;
     }
@@ -146,23 +138,27 @@ function PostTabContent() {
   const style = {
     bold: {
       color: isBold ? '#5E5E5E' : 'grey',
-      fontSize: '23px',
+      fontSize: '24px',
     },
     italic: {
       color: isItalic ? '#5E5E5E' : 'grey',
-      fontSize: '22px',
+      fontSize: '23px',
     },
     underline: {
       color: isUnderline ? '#5E5E5E' : 'grey',
-      fontSize: '22px',
+      fontSize: '23px',
     },
     strikeThrough: {
       color: isStrikeThrough ? '#5E5E5E' : 'grey',
-      fontSize: '23px',
+      fontSize: '24px',
     },
     title: {
       color: isTitle ? '#5E5E5E' : 'grey',
       fontSize: '23px',
+    },
+    horizontal: {
+      color: 'grey',
+      fontSize: '20px',
     },
     bulletList: {
       color: isBulletList ? '#5E5E5E' : 'grey',
@@ -172,13 +168,17 @@ function PostTabContent() {
       color: isNumberedList ? '#5E5E5E' : 'grey',
       fontSize: '22px',
     },
+    justifyLeft: {
+      color: 'grey',
+      fontSize: '20px',
+    },
     justifyCenter: {
-      color: isJustifyCenter ? '#5E5E5E' : 'grey',
-      fontSize: '19px',
+      color: 'grey',
+      fontSize: '20px',
     },
     justifyRight: {
-      color: isJustifyRight ? '#5E5E5E' : 'grey',
-      fontSize: '19px',
+      color: 'grey',
+      fontSize: '20px',
     },
     showCustomLink: {
       color: 'grey',
@@ -198,83 +198,121 @@ function PostTabContent() {
           title='Bold'
           onClick={() => handleCommandClick('bold')}
         >
-          <FormatBoldIcon style={style.bold} />
+          <div className='command-btn'>
+            <FormatBoldIcon style={style.bold} />
+          </div>
         </button>
         <button
           style={{ background: isItalic && '#E4E6EB' }}
           title='Italic'
           onClick={() => handleCommandClick('italic')}
         >
-          <FormatItalicIcon style={style.italic} />
+          <div className='command-btn'>
+            <FormatItalicIcon style={style.italic} />
+          </div>
         </button>
         <button
           style={{ background: isUnderline && '#E4E6EB' }}
           title='Underline'
           onClick={() => handleCommandClick('underline')}
         >
-          <FormatUnderlinedIcon style={style.underline} />
+          <div className='command-btn'>
+            <FormatUnderlinedIcon style={style.underline} />
+          </div>
         </button>
         <button
           style={{ background: isStrikeThrough && '#E4E6EB' }}
-          title='Strike through'
+          title='Strike Through'
           onClick={() => handleCommandClick('strikeThrough')}
         >
-          <StrikethroughSIcon style={style.strikeThrough} />
+          <div className='command-btn'>
+            <StrikethroughSIcon style={style.strikeThrough} />
+          </div>
         </button>
         <button
           style={{ background: isTitle && '#E4E6EB' }}
           title='Title'
           onClick={() => handleCommandClick('fontSize')}
         >
-          <TextFieldsIcon style={style.title} />
+          <div className='command-btn'>
+            <TextFieldsIcon style={style.title} />
+          </div>
         </button>
         <button
           title='Link'
           style={{ background: showCustomLink && '#E4E6EB' }}
           onClick={() => handleCommandClick('createLink')}
         >
-          <InsertLinkIcon style={style.showCustomLink} />
+          <div className='command-btn'>
+            <InsertLinkIcon style={style.showCustomLink} />
+          </div>
         </button>
         <button
           style={{ background: isBulletList && '#E4E6EB' }}
           title='Bullet list'
           onClick={() => handleCommandClick('insertUnorderedList')}
         >
-          <FormatListBulletedIcon style={style.bulletList} />
+          <div className='command-btn'>
+            <FormatListBulletedIcon style={style.bulletList} />
+          </div>
         </button>
         <button
           style={{ background: isNumberedList && '#E4E6EB' }}
           title='Numbered list'
           onClick={() => handleCommandClick('insertOrderedList')}
         >
-          <FormatListNumberedIcon style={style.numberedList} />
+          <div className='command-btn'>
+            <FormatListNumberedIcon style={style.numberedList} />
+          </div>
         </button>
         <button
-          style={{ background: isJustifyCenter && '#E4E6EB' }}
-          title='Justify center'
+          title='Justify Left'
+          onClick={() => handleCommandClick('justifyLeft')}
+        >
+          <div className='command-btn'>
+            <FormatAlignLeftIcon style={style.justifyLeft} />
+          </div>
+        </button>
+        <button
+          title='Justify Center'
           onClick={() => handleCommandClick('justifyCenter')}
         >
-          <FormatAlignCenterIcon style={style.justifyCenter} />
+          <div className='command-btn'>
+            <FormatAlignCenterIcon style={style.justifyCenter} />
+          </div>
         </button>
         <button
-          style={{ background: isJustifyRight && '#E4E6EB' }}
-          title='Justify right'
+          title='Justify Right'
           onClick={() => handleCommandClick('justifyRight')}
         >
-          <FormatAlignRightIcon style={style.justifyRight} />
+          <div className='command-btn'>
+            <FormatAlignRightIcon style={style.justifyRight} />
+          </div>
+        </button>
+        <button
+          title='Horizontal Line'
+          onClick={() => handleCommandClick('insertHorizontalRule')}
+        >
+          <div className='command-btn'>
+            <HorizontalRuleIcon style={style.horizontal} />
+          </div>
         </button>
         <button
           title='Emoji'
           style={{ background: showEmojiPicker && '#E4E6EB' }}
           onClick={() => setShowEmojiPicker((prev) => !prev)}
         >
-          <EmojiEmotionsOutlinedIcon style={style.emoji} />
+          <div className='command-btn'>
+            <EmojiEmotionsOutlinedIcon style={style.emoji} />
+          </div>
         </button>
         <button
           title='Remove styles'
           onClick={() => handleCommandClick('removeFormat')}
         >
-          <HighlightOffIcon style={{ color: 'grey', fontSize: '22px' }} />
+          <div className='command-btn'>
+            <HighlightOffIcon style={{ color: 'grey', fontSize: '22px' }} />
+          </div>
         </button>
       </div>
       <div
@@ -292,6 +330,7 @@ function PostTabContent() {
           editorContentRef={editorContentRef}
           showCustomLink={showCustomLink}
           setShowCustomLink={setShowCustomLink}
+          selection={window.getSelection()}
         />
       )}
 

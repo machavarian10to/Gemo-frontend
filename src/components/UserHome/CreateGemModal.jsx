@@ -15,7 +15,6 @@ function CreatePostModal({ closeModal }) {
         </div>
         <div className='modal-body'>
           <div className='avatar'></div>
-
           <div>
             <h5>@machavarian10to</h5>
             <div className='audience-wrapper'>

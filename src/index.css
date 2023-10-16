@@ -109,6 +109,8 @@
   --background-shade-39: #100F16;
   --background-shade-40: #e4e6eb7f;
   --background-shade-41: #cdcfd47f;
+  --background-shade-42: #333238;
+
 
   /* GREEN */
   --color-green-shade-01: #62BAAC;
@@ -215,9 +217,10 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-image: url("https://scontent.ftbs5-2.fna.fbcdn.net/v/t31.18172-8/22555593_2043481365881944_1848984884889756625_o.jpg?_nc_cat=104&ccb=1-7&_nc_sid=cdbe9c&_nc_ohc=nDgolxega2YAX_pUVSD&_nc_ht=scontent.ftbs5-2.fna&oh=00_AfBrX8H3BGuZGr5InXnOnZY_XmgaaiHZe_ewKWZAeJ8I1g&oe=652CE053");
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .speech-bubble {
@@ -268,7 +271,7 @@ body {
 }
 
 .modal-content {
-  max-width: 550px;
+  width: 570px;
   height: 565px;
   background-color: #fff;
   border-radius: 5px;
@@ -349,6 +352,7 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
+  width: 100%;
 }
 
 .post-container-header > div {
@@ -360,6 +364,7 @@ body {
   font-size: 14px;
   color: var(--color-main-grey);
   border-bottom: 1px solid #E0E0E0;
+  flex-grow: 1;
 }
 
 .post-container-header > div:not(:last-child) {
@@ -423,7 +428,7 @@ body {
 
 .editor {
   width: 100%;
-  height: 220px;
+  height: 210px;
   margin-top: 15px;
   outline: 1px solid #E0E0E0;
   border-radius: 5px;
@@ -431,7 +436,7 @@ body {
 
 .editor-content{
   max-width: 100%;
-  height: 85%;
+  height: 77%;
   outline: none;
   padding: 12px;
   font-size: 16px;
@@ -528,7 +533,7 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding-left: 8px;
+  padding-left: 5px;
 }
 
 .editor-header button {
@@ -543,6 +548,13 @@ body {
   padding: 3px;
 }
 
+.command-btn {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+}
+
 .editor-header button:hover {
   background-color: #E4E6EB;
 }
@@ -550,7 +562,7 @@ body {
 .emoji-picker {
   position: absolute;
   top: 100px;
-  right: 175px;
+  right: 115px;
   z-index: 100;
 }
 
