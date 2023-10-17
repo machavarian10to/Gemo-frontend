@@ -29,6 +29,8 @@ function PostTabContent() {
   const [showCustomLink, setShowCustomLink] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
+  const [selection, setSelection] = useState(null);
+
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
 
@@ -120,6 +122,7 @@ function PostTabContent() {
 
     if (type === 'createLink') {
       setShowCustomLink((prevLink) => !prevLink);
+      setSelection(window.getSelection());
       return;
     }
 
@@ -249,7 +252,7 @@ function PostTabContent() {
         </button>
         <button
           style={{ background: isBulletList && '#E4E6EB' }}
-          title='Bullet list'
+          title='Bullet List'
           onClick={() => handleCommandClick('insertUnorderedList')}
         >
           <div className='command-btn'>
@@ -258,7 +261,7 @@ function PostTabContent() {
         </button>
         <button
           style={{ background: isNumberedList && '#E4E6EB' }}
-          title='Numbered list'
+          title='Numbered List'
           onClick={() => handleCommandClick('insertOrderedList')}
         >
           <div className='command-btn'>
@@ -330,7 +333,7 @@ function PostTabContent() {
           editorContentRef={editorContentRef}
           showCustomLink={showCustomLink}
           setShowCustomLink={setShowCustomLink}
-          selection={window.getSelection()}
+          selection={selection}
         />
       )}
 
