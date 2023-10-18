@@ -3,11 +3,11 @@ import Button from '@/components/Button';
 import PropTypes from 'prop-types';
 
 function CustomLink({
-  execCommand,
   editorContentRef,
   showCustomLink,
   setShowCustomLink,
   selection,
+  inputHandler,
 }) {
   useEffect(() => {
     if (showCustomLink) {
@@ -29,8 +29,6 @@ function CustomLink({
   }
 
   function createLink() {
-    editorContentRef.current?.focus();
-
     const urlRegex =
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
 
@@ -40,13 +38,32 @@ function CustomLink({
       return;
     }
 
-    execCommand(
-      'insertHTML',
-      false,
-      `<a onclick="linkPreviewHandler()" target="_blank" rel="noopener noreferrer" href="${
-        linkUrl.startsWith('https://') ? linkUrl : `https://${linkUrl}`
-      }">${linkTitle || linkUrl}</a>`,
-    );
+    const linkElement = document.createElement('a');
+    linkElement.target = '_blank';
+    linkElement.rel = 'noopener noreferrer';
+    linkElement.href = linkUrl.startsWith('https://')
+      ? linkUrl
+      : `https://${linkUrl}`;
+    linkElement.textContent = linkTitle || linkUrl;
+    linkElement.addEventListener('click', (e) => {
+      e.stopPropagation();
+      linkElement.classList.toggle('show-link-preview');
+    });
+
+    const editorContent = editorContentRef.current;
+    const range = document.createRange();
+
+    if (
+      selection &&
+      selection.anchorNode &&
+      selection.anchorNode.parentNode === editorContent
+    ) {
+      range.setStart(selection.anchorNode, selection.anchorOffset);
+      range.setEnd(selection.anchorNode, selection.anchorOffset);
+    } else {
+      range.setStart(editorContent, editorContent.childNodes.length);
+      range.setEnd(editorContent, editorContent.childNodes.length);
+    }
 
     setShowCustomLink(false);
     if (showCustomLink) {
@@ -54,6 +71,16 @@ function CustomLink({
       setLinkUrl('');
       setShowInvalidLinkError(false);
     }
+
+    editorContent.focus();
+
+    range.insertNode(linkElement);
+    range.setStartAfter(linkElement);
+    range.setEndAfter(linkElement);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    inputHandler();
   }
 
   return (
@@ -87,11 +114,11 @@ function CustomLink({
 }
 
 CustomLink.propTypes = {
-  execCommand: PropTypes.func.isRequired,
   editorContentRef: PropTypes.object.isRequired,
   showCustomLink: PropTypes.bool.isRequired,
   setShowCustomLink: PropTypes.func.isRequired,
   selection: PropTypes.object.isRequired,
+  inputHandler: PropTypes.func.isRequired,
 };
 
 export default CustomLink;

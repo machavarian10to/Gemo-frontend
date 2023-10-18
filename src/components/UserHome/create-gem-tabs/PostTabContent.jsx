@@ -48,13 +48,31 @@ function PostTabContent() {
       ) {
         setIsBold(document.queryCommandState('bold'));
         setIsItalic(document.queryCommandState('italic'));
-        setIsUnderline(document.queryCommandState('underline'));
         setIsStrikeThrough(document.queryCommandState('strikeThrough'));
         setIsBulletList(document.queryCommandState('insertUnorderedList'));
         setIsNumberedList(document.queryCommandState('insertOrderedList'));
 
-        // Check if the selected text is a title
         const selection = window.getSelection();
+
+        // check if the selected text is a link and setUnderline to false
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const container = range.commonAncestorContainer;
+          if (container.nodeType === Node.TEXT_NODE) {
+            const parent = container.parentElement;
+            if (parent.tagName === 'A') {
+              setIsUnderline(false);
+            } else {
+              setIsUnderline(document.queryCommandState('underline'));
+            }
+          } else {
+            setIsUnderline(document.queryCommandState('underline'));
+          }
+        } else {
+          setIsUnderline(document.queryCommandState('underline'));
+        }
+
+        // Check if the selected text is a title
         if (selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
           const container = range.commonAncestorContainer;
@@ -77,8 +95,11 @@ function PostTabContent() {
     };
   }, []);
 
-  function inputHandler(e) {
-    if (e.target.innerHTML.length > 0 && e.target.innerHTML !== '<br>') {
+  function inputHandler() {
+    if (
+      editorContentRef.current.innerHTML.length > 0 &&
+      editorContentRef.current.innerHTML !== '<br>'
+    ) {
       setShowPlaceholder(true);
     } else {
       setShowPlaceholder(false);
@@ -329,11 +350,11 @@ function PostTabContent() {
 
       {showCustomLink && (
         <CustomLink
-          execCommand={execCommand}
           editorContentRef={editorContentRef}
           showCustomLink={showCustomLink}
           setShowCustomLink={setShowCustomLink}
           selection={selection}
+          inputHandler={inputHandler}
         />
       )}
 
