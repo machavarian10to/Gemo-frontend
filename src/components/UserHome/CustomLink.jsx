@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import useClickOutside from '@/hook/useClickOutside';
 import Button from '@/components/Button';
 import PropTypes from 'prop-types';
 
@@ -15,11 +16,16 @@ function CustomLink({
     }
   }, [showCustomLink]);
 
+  const linkUrlRef = useRef();
+  const modalRef = useRef();
+
+  useClickOutside(modalRef, () => {
+    if (showCustomLink) setShowCustomLink(false);
+  });
+
   const [linkUrl, setLinkUrl] = useState('');
   const [linkTitle, setLinkTitle] = useState('');
   const [showInvalidLinkError, setShowInvalidLinkError] = useState(false);
-
-  const linkUrlRef = useRef();
 
   function enterKeyPress(e) {
     if (e.key === 'Enter') {
@@ -84,7 +90,11 @@ function CustomLink({
   }
 
   return (
-    <div className='link-inputs-wrapper' onKeyDown={enterKeyPress}>
+    <div
+      className='link-inputs-wrapper'
+      onKeyDown={enterKeyPress}
+      ref={modalRef}
+    >
       <div className='link-inputs'>
         <input
           value={linkTitle}

@@ -13,7 +13,8 @@ import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import Picker from '@emoji-mart/react';
+// import Picker from '@emoji-mart/react';
+import 'emoji-picker-element';
 import CustomLink from '@/components/UserHome/CustomLink';
 
 function PostTabContent() {
@@ -33,6 +34,21 @@ function PostTabContent() {
 
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
+
+  useEffect(() => {
+    const emojiPicker = document.querySelector('em-emoji-picker');
+    if (emojiPicker) {
+      const styleTag = emojiPicker.shadowRoot.querySelector('style');
+
+      if (styleTag) {
+        styleTag.textContent += `
+          #nav .bar {
+            background-color: #F9A109;
+          }
+        `;
+      }
+    }
+  }, [showEmojiPicker]);
 
   useEffect(() => {
     if (showCustomLink) {
@@ -359,14 +375,18 @@ function PostTabContent() {
       )}
 
       {showEmojiPicker && (
-        <div className='emoji-picker'>
-          <Picker
+        <div className='emoji-picker-wrapper'>
+          {/* <Picker
             previewPosition='none'
             perLine='7'
             theme='light'
             onEmojiSelect={(emoji) => insertEmoji(emoji)}
             maxFrequentRows='1'
-          />
+          /> */}
+          <emoji-picker
+            class='light'
+            onClick={(e) => console.log(e)}
+          ></emoji-picker>
         </div>
       )}
     </div>
