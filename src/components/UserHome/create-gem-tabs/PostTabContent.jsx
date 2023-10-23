@@ -13,7 +13,7 @@ import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-// import Picker from '@emoji-mart/react';
+import Picker from '@emoji-mart/react';
 import 'emoji-picker-element';
 import CustomLink from '@/components/UserHome/CustomLink';
 
@@ -35,20 +35,35 @@ function PostTabContent() {
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
 
+  // const style = document.createElement('style');
+  // style.textContent = `#nav .bar { background-color: #F9A109; }`;
+  // emojiPicker?.shadowRoot?.appendChild(style);
+
   useEffect(() => {
     const emojiPicker = document.querySelector('em-emoji-picker');
-    if (emojiPicker) {
-      const styleTag = emojiPicker.shadowRoot.querySelector('style');
+    const styleTag = emojiPicker?.shadowRoot.querySelector('style');
 
-      if (styleTag) {
-        styleTag.textContent += `
-          #nav .bar {
-            background-color: #F9A109;
-          }
-        `;
-      }
+    if (styleTag) {
+      styleTag.textContent += `
+        #nav .bar {
+          background-color: #F9A109;
+        }
+        #nav button[aria-selected] {
+          color: #F9A109;
+        }
+        .option:hover{
+          background-color: #F9A109;
+        }
+        .menu input[type="radio"]:checked + .option {
+          box-shadow: 0 0 0 2px #F9A109;
+        }
+        .search input[type="search"]:focus {
+          background-color: rgb(var(--em-rgb-input));
+          box-shadow: inset 0 0 0 1.5px #F9A109, 0 1px 3px rgba(65, 69, 73, .2);
+        }
+      `;
     }
-  }, [showEmojiPicker]);
+  }, [showEmojiPicker, setShowEmojiPicker]);
 
   useEffect(() => {
     if (showCustomLink) {
@@ -376,17 +391,17 @@ function PostTabContent() {
 
       {showEmojiPicker && (
         <div className='emoji-picker-wrapper'>
-          {/* <Picker
+          <Picker
             previewPosition='none'
             perLine='7'
             theme='light'
             onEmojiSelect={(emoji) => insertEmoji(emoji)}
             maxFrequentRows='1'
-          /> */}
-          <emoji-picker
+          />
+          {/* <emoji-picker
+            onClick={(emoji) => console.log(emoji)}
             class='light'
-            onClick={(e) => console.log(e)}
-          ></emoji-picker>
+          ></emoji-picker> */}
         </div>
       )}
     </div>

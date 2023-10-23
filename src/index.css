@@ -550,7 +550,11 @@ body {
 
 emoji-picker {
   --indicator-color: var(--color-main-yellow);
-  --input-border-color: transparent;
+  --input-border-color: #E0E0E0;
+  --input-padding: 8px;
+  --input-placeholder-color: #BDBDBD;
+  --num-columns: 7;
+  --outline-color: var(--color-main-yellow);
 }
 
 .emoji-picker-wrapper{
