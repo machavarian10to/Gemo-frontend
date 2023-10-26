@@ -14,7 +14,7 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Picker from '@emoji-mart/react';
-import 'emoji-picker-element';
+import EmojiPicker from 'emoji-picker-react';
 import CustomLink from '@/components/UserHome/CustomLink';
 
 function PostTabContent() {
@@ -35,35 +35,30 @@ function PostTabContent() {
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
 
-  // const style = document.createElement('style');
-  // style.textContent = `#nav .bar { background-color: #F9A109; }`;
-  // emojiPicker?.shadowRoot?.appendChild(style);
+  // useEffect(() => {
+  //   const emojiPicker = document.querySelector('em-emoji-picker');
+  //   const style = document.createElement('style');
 
-  useEffect(() => {
-    const emojiPicker = document.querySelector('em-emoji-picker');
-    const styleTag = emojiPicker?.shadowRoot.querySelector('style');
-
-    if (styleTag) {
-      styleTag.textContent += `
-        #nav .bar {
-          background-color: #F9A109;
-        }
-        #nav button[aria-selected] {
-          color: #F9A109;
-        }
-        .option:hover{
-          background-color: #F9A109;
-        }
-        .menu input[type="radio"]:checked + .option {
-          box-shadow: 0 0 0 2px #F9A109;
-        }
-        .search input[type="search"]:focus {
-          background-color: rgb(var(--em-rgb-input));
-          box-shadow: inset 0 0 0 1.5px #F9A109, 0 1px 3px rgba(65, 69, 73, .2);
-        }
-      `;
-    }
-  }, [showEmojiPicker, setShowEmojiPicker]);
+  //   style.textContent = `
+  //     #nav .bar {
+  //       background-color: #F9A109;
+  //     }
+  //     #nav button[aria-selected] {
+  //       color: #F9A109;
+  //     }
+  //     .option:hover{
+  //       background-color: #F9A109;
+  //     }
+  //     .menu input[type="radio"]:checked + .option {
+  //       box-shadow: 0 0 0 2px #F9A109;
+  //     }
+  //     .search input[type="search"]:focus {
+  //       background-color: rgb(var(--em-rgb-input));
+  //       box-shadow: inset 0 0 0 1.5px #F9A109, 0 1px 3px rgba(65, 69, 73, .2);
+  //     }
+  //   `;
+  //   emojiPicker?.shadowRoot.appendChild(style);
+  // }, [showEmojiPicker, setShowEmojiPicker]);
 
   useEffect(() => {
     if (showCustomLink) {
@@ -141,9 +136,10 @@ function PostTabContent() {
     document.execCommand(command, defaultUi, value);
   }
 
-  function insertEmoji(emoji) {
+  function insertEmoji(emojiData) {
+    console.log(emojiData);
     editorContentRef.current?.focus();
-    execCommand('insertText', false, emoji.native);
+    execCommand('insertText', false, emojiData.emoji);
   }
 
   function handleCommandClick(type) {
@@ -373,11 +369,9 @@ function PostTabContent() {
       <div
         className={`editor-content ${showPlaceholder ? 'edit' : ''}`}
         contentEditable='true'
-        role='textbox'
-        spellCheck='true'
         onInput={inputHandler}
         ref={editorContentRef}
-      ></div>
+      />
 
       {showCustomLink && (
         <CustomLink
@@ -391,17 +385,28 @@ function PostTabContent() {
 
       {showEmojiPicker && (
         <div className='emoji-picker-wrapper'>
-          <Picker
+          {/* <Picker
             previewPosition='none'
             perLine='7'
             theme='light'
             onEmojiSelect={(emoji) => insertEmoji(emoji)}
             maxFrequentRows='1'
-          />
+          /> */}
           {/* <emoji-picker
             onClick={(emoji) => console.log(emoji)}
             class='light'
           ></emoji-picker> */}
+          <EmojiPicker
+            onEmojiClick={(emoji) => insertEmoji(emoji)}
+            autoFocusSearch={false}
+            width={300}
+            height={450}
+            theme='light'
+            emojiStyle='native'
+            previewConfig={{
+              showPreview: false,
+            }}
+          />
         </div>
       )}
     </div>
