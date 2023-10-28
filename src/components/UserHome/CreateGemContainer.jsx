@@ -78,11 +78,11 @@ export default function CreatePostContainer({ closeModal }) {
         <div className='post-title-wrapper'>
           <textarea
             className='title'
-            placeholder='Post Title'
+            placeholder='Title'
             maxLength={200}
             onChange={(e) => setTitle(e)}
             value={postTitle}
-          ></textarea>
+          />
           <span>{charCount}/200</span>
         </div>
 

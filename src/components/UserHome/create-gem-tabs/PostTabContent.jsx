@@ -13,9 +13,10 @@ import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import Picker from '@emoji-mart/react';
 import EmojiPicker from 'emoji-picker-react';
 import CustomLink from '@/components/UserHome/CustomLink';
+import useClickOutside from '@/hook/useClickOutside';
+import { Grow } from '@mui/material';
 
 function PostTabContent() {
   const [isBold, setIsBold] = useState(false);
@@ -34,31 +35,11 @@ function PostTabContent() {
 
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
+  const emojiRef = useRef(null);
 
-  // useEffect(() => {
-  //   const emojiPicker = document.querySelector('em-emoji-picker');
-  //   const style = document.createElement('style');
-
-  //   style.textContent = `
-  //     #nav .bar {
-  //       background-color: #F9A109;
-  //     }
-  //     #nav button[aria-selected] {
-  //       color: #F9A109;
-  //     }
-  //     .option:hover{
-  //       background-color: #F9A109;
-  //     }
-  //     .menu input[type="radio"]:checked + .option {
-  //       box-shadow: 0 0 0 2px #F9A109;
-  //     }
-  //     .search input[type="search"]:focus {
-  //       background-color: rgb(var(--em-rgb-input));
-  //       box-shadow: inset 0 0 0 1.5px #F9A109, 0 1px 3px rgba(65, 69, 73, .2);
-  //     }
-  //   `;
-  //   emojiPicker?.shadowRoot.appendChild(style);
-  // }, [showEmojiPicker, setShowEmojiPicker]);
+  useClickOutside(emojiRef, () => {
+    if (showEmojiPicker) setShowEmojiPicker(false);
+  });
 
   useEffect(() => {
     if (showCustomLink) {
@@ -116,10 +97,11 @@ function PostTabContent() {
       }
     };
     document.addEventListener('selectionchange', handleSelectionChange);
+
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
-  }, []);
+  }, [selection]);
 
   function inputHandler() {
     if (
@@ -137,7 +119,6 @@ function PostTabContent() {
   }
 
   function insertEmoji(emojiData) {
-    console.log(emojiData);
     editorContentRef.current?.focus();
     execCommand('insertText', false, emojiData.emoji);
   }
@@ -169,8 +150,8 @@ function PostTabContent() {
     }
 
     if (type === 'createLink') {
-      setShowCustomLink((prevLink) => !prevLink);
       setSelection(window.getSelection());
+      setShowCustomLink((prevLink) => !prevLink);
       return;
     }
 
@@ -299,6 +280,14 @@ function PostTabContent() {
           </div>
         </button>
         <button
+          title='Horizontal Line'
+          onClick={() => handleCommandClick('insertHorizontalRule')}
+        >
+          <div className='command-btn'>
+            <HorizontalRuleIcon style={style.horizontal} />
+          </div>
+        </button>
+        <button
           style={{ background: isBulletList && '#E4E6EB' }}
           title='Bullet List'
           onClick={() => handleCommandClick('insertUnorderedList')}
@@ -341,14 +330,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          title='Horizontal Line'
-          onClick={() => handleCommandClick('insertHorizontalRule')}
-        >
-          <div className='command-btn'>
-            <HorizontalRuleIcon style={style.horizontal} />
-          </div>
-        </button>
-        <button
+          ref={emojiRef}
           title='Emoji'
           style={{ background: showEmojiPicker && '#E4E6EB' }}
           onClick={() => setShowEmojiPicker((prev) => !prev)}
@@ -384,30 +366,21 @@ function PostTabContent() {
       )}
 
       {showEmojiPicker && (
-        <div className='emoji-picker-wrapper'>
-          {/* <Picker
-            previewPosition='none'
-            perLine='7'
-            theme='light'
-            onEmojiSelect={(emoji) => insertEmoji(emoji)}
-            maxFrequentRows='1'
-          /> */}
-          {/* <emoji-picker
-            onClick={(emoji) => console.log(emoji)}
-            class='light'
-          ></emoji-picker> */}
-          <EmojiPicker
-            onEmojiClick={(emoji) => insertEmoji(emoji)}
-            autoFocusSearch={false}
-            width={300}
-            height={450}
-            theme='light'
-            emojiStyle='native'
-            previewConfig={{
-              showPreview: false,
-            }}
-          />
-        </div>
+        <Grow in={showEmojiPicker}>
+          <div className='emoji-picker-wrapper' ref={emojiRef}>
+            <EmojiPicker
+              onEmojiClick={(emoji) => insertEmoji(emoji)}
+              autoFocusSearch={false}
+              width={300}
+              height={450}
+              theme='light'
+              emojiStyle='native'
+              previewConfig={{
+                showPreview: false,
+              }}
+            />
+          </div>
+        </Grow>
       )}
     </div>
   );

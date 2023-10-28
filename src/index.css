@@ -411,7 +411,7 @@ body {
   overflow-wrap: break-word;
   width: 100%;
   height: 50px;
-  padding: 8px 70px 8px 15px;
+  padding: 8px 70px 8px 10px;
   margin-top: 8px;
   border-radius: 4px;
   outline: 1px solid #E0E0E0;
@@ -450,9 +450,10 @@ body {
 .editor-content a{
   color: var(--color-main-yellow);
   position: relative;
+  cursor: pointer;
 }
 
-.show-link-preview::before {
+/* .show-link-preview::before {
   content: attr(href);
   position: absolute;
   top: 110%;
@@ -464,7 +465,7 @@ body {
   color: #fff; 
   background-color: var(--background-shade-42);
   transition: all 0.5s
-}
+} */
 
 .not-valid-link{
   text-align: center;
@@ -482,7 +483,8 @@ body {
   top: 12px;
   left: 12px;
   content: 'Additional info (optional)';
-  color:  var(--background-shade-19);
+  font-weight: 500;
+  color:  var(--background-shade-18);
   cursor: text;
 }
 
@@ -593,7 +595,7 @@ body {
   background: var(--background-shade-10);
 }
 
-.EmojiPickerReact.epr-dark-theme.{}
+.EmojiPickerReact.epr-dark-theme{}
 
 .link-inputs-wrapper {
   position: absolute;
@@ -726,12 +728,4 @@ body {
   top: 50%;
   left: 15px;
   transform: translateY(-50%);
-}
-
-#nav button[aria-selected] {
-  color: var(--color-main-yellow) !important;
-}
-
-#nav .bar {
-  background-color: var(--color-main-yellow) !important;
 }

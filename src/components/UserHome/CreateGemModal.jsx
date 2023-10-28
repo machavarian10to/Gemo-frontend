@@ -5,8 +5,8 @@ import PublicIcon from '@mui/icons-material/Public';
 
 function CreatePostModal({ closeModal }) {
   return (
-    <div className='modal' onClick={closeModal}>
-      <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+    <div className='modal'>
+      <div className='modal-content'>
         <div className='modal-header'>
           <h4>Create a Gem</h4>
           <button onClick={closeModal}>

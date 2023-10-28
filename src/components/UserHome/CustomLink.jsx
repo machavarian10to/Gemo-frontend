@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import useClickOutside from '@/hook/useClickOutside';
 import Button from '@/components/Button';
 import PropTypes from 'prop-types';
+import { Grow } from '@mui/material';
 
 function CustomLink({
   editorContentRef,
@@ -53,7 +54,7 @@ function CustomLink({
     linkElement.textContent = linkTitle || linkUrl;
     linkElement.addEventListener('click', (e) => {
       e.stopPropagation();
-      linkElement.classList.toggle('show-link-preview');
+      window.open(linkElement.href, '_blank');
     });
 
     const editorContent = editorContentRef.current;
@@ -72,7 +73,7 @@ function CustomLink({
     }
 
     setShowCustomLink(false);
-    if (showCustomLink) {
+    if (!showCustomLink) {
       setLinkTitle('');
       setLinkUrl('');
       setShowInvalidLinkError(false);
@@ -90,36 +91,38 @@ function CustomLink({
   }
 
   return (
-    <div
-      className='link-inputs-wrapper'
-      onKeyDown={enterKeyPress}
-      ref={modalRef}
-    >
-      <div className='link-inputs'>
-        <input
-          value={linkTitle}
-          onChange={(e) => setLinkTitle(e.target.value)}
-          tabIndex='2'
-          placeholder='Enter the title of link'
+    <Grow in={showCustomLink}>
+      <div
+        className='link-inputs-wrapper'
+        onKeyDown={enterKeyPress}
+        ref={modalRef}
+      >
+        <div className='link-inputs'>
+          <input
+            value={linkTitle}
+            onChange={(e) => setLinkTitle(e.target.value)}
+            tabIndex='2'
+            placeholder='Enter the title of link'
+          />
+          <input
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+            ref={linkUrlRef}
+            tabIndex='1'
+            placeholder='Enter the URL'
+          />
+          {showInvalidLinkError && (
+            <p className='not-valid-link'>Link is not valid!</p>
+          )}
+        </div>
+        <Button
+          label='Add'
+          size='extra-small'
+          state={linkUrl.length ? 'active' : 'inactive'}
+          clickHandler={createLink}
         />
-        <input
-          value={linkUrl}
-          onChange={(e) => setLinkUrl(e.target.value)}
-          ref={linkUrlRef}
-          tabIndex='1'
-          placeholder='Enter the URL'
-        />
-        {showInvalidLinkError && (
-          <p className='not-valid-link'>Link is not valid!</p>
-        )}
       </div>
-      <Button
-        label='Add'
-        size='extra-small'
-        state={linkUrl.length ? 'active' : 'inactive'}
-        clickHandler={createLink}
-      />
-    </div>
+    </Grow>
   );
 }
 
