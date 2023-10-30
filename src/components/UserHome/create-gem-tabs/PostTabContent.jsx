@@ -16,7 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import EmojiPicker from 'emoji-picker-react';
 import CustomLink from '@/components/UserHome/CustomLink';
 import useClickOutside from '@/hook/useClickOutside';
-import { Grow } from '@mui/material';
+import { Fade } from '@mui/material';
 
 function PostTabContent() {
   const [isBold, setIsBold] = useState(false);
@@ -31,7 +31,7 @@ function PostTabContent() {
   const [showCustomLink, setShowCustomLink] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const [selection, setSelection] = useState(null);
+  const [cursorPosition, setCursorPosition] = useState(null);
 
   const editorContentRef = useRef(null);
   const linkUrlRef = useRef(null);
@@ -61,24 +61,6 @@ function PostTabContent() {
 
         const selection = window.getSelection();
 
-        // check if the selected text is a link and setUnderline to false
-        if (selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          const container = range.commonAncestorContainer;
-          if (container.nodeType === Node.TEXT_NODE) {
-            const parent = container.parentElement;
-            if (parent.tagName === 'A') {
-              setIsUnderline(false);
-            } else {
-              setIsUnderline(document.queryCommandState('underline'));
-            }
-          } else {
-            setIsUnderline(document.queryCommandState('underline'));
-          }
-        } else {
-          setIsUnderline(document.queryCommandState('underline'));
-        }
-
         // Check if the selected text is a title
         if (selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
@@ -101,7 +83,7 @@ function PostTabContent() {
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
-  }, [selection]);
+  }, []);
 
   function inputHandler() {
     if (
@@ -150,8 +132,8 @@ function PostTabContent() {
     }
 
     if (type === 'createLink') {
-      setSelection(window.getSelection());
       setShowCustomLink((prevLink) => !prevLink);
+      setCursorPosition(window.getSelection().getRangeAt(0));
       return;
     }
 
@@ -357,16 +339,15 @@ function PostTabContent() {
 
       {showCustomLink && (
         <CustomLink
-          editorContentRef={editorContentRef}
           showCustomLink={showCustomLink}
           setShowCustomLink={setShowCustomLink}
-          selection={selection}
+          cursorPosition={cursorPosition}
           inputHandler={inputHandler}
         />
       )}
 
       {showEmojiPicker && (
-        <Grow in={showEmojiPicker}>
+        <Fade in={showEmojiPicker}>
           <div className='emoji-picker-wrapper' ref={emojiRef}>
             <EmojiPicker
               onEmojiClick={(emoji) => insertEmoji(emoji)}
@@ -380,7 +361,7 @@ function PostTabContent() {
               }}
             />
           </div>
-        </Grow>
+        </Fade>
       )}
     </div>
   );

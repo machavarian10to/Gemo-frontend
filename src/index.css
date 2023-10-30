@@ -450,10 +450,18 @@ body {
 .editor-content a{
   color: var(--color-main-yellow);
   position: relative;
-  cursor: pointer;
+  transition: all 4s;
 }
 
-/* .show-link-preview::before {
+.editor-content a::before{
+  transition: all 4s;
+}
+
+.editor-content a:hover{
+  transition: all 4s;
+}
+
+.editor-content a:hover::before {
   content: attr(href);
   position: absolute;
   top: 110%;
@@ -464,8 +472,8 @@ body {
   z-index: 10;
   color: #fff; 
   background-color: var(--background-shade-42);
-  transition: all 0.5s
-} */
+  transition: all 4s;
+}
 
 .not-valid-link{
   text-align: center;
@@ -551,15 +559,6 @@ body {
   border-radius: 10px;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
-
-/* emoji-picker {
-  --indicator-color: var(--color-main-yellow);
-  --input-border-color: #E0E0E0;
-  --input-padding: 8px;
-  --input-placeholder-color: #BDBDBD;
-  --num-columns: 7;
-  --outline-color: var(--color-main-yellow);
-} */
 
 .EmojiPickerReact{
   --epr-emoji-size: 25px;

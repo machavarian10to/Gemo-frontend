@@ -5,28 +5,27 @@ import PropTypes from 'prop-types';
 import { Grow } from '@mui/material';
 
 function CustomLink({
-  editorContentRef,
   showCustomLink,
   setShowCustomLink,
-  selection,
+  cursorPosition,
   inputHandler,
 }) {
+  const [linkTitle, setLinkTitle] = useState('');
+  const [linkUrl, setLinkUrl] = useState('');
+  const [showInvalidLinkError, setShowInvalidLinkError] = useState(false);
+
+  const linkUrlRef = useRef();
+  const modalRef = useRef();
+
   useEffect(() => {
     if (showCustomLink) {
       linkUrlRef.current?.focus();
     }
   }, [showCustomLink]);
 
-  const linkUrlRef = useRef();
-  const modalRef = useRef();
-
   useClickOutside(modalRef, () => {
     if (showCustomLink) setShowCustomLink(false);
   });
-
-  const [linkUrl, setLinkUrl] = useState('');
-  const [linkTitle, setLinkTitle] = useState('');
-  const [showInvalidLinkError, setShowInvalidLinkError] = useState(false);
 
   function enterKeyPress(e) {
     if (e.key === 'Enter') {
@@ -34,7 +33,6 @@ function CustomLink({
       createLink();
     }
   }
-
   function createLink() {
     const urlRegex =
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
@@ -45,49 +43,26 @@ function CustomLink({
       return;
     }
 
-    const linkElement = document.createElement('a');
-    linkElement.target = '_blank';
-    linkElement.rel = 'noopener noreferrer';
-    linkElement.href = linkUrl.startsWith('https://')
-      ? linkUrl
-      : `https://${linkUrl}`;
-    linkElement.textContent = linkTitle || linkUrl;
-    linkElement.addEventListener('click', (e) => {
-      e.stopPropagation();
-      window.open(linkElement.href, '_blank');
-    });
+    if (cursorPosition) {
+      const linkElement = document.createElement('a');
+      linkElement.target = '_blank';
+      linkElement.rel = 'noopener noreferrer';
+      linkElement.href = linkUrl.startsWith('https://')
+        ? linkUrl
+        : `https://${linkUrl}`;
+      linkElement.textContent = linkTitle || linkUrl;
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(cursorPosition);
 
-    const editorContent = editorContentRef.current;
-    const range = document.createRange();
+      document.execCommand('insertHTML', false, linkElement.outerHTML);
 
-    if (
-      selection &&
-      selection.anchorNode &&
-      selection.anchorNode.parentNode === editorContent
-    ) {
-      range.setStart(selection.anchorNode, selection.anchorOffset);
-      range.setEnd(selection.anchorNode, selection.anchorOffset);
-    } else {
-      range.setStart(editorContent, editorContent.childNodes.length);
-      range.setEnd(editorContent, editorContent.childNodes.length);
-    }
-
-    setShowCustomLink(false);
-    if (!showCustomLink) {
+      setShowCustomLink(false);
       setLinkTitle('');
       setLinkUrl('');
       setShowInvalidLinkError(false);
+      inputHandler();
     }
-
-    editorContent.focus();
-
-    range.insertNode(linkElement);
-    range.setStartAfter(linkElement);
-    range.setEndAfter(linkElement);
-    selection.removeAllRanges();
-    selection.addRange(range);
-
-    inputHandler();
   }
 
   return (
@@ -127,10 +102,9 @@ function CustomLink({
 }
 
 CustomLink.propTypes = {
-  editorContentRef: PropTypes.object.isRequired,
   showCustomLink: PropTypes.bool.isRequired,
   setShowCustomLink: PropTypes.func.isRequired,
-  selection: PropTypes.object.isRequired,
+  cursorPosition: PropTypes.object.isRequired,
   inputHandler: PropTypes.func.isRequired,
 };
 
