@@ -2,7 +2,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 function Search() {
   return (
-    <form role='search'>
+    <form role='search' name='search-cooking-ideas'>
       <div className='search'>
         <input
           name='q'

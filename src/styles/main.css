@@ -1,0 +1,9 @@
+@import "@/styles/components/UI/button.css";
+@import "@/styles/pages/UserHome/create-gem-container.css";
+@import "@/styles/pages/UserHome/editor.css";
+@import "@/styles/pages/UserHome/modal.css";
+@import "@/styles/pages/UserHome/search-bar.css";
+@import "@/styles/pages/UserHome/speech-buble.css";
+@import "@/styles/pages/UserHome/user-home.css";
+@import "@/styles/shared/avatar.css";
+@import "@/styles/shared/sidebar.css";

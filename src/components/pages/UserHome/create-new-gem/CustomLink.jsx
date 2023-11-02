@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import useClickOutside from '@/hook/useClickOutside';
-import Button from '@/components/Button';
+import Button from '@/components/UI/Button';
 import PropTypes from 'prop-types';
 import { Grow } from '@mui/material';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CreateGemModal from './CreateGemModal';
+import CreateGemModal from '../create-new-gem/CreateGemModal';
 
 function SpeechBubble() {
   const [showModal, setShowModal] = useState(false);

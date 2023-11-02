@@ -14,38 +14,33 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import EmojiPicker from 'emoji-picker-react';
-import CustomLink from '@/components/UserHome/CustomLink';
+import CustomLink from '@/components/pages/UserHome/create-new-gem/CustomLink';
 import useClickOutside from '@/hook/useClickOutside';
 import { Fade } from '@mui/material';
 
 function PostTabContent() {
-  const [isBold, setIsBold] = useState(false);
-  const [isItalic, setIsItalic] = useState(false);
-  const [isUnderline, setIsUnderline] = useState(false);
-  const [isStrikeThrough, setIsStrikeThrough] = useState(false);
-  const [isTitle, setIsTitle] = useState(false);
-  const [isBulletList, setIsBulletList] = useState(false);
-  const [isNumberedList, setIsNumberedList] = useState(false);
+  const initialState = {
+    bold: false,
+    italic: false,
+    underline: false,
+    strikeThrough: false,
+    title: false,
+    insertUnorderedList: false,
+    insertOrderedList: false,
+    showPlaceholder: false,
+    showEmojiPicker: false,
+    cursorPosition: null,
+  };
 
-  const [showPlaceholder, setShowPlaceholder] = useState(false);
+  const [state, setState] = useState(initialState);
   const [showCustomLink, setShowCustomLink] = useState(false);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const [cursorPosition, setCursorPosition] = useState(null);
-
-  const editorContentRef = useRef(null);
-  const linkUrlRef = useRef(null);
   const emojiRef = useRef(null);
+  const editorContentRef = useRef(null);
 
   useClickOutside(emojiRef, () => {
-    if (showEmojiPicker) setShowEmojiPicker(false);
+    setState({ ...state, showEmojiPicker: false });
   });
-
-  useEffect(() => {
-    if (showCustomLink) {
-      linkUrlRef.current?.focus();
-    }
-  }, [showCustomLink]);
 
   useEffect(() => {
     const handleSelectionChange = () => {
@@ -53,13 +48,42 @@ function PostTabContent() {
         editorContentRef.current &&
         editorContentRef.current.contains(document.activeElement)
       ) {
-        setIsBold(document.queryCommandState('bold'));
-        setIsItalic(document.queryCommandState('italic'));
-        setIsStrikeThrough(document.queryCommandState('strikeThrough'));
-        setIsBulletList(document.queryCommandState('insertUnorderedList'));
-        setIsNumberedList(document.queryCommandState('insertOrderedList'));
+        setState((prevState) => ({
+          ...prevState,
+          bold: document.queryCommandState('bold'),
+          italic: document.queryCommandState('italic'),
+          strikeThrough: document.queryCommandState('strikeThrough'),
+          insertUnorderedList: document.queryCommandState(
+            'insertUnorderedList',
+          ),
+          insertOrderedList: document.queryCommandState('insertOrderedList'),
+        }));
 
         const selection = window.getSelection();
+
+        // check if the selected text is a link
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const container = range.commonAncestorContainer;
+          if (container.nodeType === Node.TEXT_NODE) {
+            const parent = container.parentElement;
+            if (parent.tagName === 'A') {
+              setState((prevState) => ({ ...prevState, underline: false }));
+            } else {
+              setState((prevState) => ({
+                ...prevState,
+                underline: document.queryCommandState('underline'),
+              }));
+            }
+          } else {
+            setState((prevState) => ({
+              ...prevState,
+              underline: document.queryCommandState('underline'),
+            }));
+          }
+        } else {
+          setState((prevState) => ({ ...prevState, underline: false }));
+        }
 
         // Check if the selected text is a title
         if (selection.rangeCount > 0) {
@@ -69,15 +93,19 @@ function PostTabContent() {
             const fontSize = window.getComputedStyle(
               container.parentElement,
             ).fontSize;
-            setIsTitle(fontSize === '24px');
+            setState((prevState) => ({
+              ...prevState,
+              title: fontSize === '24px',
+            }));
           } else {
-            setIsTitle(false);
+            setState((prevState) => ({ ...prevState, title: false }));
           }
         } else {
-          setIsTitle(false);
+          setState((prevState) => ({ ...prevState, title: false }));
         }
       }
     };
+
     document.addEventListener('selectionchange', handleSelectionChange);
 
     return () => {
@@ -90,97 +118,75 @@ function PostTabContent() {
       editorContentRef.current.innerHTML.length > 0 &&
       editorContentRef.current.innerHTML !== '<br>'
     ) {
-      setShowPlaceholder(true);
+      setState({ ...state, showPlaceholder: true });
     } else {
-      setShowPlaceholder(false);
+      setState({ ...state, showPlaceholder: false });
     }
-  }
-
-  function execCommand(command, defaultUi, value) {
-    document.execCommand(command, defaultUi, value);
   }
 
   function insertEmoji(emojiData) {
     editorContentRef.current?.focus();
-    execCommand('insertText', false, emojiData.emoji);
+    document.execCommand('insertText', false, emojiData.emoji);
   }
 
   function handleCommandClick(type) {
     editorContentRef.current?.focus();
 
-    switch (type) {
-      case 'bold':
-        setIsBold((prevBold) => !prevBold);
-        break;
-      case 'italic':
-        setIsItalic((prevItalic) => !prevItalic);
-        break;
-      case 'underline':
-        setIsUnderline((prevUnderline) => !prevUnderline);
-        break;
-      case 'strikeThrough':
-        setIsStrikeThrough((prevStrikeThrough) => !prevStrikeThrough);
-        break;
-      case 'insertUnorderedList':
-        setIsBulletList((prevBulletList) => !prevBulletList);
-        break;
-      case 'insertOrderedList':
-        setIsNumberedList((prevNumberedList) => !prevNumberedList);
-        break;
-      default:
-        break;
-    }
-
     if (type === 'createLink') {
-      setShowCustomLink((prevLink) => !prevLink);
-      setCursorPosition(window.getSelection().getRangeAt(0));
+      setShowCustomLink(true);
+      setState({
+        ...state,
+        cursorPosition: window.getSelection().getRangeAt(0),
+      });
       return;
     }
 
     if (type === 'fontSize') {
-      setIsTitle((prevIsTitle) => !prevIsTitle);
-      if (isTitle) {
-        execCommand(type, false, '3');
+      setState({ ...state, title: !state.title });
+      if (state.title) {
+        document.execCommand(type, false, '3');
         return;
       }
-      execCommand(type, false, '5');
+      document.execCommand(type, false, '5');
       return;
     }
-    execCommand(type, false, null);
+
+    setState((prevState) => ({ ...prevState, [type]: !prevState[type] }));
+    document.execCommand(type, false, null);
   }
 
   const style = {
     bold: {
-      color: isBold ? '#5E5E5E' : 'grey',
+      color: state.bold ? '#5E5E5E' : 'grey',
       fontSize: '24px',
     },
     italic: {
-      color: isItalic ? '#5E5E5E' : 'grey',
+      color: state.italic ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     underline: {
-      color: isUnderline ? '#5E5E5E' : 'grey',
+      color: state.underline ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     strikeThrough: {
-      color: isStrikeThrough ? '#5E5E5E' : 'grey',
+      color: state.strikeThrough ? '#5E5E5E' : 'grey',
       fontSize: '24px',
     },
     title: {
-      color: isTitle ? '#5E5E5E' : 'grey',
+      color: state.title ? '#5E5E5E' : 'grey',
       fontSize: '23px',
+    },
+    bulletList: {
+      color: state.insertUnorderedList ? '#5E5E5E' : 'grey',
+      fontSize: '22px',
+    },
+    numberedList: {
+      color: state.insertOrderedList ? '#5E5E5E' : 'grey',
+      fontSize: '22px',
     },
     horizontal: {
       color: 'grey',
       fontSize: '20px',
-    },
-    bulletList: {
-      color: isBulletList ? '#5E5E5E' : 'grey',
-      fontSize: '22px',
-    },
-    numberedList: {
-      color: isNumberedList ? '#5E5E5E' : 'grey',
-      fontSize: '22px',
     },
     justifyLeft: {
       color: 'grey',
@@ -204,11 +210,84 @@ function PostTabContent() {
     },
   };
 
+  const commandButtons = [
+    {
+      title: 'Bold',
+      type: 'bold',
+      icon: <FormatBoldIcon style={style.bold} />,
+    },
+    {
+      title: 'Italic',
+      type: 'italic',
+      icon: <FormatItalicIcon style={style.italic} />,
+    },
+    {
+      title: 'Underline',
+      type: 'underline',
+      icon: <FormatUnderlinedIcon style={style.underline} />,
+    },
+    {
+      title: 'Strike Through',
+      type: 'strikeThrough',
+      icon: <StrikethroughSIcon style={style.strikeThrough} />,
+    },
+    {
+      title: 'Title',
+      type: 'fontSize',
+      icon: <TextFieldsIcon style={style.title} />,
+    },
+    {
+      title: 'Link',
+      type: 'createLink',
+      icon: <InsertLinkIcon style={style.showCustomLink} />,
+    },
+    {
+      title: 'Horizontal Line',
+      type: 'insertHorizontalRule',
+      icon: <HorizontalRuleIcon style={style.horizontal} />,
+    },
+    {
+      title: 'Bullet List',
+      type: 'insertUnorderedList',
+      icon: <FormatListBulletedIcon style={style.bulletList} />,
+    },
+    {
+      title: 'Numbered List',
+      type: 'insertOrderedList',
+      icon: <FormatListNumberedIcon style={style.numberedList} />,
+    },
+    {
+      title: 'Justify Left',
+      type: 'justifyLeft',
+      icon: <FormatAlignLeftIcon style={style.justifyLeft} />,
+    },
+    {
+      title: 'Justify Center',
+      type: 'justifyCenter',
+      icon: <FormatAlignCenterIcon style={style.justifyCenter} />,
+    },
+    {
+      title: 'Justify Right',
+      type: 'justifyRight',
+      icon: <FormatAlignRightIcon style={style.justifyRight} />,
+    },
+    {
+      title: 'Emoji',
+      type: 'showEmojiPicker',
+      icon: <EmojiEmotionsOutlinedIcon style={style.emoji} />,
+    },
+    {
+      title: 'Remove styles',
+      type: 'removeFormat',
+      icon: <HighlightOffIcon style={{ color: 'grey', fontSize: '22px' }} />,
+    },
+  ];
+
   return (
     <div className='editor'>
       <div className='editor-header'>
         <button
-          style={{ background: isBold && '#E4E6EB' }}
+          style={{ background: state.bold && '#E4E6EB' }}
           title='Bold'
           onClick={() => handleCommandClick('bold')}
         >
@@ -217,7 +296,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          style={{ background: isItalic && '#E4E6EB' }}
+          style={{ background: state.italic && '#E4E6EB' }}
           title='Italic'
           onClick={() => handleCommandClick('italic')}
         >
@@ -226,7 +305,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          style={{ background: isUnderline && '#E4E6EB' }}
+          style={{ background: state.underline && '#E4E6EB' }}
           title='Underline'
           onClick={() => handleCommandClick('underline')}
         >
@@ -235,7 +314,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          style={{ background: isStrikeThrough && '#E4E6EB' }}
+          style={{ background: state.strikeThrough && '#E4E6EB' }}
           title='Strike Through'
           onClick={() => handleCommandClick('strikeThrough')}
         >
@@ -244,7 +323,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          style={{ background: isTitle && '#E4E6EB' }}
+          style={{ background: state.title && '#E4E6EB' }}
           title='Title'
           onClick={() => handleCommandClick('fontSize')}
         >
@@ -270,7 +349,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          style={{ background: isBulletList && '#E4E6EB' }}
+          style={{ background: state.insertUnorderedList && '#E4E6EB' }}
           title='Bullet List'
           onClick={() => handleCommandClick('insertUnorderedList')}
         >
@@ -279,7 +358,7 @@ function PostTabContent() {
           </div>
         </button>
         <button
-          style={{ background: isNumberedList && '#E4E6EB' }}
+          style={{ background: state.insertOrderedList && '#E4E6EB' }}
           title='Numbered List'
           onClick={() => handleCommandClick('insertOrderedList')}
         >
@@ -314,8 +393,8 @@ function PostTabContent() {
         <button
           ref={emojiRef}
           title='Emoji'
-          style={{ background: showEmojiPicker && '#E4E6EB' }}
-          onClick={() => setShowEmojiPicker((prev) => !prev)}
+          style={{ background: state.showEmojiPicker && '#E4E6EB' }}
+          onClick={() => setState({ ...state, showEmojiPicker: true })}
         >
           <div className='command-btn'>
             <EmojiEmotionsOutlinedIcon style={style.emoji} />
@@ -331,7 +410,7 @@ function PostTabContent() {
         </button>
       </div>
       <div
-        className={`editor-content ${showPlaceholder ? 'edit' : ''}`}
+        className={`editor-content ${state.showPlaceholder ? 'edit' : ''}`}
         contentEditable='true'
         onInput={inputHandler}
         ref={editorContentRef}
@@ -341,13 +420,13 @@ function PostTabContent() {
         <CustomLink
           showCustomLink={showCustomLink}
           setShowCustomLink={setShowCustomLink}
-          cursorPosition={cursorPosition}
+          cursorPosition={state.cursorPosition}
           inputHandler={inputHandler}
         />
       )}
 
-      {showEmojiPicker && (
-        <Fade in={showEmojiPicker}>
+      {state.showEmojiPicker && (
+        <Fade in={true}>
           <div className='emoji-picker-wrapper' ref={emojiRef}>
             <EmojiPicker
               onEmojiClick={(emoji) => insertEmoji(emoji)}
