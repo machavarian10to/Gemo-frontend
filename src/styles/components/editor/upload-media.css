@@ -1,0 +1,34 @@
+.media-drop-zone{
+    width: 100%;
+    height: 210px;
+    margin-top: 15px;
+    outline: 2px dashed #ccc;
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.media-drop-zone:hover{
+    cursor: pointer;
+    outline: 2px dashed var(--color-main-yellow);
+}
+
+.media-drop-zone.dragover{
+    outline: 2px dashed var(--color-main-yellow);
+}
+
+.image-view{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    /* padding: 5px; */
+}
+
+.image-view img{
+    width: 50%;
+    max-height: 200px;
+    object-fit: contain;
+    /* border: 1px solid #ccc; */
+}
