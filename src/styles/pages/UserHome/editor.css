@@ -34,7 +34,7 @@
   border-radius: 5px;
   z-index: 10;
   color: #fff;
-  background-color: var(--background-shade-42);
+  background-color: var(--bg-shade-42);
   opacity: 0;
   transition: all 0.5s;
 }
@@ -46,7 +46,7 @@
 
 .not-valid-link {
   text-align: center;
-  color: var(--background-main-red);
+  color: var(--bg-main-red);
   font-size: 12px;
   font-weight: 700;
 }
@@ -58,11 +58,12 @@
 
 .editor-content::after {
   position: absolute;
+  content: 'Additional info (optional)';
+  font-family: 'Quicksand';
+  color: var(--color-main-grey);
+  opacity: 0.7;
   top: 12px;
   left: 12px;
-  content: 'Additional info (optional)';
-  font-weight: 500;
-  color: var(--background-shade-18);
   cursor: text;
 }
 
@@ -136,8 +137,8 @@
   --epr-highlight-color: var(--color-main-yellow);
   --epr-category-icon-active-color: var(--color-yellow-shade-05);
   --epr-dark-category-icon-active-color: var(--color-main-yellow);
-  --epr-hover-bg-color: var(--background-shade-10);
-  --epr-focus-bg-color: var(--background-shade-11);
+  --epr-hover-bg-color: var(--bg-shade-10);
+  --epr-focus-bg-color: var(--bg-shade-11);
 }
 
 .EmojiPickerReact:not(.epr-search-active)
@@ -160,7 +161,7 @@
 .EmojiPickerReact
   .epr-category-nav
   > button.epr-cat-btn:hover:not(.epr-active)::before {
-  border: 2px solid var(--background-shade-03);
+  border: 2px solid var(--bg-shade-03);
   border-radius: 50%;
   bottom: -2px;
   content: '';
@@ -173,7 +174,7 @@
 .EmojiPickerReact .epr-search-container button.epr-btn-clear-search:focus,
 .EmojiPickerReact .epr-search-container button.epr-btn-clear-search:hover {
   color: var(--color-main-yellow);
-  background: var(--background-shade-10);
+  background: var(--bg-shade-10);
 }
 
 .EmojiPickerReact.epr-dark-theme {

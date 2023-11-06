@@ -33,24 +33,23 @@
 } */
 
 .upload-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.upload-wrapper p{
-    color: var(--color-main-grey);
-    font-weight: 700;
-    word-spacing: 2px;
+.upload-wrapper p {
+  color: var(--color-main-grey);
+  font-size: 16px;
 }
 
-.upload-wrapper span{
-    color: var(--color-main-yellow);
+.upload-wrapper span {
+  color: var(--color-main-yellow);
 }
 
 .upload-icon {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .media-view img,

@@ -1,10 +1,10 @@
 @import '@/styles/main.css';
 
 :root {
-  --background-main-white: #ebedf0;
-  --background-main-yellow: #fff0de;
-  --background-main-brown: #80485b;
-  --background-main-red: #eb5757;
+  --bg-main-white: #ebedf0;
+  --bg-main-yellow: #fff0de;
+  --bg-main-brown: #80485b;
+  --bg-main-red: #eb5757;
   --color-main-yellow: #f9a109;
   --color-main-grey: #828282;
   --color-main-black: #34333a;
@@ -68,49 +68,49 @@
   --color-red-shade-22: #4c0a00;
   --color-red-shade-23: #402e32;
 
-  /* BACKGROUND */
-  --background-shade-01: #fbdebe;
-  --background-shade-02: #ffdfca;
-  --background-shade-03: #ffe0b2;
-  --background-shade-04: #ffc0b8;
-  --background-shade-05: #f6aca6;
-  --background-shade-06: #ffb1a9;
-  --background-shade-07: #ffbfb6;
-  --background-shade-08: #ffcdd2;
-  --background-shade-09: #fff3e0;
-  --background-shade-10: #f9f9f9;
-  --background-shade-11: #ffe4df;
-  --background-shade-12: #ffebee;
-  --background-shade-13: #f8ebe7;
-  --background-shade-14: #fff7eb;
-  --background-shade-15: #dfe0df;
-  --background-shade-16: #d3d1da;
-  --background-shade-17: #dadde2;
-  --background-shade-18: #c6c6c6;
-  --background-shade-19: #b1bdc5;
-  --background-shade-20: #a8a6af;
-  --background-shade-21: #abaab3;
-  --background-shade-22: #a2a1aa;
-  --background-shade-23: #aca9bb;
-  --background-shade-24: #a0a0a0;
-  --background-shade-25: #919191;
-  --background-shade-26: #8b8992;
-  --background-shade-27: #7e7d85;
-  --background-shade-28: #777586;
-  --background-shade-29: #7f7e86;
-  --background-shade-30: #626169;
-  --background-shade-31: #6d6d6d;
-  --background-shade-32: #5e5e5e;
-  --background-shade-33: #58575e;
-  --background-shade-34: #474e5a;
-  --background-shade-35: #474554;
-  --background-shade-36: #474747;
-  --background-shade-37: #474554;
-  --background-shade-38: #303030;
-  --background-shade-39: #100f16;
-  --background-shade-40: #e4e6eb7f;
-  --background-shade-41: #cdcfd47f;
-  --background-shade-42: #333238;
+  /* bg */
+  --bg-shade-01: #fbdebe;
+  --bg-shade-02: #ffdfca;
+  --bg-shade-03: #ffe0b2;
+  --bg-shade-04: #ffc0b8;
+  --bg-shade-05: #f6aca6;
+  --bg-shade-06: #ffb1a9;
+  --bg-shade-07: #ffbfb6;
+  --bg-shade-08: #ffcdd2;
+  --bg-shade-09: #fff3e0;
+  --bg-shade-10: #f9f9f9;
+  --bg-shade-11: #ffe4df;
+  --bg-shade-12: #ffebee;
+  --bg-shade-13: #f8ebe7;
+  --bg-shade-14: #fff7eb;
+  --bg-shade-15: #dfe0df;
+  --bg-shade-16: #d3d1da;
+  --bg-shade-17: #dadde2;
+  --bg-shade-18: #c6c6c6;
+  --bg-shade-19: #b1bdc5;
+  --bg-shade-20: #a8a6af;
+  --bg-shade-21: #abaab3;
+  --bg-shade-22: #a2a1aa;
+  --bg-shade-23: #aca9bb;
+  --bg-shade-24: #a0a0a0;
+  --bg-shade-25: #919191;
+  --bg-shade-26: #8b8992;
+  --bg-shade-27: #7e7d85;
+  --bg-shade-28: #777586;
+  --bg-shade-29: #7f7e86;
+  --bg-shade-30: #626169;
+  --bg-shade-31: #6d6d6d;
+  --bg-shade-32: #5e5e5e;
+  --bg-shade-33: #58575e;
+  --bg-shade-34: #474e5a;
+  --bg-shade-35: #474554;
+  --bg-shade-36: #474747;
+  --bg-shade-37: #474554;
+  --bg-shade-38: #303030;
+  --bg-shade-39: #100f16;
+  --bg-shade-40: #e4e6eb7f;
+  --bg-shade-41: #cdcfd47f;
+  --bg-shade-42: #333238;
 
   /* GREEN */
   --color-green-shade-01: #62baac;
@@ -136,7 +136,7 @@
 }
 
 body {
-  background: var(--background-main-white);
+  background: var(--bg-main-white);
   color: var(--color-main-black);
   height: 100vh;
 }

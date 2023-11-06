@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+
 function MediaTabContent() {
   const [file, setFile] = useState(null);
   const [mediaSrc, setMediaSrc] = useState(null);
@@ -7,10 +11,6 @@ function MediaTabContent() {
 
   function handleFileChange(e) {
     const file = e.target.files[0];
-    console.log(file);
-    console.log(file.name);
-    console.log(Math.floor(file.size / 1000000));
-    console.log(file.type);
     if (file) {
       const imageLink = URL.createObjectURL(file);
       setFile(file);
@@ -66,13 +66,13 @@ function MediaTabContent() {
       ) : (
         <div className='upload-wrapper'>
           <div className='upload-icon'>
-            <NoteAddOutlinedIcon
-              style={{ color: '#f9a109', fontSize: '60px' }}
+            <FileUploadOutlinedIcon
+              style={{ color: '#f9a109', fontSize: '52px' }}
             />
           </div>
           <p>
             <span>drag & drop </span>media or
-            <span> click </span>here to upload
+            <span> click </span>to upload
           </p>
         </div>
       )}
