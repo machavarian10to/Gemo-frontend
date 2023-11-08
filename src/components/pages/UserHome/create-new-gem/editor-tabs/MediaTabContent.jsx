@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
-import AddIcon from '@mui/icons-material/Add';
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
+import Slide from '@mui/material/Slide';
 
 function MediaTabContent() {
   const [file, setFile] = useState(null);
@@ -12,9 +11,12 @@ function MediaTabContent() {
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
-      const imageLink = URL.createObjectURL(file);
       setFile(file);
-      setMediaSrc(imageLink);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setMediaSrc(e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -23,12 +25,20 @@ function MediaTabContent() {
     setDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) {
-      const imageLink = URL.createObjectURL(file);
       setFile(file);
-      setMediaSrc(imageLink);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setMediaSrc(e.target.result);
+      };
+      reader.readAsDataURL(file);
     } else {
       alert('Please upload a valid file type');
     }
+  }
+
+  function deleteMedia() {
+    setMediaSrc(null);
+    setFile(null);
   }
 
   function handleDragOver(e) {
@@ -42,41 +52,56 @@ function MediaTabContent() {
   }
 
   return (
-    <label
-      className={`media-drop-zone ${isDragOver ? 'dragover' : ''}`}
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-    >
-      <input
-        hidden
-        type='file'
-        accept='image/png, image/gif, image/jpeg, image/webp, video/mp4, video/quicktime'
-        onChange={handleFileChange}
-      />
-
+    <>
       {mediaSrc ? (
-        <div className='media-view'>
+        <div className='media-wrapper'>
+          <button
+            title='delete media'
+            className='delete-media-icon'
+            onClick={deleteMedia}
+          >
+            <DeleteOutlineSharpIcon
+              style={{ color: '#f9a109', fontSize: '23px' }}
+            />
+          </button>
           {file.type.includes('video') ? (
-            <video controls src={mediaSrc} />
+            <video controls src={mediaSrc} className='user-media-preview' />
           ) : (
-            <img alt='user uploading media' src={mediaSrc} />
+            <img
+              alt='user media preview'
+              src={mediaSrc}
+              className='user-media-preview'
+            />
           )}
         </div>
       ) : (
-        <div className='upload-wrapper'>
-          <div className='upload-icon'>
-            <FileUploadOutlinedIcon
-              style={{ color: '#f9a109', fontSize: '52px' }}
+        <Slide in={true}>
+          <label
+            className={`media-drop-zone ${isDragOver ? 'dragover' : ''}`}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+          >
+            <input
+              hidden
+              type='file'
+              accept='image/png, image/gif, image/jpeg, image/webp, video/mp4, video/quicktime'
+              onChange={handleFileChange}
             />
-          </div>
-          <p>
-            <span>drag & drop </span>media or
-            <span> click </span>to upload
-          </p>
-        </div>
+            <div className='upload-wrapper'>
+              <div className='upload-icon'>
+                <NoteAddOutlinedIcon
+                  style={{ color: '#f9a109', fontSize: '52px' }}
+                />
+              </div>
+              <p>
+                <span>drag & drop </span>media or<span> click </span>to upload
+              </p>
+            </div>
+          </label>
+        </Slide>
       )}
-    </label>
+    </>
   );
 }
 
