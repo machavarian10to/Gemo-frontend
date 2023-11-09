@@ -25,7 +25,7 @@ function PostTabContent() {
     italic: false,
     underline: false,
     strikeThrough: false,
-    title: false,
+    fontSize: false,
     insertUnorderedList: false,
     insertOrderedList: false,
     showPlaceholder: false,
@@ -93,13 +93,13 @@ function PostTabContent() {
             ).fontSize;
             setState((prevState) => ({
               ...prevState,
-              title: fontSize === '24px',
+              fontSize: fontSize === '24px',
             }));
           } else {
-            setState((prevState) => ({ ...prevState, title: false }));
+            setState((prevState) => ({ ...prevState, fontSize: false }));
           }
         } else {
-          setState((prevState) => ({ ...prevState, title: false }));
+          setState((prevState) => ({ ...prevState, fontSize: false }));
         }
       }
     };
@@ -136,8 +136,8 @@ function PostTabContent() {
       return;
     }
     if (type === 'fontSize') {
-      setState({ ...state, title: !state.title });
-      if (state.title) {
+      setState({ ...state, fontSize: !state.fontSize });
+      if (state.fontSize) {
         document.execCommand(type, false, '3');
         return;
       }
@@ -165,8 +165,8 @@ function PostTabContent() {
       color: state.strikeThrough ? '#5E5E5E' : 'grey',
       fontSize: '24px',
     },
-    title: {
-      color: state.title ? '#5E5E5E' : 'grey',
+    fontSize: {
+      color: state.fontSize ? '#5E5E5E' : 'grey',
       fontSize: '23px',
     },
     bulletList: {
@@ -201,6 +201,10 @@ function PostTabContent() {
       color: 'grey',
       fontSize: '22px',
     },
+    removeFormat: {
+      color: 'grey',
+      fontSize: '22px',
+    },
   };
 
   const commandButtons = [
@@ -227,7 +231,7 @@ function PostTabContent() {
     {
       title: 'Title',
       type: 'fontSize',
-      icon: <TextFieldsIcon style={commandStyles.title} />,
+      icon: <TextFieldsIcon style={commandStyles.fontSize} />,
     },
     {
       title: 'Link',
@@ -272,56 +276,62 @@ function PostTabContent() {
     {
       title: 'Remove styles',
       type: 'removeFormat',
-      icon: <HighlightOffIcon style={{ color: 'grey', fontSize: '22px' }} />,
+      icon: <HighlightOffIcon style={commandStyles.removeFormat} />,
     },
   ];
 
   return (
-    <div className='editor'>
-      <div className='editor-header'>
-        {commandButtons.map((button) => {
-          return (
-            <CommandButton
-              key={button.title}
-              title={button.title}
-              icon={button.icon}
-              type={button.type}
-              isActive={state[button.type]}
-              handleCommandClick={handleCommandClick}
-            />
-          );
-        })}
-      </div>
-      <div
-        className={`editor-content ${state.showPlaceholder ? 'edit' : ''}`}
-        contentEditable='true'
-        onInput={inputHandler}
-        ref={editorContentRef}
-      />
-      {showCustomLink && (
-        <CustomLink
-          inputHandler={inputHandler}
-          showCustomLink={showCustomLink}
-          setShowCustomLink={setShowCustomLink}
-          cursorPosition={state.cursorPosition}
+    <Fade in={true} timeout={400}>
+      <div className='editor'>
+        <div className='editor-header'>
+          {commandButtons.map((button) => {
+            return (
+              <CommandButton
+                key={button.title}
+                title={button.title}
+                icon={button.icon}
+                type={button.type}
+                isActive={
+                  button.type === 'createLink'
+                    ? showCustomLink
+                    : state[button.type]
+                }
+                handleCommandClick={handleCommandClick}
+              />
+            );
+          })}
+        </div>
+        <div
+          className={`editor-content ${state.showPlaceholder ? 'edit' : ''}`}
+          contentEditable='true'
+          onInput={inputHandler}
+          ref={editorContentRef}
         />
-      )}
-      {state.showEmojiPicker && (
-        <Fade in={true}>
-          <div className='emoji-picker-wrapper' ref={emojiRef}>
-            <EmojiPicker
-              onEmojiClick={(emoji) => insertEmoji(emoji)}
-              previewConfig={{ showPreview: false }}
-              autoFocusSearch={false}
-              emojiStyle='native'
-              theme='light'
-              height={450}
-              width={300}
-            />
-          </div>
-        </Fade>
-      )}
-    </div>
+        {showCustomLink && (
+          <CustomLink
+            inputHandler={inputHandler}
+            showCustomLink={showCustomLink}
+            setShowCustomLink={setShowCustomLink}
+            cursorPosition={state.cursorPosition}
+          />
+        )}
+        {state.showEmojiPicker && (
+          <Fade in={true}>
+            <div className='emoji-picker-wrapper' ref={emojiRef}>
+              <EmojiPicker
+                onEmojiClick={(emoji) => insertEmoji(emoji)}
+                previewConfig={{ showPreview: false }}
+                autoFocusSearch={false}
+                emojiStyle='native'
+                theme='light'
+                height={450}
+                width={300}
+              />
+            </div>
+          </Fade>
+        )}
+      </div>
+    </Fade>
   );
 }
 

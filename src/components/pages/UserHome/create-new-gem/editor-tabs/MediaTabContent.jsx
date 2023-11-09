@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
-import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
-import Slide from '@mui/material/Slide';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Fade from '@mui/material/Fade';
 
 function MediaTabContent() {
   const [file, setFile] = useState(null);
@@ -60,9 +60,7 @@ function MediaTabContent() {
             className='delete-media-icon'
             onClick={deleteMedia}
           >
-            <DeleteOutlineSharpIcon
-              style={{ color: '#f9a109', fontSize: '23px' }}
-            />
+            <HighlightOffIcon style={{ color: '#f9a109', fontSize: '25px' }} />
           </button>
           {file.type.includes('video') ? (
             <video controls src={mediaSrc} className='user-media-preview' />
@@ -75,7 +73,7 @@ function MediaTabContent() {
           )}
         </div>
       ) : (
-        <Slide in={true}>
+        <Fade in={true} timeout={400}>
           <label
             className={`media-drop-zone ${isDragOver ? 'dragover' : ''}`}
             onDrop={handleDrop}
@@ -99,7 +97,7 @@ function MediaTabContent() {
               </p>
             </div>
           </label>
-        </Slide>
+        </Fade>
       )}
     </>
   );

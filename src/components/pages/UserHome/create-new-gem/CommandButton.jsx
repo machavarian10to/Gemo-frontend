@@ -4,7 +4,7 @@ function CommandButton({ type, title, icon, isActive, handleCommandClick }) {
   return (
     <button
       onClick={() => handleCommandClick(type)}
-      style={{ background: isActive && '#E4E6EB' }}
+      style={{ background: type !== 'removeFormat' && isActive && '#E4E6EB' }}
       title={title}
     >
       <div className='command-btn'>{icon}</div>

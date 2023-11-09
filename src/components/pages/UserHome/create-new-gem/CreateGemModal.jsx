@@ -12,7 +12,7 @@ function CreatePostModal({ closeModal }) {
   useClickOutside(modalContentRef, () => closeModal());
 
   return (
-    <Fade in={true}>
+    <Fade in={true} timeout={600}>
       <div className='modal'>
         <div className='modal-content' ref={modalContentRef}>
           <div className='modal-header'>

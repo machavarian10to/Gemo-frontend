@@ -45,19 +45,20 @@
 
 .media-wrapper .delete-media-icon{
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 0;
+  left: 0;
   background: none;
   padding: 2px;
   border-radius: 2px;
   border: none;
   cursor: pointer;
   backdrop-filter: blur(2px);
-  transition: all 0.4s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  z-index: 40;
 }
 
 .media-wrapper .delete-media-icon:hover{
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .user-media-preview{
