@@ -1,4 +1,6 @@
 @import "@/styles/components/UI/button.css";
+@import "@/styles/components/UI/input.css";
+@import "@/styles/components/editor/poll-container.css";
 @import "@/styles/components/editor/upload-media.css";
 @import "@/styles/pages/UserHome/create-gem-container.css";
 @import "@/styles/pages/UserHome/editor.css";

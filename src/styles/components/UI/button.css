@@ -21,13 +21,22 @@
 .button:active {
   opacity: 0.8;
 }
-
 .button-primary {
   background-color: var(--color-main-yellow);
 }
-
 .button-danger {
   background-color: var(--bg-main-red);
+}
+.button-base{
+  color: var(--color-main-yellow);
+  background: none;
+  transition: all 0.3s;
+}
+.button-base:hover{
+  background: rgba(251, 222, 190, 0.3);
+}
+.button-base:active{
+  background: rgba(251, 222, 190, 0.1);
 }
 
 .button-extra-small {
