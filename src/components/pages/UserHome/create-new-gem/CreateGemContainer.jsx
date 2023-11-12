@@ -5,12 +5,12 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import GifBoxIcon from '@mui/icons-material/GifBox';
-import PostTabContent from '@/components/UserHome/create-gem-tabs/PostTabContent';
-import MediaTabContent from '@/components/UserHome/create-gem-tabs/MediaTabContent';
-import PollTabContent from '@/components/UserHome/create-gem-tabs/PollTabContent';
-import EventTabContent from '@/components/UserHome/create-gem-tabs/EventTabContent';
-import GifTabContent from '@/components/UserHome/create-gem-tabs/GifTabContent';
-import Button from '@/components/Button';
+import PostTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/PostTabContent';
+import MediaTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/MediaTabContent';
+import PollTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/PollTabContent';
+import EventTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/EventTabContent';
+import GifTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/GifTabContent';
+import Button from '@/components/UI/Button';
 
 export default function CreatePostContainer({ closeModal }) {
   const [activeTab, setActiveTab] = useState('post');
@@ -78,11 +78,11 @@ export default function CreatePostContainer({ closeModal }) {
         <div className='post-title-wrapper'>
           <textarea
             className='title'
-            placeholder='Post Title'
+            placeholder='Title'
             maxLength={200}
             onChange={(e) => setTitle(e)}
             value={postTitle}
-          ></textarea>
+          />
           <span>{charCount}/200</span>
         </div>
 

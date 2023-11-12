@@ -4,7 +4,7 @@ function Button({
   label = 'button',
   state = 'active',
   size = 'small',
-  type = 'primary',
+  type = 'primary', // primary, danger, base
   submit = false,
   fillContainer = false,
   clickHandler,

@@ -1,5 +1,5 @@
-import SearchBar from '@/components/UserHome/SearchBar';
-import SpeechBubble from '@/components/UserHome/SpeechBubble';
+import SearchBar from '@/components/pages/UserHome/top-bar/SearchBar';
+import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
 
 function UserHome() {
   return (

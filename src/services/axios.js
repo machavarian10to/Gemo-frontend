@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: 'https://my-backend.com/api/',
   headers: {
     Accept: 'application/json',
@@ -8,4 +8,4 @@ const instance = axios.create({
   },
 });
 
-export default instance;
+export default axiosInstance;
