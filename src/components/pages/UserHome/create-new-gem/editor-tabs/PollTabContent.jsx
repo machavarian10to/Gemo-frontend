@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import Fade from '@mui/material/Fade';
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
@@ -8,18 +8,21 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 function PollTabContent() {
   const [pollOptions, setPollOptions] = useState([
     {
-      id: 1,
+      id: useId(),
       value: '',
       placeholder: 'Option 1',
       deleteIcon: false,
     },
     {
-      id: 2,
+      id: useId(),
       value: '',
       placeholder: 'Option 2',
       deleteIcon: false,
     },
   ]);
+
+  const draggedOption = useRef(null);
+  const draggedOverOption = useRef(null);
 
   function onInput(e, optionId) {
     const updatedOptions = pollOptions.map((option) => {
@@ -34,9 +37,13 @@ function PollTabContent() {
     setPollOptions(updatedOptions);
   }
 
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
   function addOption() {
     const newOption = {
-      id: pollOptions.length + 1,
+      id: generateId(),
       value: '',
       placeholder: `Option ${pollOptions.length + 1}`,
       deleteIcon: true,
@@ -48,7 +55,45 @@ function PollTabContent() {
     const updatedOptions = pollOptions.filter(
       (option) => option.id !== optionId,
     );
-    setPollOptions(updatedOptions);
+    const sortedOptions = handleSort(updatedOptions);
+    setPollOptions(sortedOptions);
+  }
+
+  function handleSort(options) {
+    const clonedOptions = [...options];
+    clonedOptions.forEach((option, index) => {
+      if (index > 1) {
+        option.deleteIcon = true;
+      } else {
+        option.deleteIcon = false;
+      }
+      option.placeholder = `Option ${index + 1}`;
+    });
+    return clonedOptions;
+  }
+
+  function onDragStart(e, optionId) {
+    draggedOption.current = optionId;
+    e.target.style.opacity = '0.25';
+  }
+
+  function onDragEnter(optionId) {
+    draggedOverOption.current = optionId;
+    const draggedOptionIndex = pollOptions.findIndex(
+      (option) => option.id === draggedOption.current,
+    );
+    const draggedOverOptionIndex = pollOptions.findIndex(
+      (option) => option.id === draggedOverOption.current,
+    );
+    const updatedOptions = [...pollOptions];
+    updatedOptions[draggedOptionIndex] = pollOptions[draggedOverOptionIndex];
+    updatedOptions[draggedOverOptionIndex] = pollOptions[draggedOptionIndex];
+    const sortedOptions = handleSort(updatedOptions);
+    setPollOptions(sortedOptions);
+  }
+
+  function onDragEnd(e) {
+    e.target.style.opacity = '1';
   }
 
   return (
@@ -58,9 +103,13 @@ function PollTabContent() {
           <div className='poll-content'>
             {pollOptions.map((option) => (
               <div
-                key={option.id}
+                draggable
                 className='option-container'
-                draggable='true'
+                key={option.id}
+                onDragStart={(e) => onDragStart(e, option.id)}
+                onDragEnter={() => onDragEnter(option.id)}
+                onDragOver={(e) => e.preventDefault()}
+                onDragEnd={onDragEnd}
               >
                 <DragIndicatorIcon
                   style={{ color: '#333', cursor: 'pointer', opacity: '0.5' }}

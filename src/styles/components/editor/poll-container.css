@@ -11,6 +11,10 @@
     gap: 10px;
 }
 
+.poll .button{
+    margin-top: 8px !important;
+}
+
 .poll-container{
     overflow: auto;
     padding-inline: 10px;
