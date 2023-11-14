@@ -12,7 +12,7 @@
 }
 
 .poll .button{
-    margin-top: 8px !important;
+    margin-top: 18px !important;
 }
 
 .poll-container{
@@ -28,4 +28,15 @@
 
 .option-wrapper{
     width: 100%;
+}
+
+.poll-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.select-component-wrapper{
+    width: 100px;
+    margin-top: 20px;
 }

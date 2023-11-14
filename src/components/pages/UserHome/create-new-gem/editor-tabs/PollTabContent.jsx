@@ -2,6 +2,7 @@ import { useId, useRef, useState } from 'react';
 import Fade from '@mui/material/Fade';
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
+import Select from '@/components/UI/Select';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
@@ -21,8 +22,35 @@ function PollTabContent() {
     },
   ]);
 
+  const [requiredDays, setRequiredDays] = useState([
+    {
+      id: useId(),
+      name: 'Day 1',
+    },
+    {
+      id: useId(),
+      name: 'Day 2',
+    },
+    {
+      id: useId(),
+      name: 'Day 3',
+    },
+    {
+      id: useId(),
+      name: 'Day 4',
+    },
+    {
+      id: useId(),
+      name: 'Day 5',
+    },
+  ]);
+
   const draggedOption = useRef(null);
   const draggedOverOption = useRef(null);
+
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
 
   function onInput(e, optionId) {
     const updatedOptions = pollOptions.map((option) => {
@@ -35,10 +63,6 @@ function PollTabContent() {
       return option;
     });
     setPollOptions(updatedOptions);
-  }
-
-  function generateId() {
-    return Math.random().toString(36).substr(2, 9);
   }
 
   function addOption() {
@@ -132,7 +156,17 @@ function PollTabContent() {
               </div>
             ))}
           </div>
-          <Button clickHandler={addOption} type='base' label='Add Option' />
+          <div className='poll-footer'>
+            <Button clickHandler={addOption} type='base' label='Add Option' />
+
+            <div className='select-component-wrapper'>
+              <Select
+                label='Poll duration'
+                defaultValue='2 days'
+                options={requiredDays}
+              />
+            </div>
+          </div>
         </div>
       </Fade>
     </div>
