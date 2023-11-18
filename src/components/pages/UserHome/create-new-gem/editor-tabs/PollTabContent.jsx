@@ -22,28 +22,33 @@ function PollTabContent() {
     },
   ]);
 
-  const [requiredDays, setRequiredDays] = useState([
-    {
-      id: useId(),
-      name: 'Day 1',
-    },
-    {
-      id: useId(),
-      name: 'Day 2',
-    },
-    {
-      id: useId(),
-      name: 'Day 3',
-    },
-    {
-      id: useId(),
-      name: 'Day 4',
-    },
-    {
-      id: useId(),
-      name: 'Day 5',
-    },
-  ]);
+  const [pollDuration, setPollDuration] = useState({
+    selectedOption: '3 days',
+    showOptions: false,
+    options: [
+      {
+        id: useId(),
+        name: '1 Day',
+      },
+      {
+        id: useId(),
+        name: '2 Days',
+      },
+      {
+        id: useId(),
+        name: '3 Days',
+        selected: true,
+      },
+      {
+        id: useId(),
+        name: '4 Days',
+      },
+      {
+        id: useId(),
+        name: '5 Days',
+      },
+    ],
+  });
 
   const draggedOption = useRef(null);
   const draggedOverOption = useRef(null);
@@ -120,6 +125,27 @@ function PollTabContent() {
     e.target.style.opacity = '1';
   }
 
+  function selectDuration(e) {
+    const updatedOptions = pollDuration.options.map((option) => {
+      if (option.name === e.target.innerText) {
+        return {
+          ...option,
+          selected: true,
+        };
+      }
+      return {
+        ...option,
+        selected: false,
+      };
+    });
+    setPollDuration((prev) => ({
+      ...prev,
+      selectedOption: e.target.innerText,
+      showOptions: false,
+      options: updatedOptions,
+    }));
+  }
+
   return (
     <div className='poll-container'>
       <Fade in={true} timeout={400}>
@@ -157,13 +183,22 @@ function PollTabContent() {
             ))}
           </div>
           <div className='poll-footer'>
-            <Button clickHandler={addOption} type='base' label='Add Option' />
-
+            <div className='button-component-wrapper'>
+              <Button clickHandler={addOption} type='base' label='Add Option' />
+            </div>
             <div className='select-component-wrapper'>
               <Select
                 label='Poll duration'
-                defaultValue='2 days'
-                options={requiredDays}
+                selectedOption={pollDuration.selectedOption}
+                options={pollDuration.options}
+                showOptions={pollDuration.showOptions}
+                selectOption={selectDuration}
+                setShowOptions={() =>
+                  setPollDuration((prev) => ({
+                    ...prev,
+                    showOptions: !prev.showOptions,
+                  }))
+                }
               />
             </div>
           </div>

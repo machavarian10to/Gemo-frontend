@@ -1,41 +1,74 @@
-.select {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+.select-component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
-.select .select-component-label{
-    font-size: 13px;
-    color: rgba(51, 51, 51, 0.5);
+.select-component .select-component-label {
+  font-size: 13px;
+  color: rgba(51, 51, 51, 0.5);
 }
 
-.select-title{
-    display: flex;
-    align-items: center;
+.selected-option-title {
+  display: flex;
+  align-items: center;
 }
 
-.select-component{
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #E0E0E0;
-    background: #FFF;
-    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
-    transition: all 0.2s ease-in-out;
+.selected-option {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  outline: 1px solid #e0e0e0;
+  background: #fff;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease-in-out;
 }
 
-.select-component:hover{
-    border: 1px solid #BDBDBD;
+.selected-option.active {
+  border: none;
+  outline: 2px solid var(--color-main-yellow);
 }
 
-.select-component.active{
-    border: 1px solid var(--color-main-yellow);
+.selected-option span {
+  color: #828282;
 }
 
-.select-component span{
-    color: #828282;
+.options-container {
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
+  transition: all 0.7s ease-in-out;
+}
+
+.options-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 8px;
+  transition: all 0.7s ease-in-out;
+}
+
+.options-container ul li {
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #828282;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.options-container ul li:hover {
+  background: #f2f2f2;
+}
+
+.options-container ul li.selected {
+  background: #f2f2f2;
+  color: var(--color-main-black);
 }
