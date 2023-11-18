@@ -8,11 +8,11 @@
 .poll-content{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 .poll .button{
-    margin-top: 8px !important;
+    margin-bottom: 18px !important;
 }
 
 .poll-container{
@@ -28,4 +28,14 @@
 
 .option-wrapper{
     width: 100%;
+}
+
+.poll-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.select-component-wrapper{
+    width: 100px;
+    margin-block: 20px;
 }

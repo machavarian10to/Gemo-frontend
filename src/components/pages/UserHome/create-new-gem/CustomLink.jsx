@@ -23,9 +23,7 @@ function CustomLink({
     }
   }, [showCustomLink]);
 
-  useClickOutside(modalRef, () => {
-    if (showCustomLink) setShowCustomLink(false);
-  });
+  useClickOutside(modalRef, () => showCustomLink && setShowCustomLink(false));
 
   function enterKeyPress(e) {
     if (e.key === 'Enter') {

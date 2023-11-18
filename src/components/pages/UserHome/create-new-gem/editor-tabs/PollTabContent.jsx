@@ -2,6 +2,7 @@ import { useId, useRef, useState } from 'react';
 import Fade from '@mui/material/Fade';
 import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
+import Select from '@/components/UI/Select';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
@@ -21,8 +22,40 @@ function PollTabContent() {
     },
   ]);
 
+  const [pollDuration, setPollDuration] = useState({
+    selectedOption: '3 days',
+    showOptions: false,
+    options: [
+      {
+        id: useId(),
+        name: '1 Day',
+      },
+      {
+        id: useId(),
+        name: '2 Days',
+      },
+      {
+        id: useId(),
+        name: '3 Days',
+        selected: true,
+      },
+      {
+        id: useId(),
+        name: '4 Days',
+      },
+      {
+        id: useId(),
+        name: '5 Days',
+      },
+    ],
+  });
+
   const draggedOption = useRef(null);
   const draggedOverOption = useRef(null);
+
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
 
   function onInput(e, optionId) {
     const updatedOptions = pollOptions.map((option) => {
@@ -35,10 +68,6 @@ function PollTabContent() {
       return option;
     });
     setPollOptions(updatedOptions);
-  }
-
-  function generateId() {
-    return Math.random().toString(36).substr(2, 9);
   }
 
   function addOption() {
@@ -96,6 +125,27 @@ function PollTabContent() {
     e.target.style.opacity = '1';
   }
 
+  function selectDuration(e) {
+    const updatedOptions = pollDuration.options.map((option) => {
+      if (option.name === e.target.innerText) {
+        return {
+          ...option,
+          selected: true,
+        };
+      }
+      return {
+        ...option,
+        selected: false,
+      };
+    });
+    setPollDuration((prev) => ({
+      ...prev,
+      selectedOption: e.target.innerText,
+      showOptions: false,
+      options: updatedOptions,
+    }));
+  }
+
   return (
     <div className='poll-container'>
       <Fade in={true} timeout={400}>
@@ -132,7 +182,26 @@ function PollTabContent() {
               </div>
             ))}
           </div>
-          <Button clickHandler={addOption} type='base' label='Add Option' />
+          <div className='poll-footer'>
+            <div className='button-component-wrapper'>
+              <Button clickHandler={addOption} type='base' label='Add Option' />
+            </div>
+            <div className='select-component-wrapper'>
+              <Select
+                label='Poll duration'
+                selectedOption={pollDuration.selectedOption}
+                options={pollDuration.options}
+                showOptions={pollDuration.showOptions}
+                selectOption={selectDuration}
+                setShowOptions={() =>
+                  setPollDuration((prev) => ({
+                    ...prev,
+                    showOptions: !prev.showOptions,
+                  }))
+                }
+              />
+            </div>
+          </div>
         </div>
       </Fade>
     </div>
