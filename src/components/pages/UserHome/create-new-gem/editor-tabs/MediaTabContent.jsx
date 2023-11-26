@@ -89,7 +89,7 @@ function MediaTabContent() {
             <div className='upload-wrapper'>
               <div className='upload-icon'>
                 <AddPhotoAlternateOutlinedIcon
-                  style={{ color: '#f9a109', fontSize: '90px' }}
+                  style={{ color: '#f9a109', fontSize: '80px' }}
                 />
               </div>
               <p>
