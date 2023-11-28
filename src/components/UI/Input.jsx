@@ -11,6 +11,7 @@ function Input({
   placeholder,
   helperText,
   focused,
+  leftIcon,
 }) {
   const inputRef = useRef(null);
   useEffect(() => {
@@ -21,6 +22,7 @@ function Input({
 
   return (
     <div className='input-component-wrapper'>
+      {leftIcon && <div className='input-component-left-icon'>{leftIcon}</div>}
       <input
         ref={inputRef}
         name={name}
@@ -29,7 +31,9 @@ function Input({
         onInput={onInput}
         placeholder={placeholder}
         disabled={state === 'inactive'}
-        className={`input-component ${size} ${state}`}
+        className={`input-component ${size} ${state} ${
+          leftIcon ? size + '-left-icon' : ''
+        }`}
       />
       {helperText && (
         <p className={`${state === 'danger' ? 'error-text' : 'support-text'}`}>
@@ -50,6 +54,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   helperText: PropTypes.string,
   focused: PropTypes.bool,
+  leftIcon: PropTypes.element,
 };
 
 export default Input;
