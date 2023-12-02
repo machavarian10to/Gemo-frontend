@@ -43,7 +43,6 @@ function GifTabContent() {
           onInput={(e) => setSearchValue(e.target.value)}
         />
       </div>
-
       <Fade in={true} timeout={400}>
         <div className='gifs-wrapper'>
           {gifs.map((gif) => (

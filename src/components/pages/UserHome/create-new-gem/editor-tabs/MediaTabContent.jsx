@@ -89,13 +89,10 @@ function MediaTabContent() {
             <div className='upload-wrapper'>
               <div className='upload-icon'>
                 <AddPhotoAlternateOutlinedIcon
-                  style={{ color: '#f9a109', fontSize: '80px' }}
+                  style={{ color: '#ccc', fontSize: '80px' }}
                 />
               </div>
-              <p>
-                <span>Drag & Drop </span>media or
-                <span> click </span> in this zone to upload
-              </p>
+              <p>Drag & Drop media or click in this zone to upload</p>
             </div>
           </label>
         </Fade>
