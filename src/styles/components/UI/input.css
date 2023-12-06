@@ -1,17 +1,24 @@
+.input-component-wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .input-component{
     box-sizing: border-box;
-    outline: none;
+    border: none;
     width: 100%;
     font-size: 14px;
     color: #333;
     white-space: nowrap;
     line-height: 20px;
-    border: 2px solid #e0e0e0;
+    outline: 1px solid #e0e0e0;
     border-radius: 5px;
-    transition: all 0.3s ease;
 
     &.extra-small{
        padding: 6px 12px;
+       font-size: 13px;
     }
 
     &.small{
@@ -33,7 +40,7 @@
         border-color: var(--bg-main-red);
     }
     &:focus{
-        border-color: var(--color-main-yellow);
+        outline: 1.5px solid var(--color-main-yellow);
     }
     &:disabled{
         background-color: #f0f0f0;
@@ -45,6 +52,27 @@
         opacity: 0.7;
         font-weight: 500;
     }
+}
+
+.input-component.extra-small-left-icon{
+    padding: 6px 12px 6px 30px;
+}
+.input-component.small-left-icon{
+    padding: 8px 16px 8px 32px;
+}
+.input-component.medium-left-icon{
+    padding: 10px 20px 10px 34px;
+}
+.input-component.large-left-icon{
+    padding: 12px 24px 12px 36px;
+}
+
+.input-component-left-icon{
+    position: absolute;
+    left: 8px;
+    display: grid;
+    place-items: center;
+    z-index: 10;
 }
 
 .input-component-wrapper p{

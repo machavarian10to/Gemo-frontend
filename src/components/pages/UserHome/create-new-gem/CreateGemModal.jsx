@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import CreateGemContainer from './CreateGemContainer';
 import PublicIcon from '@mui/icons-material/Public';
 import useClickOutside from '@/hook/useClickOutside';
@@ -18,7 +19,9 @@ function CreatePostModal({ closeModal }) {
           <div className='modal-header'>
             <h4>Create a Gem</h4>
             <button onClick={closeModal}>
-              <CloseIcon fontSize='small' style={{ color: '#828282' }} />
+              <HighlightOffIcon
+                style={{ color: '#f9a109', fontSize: '25px' }}
+              />
             </button>
           </div>
           <div className='modal-body'>

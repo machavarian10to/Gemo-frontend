@@ -1,0 +1,35 @@
+.gif-tab-container {
+  width: 100%;
+  height: 210px;
+  margin-top: 15px;
+  border-radius: 4px;
+  overflow: auto;
+  padding: 5px;
+}
+
+.search-gifs-wrapper {
+  width: 230px;
+}
+
+.gifs-wrapper {
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.gifs-wrapper .gif {
+  width: 235px;
+  height: 150px;
+}
+
+.gifs-wrapper .gif img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+}

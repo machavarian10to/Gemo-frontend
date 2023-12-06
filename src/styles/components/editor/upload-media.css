@@ -24,8 +24,10 @@
 
 .upload-wrapper p {
   color: var(--color-main-grey);
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+  letter-spacing: 0.4px;
+  font-size: 14px;
 }
 
 .upload-wrapper span {
@@ -34,7 +36,7 @@
 
 .upload-icon {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 .media-wrapper{

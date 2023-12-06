@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import Fade from '@mui/material/Fade';
 
 function MediaTabContent() {
@@ -88,13 +88,11 @@ function MediaTabContent() {
             />
             <div className='upload-wrapper'>
               <div className='upload-icon'>
-                <NoteAddOutlinedIcon
-                  style={{ color: '#f9a109', fontSize: '52px' }}
+                <AddPhotoAlternateOutlinedIcon
+                  style={{ color: '#ccc', fontSize: '80px' }}
                 />
               </div>
-              <p>
-                <span>drag & drop </span>media or<span> click </span>to upload
-              </p>
+              <p>Drag & Drop media or click in this zone to upload</p>
             </div>
           </label>
         </Fade>
