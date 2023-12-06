@@ -2,9 +2,14 @@ import { useState } from 'react';
 import Fade from '@mui/material/Fade';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import WallpaperOutlinedIcon from '@mui/icons-material/WallpaperOutlined';
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 
 function EventTabContent() {
   const [mediaSrc, setMediaSrc] = useState(null);
+  const [startDate, setStartDate] = useState(new Date(Date.now() + 3600000));
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -23,12 +28,14 @@ function EventTabContent() {
         <div className='start-period-wrapper'>
           <div className='start-date'>
             <p>start date</p>
-            <input type='date' />
-          </div>
-
-          <div className='start-time'>
-            <p>start time</p>
-            <input type='time' />
+            <DateTimePicker
+              onChange={setStartDate}
+              value={startDate}
+              calendarClassName='calendar'
+              className='date-picker'
+              clearIcon={null}
+              minDate={new Date(Date.now() + 3600000)}
+            />
           </div>
         </div>
 
