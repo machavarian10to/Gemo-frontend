@@ -135,21 +135,13 @@
   font-family: 'Quicksand', 'Roboto';
 }
 
-body {
+body,
+.app {
   background: var(--bg-main-white);
   color: var(--color-main-black);
   height: 100vh;
 }
 
-input::file-selector-button {
-  font-weight: bold;
-  color: dodgerblue;
-  padding: 0.5em;
-  border: thin solid grey;
-  border-radius: 3px;
-}
-
-
 .outlet {
-  margin-left: 230px;
+  margin-left: 250px;
 }

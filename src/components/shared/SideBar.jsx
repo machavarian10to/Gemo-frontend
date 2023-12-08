@@ -11,62 +11,14 @@ import GroupIcon from '@mui/icons-material/Group';
 function SideBar() {
   return (
     <div className='sidebar'>
-      <div>logo</div>
-
-      <div className='navigation'>
-        <ul>
-          <li>
-            <NavLink to='/'>
-              <HomeIcon />
-              <span>Home</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/discussion'>
-              <GroupIcon />
-              <span>Discussion</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/messages'>
-              <SmsIcon />
-              <span>Messages</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/notifications'>
-              <NotificationsIcon />
-              <span>Notifications</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/saved'>
-              <GradeIcon />
-              <span>Saved</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/video'>
-              <OndemandVideoIcon />
-              <span>Video</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/events'>
-              <EventIcon />
-              <span> Events</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/settings'>
-              <SettingsIcon />
-              <span>Settings</span>
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-
-      <div className=''>User Avatar</div>
+      <span>Home</span>
+      <span>Discussion</span>
+      <span>Messages</span>
+      <span>Notifications</span>
+      <span>Saved</span>
+      <span>Video</span>
+      <span> Events</span>
+      <span>Settings</span>
     </div>
   );
 }

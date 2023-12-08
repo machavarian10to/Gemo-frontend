@@ -1,8 +1,10 @@
 .user-home {
-  margin-top: 45px;
+  margin-top: 58px;
 }
 
 .user-home .container-wrapper {
+  padding: 20px;
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  gap: 20px;
 }

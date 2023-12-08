@@ -1,4 +1,3 @@
-import SearchBar from '@/components/pages/UserHome/top-bar/SearchBar';
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
 
 function UserHome() {
@@ -6,7 +5,6 @@ function UserHome() {
     <div className='user-home'>
       <div className='container-wrapper'>
         <SpeechBubble />
-        <SearchBar />
       </div>
     </div>
   );

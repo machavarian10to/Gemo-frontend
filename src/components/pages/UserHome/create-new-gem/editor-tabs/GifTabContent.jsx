@@ -38,7 +38,7 @@ function GifTabContent() {
               style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '22px' }}
             />
           }
-          size='small'
+          size='extra-small'
           placeholder='Search most delicious gifs...'
           onInput={(e) => setSearchValue(e.target.value)}
         />
