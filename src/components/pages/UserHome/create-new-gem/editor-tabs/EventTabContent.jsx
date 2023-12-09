@@ -9,7 +9,7 @@ import 'react-clock/dist/Clock.css';
 
 function EventTabContent() {
   const [mediaSrc, setMediaSrc] = useState(null);
-  const [startDate, setStartDate] = useState(new Date(Date.now() + 3600000));
+  const [startDate, setStartDate] = useState(null);
 
   function handleFileChange(e) {
     const file = e.target.files[0];

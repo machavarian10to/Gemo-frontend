@@ -1,0 +1,29 @@
+.user-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    /* box-shadow: 0 0 8px rgba(249, 161, 9, 1); */
+    transition: all 0.3s ease-in-out;
+}
+
+.user-card a{
+    color: #454545;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.user-card a:hover{
+    color: var(--color-main-yellow);
+    text-decoration: underline;
+}
