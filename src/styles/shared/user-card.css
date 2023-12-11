@@ -1,29 +1,65 @@
-.user-card{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 200px;
-    height: 200px;
-    margin-top: 20px;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 0 0 8px rgba(0,0,0,0.3);
-    /* box-shadow: 0 0 8px rgba(249, 161, 9, 1); */
-    transition: all 0.3s ease-in-out;
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 200px;
+  height: 200px;
+  margin-top: 15px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(204, 204, 204, 0.7);
+  /* box-shadow: 0 0 8px rgba(249, 161, 9, 1); */
+  transition: all 0.3s ease-in-out;
 }
 
-.user-card a{
-    color: #454545;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s;
+.avatar-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 5px;
 }
 
-.user-card a:hover{
-    color: var(--color-main-yellow);
-    text-decoration: underline;
+.user-card a {
+  color: #454545;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.user-card a:hover {
+  color: var(--color-main-yellow);
+  text-decoration: underline;
+}
+
+.divider {
+  margin-block: 5px;
+  width: 80%;
+  height: 1px;
+  background: rgba(204, 204, 204, 0.5);
+}
+
+.level-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  padding-inline: 25px;
+}
+
+.level-bar-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.level-bar-details > div {
+  font-size: 9px;
+  font-weight: 500;
+  color: #828282;
 }

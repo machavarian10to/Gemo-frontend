@@ -1,0 +1,33 @@
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.progress-bar-inner {
+  height: 6px;
+  border-radius: 10px;
+}
+
+.novice {
+    background: #62baac;
+}
+.home {
+    background: #56CCF2;
+}
+.enthusiast {
+    background: #f8ad9d;
+}
+.gourmet {
+    background: #a52a2a;
+}
+.explorer{
+    background: #92bdd9;
+}
+.professional{
+    background: #6c6377;
+}
+.master{
+    background: #f9a109;
+}

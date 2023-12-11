@@ -9,7 +9,7 @@ import 'react-clock/dist/Clock.css';
 
 function EventTabContent() {
   const [mediaSrc, setMediaSrc] = useState(null);
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -25,20 +25,6 @@ function EventTabContent() {
   return (
     <Fade in={true} timeout={400}>
       <div className='event-tab-container'>
-        <div className='start-period-wrapper'>
-          <div className='start-date'>
-            <p>start date</p>
-            <DateTimePicker
-              onChange={setStartDate}
-              value={startDate}
-              calendarClassName='calendar'
-              className='date-picker'
-              clearIcon={null}
-              minDate={new Date(Date.now() + 3600000)}
-            />
-          </div>
-        </div>
-
         {mediaSrc ? (
           <div className='media-wrapper'>
             <button
@@ -72,6 +58,20 @@ function EventTabContent() {
             </div>
           </label>
         )}
+
+        <div className='start-period-wrapper'>
+          <div className='start-date'>
+            <p>start date</p>
+            <DateTimePicker
+              onChange={setStartDate}
+              value={startDate}
+              calendarClassName='calendar'
+              className='date-picker'
+              clearIcon={null}
+              minDate={new Date(Date.now() + 3600000)}
+            />
+          </div>
+        </div>
 
         <textarea
           maxLength={500}
