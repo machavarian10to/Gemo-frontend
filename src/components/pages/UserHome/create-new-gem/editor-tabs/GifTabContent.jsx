@@ -35,7 +35,7 @@ function GifTabContent() {
           value={searchValue}
           leftIcon={
             <SearchIcon
-              style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '22px' }}
+              style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '18px' }}
             />
           }
           size='extra-small'

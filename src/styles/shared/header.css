@@ -7,21 +7,35 @@
   z-index: 1000;
   top: 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
 .logo-link{
-  width: 230px;
   display: grid;
   place-items: center;
 }
 
 .logo {
   background-image: url('@/assets/images/logo.png');
+  margin-left: 70px;
   width: 100px;
   height: 58px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
+}
+
+.header-search {
+  width: 30%;
+}
+
+.header-search input{
+  font-weight: 500;
+}
+
+.user-info{
+  margin-right: 20px;
   cursor: pointer;
 }
