@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
+import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 
 function Header() {
   const [searchValue, setSearchValue] = useState('');
@@ -11,7 +13,6 @@ function Header() {
       <NavLink to='/' className='logo-link'>
         <div className='logo'></div>
       </NavLink>
-
       <div className='header-search'>
         <Input
           leftIcon={
@@ -26,8 +27,11 @@ function Header() {
           onInput={(e) => setSearchValue(e.target.value)}
         />
       </div>
-
       <div className='user-info'>
+        <div>
+          <GroupAddOutlinedIcon />
+          <LocalGroceryStoreOutlinedIcon />
+        </div>
         <div className='avatar'></div>
       </div>
     </div>

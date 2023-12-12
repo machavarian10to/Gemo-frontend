@@ -38,4 +38,23 @@
 .user-info{
   margin-right: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-info > div {
+  color: #ccc;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-info > div svg:hover {
+  color: var(--color-main-yellow);
 }

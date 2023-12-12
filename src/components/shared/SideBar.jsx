@@ -14,7 +14,6 @@ function SideBar() {
     <div className='sidebar'>
       <div>
         <UserCard />
-
         <div className='navigation-wrapper'>
           <div className='navigation-container'>
             <NavLink to='/'>
@@ -26,7 +25,6 @@ function SideBar() {
               <span>Groups</span>
             </NavLink>
           </div>
-
           <div className='navigation-container'>
             <NavLink to='/notifications'>
               <NotificationsOutlinedIcon />
@@ -37,7 +35,6 @@ function SideBar() {
               <span>Messages</span>
             </NavLink>
           </div>
-
           <div className='navigation-container'>
             <NavLink to='/watch'>
               <EventIcon />
@@ -48,7 +45,6 @@ function SideBar() {
               <span>Watch</span>
             </NavLink>
           </div>
-
           <div className='navigation-container'>
             <NavLink to='/saved'>
               <GradeOutlinedIcon />
