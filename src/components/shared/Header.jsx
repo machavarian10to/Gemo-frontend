@@ -4,6 +4,7 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
+import UserAvatar from '@/components/shared/UserAvatar';
 
 function Header() {
   const [searchValue, setSearchValue] = useState('');
@@ -32,7 +33,10 @@ function Header() {
           <GroupAddOutlinedIcon />
           <LocalGroceryStoreOutlinedIcon />
         </div>
-        <div className='avatar'></div>
+        <UserAvatar
+          size='30'
+          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+        />
       </div>
     </div>
   );

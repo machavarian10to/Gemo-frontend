@@ -1,8 +1,5 @@
 .avatar {
-  width: 40px;
-  height: 40px;
   border-radius: 50%;
-  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

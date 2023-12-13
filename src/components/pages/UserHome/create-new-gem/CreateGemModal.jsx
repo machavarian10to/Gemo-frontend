@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-// import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import CreateGemContainer from './CreateGemContainer';
 import PublicIcon from '@mui/icons-material/Public';
 import useClickOutside from '@/hook/useClickOutside';
+import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 
 function CreatePostModal({ closeModal }) {
@@ -25,7 +25,7 @@ function CreatePostModal({ closeModal }) {
             </button>
           </div>
           <div className='modal-body'>
-            <div className='avatar'></div>
+            <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
             <div>
               <h5>@machavarian10to</h5>
               <div className='audience-wrapper'>

@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import ProgressBar from '@/components/UI/ProgressBar';
+import UserAvatar from '@/components/shared/UserAvatar';
 
 function UserCard() {
   return (
     <div className='user-card'>
       <div className='avatar-wrapper'>
-        <div className='avatar'></div>
+        <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
       </div>
       <NavLink to='/profile'>
         <div>@machavarian10to</div>
