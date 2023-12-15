@@ -6,7 +6,10 @@ function UserCard() {
   return (
     <div className='user-card'>
       <div className='avatar-wrapper'>
-        <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
+        <UserAvatar
+          size='60'
+          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+        />
       </div>
       <NavLink to='/profile'>
         <div>@machavarian10to</div>

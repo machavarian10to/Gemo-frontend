@@ -17,8 +17,8 @@
 
 .avatar-wrapper {
   border: 1px solid #ccc;
-  border-radius: 50%;
-  padding: 5px;
+  border-radius: 4px;
+  padding: 6px;
 }
 
 .user-card a {
