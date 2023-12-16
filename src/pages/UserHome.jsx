@@ -1,17 +1,20 @@
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
 import Post from '@/components/pages/UserHome/Post';
+import Fade from '@mui/material/Fade';
 
 function UserHome() {
   return (
-    <div className='user-home'>
-      <div className='container-wrapper'>
-        <SpeechBubble />
+    <Fade in={true} timeout={600}>
+      <div className='user-home'>
+        <div className='container-wrapper'>
+          <SpeechBubble />
 
-        <div className='post-wrapper'>
-          <Post />
+          <div className='post-wrapper'>
+            <Post />
+          </div>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 }
 export default UserHome;

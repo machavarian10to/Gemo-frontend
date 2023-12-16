@@ -4,6 +4,7 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import UserAvatar from '@/components/shared/UserAvatar';
 
 function Header() {
@@ -18,20 +19,20 @@ function Header() {
         <Input
           leftIcon={
             <SearchIcon
-              style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '20px' }}
+              style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '22px' }}
             />
           }
           size='large'
           value={searchValue}
-          // size='extra-small'
           type='text'
-          placeholder='type @ to search people, type # to search recipes...'
+          placeholder='type @ to search people, type # to search groups...'
           onInput={(e) => setSearchValue(e.target.value)}
         />
       </div>
       <div className='user-info'>
         <div>
           <GroupAddOutlinedIcon />
+          <ArticleOutlinedIcon />
           <LocalGroceryStoreOutlinedIcon />
         </div>
         <UserAvatar
