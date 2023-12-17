@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import UserAvatar from '@/components/shared/UserAvatar';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -9,11 +9,24 @@ import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
+import Input from '@/components/UI/Input';
 
 function Post() {
-  const [postEmojis, setPostEmojis] = useState([]);
-  const [showEmojis, setShowEmojis] = useState(false);
   const emojiPickerRef = useRef(null);
+  const [emojiCount, setEmojiCount] = useState(0);
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [postEmojis, setPostEmojis] = useState([]);
+
+  const [showCommentSection, setShowCommentSection] = useState(false);
+  const [userComment, setUserComment] = useState('');
+  const [commentList, setCommentList] = useState([{ id: 1, text: 'Hello' }]);
+
+  useEffect(() => {
+    const count = postEmojis.reduce((acc, emoji) => {
+      return acc + emoji.count;
+    }, 0);
+    setEmojiCount(count);
+  }, [postEmojis]);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -96,20 +109,28 @@ function Post() {
       <div className='user-post__footer'>
         <div
           className={`user-post__footer-container ${
-            showEmojis ? 'active-emoji-picker' : ''
+            showEmojis ? 'active-section' : ''
           }`}
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
           <span>React</span>
+          <span>{emojiCount}</span>
         </div>
-        <div className='user-post__footer-container'>
+        <div
+          className={`user-post__footer-container ${
+            showCommentSection ? 'active-section' : ''
+          }`}
+          onClick={() => setShowCommentSection((prev) => !prev)}
+        >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
+          <span>{commentList.length}</span>
         </div>
         <div className='user-post__footer-container'>
           <ReplyOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Share</span>
+          <span>0</span>
         </div>
         <div className='user-post__footer-container'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
@@ -145,6 +166,46 @@ function Post() {
             height={450}
             width={300}
           />
+        </div>
+      )}
+
+      {showCommentSection && (
+        <div className='user-post__comment-section'>
+          <div className='user-post__comment-section-user-comment'>
+            <UserAvatar
+              size='32'
+              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+            />
+            <div className='user-post__comment-section-input'>
+              <Input
+                size='extra-small'
+                placeholder='Write a comment...'
+                value={userComment}
+                onInput={(e) => setUserComment(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {commentList.length > 0 && (
+            <div className='user-post__comment-list'>
+              {commentList.map((comment) => (
+                <div className='user-post__comment' key={comment.id}>
+                  <UserAvatar
+                    size='32'
+                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+                  />
+                  <div className='user-post__comment-details'>
+                    <div className='user-post__comment-username'>
+                      @machavarian10to
+                    </div>
+                    <div className='user-post__comment-text'>
+                      {comment.text}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
