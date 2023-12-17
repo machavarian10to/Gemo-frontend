@@ -14,7 +14,7 @@ function UserAvatar({ size = 40, src }) {
 }
 
 UserAvatar.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.string,
   src: PropTypes.string,
 };
 
