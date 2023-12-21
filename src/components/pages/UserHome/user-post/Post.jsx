@@ -10,6 +10,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
 import Input from '@/components/UI/Input';
+import Fade from '@mui/material/Fade';
 
 function Post() {
   const emojiPickerRef = useRef(null);
@@ -19,7 +20,10 @@ function Post() {
 
   const [showCommentSection, setShowCommentSection] = useState(false);
   const [userComment, setUserComment] = useState('');
-  const [commentList, setCommentList] = useState([{ id: 1, text: 'Hello' }]);
+  const [commentList, setCommentList] = useState([
+    { id: 1, text: 'Hello' },
+    { id: 2, text: 'world' },
+  ]);
 
   useEffect(() => {
     const count = postEmojis.reduce((acc, emoji) => {
@@ -114,7 +118,7 @@ function Post() {
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>React</span>
+          <span>Add Reaction</span>
           <span>{emojiCount}</span>
         </div>
         <div
@@ -134,9 +138,23 @@ function Post() {
         </div>
         <div className='user-post__footer-container'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Save</span>
+          {/* <span>Save</span> */}
         </div>
       </div>
+
+      {showEmojis && (
+        <div className='user-post__emoji-picker-wrapper' ref={emojiPickerRef}>
+          <EmojiPicker
+            onEmojiClick={(emoji) => addEmoji(emoji)}
+            previewConfig={{ showPreview: false }}
+            autoFocusSearch={false}
+            emojiStyle='native'
+            theme='light'
+            height={450}
+            width={300}
+          />
+        </div>
+      )}
 
       {postEmojis.length > 0 && (
         <div className='user-post__emoji-list'>
@@ -155,58 +173,46 @@ function Post() {
         </div>
       )}
 
-      {showEmojis && (
-        <div className='user-post__emoji-picker-wrapper' ref={emojiPickerRef}>
-          <EmojiPicker
-            onEmojiClick={(emoji) => addEmoji(emoji)}
-            previewConfig={{ showPreview: false }}
-            autoFocusSearch={false}
-            emojiStyle='native'
-            theme='light'
-            height={450}
-            width={300}
-          />
-        </div>
-      )}
-
       {showCommentSection && (
-        <div className='user-post__comment-section'>
-          <div className='user-post__comment-section-user-comment'>
-            <UserAvatar
-              size='32'
-              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
-            />
-            <div className='user-post__comment-section-input'>
-              <Input
-                size='extra-small'
-                placeholder='Write a comment...'
-                value={userComment}
-                onInput={(e) => setUserComment(e.target.value)}
+        <Fade in={true} timeout={600}>
+          <div className='user-post__comment-section'>
+            <div className='user-post__comment-section-user-comment'>
+              <UserAvatar
+                size='32'
+                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
               />
+              <div className='user-post__comment-section-input'>
+                <Input
+                  size='extra-small'
+                  placeholder='Write a comment...'
+                  value={userComment}
+                  onInput={(e) => setUserComment(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
 
-          {commentList.length > 0 && (
-            <div className='user-post__comment-list'>
-              {commentList.map((comment) => (
-                <div className='user-post__comment' key={comment.id}>
-                  <UserAvatar
-                    size='32'
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
-                  />
-                  <div className='user-post__comment-details'>
-                    <div className='user-post__comment-username'>
-                      @machavarian10to
-                    </div>
-                    <div className='user-post__comment-text'>
-                      {comment.text}
+            {commentList.length > 0 && (
+              <div className='user-post__comment-list'>
+                {commentList.map((comment) => (
+                  <div className='user-post__comment' key={comment.id}>
+                    <UserAvatar
+                      size='30'
+                      src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+                    />
+                    <div className='user-post__comment-details'>
+                      <div className='user-post__comment-username'>
+                        @machavarian10to
+                      </div>
+                      <div className='user-post__comment-text'>
+                        {comment.text}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </Fade>
       )}
     </div>
   );

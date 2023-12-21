@@ -1,5 +1,5 @@
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
-import Post from '@/components/pages/UserHome/Post';
+import Post from '@/components/pages/UserHome/user-post/Post';
 import Fade from '@mui/material/Fade';
 
 function UserHome() {
