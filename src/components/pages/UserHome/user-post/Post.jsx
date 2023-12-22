@@ -9,7 +9,7 @@ import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
-import Input from '@/components/UI/Input';
+import CommentInput from '@/components/pages/UserHome/user-post/CommentInput';
 import Fade from '@mui/material/Fade';
 
 function Post() {
@@ -72,7 +72,7 @@ function Post() {
   return (
     <div className='user-post'>
       <div className='user-post__group'>
-        <PeopleAltOutlinedIcon style={{ color: '#ccc', fontSize: '15px' }} />
+        <PeopleAltOutlinedIcon style={{ color: '#ccc', fontSize: '20px' }} />
         <div className='user-post__group-name'>#food</div>
       </div>
 
@@ -87,8 +87,8 @@ function Post() {
             <div className='user-post__user-level'>
               <LocalPoliceOutlinedIcon
                 style={{
-                  color: '#62baac',
-                  fontSize: '9px',
+                  color: '#ccc',
+                  fontSize: '11px',
                 }}
               />
               <div className='user-post__user-level-name'>Novice Cook</div>
@@ -138,7 +138,6 @@ function Post() {
         </div>
         <div className='user-post__footer-container'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
-          {/* <span>Save</span> */}
         </div>
       </div>
 
@@ -182,11 +181,9 @@ function Post() {
                 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
               />
               <div className='user-post__comment-section-input'>
-                <Input
-                  size='extra-small'
-                  placeholder='Write a comment...'
-                  value={userComment}
-                  onInput={(e) => setUserComment(e.target.value)}
+                <CommentInput
+                  userComment={userComment}
+                  setUserComment={setUserComment}
                 />
               </div>
             </div>
