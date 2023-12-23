@@ -19,7 +19,6 @@ function Post() {
   const [postEmojis, setPostEmojis] = useState([]);
 
   const [showCommentSection, setShowCommentSection] = useState(false);
-  const [userComment, setUserComment] = useState('');
   const [commentList, setCommentList] = useState([
     { id: 1, text: 'Hello' },
     { id: 2, text: 'world' },
@@ -110,6 +109,14 @@ function Post() {
         <h3>Whats hardest food to swallow?</h3>
       </div>
 
+      {/* <div className='user-post__image'>
+        <img
+          src='https://picsum.photos/500/300'
+          alt='post'
+          className='user-media-preview'
+        />
+      </div> */}
+
       <div className='user-post__footer'>
         <div
           className={`user-post__footer-container ${
@@ -175,18 +182,7 @@ function Post() {
       {showCommentSection && (
         <Fade in={true} timeout={600}>
           <div className='user-post__comment-section'>
-            <div className='user-post__comment-section-user-comment'>
-              <UserAvatar
-                size='32'
-                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
-              />
-              <div className='user-post__comment-section-input'>
-                <CommentInput
-                  userComment={userComment}
-                  setUserComment={setUserComment}
-                />
-              </div>
-            </div>
+            <CommentInput />
 
             {commentList.length > 0 && (
               <div className='user-post__comment-list'>

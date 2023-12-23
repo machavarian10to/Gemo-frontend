@@ -45,7 +45,7 @@
   position: relative;
 }
 
-.media-wrapper .delete-media-icon{
+.delete-media-icon{
   position: absolute;
   top: 0;
   left: 0;
@@ -59,7 +59,7 @@
   z-index: 40;
 }
 
-.media-wrapper .delete-media-icon:hover{
+.delete-media-icon:hover{
   opacity: 0.5;
 }
 
