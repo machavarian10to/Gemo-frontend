@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
@@ -7,8 +7,14 @@ import TagFacesOutlinedIcon from '@mui/icons-material/TagFacesOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import UserAvatar from '@/components/shared/UserAvatar';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Input from '@/components/UI/Input';
+import SearchIcon from '@mui/icons-material/Search';
 
 const CommentInput = () => {
+  useEffect(() => {
+    fetchGifs('cooking');
+  }, []);
+
   const [userComment, setUserComment] = useState('');
 
   const [showEmojis, setShowEmojis] = useState(false);
@@ -17,9 +23,22 @@ const CommentInput = () => {
   const [file, setFile] = useState(null);
   const [mediaSrc, setMediaSrc] = useState(null);
 
+  const [showGifs, setShowGifs] = useState(false);
+  const [gifs, setGifs] = useState([]);
+  const [searchGifValue, setSearchGifValue] = useState('');
+  const gifTabRef = useRef(null);
+
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
+
+  useClickOutside(gifTabRef, () => {
+    setShowGifs(false);
+  });
+
+  function addEmoji(postEmoji) {
+    setUserComment((prev) => prev + postEmoji.emoji);
+  }
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -38,8 +57,21 @@ const CommentInput = () => {
     setFile(null);
   }
 
-  function addEmoji(postEmoji) {
-    setUserComment((prev) => prev + postEmoji.emoji);
+  function fetchGifs(searchValue) {
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${
+      import.meta.env.VITE_GIPHY_API_KEY
+    }&q=${searchValue}&limit=20&offset=0&rating=g&lang=en`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setGifs(data.data));
+  }
+
+  function searchGifs(e) {
+    if (e.code === 'Enter') {
+      if (!searchGifValue) fetchGifs('cooking');
+      fetchGifs(searchGifValue);
+    }
+    return;
   }
 
   return (
@@ -77,7 +109,13 @@ const CommentInput = () => {
                   style={{ color: '#ccc', fontSize: '22px' }}
                 />
               </label>
-              <GifBoxOutlinedIcon style={{ color: '#ccc', fontSize: '22px' }} />
+              <GifBoxOutlinedIcon
+                style={{
+                  color: showGifs ? '#f9a109' : '#ccc',
+                  fontSize: '22px',
+                }}
+                onClick={() => setShowGifs((prev) => !prev)}
+              />
             </div>
 
             {showEmojis && (
@@ -124,6 +162,36 @@ const CommentInput = () => {
           ) : (
             <img src={mediaSrc} alt='user-post__comment-preview' />
           )}
+        </div>
+      )}
+
+      {showGifs && (
+        <div className='user-post__comment-gif-tab-wrapper' ref={gifTabRef}>
+          <div className='user-post__comment-gif-tab'>
+            <div className='search-gifs-wrapper' onKeyDown={searchGifs}>
+              <Input
+                value={searchGifValue}
+                leftIcon={
+                  <SearchIcon
+                    style={{
+                      color: 'rgba(130, 130, 130, 0.6)',
+                      fontSize: '18px',
+                    }}
+                  />
+                }
+                size='extra-small'
+                placeholder='Search most delicious gifs...'
+                onInput={(e) => setSearchGifValue(e.target.value)}
+              />
+            </div>
+            <div className='gifs-wrapper'>
+              {gifs.map((gif) => (
+                <div className='gif' key={gif.id}>
+                  <img src={gif.images.fixed_height.url} alt={gif.title} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </>

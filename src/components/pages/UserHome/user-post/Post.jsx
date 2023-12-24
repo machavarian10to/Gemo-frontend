@@ -72,7 +72,12 @@ function Post() {
     <div className='user-post'>
       <div className='user-post__group'>
         <PeopleAltOutlinedIcon style={{ color: '#ccc', fontSize: '20px' }} />
-        <div className='user-post__group-name'>#food</div>
+
+        <div className='user-post__group-name'>&gt; food</div>
+
+        <div className='user-post__group-image'>
+          <img src='https://picsum.photos/500/300' alt='post' />
+        </div>
       </div>
 
       <div className='user-post__header'>
@@ -84,13 +89,14 @@ function Post() {
           <div className='user-post__details'>
             <div className='user-post__username'>@machavarian10to</div>
             <div className='user-post__user-level'>
+              <div className='user-post__user-level-name'>Novice Cook</div>
+
               <LocalPoliceOutlinedIcon
                 style={{
-                  color: '#ccc',
+                  color: '#62baac',
                   fontSize: '11px',
                 }}
               />
-              <div className='user-post__user-level-name'>Novice Cook</div>
             </div>
           </div>
         </div>
@@ -109,13 +115,13 @@ function Post() {
         <h3>Whats hardest food to swallow?</h3>
       </div>
 
-      {/* <div className='user-post__image'>
+      <div className='user-post__image'>
         <img
           src='https://picsum.photos/500/300'
           alt='post'
           className='user-media-preview'
         />
-      </div> */}
+      </div>
 
       <div className='user-post__footer'>
         <div
@@ -125,7 +131,7 @@ function Post() {
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Add Reaction</span>
+          <span>Reaction</span>
           <span>{emojiCount}</span>
         </div>
         <div
@@ -202,6 +208,12 @@ function Post() {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {commentList.length > 1 && (
+              <div className='user-post__comment-show-more-comments'>
+                show more comments
               </div>
             )}
           </div>
