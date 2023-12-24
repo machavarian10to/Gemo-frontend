@@ -10,7 +10,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 
-const CommentInput = () => {
+const AddComment = () => {
   useEffect(() => {
     fetchGifs('cooking');
   }, []);
@@ -198,4 +198,4 @@ const CommentInput = () => {
   );
 };
 
-export default CommentInput;
+export default AddComment;

@@ -13,7 +13,7 @@
 }
 
 .sidebar a {
-  color: #ccc;
+  color: rgba(130, 130, 130, 0.7);
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;

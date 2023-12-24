@@ -16,12 +16,18 @@
   margin-bottom: 15px;
 }
 
+.user-post__group span{
+  font-size: 13px;
+  font-weight: 800;
+  color: #ccc;
+}
+
 .user-post__group-image{
   width: 17px;
   height: 16px;
   border-radius: 4px;
   object-fit: cover;
-  /* border: 1px solid #ccc; */
+  border-radius: 4px;
 }
 .user-post__group-image img {
   width: 100%;
@@ -31,9 +37,14 @@
 }
 
 .user-post__group-name {
-  font-size: 18px;
   font-weight: 600;
   color: #828282;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-post__group-name:hover {
+  text-decoration: underline;
 }
 
 .user-post__header {
@@ -61,8 +72,6 @@
 .user-post__user-level {
   font-size: 9px;
   font-weight: 700;
-  color: #62baac;
-  color: rgba(130, 130, 130, 0.5);
   color: rgba(52, 51, 58, 0.3); 
   display: flex;
   align-items: center;
@@ -101,7 +110,7 @@
   align-items: center;
   gap: 20px;
   margin-top: 15px;
-  color: #ccc;
+  color: rgba(130, 130, 130, 0.7);
   cursor: pointer;
   font-size: 10px;
 }
@@ -111,6 +120,10 @@
   align-items: center;
   gap: 5px;
   transition: all 0.2s ease;
+}
+
+.user-post__footer-container:last-child {
+  margin-left: auto;
 }
 
 .user-post__footer-container:hover > svg {
@@ -203,7 +216,7 @@
 .user-post__comment-list {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
   margin-top: 10px;
 }
 
@@ -211,7 +224,6 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 5px;
 }
 
 .user-post__comment-details {
@@ -224,6 +236,22 @@
   border-radius: 5px;
 }
 
+.user-post__comment-details-header-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.user-post__comment-details-header-wrapper .user-post__date {
+  font-size: 11px;
+}
+
+.user-post__comment-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
 .user-post__comment-username {
   font-size: 13px;
   font-weight: 600;
@@ -233,4 +261,49 @@
   font-size: 12px;
 }
 
-.user-post__comment-show-more-comments{}
+.user-post__comment-actions {
+  margin: 5px 0 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(130, 130, 130, 0.7);
+  cursor: pointer;
+}
+
+.user-post__comment-action{
+  display: flex;
+  align-items: center;
+  gap: 3px
+}
+
+.user-post__comment-show-more-comments{
+  margin-top: 15px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(130, 130, 130, 0.7);
+  cursor: pointer;
+}
+
+.user-post__comment-show-more-comments:hover {
+  text-decoration: underline;
+}
+
+.user-post__comment-react-emoji-picker-wrapper{
+  position: absolute;
+}
+
+.user-post__comment-react-emoji-picker-wrapper .EmojiPickerReact {
+  width: 20vw !important;
+  height: 50vh !important;
+  top: -200px;
+  left: 55px;
+  z-index: 1000000;
+  border-radius: 10px;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.user-post__comment-details .user-post__emoji-list{
+  margin-top: 5px;
+}

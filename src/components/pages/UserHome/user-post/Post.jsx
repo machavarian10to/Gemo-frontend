@@ -1,5 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import UserAvatar from '@/components/shared/UserAvatar';
+import EmojiPicker from 'emoji-picker-react';
+import useClickOutside from '@/hook/useClickOutside';
+import AddComment from '@/components/pages/UserHome/user-post/AddComment';
+import Comment from '@/components/pages/UserHome/user-post/Comment';
+import Fade from '@mui/material/Fade';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
@@ -7,10 +12,7 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import EmojiPicker from 'emoji-picker-react';
-import useClickOutside from '@/hook/useClickOutside';
-import CommentInput from '@/components/pages/UserHome/user-post/CommentInput';
-import Fade from '@mui/material/Fade';
+import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
 
 function Post() {
   const emojiPickerRef = useRef(null);
@@ -72,12 +74,11 @@ function Post() {
     <div className='user-post'>
       <div className='user-post__group'>
         <PeopleAltOutlinedIcon style={{ color: '#ccc', fontSize: '20px' }} />
-
-        <div className='user-post__group-name'>&gt; food</div>
-
+        <span>&gt;</span>
         <div className='user-post__group-image'>
           <img src='https://picsum.photos/500/300' alt='post' />
         </div>
+        <div className='user-post__group-name'>food</div>
       </div>
 
       <div className='user-post__header'>
@@ -90,7 +91,6 @@ function Post() {
             <div className='user-post__username'>@machavarian10to</div>
             <div className='user-post__user-level'>
               <div className='user-post__user-level-name'>Novice Cook</div>
-
               <LocalPoliceOutlinedIcon
                 style={{
                   color: '#62baac',
@@ -131,7 +131,7 @@ function Post() {
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Reaction</span>
+          <span>React</span>
           <span>{emojiCount}</span>
         </div>
         <div
@@ -148,6 +148,10 @@ function Post() {
           <ReplyOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Share</span>
           <span>0</span>
+        </div>
+        <div className='user-post__footer-container'>
+          <ForwardToInboxOutlinedIcon style={{ fontSize: '19px' }} />
+          <span>Send</span>
         </div>
         <div className='user-post__footer-container'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
@@ -188,29 +192,14 @@ function Post() {
       {showCommentSection && (
         <Fade in={true} timeout={600}>
           <div className='user-post__comment-section'>
-            <CommentInput />
-
+            <AddComment />
             {commentList.length > 0 && (
               <div className='user-post__comment-list'>
                 {commentList.map((comment) => (
-                  <div className='user-post__comment' key={comment.id}>
-                    <UserAvatar
-                      size='30'
-                      src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
-                    />
-                    <div className='user-post__comment-details'>
-                      <div className='user-post__comment-username'>
-                        @machavarian10to
-                      </div>
-                      <div className='user-post__comment-text'>
-                        {comment.text}
-                      </div>
-                    </div>
-                  </div>
+                  <Comment key={comment.id} comment={comment} />
                 ))}
               </div>
             )}
-
             {commentList.length > 1 && (
               <div className='user-post__comment-show-more-comments'>
                 show more comments

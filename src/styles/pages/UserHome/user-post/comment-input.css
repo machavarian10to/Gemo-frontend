@@ -10,7 +10,7 @@
   width: 100%;
   border: none;
   border-radius: 5px;
-  outline: 1px solid #e0e0e0;
+  outline: 1px solid rgba(130, 130, 130, 0.7);
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
