@@ -16,13 +16,13 @@
   margin-bottom: 15px;
 }
 
-.user-post__group span{
+.user-post__group span {
   font-size: 13px;
   font-weight: 800;
   color: #ccc;
 }
 
-.user-post__group-image{
+.user-post__group-image {
   width: 17px;
   height: 16px;
   border-radius: 4px;
@@ -72,7 +72,7 @@
 .user-post__user-level {
   font-size: 9px;
   font-weight: 700;
-  color: rgba(52, 51, 58, 0.3); 
+  color: rgba(52, 51, 58, 0.3);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -141,6 +141,11 @@
 
 .user-post__emoji-picker-wrapper {
   position: absolute;
+}
+
+.user-post__emoji-picker-wrapper .EmojiPickerReact {
+  width: 30vw !important;
+  height: 60vh !important;
   top: 0;
   left: 40px;
   z-index: 1000000;
@@ -170,11 +175,6 @@
   font-size: 12px;
   font-weight: 600;
   color: #ccc;
-}
-
-.user-post__emoji-picker-wrapper .EmojiPickerReact {
-  width: 30vw !important;
-  height: 60vh !important;
 }
 
 .active-emoji {
@@ -236,7 +236,7 @@
   border-radius: 5px;
 }
 
-.user-post__comment-details-header-wrapper{
+.user-post__comment-details-header-wrapper {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -272,13 +272,13 @@
   cursor: pointer;
 }
 
-.user-post__comment-action{
+.user-post__comment-action {
   display: flex;
   align-items: center;
-  gap: 3px
+  gap: 3px;
 }
 
-.user-post__comment-show-more-comments{
+.user-post__comment-show-more-comments {
   margin-top: 15px;
   font-size: 13px;
   font-weight: 600;
@@ -290,7 +290,7 @@
   text-decoration: underline;
 }
 
-.user-post__comment-react-emoji-picker-wrapper{
+.user-post__comment-react-emoji-picker-wrapper {
   position: absolute;
 }
 
@@ -304,6 +304,6 @@
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
 
-.user-post__comment-details .user-post__emoji-list{
+.user-post__comment-details .user-post__emoji-list {
   margin-top: 5px;
 }

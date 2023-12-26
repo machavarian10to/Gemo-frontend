@@ -73,7 +73,9 @@ function Post() {
   return (
     <div className='user-post'>
       <div className='user-post__group'>
-        <PeopleAltOutlinedIcon style={{ color: '#ccc', fontSize: '20px' }} />
+        <PeopleAltOutlinedIcon
+          style={{ color: 'var(--color-grey)', fontSize: '20px' }}
+        />
         <span>&gt;</span>
         <div className='user-post__group-image'>
           <img src='https://picsum.photos/500/300' alt='post' />
