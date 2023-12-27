@@ -39,7 +39,7 @@
   margin-block: 5px;
   width: 80%;
   height: 1px;
-  background: rgba(204, 204, 204, 0.5);
+  background: var(--color-grey);
 }
 
 .level-bar-wrapper {

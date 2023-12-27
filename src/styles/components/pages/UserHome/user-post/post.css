@@ -19,7 +19,7 @@
 .user-post__group span {
   font-size: 13px;
   font-weight: 800;
-  color: #ccc;
+  color: var(--color-grey);
 }
 
 .user-post__group-image {
@@ -91,7 +91,7 @@
 }
 
 .user-post__body h3 {
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: 600;
   font-size: 22px;
   word-break: break-word;
@@ -136,7 +136,7 @@
 }
 
 .user-post__image {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .user-post__emoji-picker-wrapper {
@@ -276,6 +276,11 @@
   display: flex;
   align-items: center;
   gap: 3px;
+  transition: all 0.7s ease;
+}
+
+.user-post__comment-action:hover > svg path {
+  color: var(--color-main-yellow);
 }
 
 .user-post__comment-show-more-comments {

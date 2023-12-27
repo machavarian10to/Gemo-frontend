@@ -65,7 +65,7 @@
 
 .user-media-preview{
   width: 100%;
-  outline: 1px solid #e0e0e0;
+  outline: 1px solid var(--color-grey);
   max-height: 512px;
   border-radius: 4px;
   object-fit: contain;
