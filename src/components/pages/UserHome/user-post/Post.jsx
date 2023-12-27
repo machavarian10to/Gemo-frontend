@@ -113,16 +113,31 @@ function Post() {
         </div>
       </div>
 
-      <div className='user-post__body'>
+      <div className='user-post__texts'>
         <h3>Whats hardest food to swallow?</h3>
+        {/* <div className='user-post__body'>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+          nobis optio tempore magnam velit quo unde libero omnis, harum quos
+          maxime vitae exercitationem minus adipisci quae iste ullam facilis
+          aperiam.
+        </div> */}
       </div>
-
+      {/* 
       <div className='user-post__image'>
         <img
           src='https://picsum.photos/500/300'
           alt='post'
           className='user-media-preview'
         />
+      </div> */}
+
+      <div className='user-post__poll'>
+        <div className='user-post__poll-option-container'>
+          <input type='radio' name='poll' id='option-1' />
+          <label htmlFor='option-1'>Option 1</label>
+
+          <div className='user-post__poll-option-count'>0</div>
+        </div>
       </div>
 
       <div className='user-post__footer'>
@@ -155,7 +170,7 @@ function Post() {
           <ForwardToInboxOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Send</span>
         </div>
-        <div className='user-post__footer-container'>
+        <div className='user-post__footer-container' title='Add to favorites'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
         </div>
       </div>
