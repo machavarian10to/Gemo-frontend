@@ -143,6 +143,18 @@ body,
   height: 100vh;
 }
 
+/* input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  color: rgba(130, 130, 130, 0.7);
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid rgba(130, 130, 130, 0.7);
+  border-radius: 50%;
+} */
+
 .outlet {
   margin-left: 230px;
   margin-top: 58px;

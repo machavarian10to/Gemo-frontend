@@ -319,3 +319,14 @@
 .user-post__comment-details .user-post__emoji-list {
   margin-top: 5px;
 }
+
+.user-post__poll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 5px 0;
+}
+
+.user-post__footer-button {
+  width: 50px;
+}

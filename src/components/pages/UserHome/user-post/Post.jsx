@@ -4,6 +4,7 @@ import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
 import AddComment from '@/components/pages/UserHome/user-post/AddComment';
 import Comment from '@/components/pages/UserHome/user-post/Comment';
+import PollContainer from '@/components/pages/UserHome/user-post/PollContainer';
 import Fade from '@mui/material/Fade';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -13,6 +14,7 @@ import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
+import Button from '@/components/UI/Button';
 
 function Post() {
   const emojiPickerRef = useRef(null);
@@ -26,12 +28,25 @@ function Post() {
     { id: 2, text: 'world' },
   ]);
 
+  const [pollOptions, setPollOptions] = useState([
+    { id: 1, text: 'Option 1', count: 43, checked: false },
+    { id: 2, text: 'Option 2', count: 57, checked: false },
+  ]);
+  const [pollVotesAmount, setPollVotesAmount] = useState(0);
+
   useEffect(() => {
     const count = postEmojis.reduce((acc, emoji) => {
       return acc + emoji.count;
     }, 0);
     setEmojiCount(count);
   }, [postEmojis]);
+
+  useEffect(() => {
+    const count = pollOptions.reduce((acc, option) => {
+      return acc + option.count;
+    }, 0);
+    setPollVotesAmount(count);
+  }, [pollOptions]);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -68,6 +83,24 @@ function Post() {
       ]);
       return;
     }
+  }
+
+  function onOptionChange(e) {
+    const { value } = e.target;
+    const index = pollOptions.findIndex((option) => option.text === value);
+    const updatedPollOptions = [...pollOptions];
+    updatedPollOptions[index].checked = !updatedPollOptions[index].checked;
+    setPollOptions(updatedPollOptions);
+  }
+
+  function removeUserVote() {
+    const updatedPollOptions = pollOptions.map((option) => {
+      return {
+        ...option,
+        checked: false,
+      };
+    });
+    setPollOptions(updatedPollOptions);
   }
 
   return (
@@ -131,14 +164,28 @@ function Post() {
         />
       </div> */}
 
-      <div className='user-post__poll'>
-        <div className='user-post__poll-option-container'>
-          <input type='radio' name='poll' id='option-1' />
-          <label htmlFor='option-1'>Option 1</label>
-
-          <div className='user-post__poll-option-count'>0</div>
+      {pollOptions.length > 0 && (
+        <div className='user-post__poll'>
+          {pollOptions.map((option) => (
+            <PollContainer
+              key={option.id}
+              option={option}
+              totalVotes={pollVotesAmount}
+              onChange={onOptionChange}
+            />
+          ))}
+          {pollOptions.some((option) => option.checked) && (
+            <div className='user-post__footer-button'>
+              <Button
+                label='Remove my vote'
+                type='base'
+                size='extra-small'
+                clickHandler={removeUserVote}
+              />
+            </div>
+          )}
         </div>
-      </div>
+      )}
 
       <div className='user-post__footer'>
         <div
