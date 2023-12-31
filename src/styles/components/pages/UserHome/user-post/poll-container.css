@@ -1,14 +1,9 @@
 .user-post__poll-option-wrapper {
+  position: relative;
   width: 100%;
-}
-
-.user-post__poll-background{
-  width: 70%;
-  background-color: var(--bg-shade-01);
 }
 
 .user-post__poll-option-container {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,11 +16,11 @@
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-.user-post__poll-option-container:hover {
-  background-color: rgba(130, 130, 130, 0.1);
+.user-post__poll-numbers{
+  z-index: 20;
 }
 
 .user-post__poll-option-percentage {
@@ -87,4 +82,13 @@
   border-radius: 50%;
   background: var(--color-main-yellow);
   background: rgba(130, 130, 130, 0.5);
+}
+
+.user-post__poll-option-container-inner {
+  position: absolute;
+  height: 96%;
+  background-color: var(--bg-shade-01);
+  top: 2%;
+  left: 1px;
+  border-radius: 5px;
 }

@@ -26,7 +26,7 @@
   width: 90px;
 }
 
-.sidebar a:hover,
+.sidebar a:hover:not(.user-card a),
 .sidebar a.active {
   color: var(--color-main-yellow);
 }

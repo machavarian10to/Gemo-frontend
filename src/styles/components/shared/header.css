@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.logo-link{
+.logo-link {
   display: grid;
   place-items: center;
 }
@@ -31,11 +31,11 @@
   width: 40%;
 }
 
-.header-search input{
+.header-search input {
   font-weight: 500;
 }
 
-.user-info{
+.user-info {
   margin-right: 20px;
   cursor: pointer;
   display: flex;
@@ -55,6 +55,9 @@
   gap: 20px;
 }
 
+.user-info > div svg {
+  transition: all 0.3s;
+}
 .user-info > div svg:hover {
   color: var(--color-main-yellow);
 }

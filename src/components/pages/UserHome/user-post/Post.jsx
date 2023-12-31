@@ -28,10 +28,7 @@ function Post() {
     { id: 2, text: 'world' },
   ]);
 
-  const [pollOptions, setPollOptions] = useState([
-    { id: 1, text: 'Option 1', count: 43, checked: false },
-    { id: 2, text: 'Option 2', count: 57, checked: false },
-  ]);
+  const [pollOptions, setPollOptions] = useState([]);
   const [pollVotesAmount, setPollVotesAmount] = useState(0);
 
   useEffect(() => {
@@ -110,8 +107,10 @@ function Post() {
           style={{ color: 'var(--color-grey)', fontSize: '20px' }}
         />
         <span>&gt;</span>
-        <div className='user-post__group-image'>
-          <img src='https://picsum.photos/500/300' alt='post' />
+        <div className='user-post__group-image-wrapper'>
+          <div className='user-post__group-image'>
+            <img src='https://picsum.photos/500/300' alt='post' />
+          </div>
         </div>
         <div className='user-post__group-name'>food</div>
       </div>
@@ -155,8 +154,8 @@ function Post() {
           aperiam.
         </div> */}
       </div>
-      {/* 
-      <div className='user-post__image'>
+
+      {/* <div className='user-post__image'>
         <img
           src='https://picsum.photos/500/300'
           alt='post'

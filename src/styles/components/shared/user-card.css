@@ -9,9 +9,7 @@
   margin-top: 50px;
   border-radius: 12px;
   background-color: #fff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(204, 204, 204, 0.7);
-  /* box-shadow: 0 0 8px rgba(249, 161, 9, 1); */
   transition: all 0.3s ease-in-out;
 }
 
@@ -31,7 +29,6 @@
 }
 
 .user-card a:hover {
-  color: var(--color-main-yellow);
   text-decoration: underline;
 }
 
