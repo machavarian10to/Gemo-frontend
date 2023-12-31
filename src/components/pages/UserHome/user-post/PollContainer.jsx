@@ -10,27 +10,29 @@ function PollContainer({ option, onChange, totalVotes }) {
 
   return (
     <label className='user-post__poll-option-wrapper'>
-      <div className='user-post__poll-background'></div>
+      <div className='user-post__poll-background'>
+        <div className='user-post__poll-option-container'>
+          <div className='user-post__poll-input'>
+            <label className='user-post__radio-label'>
+              <input
+                type='radio'
+                name='radio'
+                checked={option.checked}
+                onChange={onChange}
+                value={option.text}
+              />
+              <span className='user-post__radio-checked'></span>
+              {option.text}
+            </label>
+          </div>
 
-      <div className='user-post__poll-option-container'>
-        <div className='user-post__poll-input'>
-          <label className='user-post__radio-label'>
-            <input
-              type='radio'
-              name='radio'
-              checked={option.checked}
-              onChange={onChange}
-              value={option.text}
-            />
-            <span className='user-post__radio-checked'></span>
-            {option.text}
-          </label>
-        </div>
-
-        <div className='user-post__poll-numbers'>
-          <div className='user-post__poll-option-percentage'>{percentage}%</div>
-          <div className='user-post__poll-option-count'>
-            {option.count} votes
+          <div className='user-post__poll-numbers'>
+            <div className='user-post__poll-option-percentage'>
+              {percentage}%
+            </div>
+            <div className='user-post__poll-option-count'>
+              {option.count} votes
+            </div>
           </div>
         </div>
       </div>

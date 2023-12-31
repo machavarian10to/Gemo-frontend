@@ -206,20 +206,6 @@
   margin-top: 13px;
 }
 
-.user-post__comment-section-user-comment {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.user-post__comment-section-input {
-  width: 100%;
-}
-
-.user-post__add-comment-btn {
-  margin-bottom: 5px;
-}
-
 .user-post__comment-list {
   display: flex;
   flex-direction: column;

@@ -1,60 +1,3 @@
-.user-post__comment-input-wrapper {
-  position: relative;
-}
-
-.user-post__comment-input {
-  padding: 10px 105px 0 10px;
-  min-height: 40px;
-  height: 40px;
-  max-height: 120px;
-  width: 100%;
-  border: none;
-  border-radius: 5px;
-  outline: 1px solid rgba(130, 130, 130, 0.7);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #333;
-  word-break: break-word;
-  resize: vertical;
-
-  &::placeholder {
-    color: #a0a0a0;
-    opacity: 0.7;
-    font-weight: 500;
-  }
-
-  &:focus {
-    outline: 1.5px solid var(--color-main-yellow);
-  }
-}
-
-.user-post__comment-icons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: absolute;
-  top: 8px;
-  right: 20px;
-}
-
-.user-post__comment-icons svg {
-  cursor: pointer;
-}
-
-.user-post__comment-icons svg path {
-  transition: all 0.3s ease;
-}
-
-.user-post__comment-icons svg:hover > path {
-  color: var(--color-main-yellow);
-}
-
-.user-post__comment-input-label {
-  display: flex;
-  align-items: center;
-}
-
 .user-post__comment-image-preview {
   width: 60px;
   height: 60px;
@@ -68,20 +11,6 @@
   height: 100%;
   object-fit: cover;
   border-radius: 4px;
-}
-
-.user-post__comment-input-emoji-picker-wrapper {
-  position: absolute;
-  top: -150px;
-  right: -260px;
-  z-index: 1000000;
-  border-radius: 10px;
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
-}
-
-.user-post__comment-input-emoji-picker-wrapper .EmojiPickerReact {
-  width: 25vw !important;
-  height: 50vh !important;
 }
 
 .user-post__comment-gif-tab-wrapper {
