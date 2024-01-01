@@ -131,6 +131,7 @@
   color: rgba(130, 130, 130, 0.7);
   cursor: pointer;
   font-size: 10px;
+  position: relative;
 }
 
 .user-post__footer-container {
@@ -159,17 +160,16 @@
 
 .user-post__emoji-picker-wrapper {
   position: absolute;
-}
-
-.user-post__emoji-picker-wrapper .EmojiPickerReact {
-  position: absolute;
-  width: 30vw !important;
-  height: 60vh !important;
-  top: 0;
-  left: 40px;
+  top: -30px;
+  left: 25px;
   z-index: 1000000;
   border-radius: 10px;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.user-post__emoji-picker-wrapper .EmojiPickerReact {
+  width: 30vw !important;
+  height: 60vh !important;
 }
 
 .user-post__emoji-list {
@@ -306,7 +306,7 @@
 .user-post__comment-react-emoji-picker-wrapper .EmojiPickerReact {
   width: 20vw !important;
   height: 50vh !important;
-  top: -200px;
+  top: -50px;
   left: 55px;
   z-index: 1000000;
   border-radius: 10px;

@@ -219,21 +219,21 @@ function Post() {
         <div className='user-post__footer-container' title='Add to favorites'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
         </div>
-      </div>
 
-      {showEmojis && (
-        <div className='user-post__emoji-picker-wrapper' ref={emojiPickerRef}>
-          <EmojiPicker
-            onEmojiClick={(emoji) => addEmoji(emoji)}
-            previewConfig={{ showPreview: false }}
-            autoFocusSearch={false}
-            emojiStyle='native'
-            theme='light'
-            height={450}
-            width={300}
-          />
-        </div>
-      )}
+        {showEmojis && (
+          <div className='user-post__emoji-picker-wrapper' ref={emojiPickerRef}>
+            <EmojiPicker
+              onEmojiClick={(emoji) => addEmoji(emoji)}
+              previewConfig={{ showPreview: false }}
+              autoFocusSearch={false}
+              emojiStyle='native'
+              theme='light'
+              height={450}
+              width={300}
+            />
+          </div>
+        )}
+      </div>
 
       {postEmojis.length > 0 && (
         <div className='user-post__emoji-list'>

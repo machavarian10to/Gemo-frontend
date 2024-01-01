@@ -67,7 +67,7 @@
 
 .user-post__comment-input-emoji-picker-wrapper {
   position: absolute;
-  top: -150px;
+  top: -20px;
   right: -260px;
   z-index: 1000000;
   border-radius: 10px;
