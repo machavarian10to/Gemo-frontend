@@ -55,7 +55,7 @@
 
 .user-post__header {
   display: flex;
-  gap: 5px;
+  gap: 3px;
 }
 
 .user-post__user-info {
@@ -86,7 +86,7 @@
   color: rgba(52, 51, 58, 0.3);
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
 }
 
 .user-post__date {

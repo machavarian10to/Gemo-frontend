@@ -72,7 +72,7 @@ function Comment({ comment }) {
               </div>
               <div className='user-post__date'>
                 <span>•</span>
-                <span>1d ago</span>
+                <span>1 day ago</span>
               </div>
             </div>
             <MoreHorizIcon style={{ color: '#828282', fontSize: '20px' }} />

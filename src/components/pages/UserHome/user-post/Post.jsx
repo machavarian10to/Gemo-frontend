@@ -17,6 +17,7 @@ import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 function Post({ type }) {
   const emojiPickerRef = useRef(null);
@@ -126,20 +127,20 @@ function Post({ type }) {
           <div className='user-post__details'>
             <div className='user-post__username'>@machavarian10to</div>
             <div className='user-post__user-level'>
-              <div className='user-post__user-level-name'>Novice Cook</div>
-              <LocalPoliceOutlinedIcon
-                style={{
-                  color: '#62baac',
-                  fontSize: '11px',
-                }}
-              />
+              <span>12 hours ago</span>
+              <span>•</span>
+              <AccessTimeIcon style={{ fontSize: '11px' }} />
             </div>
           </div>
         </div>
 
         <div className='user-post__date'>
-          <span>•</span>
-          <span>1d ago</span>
+          <LocalPoliceOutlinedIcon
+            style={{
+              color: '#62baac',
+              fontSize: '11px',
+            }}
+          />
         </div>
 
         <div className='user-post__menu'>
