@@ -1,7 +1,7 @@
 .event-tab-container {
   width: 100%;
   margin-top: 15px;
-  height: 210px;
+  height: 240px;
   border-radius: 4px;
   overflow: auto;
   padding: 5px 15px 5px 5px;
@@ -113,7 +113,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.1s;
   cursor: pointer;
 }
 
@@ -137,6 +136,10 @@
   font-size: 14px;
 }
 
+.event-location-wrapper{
+  margin-top: 10px;
+}
+
 .event-tab-container .event-description {
   margin-top: 20px;
   border: none;
@@ -145,11 +148,17 @@
   overflow-wrap: break-word;
   width: 100%;
   height: 80px;
-  padding: 10px;
+  padding: 10px 12px;
   border-radius: 4px;
   outline: 1px solid var(--color-grey);
   font-size: 13px;
   opacity: 0.8;
+
+  &::placeholder {
+    color: #a0a0a0;
+    opacity: 0.7;
+    font-weight: 500;
+  }
 }
 
 .event-tab-container .event-description:focus {

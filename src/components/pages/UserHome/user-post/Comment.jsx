@@ -108,7 +108,7 @@ function Comment({ comment }) {
             style={{
               color: showEmojis
                 ? 'var(--color-main-yellow)'
-                : 'rgba(130, 130, 130, 0.7)',
+                : 'rgba(130, 130, 130, 0.5)',
               fontSize: '13px',
             }}
           />
@@ -118,7 +118,7 @@ function Comment({ comment }) {
         <div className='user-post__comment-action'>
           <ModeCommentOutlinedIcon
             style={{
-              color: 'rgba(130, 130, 130, 0.7)',
+              color: 'rgba(130, 130, 130, 0.5)',
               fontSize: '13px',
             }}
           />

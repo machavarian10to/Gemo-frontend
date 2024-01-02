@@ -10,9 +10,17 @@
   white-space: nowrap;
   min-height: 32px;
   max-height: 56px;
-  transition: all 0.3s;
   border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   transition: all 0.3s;
+}
+
+.button__icon{
+  display: grid;
+  place-items: center;
 }
 
 .button:hover {

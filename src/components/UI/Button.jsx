@@ -8,6 +8,8 @@ function Button({
   submit = false,
   fillContainer = false,
   clickHandler,
+  leftIcon,
+  rightIcon,
 }) {
   return (
     <button
@@ -18,7 +20,9 @@ function Button({
       disabled={state === 'inactive'}
       type={submit ? 'submit' : 'button'}
     >
+      {leftIcon && <span className='button__icon'>{leftIcon}</span>}
       {label}
+      {rightIcon && <span className='button__icon'>{rightIcon}</span>}
     </button>
   );
 }
@@ -31,6 +35,8 @@ Button.propTypes = {
   submit: PropTypes.bool,
   fillContainer: PropTypes.bool,
   clickHandler: PropTypes.func,
+  leftIcon: PropTypes.element,
+  rightIcon: PropTypes.element,
 };
 
 export default Button;

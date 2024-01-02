@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import UserAvatar from '@/components/shared/UserAvatar';
-import EmojiPicker from 'emoji-picker-react';
-import useClickOutside from '@/hook/useClickOutside';
+import PropTypes from 'prop-types';
 import AddComment from '@/components/pages/UserHome/user-post/AddComment';
 import Comment from '@/components/pages/UserHome/user-post/Comment';
 import PollContainer from '@/components/pages/UserHome/user-post/PollContainer';
+import EventContainer from '@/components/pages/UserHome/user-post/EventContainer';
+import UserAvatar from '@/components/shared/UserAvatar';
+import Button from '@/components/UI/Button';
+import EmojiPicker from 'emoji-picker-react';
+import useClickOutside from '@/hook/useClickOutside';
 import Fade from '@mui/material/Fade';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -14,9 +17,8 @@ import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
-import Button from '@/components/UI/Button';
 
-function Post() {
+function Post({ type }) {
   const emojiPickerRef = useRef(null);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -163,6 +165,8 @@ function Post() {
         />
       </div> */}
 
+      {type === 'event' && <EventContainer />}
+
       {pollOptions.length > 0 && (
         <div className='user-post__poll'>
           {pollOptions.map((option) => (
@@ -274,5 +278,9 @@ function Post() {
     </div>
   );
 }
+
+Post.propTypes = {
+  type: PropTypes.string,
+};
 
 export default Post;

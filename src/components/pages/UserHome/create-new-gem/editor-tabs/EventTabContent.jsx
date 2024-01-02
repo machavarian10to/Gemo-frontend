@@ -6,6 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
+import Input from '@/components/UI/Input';
 
 function EventTabContent() {
   const [mediaSrc, setMediaSrc] = useState(null);
@@ -71,6 +72,10 @@ function EventTabContent() {
               minDate={new Date(Date.now() + 3600000)}
             />
           </div>
+        </div>
+
+        <div className='event-location-wrapper'>
+          <Input size='extra-small' placeholder='Event location...' />
         </div>
 
         <textarea

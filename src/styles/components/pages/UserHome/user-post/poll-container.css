@@ -12,7 +12,7 @@
   color: #333;
   white-space: nowrap;
   line-height: 20px;
-  border: 1px solid rgba(130, 130, 130, 0.7);
+  border: 1px solid var(--color-grey);
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
@@ -30,7 +30,7 @@
 .user-post__poll-option-count {
   font-size: 11px;
   font-weight: 500;
-  color: rgba(130, 130, 130, 0.7);
+  color: var(--color-grey);
 }
 
 .user-post__radio-label {
@@ -58,7 +58,7 @@
   left: 0;
   height: 20px;
   width: 20px;
-  border: 2px solid rgba(130, 130, 130, 0.5);
+  border: 2px solid var(--color-grey);
   border-radius: 50%;
   transition: all 0.2s ease-in-out;
   text-align: center;
@@ -80,8 +80,7 @@
   width: 60%;
   height: 60%;
   border-radius: 50%;
-  background: var(--color-main-yellow);
-  background: rgba(130, 130, 130, 0.5);
+  background: var(--color-grey);
 }
 
 .user-post__poll-option-container-inner {
