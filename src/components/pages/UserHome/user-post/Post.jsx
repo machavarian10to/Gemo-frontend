@@ -127,9 +127,9 @@ function Post({ type }) {
           <div className='user-post__details'>
             <div className='user-post__username'>@machavarian10to</div>
             <div className='user-post__user-level'>
-              <span>12 hours ago</span>
+              <AccessTimeIcon style={{ fontSize: '12px' }} />
               <span>•</span>
-              <AccessTimeIcon style={{ fontSize: '11px' }} />
+              <span>12 hours ago</span>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@ function Post({ type }) {
           <LocalPoliceOutlinedIcon
             style={{
               color: '#62baac',
-              fontSize: '11px',
+              fontSize: '9px',
             }}
           />
         </div>
@@ -157,8 +157,8 @@ function Post({ type }) {
           aperiam.
         </div> */}
       </div>
-
-      {/* <div className='user-post__image'>
+      {/* 
+      <div className='user-post__image'>
         <img
           src='https://picsum.photos/500/300'
           alt='post'
@@ -216,10 +216,6 @@ function Post({ type }) {
           <ReplyOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Share</span>
           <span>0</span>
-        </div>
-        <div className='user-post__footer-container'>
-          <ForwardToInboxOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Send</span>
         </div>
         <div className='user-post__footer-container' title='Add to favorites'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />

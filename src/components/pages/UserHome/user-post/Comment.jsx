@@ -6,12 +6,17 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EmojiPicker from 'emoji-picker-react';
-
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Fade } from '@mui/material';
 function Comment({ comment }) {
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
   const emojiPickerRef = useRef(null);
+
+  const [showEditComment, setShowEditComment] = useState(false);
+  const editCommentRef = useRef(null);
 
   useEffect(() => {
     const count = commentEmojis.reduce((acc, emoji) => {
@@ -22,6 +27,10 @@ function Comment({ comment }) {
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
+  });
+
+  useClickOutside(editCommentRef, () => {
+    setShowEditComment(false);
   });
 
   function addEmoji(commentEmoji) {
@@ -75,7 +84,38 @@ function Comment({ comment }) {
                 <span>1 day ago</span>
               </div>
             </div>
-            <MoreHorizIcon style={{ color: '#828282', fontSize: '20px' }} />
+            <MoreHorizIcon
+              style={{ color: '#828282', fontSize: '20px' }}
+              onClick={() => setShowEditComment((prev) => !prev)}
+            />
+
+            {showEditComment && (
+              <Fade in={showEditComment} timeout={400}>
+                <div
+                  className='user-post__comment-edit-wrapper'
+                  ref={editCommentRef}
+                >
+                  <div className='user-post__comment-edit-item'>
+                    <EditOutlinedIcon
+                      style={{
+                        fontSize: '20px',
+                        color: 'var(--color-main-yellow)',
+                      }}
+                    />
+                    <span>Edit</span>
+                  </div>
+                  <div className='user-post__comment-edit-item'>
+                    <DeleteOutlineOutlinedIcon
+                      style={{
+                        fontSize: '20px',
+                        color: 'var(--color-main-yellow)',
+                      }}
+                    />
+                    <span>Delete</span>
+                  </div>
+                </div>
+              </Fade>
+            )}
           </div>
           <div className='user-post__comment-text'>{comment.text}</div>
           {commentEmojis.length > 0 && (
