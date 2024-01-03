@@ -98,7 +98,7 @@ function Comment({ comment }) {
                   <div className='user-post__comment-edit-item'>
                     <EditOutlinedIcon
                       style={{
-                        fontSize: '20px',
+                        fontSize: '18px',
                         color: 'var(--color-main-yellow)',
                       }}
                     />
@@ -107,7 +107,7 @@ function Comment({ comment }) {
                   <div className='user-post__comment-edit-item'>
                     <DeleteOutlineOutlinedIcon
                       style={{
-                        fontSize: '20px',
+                        fontSize: '18px',
                         color: 'var(--color-main-yellow)',
                       }}
                     />

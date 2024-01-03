@@ -16,7 +16,8 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 function Post({ type }) {
@@ -34,6 +35,9 @@ function Post({ type }) {
   const [pollOptions, setPollOptions] = useState([]);
   const [pollVotesAmount, setPollVotesAmount] = useState(0);
 
+  const [showPostEdit, setShowPostEdit] = useState(false);
+  const postEditRef = useRef(null);
+
   useEffect(() => {
     const count = postEmojis.reduce((acc, emoji) => {
       return acc + emoji.count;
@@ -50,6 +54,10 @@ function Post({ type }) {
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
+  });
+
+  useClickOutside(postEditRef, () => {
+    setShowPostEdit(false);
   });
 
   function addEmoji(postEmoji) {
@@ -144,7 +152,38 @@ function Post({ type }) {
         </div>
 
         <div className='user-post__menu'>
-          <MoreHorizIcon style={{ color: '#828282' }} />
+          <MoreHorizIcon
+            style={{ color: '#828282' }}
+            onClick={() => setShowPostEdit((prev) => !prev)}
+          />
+
+          {showPostEdit && (
+            <Fade in={showPostEdit} timeout={400}>
+              <div
+                className='user-post__comment-edit-wrapper'
+                ref={postEditRef}
+              >
+                <div className='user-post__comment-edit-item'>
+                  <EditOutlinedIcon
+                    style={{
+                      fontSize: '18px',
+                      color: 'var(--color-main-yellow)',
+                    }}
+                  />
+                  <span>Edit</span>
+                </div>
+                <div className='user-post__comment-edit-item'>
+                  <DeleteOutlineOutlinedIcon
+                    style={{
+                      fontSize: '18px',
+                      color: 'var(--color-main-yellow)',
+                    }}
+                  />
+                  <span>Delete</span>
+                </div>
+              </div>
+            </Fade>
+          )}
         </div>
       </div>
 
