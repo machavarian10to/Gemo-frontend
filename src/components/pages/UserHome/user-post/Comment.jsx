@@ -8,12 +8,16 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EmojiPicker from 'emoji-picker-react';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import { Fade } from '@mui/material';
+import AddComment from '@/components/pages/UserHome/user-post/AddComment';
 function Comment({ comment }) {
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
   const emojiPickerRef = useRef(null);
+
+  const [showCommentReply, setShowCommentReply] = useState(false);
 
   const [showEditComment, setShowEditComment] = useState(false);
   const editCommentRef = useRef(null);
@@ -155,7 +159,10 @@ function Comment({ comment }) {
           <div>React</div>
           <span>{emojiCount}</span>
         </div>
-        <div className='user-post__comment-action'>
+        <div
+          className='user-post__comment-action'
+          onClick={() => setShowCommentReply(true)}
+        >
           <ModeCommentOutlinedIcon
             style={{
               color: 'rgba(130, 130, 130, 0.5)',
@@ -180,6 +187,26 @@ function Comment({ comment }) {
             theme='light'
           />
         </div>
+      )}
+
+      {showCommentReply && (
+        <Fade in={showCommentReply} timeout={400}>
+          <div className='user-post__comment-reply-wrapper'>
+            <div className='user-post__comment-reply'>
+              <AddComment placeholder={`Reply to ${emojiCount}`} value='test' />
+            </div>
+
+            <div className='user-post__comment-reply-actions'>
+              <div
+                className='user-post__comment-reply-action'
+                onClick={() => setShowCommentReply(false)}
+              >
+                <DoDisturbOnOutlinedIcon style={{ fontSize: '13px' }} />
+                <span>Cancel</span>
+              </div>
+            </div>
+          </div>
+        </Fade>
       )}
     </div>
   );

@@ -9,13 +9,14 @@ import UserAvatar from '@/components/shared/UserAvatar';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
+import PropTypes from 'prop-types';
 
-const AddComment = () => {
+const AddComment = ({ placeholder, value = '' }) => {
   useEffect(() => {
     fetchGifs('cooking');
   }, []);
 
-  const [userComment, setUserComment] = useState('');
+  const [userComment, setUserComment] = useState(value);
 
   const [showEmojis, setShowEmojis] = useState(false);
   const emojiPickerRef = useRef(null);
@@ -85,7 +86,7 @@ const AddComment = () => {
           <div className='user-post__comment-input-wrapper'>
             <textarea
               className='user-post__comment-input'
-              placeholder='Write a comment...'
+              placeholder={placeholder}
               value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
             />
@@ -202,6 +203,11 @@ const AddComment = () => {
       )}
     </>
   );
+};
+
+AddComment.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
 };
 
 export default AddComment;

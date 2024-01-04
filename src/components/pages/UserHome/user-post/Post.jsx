@@ -136,7 +136,6 @@ function Post({ type }) {
             <div className='user-post__username'>@machavarian10to</div>
             <div className='user-post__user-level'>
               <AccessTimeIcon style={{ fontSize: '12px' }} />
-              <span>•</span>
               <span>12 hours ago</span>
             </div>
           </div>
@@ -295,7 +294,8 @@ function Post({ type }) {
       {showCommentSection && (
         <Fade in={true} timeout={600}>
           <div className='user-post__comment-section'>
-            <AddComment />
+            <AddComment placeholder='Write a comment' />
+
             {commentList.length > 0 && (
               <div className='user-post__comment-list'>
                 {commentList.map((comment) => (

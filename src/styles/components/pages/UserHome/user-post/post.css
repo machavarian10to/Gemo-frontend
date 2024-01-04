@@ -68,7 +68,7 @@
 .user-post__details {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 
 .user-post__username {
@@ -102,7 +102,7 @@
 }
 
 .user-post__texts h3 {
-  margin-top: 5px;
+  margin-top: 8px;
   font-weight: 600;
   font-size: 22px;
   word-break: break-word;
@@ -284,7 +284,8 @@
   transition: all 0.7s ease;
 }
 
-.user-post__comment-action:hover > svg path {
+.user-post__comment-action:hover > svg path,
+.user-post__comment-reply-action:hover > svg path {
   color: var(--color-main-yellow);
 }
 
