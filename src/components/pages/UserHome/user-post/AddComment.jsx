@@ -134,6 +134,42 @@ const AddComment = () => {
                 />
               </div>
             )}
+
+            {showGifs && (
+              <div
+                className='user-post__comment-gif-tab-wrapper'
+                ref={gifTabRef}
+              >
+                <div className='user-post__comment-gif-tab'>
+                  <div className='search-gifs-wrapper' onKeyDown={searchGifs}>
+                    <Input
+                      value={searchGifValue}
+                      leftIcon={
+                        <SearchIcon
+                          style={{
+                            color: 'rgba(130, 130, 130, 0.6)',
+                            fontSize: '18px',
+                          }}
+                        />
+                      }
+                      size='extra-small'
+                      placeholder='Search most delicious gifs...'
+                      onInput={(e) => setSearchGifValue(e.target.value)}
+                    />
+                  </div>
+                  <div className='gifs-wrapper'>
+                    {gifs.map((gif) => (
+                      <div className='gif' key={gif.id}>
+                        <img
+                          src={gif.images.fixed_height.url}
+                          alt={gif.title}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -162,36 +198,6 @@ const AddComment = () => {
           ) : (
             <img src={mediaSrc} alt='user-post__comment-preview' />
           )}
-        </div>
-      )}
-
-      {showGifs && (
-        <div className='user-post__comment-gif-tab-wrapper' ref={gifTabRef}>
-          <div className='user-post__comment-gif-tab'>
-            <div className='search-gifs-wrapper' onKeyDown={searchGifs}>
-              <Input
-                value={searchGifValue}
-                leftIcon={
-                  <SearchIcon
-                    style={{
-                      color: 'rgba(130, 130, 130, 0.6)',
-                      fontSize: '18px',
-                    }}
-                  />
-                }
-                size='extra-small'
-                placeholder='Search most delicious gifs...'
-                onInput={(e) => setSearchGifValue(e.target.value)}
-              />
-            </div>
-            <div className='gifs-wrapper'>
-              {gifs.map((gif) => (
-                <div className='gif' key={gif.id}>
-                  <img src={gif.images.fixed_height.url} alt={gif.title} />
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       )}
     </>
