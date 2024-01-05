@@ -167,11 +167,6 @@
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
 
-.user-post__emoji-picker-wrapper .EmojiPickerReact {
-  width: 30vw !important;
-  height: 60vh !important;
-}
-
 .user-post__emoji-list {
   display: flex;
   align-items: center;
@@ -306,8 +301,6 @@
 }
 
 .user-post__comment-react-emoji-picker-wrapper .EmojiPickerReact {
-  width: 20vw !important;
-  height: 50vh !important;
   top: -50px;
   left: 55px;
   z-index: 1000000;

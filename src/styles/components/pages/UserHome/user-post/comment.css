@@ -20,6 +20,7 @@
 }
 
 .user-post__comment-gif-tab {
+  position: relative;
   padding: 10px;
   width: 270px;
   height: 350px;
@@ -64,6 +65,7 @@
 }
 
 .user-post__comment-reply-action {
+  width: 50px;
   margin-left: 40px;
   display: flex;
   align-items: center;

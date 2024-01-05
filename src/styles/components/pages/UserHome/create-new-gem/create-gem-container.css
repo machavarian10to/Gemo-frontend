@@ -125,6 +125,8 @@
 }
 
 .EmojiPickerReact {
+  width: 25vw !important;
+  height: 50vh !important;
   --epr-emoji-size: 25px;
   --epr-search-border-color: var(--color-main-yellow);
   --epr-highlight-color: var(--color-main-yellow);

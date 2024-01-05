@@ -130,8 +130,6 @@ const AddComment = ({ placeholder, value = '' }) => {
                   autoFocusSearch={false}
                   emojiStyle='native'
                   theme='light'
-                  height={450}
-                  width={300}
                 />
               </div>
             )}
