@@ -17,10 +17,10 @@
 }
 
 .logo {
-  background-image: url('@/assets/images/logo.png');
+  background-image: url('@/assets/images/2.png');
   margin-left: 70px;
   width: 100px;
-  height: 125px;
+  height: 100px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
