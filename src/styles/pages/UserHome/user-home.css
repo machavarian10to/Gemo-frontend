@@ -2,13 +2,13 @@
   padding: 70px;
 }
 
-.user-home .container-wrapper {
+.user-home__container-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.post-wrapper {
+.user-home__post-wrapper {
   width: 700px;
   margin-top: 20px;
   gap: 30px;

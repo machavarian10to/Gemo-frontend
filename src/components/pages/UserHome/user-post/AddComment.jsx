@@ -4,12 +4,12 @@ import useClickOutside from '@/hook/useClickOutside';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import TagFacesOutlinedIcon from '@mui/icons-material/TagFacesOutlined';
-import SendIcon from '@mui/icons-material/Send';
 import UserAvatar from '@/components/shared/UserAvatar';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 const AddComment = ({ placeholder, value = '' }) => {
   useEffect(() => {
@@ -173,7 +173,7 @@ const AddComment = ({ placeholder, value = '' }) => {
         </div>
 
         <div className='user-post__add-comment-btn'>
-          <SendIcon
+          <AddCircleOutlineOutlinedIcon
             style={{
               color: userComment.length > 0 ? '#f9a109' : '#ccc',
               fontSize: '20px',

@@ -1,18 +1,21 @@
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
 import Post from '@/components/pages/UserHome/user-post/Post';
 import Fade from '@mui/material/Fade';
+import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
 
 function UserHome() {
   return (
     <Fade in={true} timeout={600}>
       <div className='user-home'>
-        <div className='container-wrapper'>
+        <div className='user-home__container-wrapper'>
           <SpeechBubble />
 
-          <div className='post-wrapper'>
+          <div className='user-home__post-wrapper'>
             <Post />
           </div>
         </div>
+
+        <FoodRecommendation />
       </div>
     </Fade>
   );
