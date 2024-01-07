@@ -44,7 +44,7 @@
 
 .user-post__group-name {
   font-weight: 600;
-  color: #828282;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.3s;
 }

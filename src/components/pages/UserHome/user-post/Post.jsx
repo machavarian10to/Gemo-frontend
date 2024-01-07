@@ -190,21 +190,21 @@ function Post({ type }) {
 
       <div className='user-post__texts'>
         <h3>Whats hardest food to swallow?</h3>
-        <div className='user-post__body'>
+        {/* <div className='user-post__body'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
           nobis optio tempore magnam velit quo unde libero omnis, harum quos
           maxime vitae exercitationem minus adipisci quae iste ullam facilis
           aperiam.
-        </div>
+        </div> */}
       </div>
 
-      <div className='user-post__image'>
+      {/* <div className='user-post__image'>
         <img
           src='https://picsum.photos/500/300'
           alt='post'
           className='user-media-preview'
         />
-      </div>
+      </div> */}
 
       {type === 'event' && <EventContainer />}
 

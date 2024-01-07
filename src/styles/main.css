@@ -1,3 +1,4 @@
+@import '@/styles/components/pages/Authorization/google-button.css';
 @import '@/styles/components/pages/UserHome/create-new-gem/editor-tabs/event-tab-content.css';
 @import '@/styles/components/pages/UserHome/create-new-gem/editor-tabs/gift-tab-content.css';
 @import '@/styles/components/pages/UserHome/create-new-gem/editor-tabs/media-tab-content.css';
@@ -22,4 +23,5 @@
 @import '@/styles/components/UI/input.css';
 @import '@/styles/components/UI/progress-bar.css';
 @import '@/styles/components/UI/select.css';
-@import '@/styles/pages/UserHome/user-home.css';
+@import '@/styles/pages/authorization.css';
+@import '@/styles/pages/user-home.css';

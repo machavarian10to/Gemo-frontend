@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '@/App.jsx';
+import Authorization from '@/pages/Authorization';
 import UserHome from '@/pages/UserHome';
 import DiscussionPage from '@/pages/DiscussionPage';
 import '@/index.css';
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         element: <DiscussionPage />,
       },
     ],
+  },
+  {
+    path: '/auth',
+    element: <Authorization />,
   },
 ]);
 

@@ -18,17 +18,17 @@
   transition: all 0.3s;
 }
 
-.button__icon{
+.button__icon {
   display: grid;
   place-items: center;
 }
 
 .button:hover {
-  opacity: 0.9;
+  background-color: rgba(249, 161, 9, 0.8);
 }
 
 .button:active {
-  opacity: 0.8;
+  background-color: rgba(249, 161, 9, 0.7);
 }
 .button-primary {
   background-color: var(--color-main-yellow);
@@ -36,14 +36,14 @@
 .button-danger {
   background-color: var(--bg-main-red);
 }
-.button-base{
+.button-base {
   color: var(--color-main-yellow);
   background: none;
 }
-.button-base:hover{
+.button-base:hover {
   background: rgba(251, 222, 190, 0.3);
 }
-.button-base:active{
+.button-base:active {
   background: rgba(251, 222, 190, 0.1);
 }
 
