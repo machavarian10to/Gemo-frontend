@@ -4,8 +4,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(2px);
-  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.3);
   display: grid;
   place-items: center;
   z-index: 1000;
@@ -55,16 +55,23 @@
   gap: 10px;
 }
 
+.modal-body__gem-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
 .modal-body .audience-wrapper {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
 }
 
 .modal-body .audience-wrapper span {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-main-grey);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-grey);
 }
 
 .modal-body .audience-wrapper .audience {
@@ -72,7 +79,7 @@
   display: grid;
   place-self: center;
   cursor: pointer;
-  padding: 3px;
+  padding: 2px;
   transition: all 0.5s;
 }
 

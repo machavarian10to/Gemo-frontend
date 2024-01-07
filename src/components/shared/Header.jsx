@@ -25,7 +25,7 @@ function Header() {
           size='large'
           value={searchValue}
           type='text'
-          placeholder='type @ to search users, type > to search groups...'
+          placeholder='type @ to search users, type > to search flavors...'
           onInput={(e) => setSearchValue(e.target.value)}
         />
       </div>

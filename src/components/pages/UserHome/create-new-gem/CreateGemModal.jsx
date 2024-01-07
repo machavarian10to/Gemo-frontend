@@ -26,12 +26,12 @@ function CreatePostModal({ closeModal }) {
           </div>
           <div className='modal-body'>
             <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
-            <div>
+            <div className='modal-body__gem-details'>
               <h5>@machavarian10to</h5>
               <div className='audience-wrapper'>
-                <span>community:</span>
+                <span>Flavor:</span>
                 <div className='audience'>
-                  <PublicIcon style={{ fontSize: '15px' }} />
+                  <PublicIcon style={{ fontSize: '13px' }} />
                 </div>
               </div>
             </div>

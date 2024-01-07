@@ -19,6 +19,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import FastForwardOutlinedIcon from '@mui/icons-material/FastForwardOutlined';
 
 function Post({ type }) {
   const emojiPickerRef = useRef(null);
@@ -135,7 +136,8 @@ function Post({ type }) {
           <div className='user-post__details'>
             <div className='user-post__username'>@machavarian10to</div>
             <div className='user-post__user-level'>
-              <AccessTimeIcon style={{ fontSize: '12px' }} />
+              <FastForwardOutlinedIcon style={{ fontSize: '10px' }} />
+              {/* <span>&middot;</span> */}
               <span>12 hours ago</span>
             </div>
           </div>
@@ -188,21 +190,21 @@ function Post({ type }) {
 
       <div className='user-post__texts'>
         <h3>Whats hardest food to swallow?</h3>
-        {/* <div className='user-post__body'>
+        <div className='user-post__body'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
           nobis optio tempore magnam velit quo unde libero omnis, harum quos
           maxime vitae exercitationem minus adipisci quae iste ullam facilis
           aperiam.
-        </div> */}
+        </div>
       </div>
-      {/* 
+
       <div className='user-post__image'>
         <img
           src='https://picsum.photos/500/300'
           alt='post'
           className='user-media-preview'
         />
-      </div> */}
+      </div>
 
       {type === 'event' && <EventContainer />}
 

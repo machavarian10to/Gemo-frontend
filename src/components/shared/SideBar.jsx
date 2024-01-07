@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import UserCard from '@/components/shared/UserCard';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import EventIcon from '@mui/icons-material/Event';
 import LocalDiningOutlinedIcon from '@mui/icons-material/LocalDiningOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
@@ -8,6 +7,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 
 function SideBar() {
   return (
@@ -22,13 +22,13 @@ function SideBar() {
             </NavLink>
             <NavLink to='/discussion'>
               <PeopleAltOutlinedIcon />
-              <span>Groups</span>
+              <span>Flavors</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
-            <NavLink to='/notifications'>
-              <NotificationsOutlinedIcon />
-              <span>Activity</span>
+            <NavLink to='/videos'>
+              <PlayCircleOutlinedIcon />
+              <span>Bites</span>
             </NavLink>
             <NavLink to='/messages'>
               <EmailOutlinedIcon />
@@ -40,19 +40,19 @@ function SideBar() {
               <EventIcon />
               <span>Events</span>
             </NavLink>
-            <NavLink to='/videos'>
-              <OndemandVideoIcon />
-              <span>Watch</span>
+            <NavLink to='/notifications'>
+              <NotificationsOutlinedIcon />
+              <span>Activity</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
-            <NavLink to='/saved'>
-              <GradeOutlinedIcon />
-              <span>Favorites</span>
-            </NavLink>
             <NavLink to='/settings'>
               <SettingsOutlinedIcon />
               <span>Settings</span>
+            </NavLink>
+            <NavLink to='/saved'>
+              <GradeOutlinedIcon />
+              <span>Favorites</span>
             </NavLink>
           </div>
         </div>
