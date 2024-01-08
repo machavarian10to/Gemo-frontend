@@ -45,11 +45,13 @@
 
 .user-home__auth-left-body h5 {
   font-size: 1.2rem;
+  opacity: 0.8;
 }
 
 .user-home__auth-left-body h6 {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 500;
+  color: var(--color-main-grey);
 }
 
 .user-home__auth-left-body-inputs {

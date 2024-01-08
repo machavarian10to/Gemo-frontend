@@ -3,7 +3,7 @@ import Button from '@/components/UI/Button';
 import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import GoogleIcon from '@mui/icons-material/Google';
+import Checkbox from '@/components/UI/Checkbox';
 
 function Authorization() {
   return (
@@ -38,8 +38,7 @@ function Authorization() {
 
             <div className='user-home__auth-body-inputs-footer'>
               <div className='user-home__auth-remember-wrapper'>
-                <input type='checkbox' name='remember' id='remember' />
-                <label htmlFor='remember'>Remember me</label>
+                <Checkbox label='Remember me' />
               </div>
 
               <div className='user-home__auth-forgot-wrapper'>
@@ -47,13 +46,13 @@ function Authorization() {
               </div>
             </div>
             <Button label='Log in' />
-            {/* <GoogleButton /> */}
-            <div className='user-home__auth-google-button'>
+            <GoogleButton />
+            {/* <div className='user-home__auth-google-button'>
               <button>
                 <div className='user-home__auth-google-img'></div>
                 <span>Continue with google</span>
               </button>
-            </div>
+            </div> */}
 
             <div className='user-home__auth-footer'>
               <span>Don&apos;t have an account?</span>
