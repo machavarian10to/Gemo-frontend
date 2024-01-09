@@ -16,7 +16,6 @@ function Authorization() {
         </div>
 
         <div className='user-home__auth-left-body'>
-          <h5>Log in to your account</h5>
           <h6>Welcome back! Please enter your details.</h6>
           <div className='user-home__auth-left-body-inputs'>
             <Input
@@ -46,13 +45,16 @@ function Authorization() {
               </div>
             </div>
             <Button label='Log in' />
-            <GoogleButton />
-            {/* <div className='user-home__auth-google-button'>
+            <p className='user-home__auth-divider'>
+              <span>or</span>
+            </p>
+            {/* <GoogleButton /> */}
+            <div className='user-home__auth-google-button'>
               <button>
                 <div className='user-home__auth-google-img'></div>
                 <span>Continue with google</span>
               </button>
-            </div> */}
+            </div>
 
             <div className='user-home__auth-footer'>
               <span>Don&apos;t have an account?</span>
