@@ -47,8 +47,7 @@
 .user-home__auth-left-body h6 {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-main-grey);
-  margin-block: 5x;
+  margin-block: 5px;
 }
 
 .user-home__auth-left-body-inputs {
@@ -95,10 +94,11 @@
 }
 
 .user-home__auth-google-button button:hover {
-  background-color: #ccc;
+  background-color: var(--bg-main-white);
 }
 .user-home__auth-google-button button:active {
   background-color: var(--color-grey);
+  opacity: 0.5;
 }
 
 .user-home__auth-divider{

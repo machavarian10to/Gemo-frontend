@@ -88,10 +88,17 @@ function Comment({ comment }) {
                 <span>1 day ago</span>
               </div>
             </div>
-            <MoreHorizIcon
-              style={{ color: '#828282', fontSize: '20px' }}
-              onClick={() => setShowEditComment((prev) => !prev)}
-            />
+            <div
+              className='user-post__comment-menu'
+              style={{
+                background: showEditComment && '#fff',
+              }}
+            >
+              <MoreHorizIcon
+                style={{ color: '#828282', fontSize: '20px' }}
+                onClick={() => setShowEditComment((prev) => !prev)}
+              />
+            </div>
 
             {showEditComment && (
               <Fade in={showEditComment} timeout={400}>

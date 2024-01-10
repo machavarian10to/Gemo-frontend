@@ -29,7 +29,7 @@ function CreatePostModal({ closeModal }) {
             <div className='modal-body__gem-details'>
               <h5>@machavarian10to</h5>
               <div className='audience-wrapper'>
-                <span>Flavor:</span>
+                <span>flavor:</span>
                 <div className='audience'>
                   <PublicIcon style={{ fontSize: '13px' }} />
                 </div>

@@ -33,7 +33,7 @@
 
 .user-post__comment-edit-wrapper {
   position: absolute;
-  top: 20px;
+  top: 30px;
   right: 0;
   padding: 3px;
   background-color: #fff;
@@ -42,6 +42,16 @@
   font-weight: 500;
   border-radius: 4px;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.user-post__comment-menu{
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+
+.user-post__comment-menu:hover{
+  background-color: #fff;
 }
 
 .user-post__comment-edit-item {
