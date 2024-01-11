@@ -9,7 +9,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 
 const AddComment = ({ placeholder, value = '' }) => {
   useEffect(() => {
@@ -173,7 +173,7 @@ const AddComment = ({ placeholder, value = '' }) => {
         </div>
 
         <div className='user-post__add-comment-btn'>
-          <AddCircleOutlineOutlinedIcon
+          <AddCommentOutlinedIcon
             style={{
               color: userComment.length > 0 ? '#f9a109' : '#ccc',
               fontSize: '20px',
