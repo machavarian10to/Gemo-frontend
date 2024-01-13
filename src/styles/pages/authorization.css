@@ -14,6 +14,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: var(--color-grey);
 }
 
 .user-home__auth-left-logo {
@@ -45,9 +46,11 @@
 }
 
 .user-home__auth-left-body h6 {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 700;
   margin-block: 5px;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .user-home__auth-left-body-inputs {
@@ -64,11 +67,13 @@
   justify-content: space-between;
 }
 
-.user-home__auth-body-inputs-footer a,
-.user-home__auth-footer a {
+.user-home__auth-body-inputs-footer span.link,
+.user-home__auth-footer span.link {
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--color-main-yellow);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .user-home__auth-google-button button {
@@ -77,9 +82,10 @@
   outline: none;
   border: 1px solid var(--color-grey);
   background-color: #fff;
+  color: var(--color-grey);
   font-family: 'Quicksand';
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 20px;
   white-space: nowrap;
   min-height: 32px;
@@ -101,21 +107,21 @@
   opacity: 0.5;
 }
 
-.user-home__auth-divider{
+.user-home__auth-divider {
   position: relative;
   text-align: center;
   color: var(--color-grey);
 }
 
-.user-home__auth-divider span{
+.user-home__auth-divider span {
   position: relative;
-  padding-inline: 12px;
+  padding-inline: 15px;
   font-weight: 500;
   background-color: #fff;
-  color: var(--color-main-black);
+  color: var(--color-grey);
 }
 
-.user-home__auth-divider::before{
+.user-home__auth-divider::before {
   position: absolute;
   content: '';
   width: 100%;
@@ -144,6 +150,41 @@
   gap: 8px;
   font-size: 14px;
   font-weight: 500;
+}
+.user-home__auth-password-checker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-home__auth-password-progressbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-home__auth-password-strength {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-grey);
+  text-align: end;
+}
+
+.user-home__auth-password-input-wrapper {
+  position: relative;
+}
+
+.user-home__auth-password-eye {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
 }
 
 .user-home__auth-right {

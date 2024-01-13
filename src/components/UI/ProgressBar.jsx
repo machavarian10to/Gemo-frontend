@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
-function ProgressBar({ level, percent }) {
+function ProgressBar({ level, percent, color }) {
   return (
     <div className='progress-bar'>
       <div
         className={`progress-bar-inner ${level}`}
-        style={{ width: `${percent}%` }}
+        style={{ width: `${percent}%`, background: `${color}` }}
       ></div>
     </div>
   );
@@ -14,6 +14,7 @@ function ProgressBar({ level, percent }) {
 ProgressBar.propTypes = {
   level: PropTypes.string,
   percent: PropTypes.string,
+  color: PropTypes.string,
 };
 
 export default ProgressBar;

@@ -2,7 +2,7 @@
   width: 100%;
   height: 6px;
   border-radius: 4px;
-  background: #E0E0E0;
+    background: var(--bg-shade-40);
 }
 
 .progress-bar-inner {

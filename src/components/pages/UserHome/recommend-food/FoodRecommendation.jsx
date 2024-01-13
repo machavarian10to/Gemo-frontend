@@ -1,5 +1,4 @@
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
-import Button from '@/components/UI/Button';
 
 function FoodRecommendation() {
   return (
@@ -26,10 +25,6 @@ function FoodRecommendation() {
           eaque voluptate quos quas. Quisquam voluptatibus, quod, voluptas, quae
           quia quibusdam voluptatem aliquid eaque voluptate quos quas.
         </p>
-
-        <div className='user-home__food-recommends-content__button'>
-          <Button label='Show more' size='medium' type='base' />
-        </div>
       </div>
     </div>
   );
