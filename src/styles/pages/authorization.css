@@ -9,7 +9,6 @@
 .user-home__auth-left {
   width: 50%;
   height: 100%;
-  padding: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,8 +35,9 @@
 }
 
 .user-home__auth-left-body {
-  margin-top: 10px;
-  width: 100%;
+  border: 2px solid var(--color-grey);
+  padding: 20px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
