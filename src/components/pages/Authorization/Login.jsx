@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Input from '@/components/UI/Input';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
@@ -7,23 +8,53 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import Button from '@/components/UI/Button';
 import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 function Login({ setCurrentTab }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  function onLogin() {
+    setUsernameError('');
+    setPasswordError('');
+    if (!username) {
+      setUsernameError('Username cannot be empty!');
+      // return;
+    }
+    if (!password) {
+      setPasswordError('Password cannot be empty!');
+      // return;
+    }
+  }
+
   return (
     <Fade in={true} timeout={1000}>
       <div>
         <h6>Welcome back! Please enter your details.</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
+            focused={usernameError ? true : false}
+            value={username}
+            onInput={(e) => setUsername(e.target.value)}
             leftIcon={
               <AlternateEmailIcon
                 style={{ color: 'var(--color-grey)', fontSize: '18px' }}
               />
             }
             placeholder='Enter username'
+            state={usernameError ? 'danger' : 'active'}
+            helperText={usernameError ? usernameError : null}
           />
           <div className='user-home__auth-password-input-wrapper'>
             <Input
+              focused={passwordError ? true : false}
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onInput={(e) => setPassword(e.target.value)}
               leftIcon={
                 <VpnKeyOutlinedIcon
                   style={{
@@ -33,15 +64,22 @@ function Login({ setCurrentTab }) {
                 />
               }
               placeholder='Enter password'
+              state={passwordError ? 'danger' : 'active'}
+              helperText={passwordError ? passwordError : null}
             />
 
             <div className='user-home__auth-password-eye'>
-              <RemoveRedEyeOutlinedIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
-              />
-              {/* <VisibilityOffOutlinedIcon
-          style={{ color: 'var(--color-grey)', fontSize: '18px' }}
-        /> */}
+              {!showPassword ? (
+                <RemoveRedEyeOutlinedIcon
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                />
+              ) : (
+                <VisibilityOffOutlinedIcon
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                />
+              )}
             </div>
           </div>
 
@@ -59,7 +97,7 @@ function Login({ setCurrentTab }) {
               </span>
             </div>
           </div>
-          <Button label='Log in' />
+          <Button label='Log in' clickHandler={onLogin} />
           <p className='user-home__auth-divider'>
             <span>or</span>
           </p>

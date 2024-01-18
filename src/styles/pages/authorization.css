@@ -50,6 +50,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 30px;
+  color: var(--color-main-yellow);
 }
 
 .user-home__auth-left-body h5{
@@ -187,7 +188,7 @@
 
 .user-home__auth-password-eye {
   position: absolute;
-  top: 50%;
+  top: 20px;
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
