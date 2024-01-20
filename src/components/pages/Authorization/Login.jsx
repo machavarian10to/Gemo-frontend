@@ -23,11 +23,9 @@ function Login({ setCurrentTab }) {
     setPasswordError('');
     if (!username) {
       setUsernameError('Username cannot be empty!');
-      // return;
     }
     if (!password) {
       setPasswordError('Password cannot be empty!');
-      // return;
     }
   }
 
@@ -37,7 +35,6 @@ function Login({ setCurrentTab }) {
         <h6>Welcome back! Please enter your details.</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
-            focused={usernameError ? true : false}
             value={username}
             onInput={(e) => setUsername(e.target.value)}
             leftIcon={
@@ -51,7 +48,6 @@ function Login({ setCurrentTab }) {
           />
           <div className='user-home__auth-password-input-wrapper'>
             <Input
-              focused={passwordError ? true : false}
               type={showPassword ? 'text' : 'password'}
               value={password}
               onInput={(e) => setPassword(e.target.value)}

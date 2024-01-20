@@ -125,10 +125,11 @@
   display: grid;
   place-items: center;
   transition: all 0.2s;
-  padding: 1px;
+  border-radius: 4px;
+  padding: 3px;
 }
 
-.user-post__menu:hover{
+.user-post__menu:hover {
   background: var(--bg-main-white);
 }
 
@@ -165,6 +166,10 @@
 
 .user-post__image {
   margin-top: 10px;
+}
+
+.user-post__image .user-media-preview {
+  outline: none;
 }
 
 .user-post__emoji-picker-wrapper {

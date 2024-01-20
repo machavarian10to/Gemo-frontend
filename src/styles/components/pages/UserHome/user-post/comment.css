@@ -33,7 +33,7 @@
 
 .user-post__comment-edit-wrapper {
   position: absolute;
-  top: 30px;
+  top: 120%;
   right: 0;
   padding: 3px;
   background-color: #fff;
@@ -48,6 +48,8 @@
   display: grid;
   place-items: center;
   transition: all 0.2s;
+  border-radius: 4px;
+  padding: 2px;
 }
 
 .user-post__comment-menu:hover{

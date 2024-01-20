@@ -1,4 +1,5 @@
 @import '@/styles/main.css';
+/* rubik font */
 
 :root {
   --bg-main-white: #ebedf0;
@@ -141,7 +142,9 @@ body,
 .app {
   background: var(--bg-main-white);
   color: var(--color-main-black);
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .outlet {
