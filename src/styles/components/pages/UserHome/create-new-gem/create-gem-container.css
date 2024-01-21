@@ -125,16 +125,13 @@
 }
 
 .EmojiPickerReact {
-  width: 25vw !important;
-  height: 50vh !important;
-  --epr-emoji-size: 25px;
-  --epr-search-border-color: var(--color-main-yellow);
-  --epr-highlight-color: var(--color-main-yellow);
-  --epr-category-icon-active-color: var(--color-yellow-shade-05);
-  --epr-dark-category-icon-active-color: var(--color-main-yellow);
-  --epr-hover-bg-color: var(--bg-shade-10);
-  --epr-focus-bg-color: var(--bg-shade-11);
-  --epr-search-input-bg-color: transparent;
+  --epr-emoji-size: 25px !important;
+  --epr-search-border-color: var(--color-main-yellow) !important;
+  --epr-highlight-color: var(--color-main-yellow) !important;
+  --epr-category-icon-active-color: var(--color-yellow-shade-05) !important;
+  --epr-dark-category-icon-active-color: var(--color-main-yellow) !important;
+  --epr-hover-bg-color: var(--bg-shade-10) !important;
+  --epr-focus-bg-color: var(--bg-shade-11) !important;
 }
 
 .EmojiPickerReact:not(.epr-search-active)
