@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { Zoom } from '@mui/material';
 
 function Input({
   name,
@@ -8,6 +9,7 @@ function Input({
   state = 'active', // danger, inactive
   size = 'medium', // extra-small, small, medium, large
   onInput,
+  onBlur,
   placeholder,
   helperText,
   focused,
@@ -29,6 +31,7 @@ function Input({
         type={type}
         value={value}
         onInput={onInput}
+        onBlur={onBlur}
         placeholder={placeholder}
         disabled={state === 'inactive'}
         className={`input-component ${size} ${state} ${
@@ -36,9 +39,13 @@ function Input({
         }`}
       />
       {helperText && (
-        <p className={`${state === 'danger' ? 'error-text' : 'support-text'}`}>
-          {helperText}
-        </p>
+        <Zoom in={true} timeout={400}>
+          <p
+            className={`${state === 'danger' ? 'error-text' : 'support-text'}`}
+          >
+            {helperText}
+          </p>
+        </Zoom>
       )}
     </div>
   );
@@ -51,6 +58,7 @@ Input.propTypes = {
   state: PropTypes.string,
   size: PropTypes.string,
   onInput: PropTypes.func,
+  onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   helperText: PropTypes.string,
   focused: PropTypes.bool,

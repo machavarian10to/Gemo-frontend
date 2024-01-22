@@ -18,25 +18,54 @@ function Login({ setCurrentTab }) {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  function onLogin() {
+  function onUsernameInput(e) {
+    setUsernameError('');
+    setUsername(e.target.value);
+  }
+
+  function onUsernameBlur(e) {
+    if (e.target.value) {
+      setUsernameError('');
+    } else {
+      setUsernameError('Username should not be empty!');
+    }
+  }
+
+  function onPasswordInput(e) {
+    setPasswordError('');
+    setPassword(e.target.value);
+  }
+
+  function onPasswordBlur(e) {
+    if (e.target.value) {
+      setPasswordError('');
+    } else {
+      setPasswordError('Password should not be empty!');
+    }
+  }
+
+  function onLogin(e) {
+    e.preventDefault();
+
     setUsernameError('');
     setPasswordError('');
     if (!username) {
-      setUsernameError('Username cannot be empty!');
+      setUsernameError('Username should not be empty!');
     }
     if (!password) {
-      setPasswordError('Password cannot be empty!');
+      setPasswordError('Password should not be empty!');
     }
   }
 
   return (
     <Fade in={true} timeout={1000}>
-      <div>
+      <form onSubmit={(e) => onLogin(e)}>
         <h6>Welcome back! Please enter your details.</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
             value={username}
-            onInput={(e) => setUsername(e.target.value)}
+            onInput={(e) => onUsernameInput(e)}
+            onBlur={onUsernameBlur}
             leftIcon={
               <AlternateEmailIcon
                 style={{ color: 'var(--color-grey)', fontSize: '18px' }}
@@ -50,7 +79,8 @@ function Login({ setCurrentTab }) {
             <Input
               type={showPassword ? 'text' : 'password'}
               value={password}
-              onInput={(e) => setPassword(e.target.value)}
+              onInput={(e) => onPasswordInput(e)}
+              onBlur={onPasswordBlur}
               leftIcon={
                 <VpnKeyOutlinedIcon
                   style={{
@@ -112,7 +142,7 @@ function Login({ setCurrentTab }) {
             </span>
           </div>
         </div>
-      </div>
+      </form>
     </Fade>
   );
 }
