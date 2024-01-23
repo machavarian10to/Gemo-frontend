@@ -45,7 +45,6 @@ function ForgetPassword({ setCurrentTab }) {
         <div className='user-home__auth-left-body-inputs'>
           <Input
             onInput={onEmailInput}
-            dsa
             onBlur={checkEmail}
             value={email}
             state={emailError ? 'danger' : 'active'}

@@ -2,7 +2,7 @@
   width: 100%;
   height: 6px;
   border-radius: 4px;
-    background: var(--bg-shade-40);
+  background: #e0e0e0;
 }
 
 .progress-bar-inner {
@@ -11,23 +11,23 @@
 }
 
 .novice {
-    background: #62baac;
+  background: #62baac;
 }
 .home {
-    background: #56CCF2;
+  background: #56ccf2;
 }
 .enthusiast {
-    background: #f8ad9d;
+  background: #f8ad9d;
 }
 .gourmet {
-    background: #a52a2a;
+  background: #a52a2a;
 }
-.explorer{
-    background: #92bdd9;
+.explorer {
+  background: #92bdd9;
 }
-.professional{
-    background: #6c6377;
+.professional {
+  background: #6c6377;
 }
-.master{
-    background: #f9a109;
+.master {
+  background: #f9a109;
 }
