@@ -143,7 +143,7 @@ function Post({ type }) {
         <div className='user-post__date'>
           <LocalPoliceOutlinedIcon
             style={{
-              color: '#62baac',
+              color: 'var(--color-main-green)',
               fontSize: '9px',
             }}
           />
@@ -156,7 +156,7 @@ function Post({ type }) {
           }}
         >
           <MoreHorizIcon
-            style={{ color: '#828282' }}
+            style={{ color: 'var(--color-main-grey)' }}
             onClick={() => setShowPostEdit((prev) => !prev)}
           />
 

@@ -150,31 +150,31 @@ function PostTabContent() {
 
   const commandStyles = {
     bold: {
-      color: state.bold ? '#5E5E5E' : 'grey',
+      color: state.bold ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '24px',
     },
     italic: {
-      color: state.italic ? '#5E5E5E' : 'grey',
+      color: state.italic ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '23px',
     },
     underline: {
-      color: state.underline ? '#5E5E5E' : 'grey',
+      color: state.underline ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '23px',
     },
     strikeThrough: {
-      color: state.strikeThrough ? '#5E5E5E' : 'grey',
+      color: state.strikeThrough ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '24px',
     },
     fontSize: {
-      color: state.fontSize ? '#5E5E5E' : 'grey',
+      color: state.fontSize ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '23px',
     },
     bulletList: {
-      color: state.insertUnorderedList ? '#5E5E5E' : 'grey',
+      color: state.insertUnorderedList ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '22px',
     },
     numberedList: {
-      color: state.insertOrderedList ? '#5E5E5E' : 'grey',
+      color: state.insertOrderedList ? 'var(--bg-shade-32)' : 'grey',
       fontSize: '22px',
     },
     horizontal: {

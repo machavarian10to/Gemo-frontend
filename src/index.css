@@ -5,12 +5,15 @@
   --bg-main-white: #ebedf0;
   --bg-main-yellow: #fff0de;
   --bg-main-brown: #80485b;
-  --bg-main-red: #eb5757;
-  --color-main-yellow: #f9a109;
-  --color-main-grey: #828282;
+  --bg-main-red: #FF5252;
+  /* --color-main-yellow: #f9a109; */
+  --color-grey: rgba(128, 128, 128, 0.5);
+  --color-main-yellow: #FFA500;
+  --color-main-grey: #808080;
   --color-main-silver: #c0c0c0;
-  --color-grey: rgba(130, 130, 130, 0.5);
+  --color-light-grey: #ccc;
   --color-main-black: #34333a;
+  --color-main-green: #4CAF50;
 
   /* YELLOW */
   --color-yellow-shade-01: #ffba69;

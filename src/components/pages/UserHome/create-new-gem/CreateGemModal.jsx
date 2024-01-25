@@ -20,7 +20,7 @@ function CreatePostModal({ closeModal }) {
             <h4>Create a Gem</h4>
             <button onClick={closeModal}>
               <HighlightOffIcon
-                style={{ color: '#f9a109', fontSize: '25px' }}
+                style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
             </button>
           </div>

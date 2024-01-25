@@ -125,7 +125,7 @@
 .user-home__auth-divider span {
   position: relative;
   padding-inline: 15px;
-  font-weight: 500;
+  font-weight: 600;
   background-color: #fff;
   color: var(--color-grey);
 }

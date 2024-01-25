@@ -25,7 +25,7 @@ function Select({
           <span>{selectedOption}</span>
           <ArrowDropDownIcon
             style={{
-              color: '#BDBDBD',
+              color: 'var(--color-main-grey)',
               fontSize: '20px',
               transform: showOptions && 'rotate(0.5turn)',
               transition: 'transform 0.4s ease',

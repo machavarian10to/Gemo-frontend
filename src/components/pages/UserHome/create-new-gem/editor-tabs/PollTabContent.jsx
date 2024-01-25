@@ -162,7 +162,11 @@ function PollTabContent() {
                 onDragEnd={onDragEnd}
               >
                 <DragIndicatorIcon
-                  style={{ color: '#333', cursor: 'pointer', opacity: '0.5' }}
+                  style={{
+                    color: 'var(--bg-shade-42)',
+                    cursor: 'pointer',
+                    opacity: '0.5',
+                  }}
                 />
                 <div className='option-wrapper'>
                   <Input
@@ -176,7 +180,11 @@ function PollTabContent() {
                 {option.deleteIcon && (
                   <HighlightOffIcon
                     onClick={() => deleteOption(option.id)}
-                    style={{ color: '#333', cursor: 'pointer', opacity: '0.5' }}
+                    style={{
+                      color: 'var(--bg-shade-42)',
+                      cursor: 'pointer',
+                      opacity: '0.5',
+                    }}
                   />
                 )}
               </div>

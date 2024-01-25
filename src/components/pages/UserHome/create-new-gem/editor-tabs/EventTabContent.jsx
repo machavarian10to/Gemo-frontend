@@ -34,7 +34,7 @@ function EventTabContent() {
               onClick={() => setMediaSrc(null)}
             >
               <HighlightOffIcon
-                style={{ color: '#f9a109', fontSize: '25px' }}
+                style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
             </button>
             <img
@@ -53,7 +53,7 @@ function EventTabContent() {
             />
             <div className='event-image-uploader'>
               <WallpaperOutlinedIcon
-                style={{ color: '#ccc', fontSize: '70px' }}
+                style={{ color: 'var(--color-light-silver)', fontSize: '70px' }}
               />
               <p>choose photo for event</p>
             </div>

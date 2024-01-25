@@ -60,7 +60,9 @@ function MediaTabContent() {
             className='delete-media-icon'
             onClick={deleteMedia}
           >
-            <HighlightOffIcon style={{ color: '#f9a109', fontSize: '25px' }} />
+            <HighlightOffIcon
+              style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
+            />
           </button>
           {file.type.includes('video') ? (
             <video controls src={mediaSrc} className='user-media-preview' />
@@ -89,7 +91,7 @@ function MediaTabContent() {
             <div className='upload-wrapper'>
               <div className='upload-icon'>
                 <AddPhotoAlternateOutlinedIcon
-                  style={{ color: '#ccc', fontSize: '80px' }}
+                  style={{ color: 'var(--color-light-grey)', fontSize: '80px' }}
                 />
               </div>
               <p>Drag & Drop media or click in this zone to upload</p>

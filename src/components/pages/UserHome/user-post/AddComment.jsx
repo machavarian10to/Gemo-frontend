@@ -94,7 +94,9 @@ const AddComment = ({ placeholder, value = '' }) => {
             <div className='user-post__comment-icons'>
               <TagFacesOutlinedIcon
                 style={{
-                  color: showEmojis ? '#f9a109' : '#ccc',
+                  color: showEmojis
+                    ? 'var(--color-main-yellow)'
+                    : 'var(--color-light-grey)',
                   fontSize: '22px',
                 }}
                 onClick={() => setShowEmojis((prev) => !prev)}
@@ -107,12 +109,14 @@ const AddComment = ({ placeholder, value = '' }) => {
                   onChange={handleFileChange}
                 />
                 <ImageOutlinedIcon
-                  style={{ color: '#ccc', fontSize: '22px' }}
+                  style={{ color: 'var(--color-light-grey)', fontSize: '22px' }}
                 />
               </label>
               <GifBoxOutlinedIcon
                 style={{
-                  color: showGifs ? '#f9a109' : '#ccc',
+                  color: showGifs
+                    ? 'var(--color-main-yellow)'
+                    : 'var(--color-light-grey)',
                   fontSize: '22px',
                 }}
                 onClick={() => setShowGifs((prev) => !prev)}
@@ -175,7 +179,10 @@ const AddComment = ({ placeholder, value = '' }) => {
         <div className='user-post__add-comment-btn'>
           <AddCommentOutlinedIcon
             style={{
-              color: userComment.length > 0 ? '#f9a109' : '#ccc',
+              color:
+                userComment.length > 0
+                  ? 'var(--color-main-yellow)'
+                  : 'var(--color-light-grey)',
               fontSize: '20px',
               cursor: 'pointer',
             }}
@@ -190,7 +197,9 @@ const AddComment = ({ placeholder, value = '' }) => {
             className='delete-media-icon'
             onClick={deleteMedia}
           >
-            <HighlightOffIcon style={{ color: '#f9a109', fontSize: '18px' }} />
+            <HighlightOffIcon
+              style={{ color: 'var(--color-main-yellow)', fontSize: '18px' }}
+            />
           </button>
           {file?.type.includes('video') ? (
             <video controls src={mediaSrc} className='user-media-preview' />

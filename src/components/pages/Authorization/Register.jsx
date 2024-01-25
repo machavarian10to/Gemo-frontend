@@ -145,7 +145,7 @@ function Register({ setCurrentTab }) {
             value={password}
             state={passwordError ? 'danger' : 'active'}
             helperText={passwordError}
-            type='password'
+            type='text'
             leftIcon={
               <VpnKeyOutlinedIcon
                 style={{ color: 'var(--color-grey)', fontSize: '18px' }}
@@ -163,7 +163,7 @@ function Register({ setCurrentTab }) {
                     : passwordStrength === 'Normal'
                     ? 'var(--color-yellow-shade-04)'
                     : passwordStrength === 'Strong'
-                    ? '#62baac'
+                    ? 'var(--color-main-green)'
                     : ''
                 }
               />
@@ -173,13 +173,15 @@ function Register({ setCurrentTab }) {
                   passwordStrength === 'Normal'
                     ? 'var(--color-yellow-shade-04)'
                     : passwordStrength === 'Strong'
-                    ? '#62baac'
+                    ? 'var(--color-main-green)'
                     : ''
                 }
               />
               <ProgressBar
                 percent='100'
-                color={passwordStrength === 'Strong' ? '#62baac' : ''}
+                color={
+                  passwordStrength === 'Strong' ? 'var(--color-main-green)' : ''
+                }
               />
             </div>
             <div className='user-home__auth-password-strength'>
@@ -191,7 +193,7 @@ function Register({ setCurrentTab }) {
                       : passwordStrength === 'Normal'
                       ? { color: 'var(--color-yellow-shade-04)' }
                       : passwordStrength === 'Strong'
-                      ? { color: '#62baac' }
+                      ? { color: 'var(--color-main-green)' }
                       : ''
                   }
                 >

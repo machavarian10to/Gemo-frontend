@@ -91,11 +91,11 @@ function Comment({ comment }) {
             <div
               className='user-post__comment-menu'
               style={{
-                background: showEditComment && '#fff',
+                background: showEditComment && 'var(--bg-main-white)',
               }}
             >
               <MoreHorizIcon
-                style={{ color: '#828282', fontSize: '20px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '20px' }}
                 onClick={() => setShowEditComment((prev) => !prev)}
               />
             </div>
