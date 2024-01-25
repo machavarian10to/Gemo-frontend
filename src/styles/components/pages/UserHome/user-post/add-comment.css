@@ -14,8 +14,8 @@
 
 .user-post__comment-input {
   padding: 10px 105px 0 10px;
-  min-height: 40px;
-  height: 40px;
+  min-height: 60px;
+  height: 60px;
   max-height: 300px;
   width: 100%;
   border: none;
@@ -67,8 +67,8 @@
 
 .user-post__comment-input-emoji-picker-wrapper {
   position: absolute;
-  top: -20px;
-  right: -260px;
+  top: 55%;
+  right: -20%;
   z-index: 1000000;
   border-radius: 10px;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);

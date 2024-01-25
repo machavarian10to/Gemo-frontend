@@ -53,7 +53,7 @@ function EventTabContent() {
             />
             <div className='event-image-uploader'>
               <WallpaperOutlinedIcon
-                style={{ color: 'var(--color-light-silver)', fontSize: '70px' }}
+                style={{ color: 'var(--color-light-grey)', fontSize: '70px' }}
               />
               <p>choose photo for event</p>
             </div>

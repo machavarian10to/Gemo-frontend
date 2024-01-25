@@ -9,7 +9,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
-import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 const AddComment = ({ placeholder, value = '' }) => {
   useEffect(() => {
@@ -177,13 +177,13 @@ const AddComment = ({ placeholder, value = '' }) => {
         </div>
 
         <div className='user-post__add-comment-btn'>
-          <AddCommentOutlinedIcon
+          <SendOutlinedIcon
             style={{
               color:
                 userComment.length > 0
                   ? 'var(--color-main-yellow)'
                   : 'var(--color-light-grey)',
-              fontSize: '20px',
+              fontSize: '23px',
               cursor: 'pointer',
             }}
           />

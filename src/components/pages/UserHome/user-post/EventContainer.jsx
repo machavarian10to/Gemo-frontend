@@ -12,7 +12,7 @@ function EventContainer() {
       <div className='user-post__event-image'>
         <img src='https://picsum.photos/500/300' alt='post' />
         <div className='user-post__event-icon'>
-          <EventAvailableIcon style={{ color: 'white' }} />
+          <EventAvailableIcon style={{ color: '#fff' }} />
         </div>
       </div>
 

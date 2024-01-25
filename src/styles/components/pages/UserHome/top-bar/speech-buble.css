@@ -1,7 +1,10 @@
 .speech-bubble-wrapper {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
+  background-color: #fff;
+  padding: 25px;
+  width: 700px;
 }
 
 .speech-bubble {
@@ -11,15 +14,14 @@
   color: #bdbdbd;
   font-size: 14px;
   font-weight: 500;
-  width: 210px;
+  width: 80%;
   height: 50px;
   position: relative;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #fff;
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-main-white);
   transition: all 0.3s;
 }
 
@@ -29,11 +31,29 @@
   width: 0;
   height: 0;
   border-top: 12px solid transparent;
-  border-right: 30px solid #fff;
+  border-right: 30px solid var(--bg-main-white);
   border-bottom: 12px solid transparent;
   margin: 10px 0 0 -15px;
 }
 
 .speech-bubble:hover {
-  box-shadow: 0px 0px 10px rgba(249, 161, 9, 0.3);
+  /* box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1); */
+  /* box-shadow: 0px 0px 10px rgba(249, 161, 9, 0.3); */
+  transform: scale(1.02);
+}
+
+.user-home__speech-bubble-icons-wrapper {
+  color: var(--color-grey);
+  display: flex;
+  gap: 20px;
+}
+
+.user-home__speech-bubble-icons-wrapper svg {
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 22px;
+}
+
+.user-home__speech-bubble-icons-wrapper svg:hover {
+  color: var(--color-main-yellow);
 }

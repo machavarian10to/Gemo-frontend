@@ -12,17 +12,17 @@ import EventTabContent from '@/components/pages/UserHome/create-new-gem/editor-t
 import GifTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/GifTabContent';
 import Button from '@/components/UI/Button';
 
-export default function CreatePostContainer({ closeModal }) {
-  const [activeTab, setActiveTab] = useState('post');
+export default function CreatePostContainer({
+  closeModal,
+  activeTab,
+  handleActiveTab,
+}) {
   const [postTitle, setPostTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
 
   function clickHandler() {
+    // TODO: send post data to server
     closeModal();
-  }
-
-  function handleActiveTab(tabName) {
-    setActiveTab(tabName);
   }
 
   function setTitle(e) {
@@ -111,4 +111,6 @@ export default function CreatePostContainer({ closeModal }) {
 
 CreatePostContainer.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  handleActiveTab: PropTypes.func.isRequired,
 };

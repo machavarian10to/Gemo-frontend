@@ -7,7 +7,7 @@ import useClickOutside from '@/hook/useClickOutside';
 import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 
-function CreatePostModal({ closeModal }) {
+function CreatePostModal({ closeModal, activeTab, handleActiveTab }) {
   const modalContentRef = useRef();
 
   useClickOutside(modalContentRef, () => closeModal());
@@ -37,7 +37,11 @@ function CreatePostModal({ closeModal }) {
             </div>
           </div>
           <div className='modal-footer'>
-            <CreateGemContainer closeModal={closeModal} />
+            <CreateGemContainer
+              closeModal={closeModal}
+              activeTab={activeTab}
+              handleActiveTab={handleActiveTab}
+            />
           </div>
         </div>
       </div>
@@ -47,6 +51,8 @@ function CreatePostModal({ closeModal }) {
 
 CreatePostModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  handleActiveTab: PropTypes.func.isRequired,
 };
 
 export default CreatePostModal;

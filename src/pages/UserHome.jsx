@@ -12,6 +12,8 @@ function UserHome() {
 
           <div className='user-home__post-wrapper'>
             <Post />
+            <Post />
+            <Post />
           </div>
         </div>
 

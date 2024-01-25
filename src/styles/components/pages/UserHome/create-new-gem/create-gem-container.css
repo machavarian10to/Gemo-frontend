@@ -2,7 +2,7 @@
   width: 100%;
   height: 210px;
   margin-top: 15px;
-  outline: 1px solid var(--color-grey);
+  outline: 1.5px solid var(--color-grey);
   border-radius: 5px;
 }
 
@@ -125,6 +125,8 @@
 }
 
 .EmojiPickerReact {
+  width: 350px !important;
+  height: 350px !important;
   --epr-emoji-size: 25px !important;
   --epr-search-border-color: var(--color-main-yellow) !important;
   --epr-highlight-color: var(--color-main-yellow) !important;
