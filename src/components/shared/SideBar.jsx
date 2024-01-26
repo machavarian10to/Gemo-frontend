@@ -22,7 +22,7 @@ function SideBar() {
             </NavLink>
             <NavLink to='/discussion'>
               <PeopleAltOutlinedIcon />
-              <span>Flavors</span>
+              <span>Groups</span>
             </NavLink>
           </div>
           <div className='navigation-container'>

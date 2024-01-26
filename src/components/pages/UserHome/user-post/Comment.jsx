@@ -91,7 +91,7 @@ function Comment({ comment }) {
             <div
               className='user-post__comment-menu'
               style={{
-                background: showEditComment && 'var(--bg-main-white)',
+                background: showEditComment && '#fff',
               }}
             >
               <MoreHorizIcon
@@ -160,7 +160,7 @@ function Comment({ comment }) {
               color: showEmojis
                 ? 'var(--color-main-yellow)'
                 : 'rgba(130, 130, 130, 0.5)',
-              fontSize: '13px',
+              fontSize: '15px',
             }}
           />
           <div>React</div>
@@ -173,7 +173,7 @@ function Comment({ comment }) {
           <ModeCommentOutlinedIcon
             style={{
               color: 'rgba(130, 130, 130, 0.5)',
-              fontSize: '13px',
+              fontSize: '15px',
             }}
           />
           <div>Reply</div>
@@ -208,7 +208,7 @@ function Comment({ comment }) {
                 className='user-post__comment-reply-action'
                 onClick={() => setShowCommentReply(false)}
               >
-                <DoDisturbOnOutlinedIcon style={{ fontSize: '13px' }} />
+                <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
                 <span>Cancel</span>
               </div>
             </div>

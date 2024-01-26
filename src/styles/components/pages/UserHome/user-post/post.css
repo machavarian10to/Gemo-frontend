@@ -281,7 +281,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-grey);
   cursor: pointer;
@@ -290,7 +290,7 @@
 .user-post__comment-action {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   transition: all 0.7s ease;
 }
 
