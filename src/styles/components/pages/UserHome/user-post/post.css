@@ -236,7 +236,7 @@
 .user-post__comment {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 
 .user-post__comment-details {

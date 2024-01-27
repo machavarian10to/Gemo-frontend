@@ -30,7 +30,7 @@ function SpeechBubble() {
   return (
     <>
       <div className='speech-bubble-wrapper'>
-        <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
+        <UserAvatar src='https://scontent.ftbs5-3.fna.fbcdn.net/v/t1.6435-1/31732324_878502372337372_8444703090384306176_n.jpg?stp=dst-jpg_p480x480&_nc_cat=107&ccb=1-7&_nc_sid=2b6aad&_nc_eui2=AeHLL9eHBEgIA6pijxUYA3TXbIHL1KnP--FsgcvUqc_74TXxWbsxZ9yN8dhhUzG7_3g2o7-tQma62Sl2E_KxabeR&_nc_ohc=amdfO4pT21cAX8WCnsu&_nc_ht=scontent.ftbs5-3.fna&oh=00_AfAuIC2uYOD4CUv0OwheNEMRbrufmtbuVGXAws_kzC9X9g&oe=65DC2E7D' />
         <div onClick={() => iconClickHandler('post')} className='speech-bubble'>
           What should I eat?
         </div>
