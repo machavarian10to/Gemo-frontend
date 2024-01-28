@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Login from '@/components/pages/Authorization/Login';
-import Register from '@/components/pages/Authorization/Register';
+import LoginPage from '@/components/pages/Authorization/LoginPage';
+import RegisterPage from '@/components/pages/Authorization/RegisterPage';
 import ForgetPassword from '@/components/pages/Authorization/ForgetPassword';
 
 function Authorization() {
@@ -16,9 +16,11 @@ function Authorization() {
         </div>
 
         <div className='user-home__auth-left-body'>
-          {currentTab === 'login' && <Login setCurrentTab={setCurrentTab} />}
+          {currentTab === 'login' && (
+            <LoginPage setCurrentTab={setCurrentTab} />
+          )}
           {currentTab === 'register' && (
-            <Register setCurrentTab={setCurrentTab} />
+            <RegisterPage setCurrentTab={setCurrentTab} />
           )}
           {currentTab === 'forget-password' && (
             <ForgetPassword setCurrentTab={setCurrentTab} />

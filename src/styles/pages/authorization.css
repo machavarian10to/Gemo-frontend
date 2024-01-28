@@ -179,7 +179,6 @@
   font-size: 12px;
   font-weight: 600;
   color: var(--color-grey);
-  /* text-align: end; */
 }
 
 .user-home__auth-password-input-wrapper {

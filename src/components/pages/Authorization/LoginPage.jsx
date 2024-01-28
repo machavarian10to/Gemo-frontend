@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Input from '@/components/UI/Input';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
@@ -9,6 +9,7 @@ import Button from '@/components/UI/Button';
 import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import axios from 'axios';
 
 function Login({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,23 +24,19 @@ function Login({ setCurrentTab }) {
     setUsername(e.target.value);
   }
 
-  function onUsernameBlur(e) {
-    if (e.target.value) {
-      setUsernameError('');
-    } else {
-      setUsernameError('Username should not be empty!');
-    }
-  }
-
   function onPasswordInput(e) {
     setPasswordError('');
     setPassword(e.target.value);
   }
 
-  function onPasswordBlur(e) {
-    if (e.target.value) {
-      setPasswordError('');
-    } else {
+  function onUsernameBlur() {
+    if (!username) {
+      setUsernameError('Username should not be empty!');
+    }
+  }
+
+  function onPasswordBlur() {
+    if (!password) {
       setPasswordError('Password should not be empty!');
     }
   }
@@ -47,19 +44,40 @@ function Login({ setCurrentTab }) {
   function onLogin(e) {
     e.preventDefault();
 
-    setUsernameError('');
-    setPasswordError('');
-    if (!username) {
-      setUsernameError('Username should not be empty!');
-    }
-    if (!password) {
-      setPasswordError('Password should not be empty!');
-    }
+    onUsernameBlur();
+    onPasswordBlur();
+
+    if (usernameError || passwordError || !username || !password) return;
+
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+        username,
+        password,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { message, type } = err.response.data;
+          if (type === 'username') {
+            setUsernameError(message);
+          }
+          if (type === 'password') {
+            setPasswordError(message);
+          }
+          if (type === 'all') {
+            setUsernameError(message);
+            setPasswordError(message);
+          }
+        }
+        console.log(err.response.data);
+      });
   }
 
   return (
     <Fade in={true} timeout={1000}>
-      <form onSubmit={(e) => onLogin(e)}>
+      <form onSubmit={onLogin}>
         <h6>Welcome back! Please enter your details.</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
