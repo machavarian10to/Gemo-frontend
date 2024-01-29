@@ -10,6 +10,7 @@ import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
+import AlertBox from '@/components/UI/AlertBox';
 
 function Login({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +19,9 @@ function Login({ setCurrentTab }) {
 
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [notification, setNotification] = useState(true);
 
   function onUsernameInput(e) {
     setUsernameError('');
@@ -49,13 +53,16 @@ function Login({ setCurrentTab }) {
 
     if (usernameError || passwordError || !username || !password) return;
 
+    setIsButtonDisabled(true);
+
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         username,
         password,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        window.location.href = '/';
       })
       .catch((err) => {
         if (err.response) {
@@ -71,7 +78,12 @@ function Login({ setCurrentTab }) {
             setPasswordError(message);
           }
         }
-        console.log(err.response.data);
+        if (err.message === 'Network Error') {
+          alert('Network Error');
+        }
+      })
+      .finally(() => {
+        setIsButtonDisabled(false);
       });
   }
 
@@ -141,7 +153,11 @@ function Login({ setCurrentTab }) {
               </span>
             </div>
           </div>
-          <Button label='Log in' clickHandler={onLogin} />
+          <Button
+            label='Log in'
+            clickHandler={onLogin}
+            state={isButtonDisabled ? 'inactive' : 'active'}
+          />
           <p className='user-home__auth-divider'>
             <span>or</span>
           </p>
@@ -160,6 +176,10 @@ function Login({ setCurrentTab }) {
             </span>
           </div>
         </div>
+
+        {notification && (
+          <AlertBox message={'Login successful'} type={notification.type} />
+        )}
       </form>
     </Fade>
   );

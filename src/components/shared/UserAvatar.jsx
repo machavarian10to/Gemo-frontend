@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
-function UserAvatar({ size = 40, src }) {
+function UserAvatar({ width = 40, height = 40, src }) {
   return (
     <div
       style={{
-        width: `${size}px`,
-        height: `${size}px`,
+        width: `${width}px`,
+        height: `${height}px`,
         backgroundImage: `url(${src})`,
       }}
       className='avatar'
@@ -14,7 +14,8 @@ function UserAvatar({ size = 40, src }) {
 }
 
 UserAvatar.propTypes = {
-  size: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
   src: PropTypes.string,
 };
 

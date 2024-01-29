@@ -22,6 +22,7 @@
 @import '@/styles/components/UI/button.css';
 @import '@/styles/components/UI/checkbox.css';
 @import '@/styles/components/UI/input.css';
+@import '@/styles/components/UI/alert-box.css';
 @import '@/styles/components/UI/progress-bar.css';
 @import '@/styles/components/UI/select.css';
 @import '@/styles/pages/authorization.css';

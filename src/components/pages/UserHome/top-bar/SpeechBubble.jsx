@@ -30,7 +30,10 @@ function SpeechBubble() {
   return (
     <>
       <div className='speech-bubble-wrapper'>
-        <UserAvatar src='https://scontent.ftbs5-3.fna.fbcdn.net/v/t1.6435-1/31732324_878502372337372_8444703090384306176_n.jpg?stp=dst-jpg_p480x480&_nc_cat=107&ccb=1-7&_nc_sid=2b6aad&_nc_eui2=AeHLL9eHBEgIA6pijxUYA3TXbIHL1KnP--FsgcvUqc_74TXxWbsxZ9yN8dhhUzG7_3g2o7-tQma62Sl2E_KxabeR&_nc_ohc=amdfO4pT21cAX8WCnsu&_nc_ht=scontent.ftbs5-3.fna&oh=00_AfAuIC2uYOD4CUv0OwheNEMRbrufmtbuVGXAws_kzC9X9g&oe=65DC2E7D' />
+        <UserAvatar
+          width={50}
+          src='https://scontent.ftbs6-2.fna.fbcdn.net/v/t39.30808-1/415248429_3758616254371704_4772611569679784427_n.jpg?stp=dst-jpg_p480x480&_nc_cat=108&ccb=1-7&_nc_sid=11e7ab&_nc_eui2=AeFHQIbliY8gUmuBhEviDzqSau-bMcOUzwpq75sxw5TPCni_L5QuVoYkh0_c4cfjO22t05Kf5aZGlmem6ts4S0GL&_nc_ohc=6QSD1tQsiJMAX8FQbZH&_nc_ht=scontent.ftbs6-2.fna&oh=00_AfBc48c58ytOBET5tNxxT5RpAk8s6L-Fu__CMrk8i8kfkA&oe=65BBF017'
+        />
         <div onClick={() => iconClickHandler('post')} className='speech-bubble'>
           What should I eat?
         </div>

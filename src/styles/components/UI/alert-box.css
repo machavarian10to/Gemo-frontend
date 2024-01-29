@@ -1,0 +1,36 @@
+.notification-component {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 300px;
+  height: 100px;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  border-radius: 5px;
+}
+
+.notification-component_type{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: red;
+    border-radius: 5px 5px 0 0;
+}
+
+.notification-component_type.info
+.notification-component_type.error
+.notification-component_type.warning
+.notification-component_type.success
+
+.notification-component_close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}

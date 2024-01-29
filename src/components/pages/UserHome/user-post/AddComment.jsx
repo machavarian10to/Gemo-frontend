@@ -78,10 +78,7 @@ const AddComment = ({ placeholder, value = '' }) => {
   return (
     <>
       <div className='user-post__comment-section-user-comment'>
-        <UserAvatar
-          size='32'
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
-        />
+        <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
         <div className='user-post__comment-section-input'>
           <div className='user-post__comment-input-wrapper'>
             <textarea

@@ -74,7 +74,8 @@ function Comment({ comment }) {
     <div className='user-post__comment-wrapper'>
       <div className='user-post__comment'>
         <UserAvatar
-          size='30'
+          width={32}
+          height={32}
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
         />
         <div className='user-post__comment-details'>

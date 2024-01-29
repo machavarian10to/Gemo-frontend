@@ -114,7 +114,7 @@ function Post({ type }) {
     <div className='user-post'>
       {/* <div className='user-post__group'>
         <PeopleAltOutlinedIcon
-          style={{ color: 'var(--color-grey)', fontSize: '20px' }}
+          style={{ color: 'var(--color-grey)', fontSize: '22px' }}
         />
         <span>&gt;</span>
         <div className='user-post__group-image-wrapper'>
@@ -128,7 +128,8 @@ function Post({ type }) {
       <div className='user-post__header'>
         <div className='user-post__user-info'>
           <UserAvatar
-            size='30'
+            width={32}
+            height={32}
             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
           />
           <div className='user-post__details'>

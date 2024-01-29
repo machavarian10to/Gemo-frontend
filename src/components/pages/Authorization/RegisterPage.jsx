@@ -159,6 +159,10 @@ function Register({ setCurrentTab }) {
             setPasswordError(message);
           }
         }
+
+        if (err.message === 'Network Error') {
+          alert('Network Error');
+        }
       })
       .finally(() => {
         setIsButtonDisabled(false);

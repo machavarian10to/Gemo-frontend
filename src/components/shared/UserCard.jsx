@@ -7,7 +7,8 @@ function UserCard() {
     <div className='user-card'>
       <div className='avatar-wrapper'>
         <UserAvatar
-          size='60'
+          width={50}
+          height={50}
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
         />
       </div>
