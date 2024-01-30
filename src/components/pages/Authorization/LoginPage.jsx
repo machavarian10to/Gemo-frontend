@@ -178,7 +178,10 @@ function Login({ setCurrentTab }) {
         </div>
 
         {notification && (
-          <AlertBox message={'Login successful'} type={notification.type} />
+          <AlertBox
+            message='Registration is successful!'
+            type={notification.type}
+          />
         )}
       </form>
     </Fade>
