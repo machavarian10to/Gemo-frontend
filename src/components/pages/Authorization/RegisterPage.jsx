@@ -24,7 +24,7 @@ function Register({ setCurrentTab }) {
   const [passwordStrength, setPasswordStrength] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const [alertMessage, setAlertMessage] = useState('');
+  const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   function isValidEmail() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -131,7 +131,7 @@ function Register({ setCurrentTab }) {
       return;
 
     setIsButtonDisabled(true);
-    setAlertMessage('');
+    setAlertBox({ message: '', type: '' });
 
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
@@ -141,8 +141,13 @@ function Register({ setCurrentTab }) {
       })
       .then((res) => {
         if (res.statusText === 'OK') {
-          // TODO: Show success message
-          setCurrentTab('login');
+          setAlertBox({
+            message: 'Registration successful!',
+            type: 'success',
+          });
+          setTimeout(() => {
+            setCurrentTab('login');
+          }, 2000);
         }
       })
       .catch((err) => {
@@ -165,7 +170,10 @@ function Register({ setCurrentTab }) {
         }
 
         if (err.message === 'Network Error') {
-          setAlertMessage('Network Error!');
+          setAlertBox({
+            message: 'Network Error',
+            type: 'error',
+          });
         }
       })
       .finally(() => {
@@ -295,7 +303,9 @@ function Register({ setCurrentTab }) {
           </div>
         </div>
 
-        {alertMessage && <AlertBox type='error' message={alertMessage} />}
+        {alertBox.message && (
+          <AlertBox type={alertBox.type} message={alertBox.message} />
+        )}
       </form>
     </Fade>
   );
