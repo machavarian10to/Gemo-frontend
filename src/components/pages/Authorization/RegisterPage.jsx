@@ -8,6 +8,7 @@ import ProgressBar from '@/components/UI/ProgressBar';
 import Button from '@/components/UI/Button';
 import { Fade } from '@mui/material';
 import axios from 'axios';
+import AlertBox from '@/components/UI/AlertBox';
 
 function Register({ setCurrentTab }) {
   const [email, setEmail] = useState('');
@@ -22,6 +23,8 @@ function Register({ setCurrentTab }) {
 
   const [passwordStrength, setPasswordStrength] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [alertMessage, setAlertMessage] = useState('');
 
   function isValidEmail() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -128,6 +131,7 @@ function Register({ setCurrentTab }) {
       return;
 
     setIsButtonDisabled(true);
+    setAlertMessage('');
 
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
@@ -161,7 +165,7 @@ function Register({ setCurrentTab }) {
         }
 
         if (err.message === 'Network Error') {
-          alert('Network Error');
+          setAlertMessage('Network Error!');
         }
       })
       .finally(() => {
@@ -290,6 +294,8 @@ function Register({ setCurrentTab }) {
             </span>
           </div>
         </div>
+
+        {alertMessage && <AlertBox type='error' message={alertMessage} />}
       </form>
     </Fade>
   );

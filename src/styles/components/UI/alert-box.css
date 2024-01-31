@@ -5,16 +5,21 @@
   width: 300px;
   height: 80px;
   z-index: 9999;
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
   background: #fff;
   border-radius: 5px;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
-.notification-component_icon{
+.notification-component:hover {
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+.notification-component_icon {
   display: grid;
   place-items: center;
   margin-left: 20px;
@@ -25,18 +30,34 @@
   bottom: 0;
   left: 0;
   height: 5px;
-  width: 100%;
-  background: red;
+}
+.notification-component_type.info {
+  background-color: var(--color-main-blue);
+}
+.notification-component_type.error {
+  background: var(--bg-main-red);
+}
+.notification-component_type.success {
+  background: var(--color-main-green);
+}
+.notification-component_type.warning {
+  background: var(--color-yellow-shade-07);
 }
 
 .notification-component_message {
   font-size: 1rem;
-  font-weight: 800;
-  color: var(--bg-main-red);
+  font-weight: 700;
   text-align: center;
 }
-
-/* .notification-component_type.info
-  .notification-component_type.error
-  .notification-component_type.warning
-  .notification-component_type.success */
+.notification-component_message.info {
+  color: var(--color-main-blue);
+}
+.notification-component_message.error {
+  color: var(--bg-main-red);
+}
+.notification-component_message.success {
+  color: var(--color-main-green);
+}
+.notification-component_message.warning {
+  color: var(--color-yellow-shade-07);
+}

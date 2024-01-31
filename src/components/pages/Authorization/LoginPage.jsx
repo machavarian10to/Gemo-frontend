@@ -10,7 +10,6 @@ import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
-import AlertBox from '@/components/UI/AlertBox';
 
 function Login({ setCurrentTab }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +20,6 @@ function Login({ setCurrentTab }) {
   const [passwordError, setPasswordError] = useState('');
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [notification, setNotification] = useState(true);
 
   function onUsernameInput(e) {
     setUsernameError('');
@@ -176,13 +174,6 @@ function Login({ setCurrentTab }) {
             </span>
           </div>
         </div>
-
-        {notification && (
-          <AlertBox
-            message='Registration is successful!'
-            type={notification.type}
-          />
-        )}
       </form>
     </Fade>
   );

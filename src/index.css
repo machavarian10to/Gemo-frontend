@@ -14,6 +14,8 @@
   --color-light-grey: #ccc;
   --color-main-black: #34333a;
   --color-main-green: #4CAF50;
+  --color-main-blue: #0070b5;
+
 
   /* YELLOW */
   --color-yellow-shade-01: #ffba69;
@@ -125,8 +127,7 @@
 
   /* BLUE */
   --color-blue-shade-01: #73b2df;
-  --color-blue-shade-02: #0070b5;
-  --color-blue-shade-03: #276cc3;
+  --color-blue-shade-02: #276cc3;
 }
 
 @font-face {

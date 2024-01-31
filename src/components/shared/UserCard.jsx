@@ -9,7 +9,7 @@ function UserCard() {
         <UserAvatar
           width={50}
           height={50}
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+          src='https://picsum.photos/400/600'
         />
       </div>
       <NavLink to='/profile'>

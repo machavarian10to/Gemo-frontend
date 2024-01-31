@@ -76,7 +76,7 @@ function Comment({ comment }) {
         <UserAvatar
           width={32}
           height={32}
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+          src='https://picsum.photos/400/600'
         />
         <div className='user-post__comment-details'>
           <div className='user-post__comment-details-header'>

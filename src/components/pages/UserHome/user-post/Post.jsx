@@ -12,9 +12,11 @@ import Fade from '@mui/material/Fade';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import SwapCallsOutlinedIcon from '@mui/icons-material/SwapCallsOutlined';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
+import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -130,7 +132,7 @@ function Post({ type }) {
           <UserAvatar
             width={32}
             height={32}
-            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
+            src='https://picsum.photos/400/300'
           />
           <div className='user-post__details'>
             <div className='user-post__username'>@machavarian10to</div>
@@ -256,7 +258,7 @@ function Post({ type }) {
           <span>{commentList.length}</span>
         </div>
         <div className='user-post__footer-container'>
-          <ReplyOutlinedIcon style={{ fontSize: '19px' }} />
+          <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Share</span>
           <span>0</span>
         </div>

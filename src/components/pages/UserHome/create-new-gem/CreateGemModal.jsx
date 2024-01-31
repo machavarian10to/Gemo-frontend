@@ -25,7 +25,7 @@ function CreatePostModal({ closeModal, activeTab, handleActiveTab }) {
             </button>
           </div>
           <div className='modal-body'>
-            <UserAvatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s' />
+            <UserAvatar src='https://picsum.photos/400/600' />
             <div className='modal-body__gem-details'>
               <h5>@machavarian10to</h5>
               <div className='audience-wrapper'>
