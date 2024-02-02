@@ -21,6 +21,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
+import EmailVerification from '@/components/pages/Authorization/EmailVerification';
 
 const persistConfig = {
   key: 'root',
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <Authorization />,
+  },
+  {
+    path: '/email-verify',
+    element: <EmailVerification />,
   },
 ]);
 
