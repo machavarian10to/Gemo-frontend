@@ -15,9 +15,14 @@
 }
 
 .avatar-wrapper {
-  border: 1px solid #ccc;
+  border: 2px dashed var(--color-grey);
   border-radius: 5px;
   padding: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.avatar-wrapper:hover {
+  transform: scale(1.1);
 }
 
 .user-card a {

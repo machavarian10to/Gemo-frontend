@@ -6,6 +6,7 @@ import '@/index.css';
 import Authorization from '@/pages/Authorization';
 import UserHome from '@/pages/UserHome';
 import DiscussionPage from '@/pages/DiscussionPage';
+import EmailVerification from '@/components/pages/Authorization/EmailVerification';
 import authReducer from '@/state';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -21,7 +22,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
-import EmailVerification from '@/components/pages/Authorization/EmailVerification';
 
 const persistConfig = {
   key: 'root',

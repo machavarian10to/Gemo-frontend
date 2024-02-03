@@ -4,6 +4,7 @@
   right: 30px;
   width: 300px;
   height: 80px;
+  padding-inline: 10px;
   z-index: 9999;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -22,7 +23,6 @@
 .notification-component_icon {
   display: grid;
   place-items: center;
-  margin-left: 20px;
 }
 
 .notification-component_type {
@@ -48,6 +48,7 @@
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
+  line-height: 1.5;
 }
 .notification-component_message.info {
   color: var(--color-main-blue);

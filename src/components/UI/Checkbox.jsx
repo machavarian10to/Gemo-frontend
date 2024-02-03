@@ -4,7 +4,7 @@ function Checkbox({ label, checked, onChange }) {
   return (
     <label className='checkbox-component-label'>
       {label}
-      <input type='checkbox' checked={checked} />
+      <input type='checkbox' checked={checked} onChange={onChange} />
       <span className='checkbox-component-checkmark'></span>
     </label>
   );

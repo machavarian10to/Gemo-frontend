@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function EmailVerification() {
@@ -14,20 +14,21 @@ function EmailVerification() {
 
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/auth/email-verify?token=${token}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/auth/email-verify?token=${token}`,
         );
         if (res.status === 200) {
-          console.log(res);
-          // navigate('/login');
+          localStorage.setItem('emailVerified', 'true');
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        navigate('/auth');
       }
     }
     verifyEmail();
-  }, []);
-
-  return <div>EmailVerification</div>;
+  }, [navigate]);
 }
 
 export default EmailVerification;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from '@/components/UI/Input';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
@@ -10,16 +10,30 @@ import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
-
+import AlertBox from '@/components/UI/AlertBox';
 function Login({ setCurrentTab }) {
+  useEffect(() => {
+    const emailVerified = localStorage.getItem('emailVerified');
+    if (emailVerified === 'true') {
+      setAlertBox({
+        message: 'Email verified successfully!',
+        type: 'success',
+      });
+      localStorage.removeItem('emailVerified');
+    }
+  }, []);
+
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
 
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   function onUsernameInput(e) {
     setUsernameError('');
@@ -57,6 +71,7 @@ function Login({ setCurrentTab }) {
       .post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         username,
         password,
+        remember,
       })
       .then((res) => {
         console.log(res.data);
@@ -77,7 +92,10 @@ function Login({ setCurrentTab }) {
           }
         }
         if (err.message === 'Network Error') {
-          alert('Network Error');
+          setAlertBox({
+            message: 'Network Error',
+            type: 'error',
+          });
         }
       })
       .finally(() => {
@@ -139,7 +157,11 @@ function Login({ setCurrentTab }) {
 
           <div className='user-home__auth-body-inputs-footer'>
             <div className='user-home__auth-remember-wrapper'>
-              <Checkbox label='Remember me' />
+              <Checkbox
+                label='Remember me'
+                checked={remember}
+                onChange={() => setRemember((prev) => !prev)}
+              />
             </div>
 
             <div className='user-home__auth-forgot-wrapper'>
@@ -152,6 +174,7 @@ function Login({ setCurrentTab }) {
             </div>
           </div>
           <Button
+            submit
             label='Log in'
             clickHandler={onLogin}
             state={isButtonDisabled ? 'inactive' : 'active'}
@@ -174,6 +197,10 @@ function Login({ setCurrentTab }) {
             </span>
           </div>
         </div>
+
+        {alertBox.message && (
+          <AlertBox type={alertBox.type} message={alertBox.message} />
+        )}
       </form>
     </Fade>
   );

@@ -92,11 +92,11 @@ function Register({ setCurrentTab }) {
       setPasswordStrength('');
       return;
     }
-    if (password.length < 6) {
-      setPasswordError('Password should be at least 6 characters long!');
-      setPasswordStrength('');
-      return;
-    }
+    // if (password.length < 6) {
+    //   setPasswordError('Password should be at least 6 characters long!');
+    //   setPasswordStrength('');
+    //   return;
+    // }
   }
 
   function onRepeatPasswordBlur() {
@@ -131,6 +131,7 @@ function Register({ setCurrentTab }) {
       return;
 
     setIsButtonDisabled(true);
+    setPasswordStrength('');
     setAlertBox({ message: '', type: '' });
 
     axios
@@ -140,9 +141,14 @@ function Register({ setCurrentTab }) {
         password,
       })
       .then((res) => {
+        setEmail('');
+        setUsername('');
+        setPassword('');
+        setRepeatPassword('');
+
         if (res.statusText === 'OK') {
           setAlertBox({
-            message: 'Registration successful!',
+            message: 'Account created successfully! Please verify your email.',
             type: 'success',
           });
           setTimeout(() => {
@@ -159,9 +165,9 @@ function Register({ setCurrentTab }) {
           if (type === 'username') {
             setUsernameError(message);
           }
-          if (type === 'password') {
-            setPasswordError(message);
-          }
+          // if (type === 'password') {
+          //   setPasswordError(message);
+          // }
           if (type === 'all') {
             setEmailError(message);
             setUsernameError(message);
@@ -184,13 +190,15 @@ function Register({ setCurrentTab }) {
   return (
     <Fade in={true} timeout={1000}>
       <form onSubmit={onRegister}>
-        <h6>Create an account, Start your journey!</h6>
+        <h6>Create an account, Start your culinary journey!</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
             onInput={onEmailInput}
             onBlur={checkEmail}
             value={email}
-            state={emailError ? 'danger' : 'active'}
+            state={
+              isButtonDisabled ? 'inactive' : emailError ? 'danger' : 'active'
+            }
             helperText={emailError}
             type='email'
             placeholder='Enter email'
@@ -204,7 +212,13 @@ function Register({ setCurrentTab }) {
             onInput={onUsernameInput}
             onBlur={onUsernameBlur}
             value={username}
-            state={usernameError ? 'danger' : 'active'}
+            state={
+              isButtonDisabled
+                ? 'inactive'
+                : usernameError
+                ? 'danger'
+                : 'active'
+            }
             helperText={usernameError}
             leftIcon={
               <AlternateEmailIcon
@@ -217,7 +231,13 @@ function Register({ setCurrentTab }) {
             onInput={onPasswordInput}
             onBlur={onPasswordBlur}
             value={password}
-            state={passwordError ? 'danger' : 'active'}
+            state={
+              isButtonDisabled
+                ? 'inactive'
+                : passwordError
+                ? 'danger'
+                : 'active'
+            }
             helperText={passwordError}
             type='password'
             leftIcon={
@@ -280,7 +300,13 @@ function Register({ setCurrentTab }) {
             onInput={onRepeatPasswordInput}
             onBlur={onRepeatPasswordBlur}
             value={repeatPassword}
-            state={repeatPasswordError ? 'danger' : 'active'}
+            state={
+              isButtonDisabled
+                ? 'inactive'
+                : repeatPasswordError
+                ? 'danger'
+                : 'active'
+            }
             helperText={repeatPasswordError}
             type='password'
             leftIcon={
@@ -291,6 +317,7 @@ function Register({ setCurrentTab }) {
             placeholder='Repeat password'
           />
           <Button
+            submit
             label='Sign up'
             clickHandler={onRegister}
             state={isButtonDisabled ? 'inactive' : 'active'}
