@@ -35,6 +35,11 @@ function Login({ setCurrentTab }) {
 
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
+  function onGoogleLogin() {
+    window.location.replace(`${import.meta.env.VITE_API_URL}/auth/google`);
+    console.log('Google login');
+  }
+
   function onUsernameInput(e) {
     setUsernameError('');
     setUsername(e.target.value);
@@ -68,7 +73,7 @@ function Login({ setCurrentTab }) {
     setIsButtonDisabled(true);
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+      .post(`${import.meta.env.VITE_API_URL}/auth/login`, {
         username,
         password,
         remember,
@@ -182,14 +187,7 @@ function Login({ setCurrentTab }) {
           <p className='user-home__auth-divider'>
             <span>or</span>
           </p>
-          <GoogleButton />
-          {/* <div className='user-home__auth-google-button'>
-            <button>
-            <div className='user-home__auth-google-img'></div>
-            <span>Continue with google</span>
-            </button>
-        </div> */}
-
+          <GoogleButton onClick={onGoogleLogin} />
           <div className='user-home__auth-footer'>
             <span>Don&apos;t have an account?</span>
             <span className='link' onClick={() => setCurrentTab('register')}>
@@ -197,7 +195,6 @@ function Login({ setCurrentTab }) {
             </span>
           </div>
         </div>
-
         {alertBox.message && (
           <AlertBox type={alertBox.type} message={alertBox.message} />
         )}

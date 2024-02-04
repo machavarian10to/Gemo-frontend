@@ -83,6 +83,11 @@
   color: var(--color-main-yellow);
   text-decoration: underline;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-home__auth-left-body span.link:hover {
+  color: var(--color-main-yellow-light);
 }
 
 .user-home__auth-google-button button {

@@ -1,6 +1,8 @@
-function GoogleButton() {
+import PropTypes from 'prop-types';
+
+function GoogleButton({ onClick }) {
   return (
-    <button className='gsi-material-button' type='button'>
+    <button className='gsi-material-button' type='button' onClick={onClick}>
       <div className='gsi-material-button-state'></div>
       <div className='gsi-material-button-content-wrapper'>
         <div className='gsi-material-button-icon'>
@@ -37,5 +39,9 @@ function GoogleButton() {
     </button>
   );
 }
+
+GoogleButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default GoogleButton;

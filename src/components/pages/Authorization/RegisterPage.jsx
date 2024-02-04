@@ -92,11 +92,11 @@ function Register({ setCurrentTab }) {
       setPasswordStrength('');
       return;
     }
-    // if (password.length < 6) {
-    //   setPasswordError('Password should be at least 6 characters long!');
-    //   setPasswordStrength('');
-    //   return;
-    // }
+    if (password.length < 6) {
+      setPasswordError('Password should be at least 6 characters long!');
+      setPasswordStrength('');
+      return;
+    }
   }
 
   function onRepeatPasswordBlur() {
@@ -135,7 +135,7 @@ function Register({ setCurrentTab }) {
     setAlertBox({ message: '', type: '' });
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+      .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
         email,
         username,
         password,
@@ -165,9 +165,9 @@ function Register({ setCurrentTab }) {
           if (type === 'username') {
             setUsernameError(message);
           }
-          // if (type === 'password') {
-          //   setPasswordError(message);
-          // }
+          if (type === 'password') {
+            setPasswordError(message);
+          }
           if (type === 'all') {
             setEmailError(message);
             setUsernameError(message);

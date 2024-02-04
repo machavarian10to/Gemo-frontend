@@ -24,7 +24,7 @@
 }
 
 .button:hover {
-  background-color: rgba(249, 161, 9, 0.8);
+  background-color: var(--color-main-yellow-light);
 }
 
 .button:active {

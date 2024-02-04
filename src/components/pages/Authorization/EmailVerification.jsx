@@ -14,9 +14,7 @@ function EmailVerification() {
 
       try {
         const res = await axios.get(
-          `${
-            import.meta.env.VITE_API_URL
-          }/api/auth/email-verify?token=${token}`,
+          `${import.meta.env.VITE_API_URL}/auth/email-verify?token=${token}`,
         );
         if (res.status === 200) {
           localStorage.setItem('emailVerified', 'true');
