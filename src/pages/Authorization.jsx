@@ -2,6 +2,7 @@ import { useState } from 'react';
 import LoginPage from '@/components/pages/Authorization/LoginPage';
 import RegisterPage from '@/components/pages/Authorization/RegisterPage';
 import ForgetPassword from '@/components/pages/Authorization/ForgetPassword';
+import NewPassword from '@/components/pages/Authorization/NewPassword';
 
 function Authorization() {
   const [currentTab, setCurrentTab] = useState('login');
@@ -24,6 +25,9 @@ function Authorization() {
           )}
           {currentTab === 'forget-password' && (
             <ForgetPassword setCurrentTab={setCurrentTab} />
+          )}
+          {currentTab === 'new-password' && (
+            <NewPassword setCurrentTab={setCurrentTab} />
           )}
         </div>
       </div>

@@ -7,6 +7,7 @@ import Authorization from '@/pages/Authorization';
 import UserHome from '@/pages/UserHome';
 import DiscussionPage from '@/pages/DiscussionPage';
 import EmailVerification from '@/components/pages/Authorization/EmailVerification';
+import ResetPassword from '@/components/pages/Authorization/ResetPassword';
 import authReducer from '@/state';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: '/email-verify',
     element: <EmailVerification />,
+  },
+  {
+    path: '/reset-password',
+    element: <ResetPassword />,
   },
 ]);
 

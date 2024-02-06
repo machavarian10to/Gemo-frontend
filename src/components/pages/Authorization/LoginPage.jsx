@@ -14,6 +14,7 @@ import AlertBox from '@/components/UI/AlertBox';
 function Login({ setCurrentTab }) {
   useEffect(() => {
     const emailVerified = localStorage.getItem('emailVerified');
+    const resetPasswordToken = localStorage.getItem('resetPasswordToken');
     if (emailVerified === 'true') {
       setAlertBox({
         message: 'Email verified successfully!',
@@ -21,7 +22,11 @@ function Login({ setCurrentTab }) {
       });
       localStorage.removeItem('emailVerified');
     }
-  }, []);
+
+    if (resetPasswordToken) {
+      setCurrentTab('new-password');
+    }
+  }, [setCurrentTab]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
@@ -80,6 +85,7 @@ function Login({ setCurrentTab }) {
       })
       .then((res) => {
         console.log(res.data);
+        // TODO: Redirect to home page
         window.location.href = '/';
       })
       .catch((err) => {

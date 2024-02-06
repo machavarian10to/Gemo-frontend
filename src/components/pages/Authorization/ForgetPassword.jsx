@@ -40,31 +40,28 @@ function ForgetPassword({ setCurrentTab }) {
     if (emailError) return;
 
     setIsButtonDisabled(true);
+    setAlert({ message: '', type: '' });
 
-    try {
-      const res = axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/forget-password`,
-        {
-          email,
-        },
-      );
-
-      if (res.status === 200) {
-        console.log('Email sent successfully');
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/auth/forget-password`, {
+        email,
+      })
+      .then((res) => {
         setAlert({
-          message: 'Email sent successfully!',
+          message: res.data.message,
           type: 'success',
         });
-      }
-    } catch (error) {
-      console.error(error.response.data.message);
-      setAlert({
-        message: error.response.data.message,
-        type: 'error',
+        setEmail('');
+      })
+      .catch((error) => {
+        setAlert({
+          message: error.response.data.message,
+          type: 'error',
+        });
+      })
+      .finally(() => {
+        setIsButtonDisabled(false);
       });
-    } finally {
-      setIsButtonDisabled(false);
-    }
   }
 
   function onEmailInput(e) {
