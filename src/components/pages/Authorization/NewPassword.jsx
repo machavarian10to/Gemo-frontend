@@ -88,9 +88,8 @@ function NewPassword({ setCurrentTab }) {
       })
       .finally(() => {
         setIsButtonDisabled(false);
+        localStorage.removeItem('resetPasswordToken');
       });
-
-    localStorage.removeItem('resetPasswordToken');
   }
 
   return (

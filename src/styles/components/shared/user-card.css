@@ -21,9 +21,6 @@
   cursor: pointer;
   transition: all 0.3s;
 }
-.avatar-wrapper:hover {
-  transform: scale(1.1);
-}
 
 .user-card a {
   color: #454545;
