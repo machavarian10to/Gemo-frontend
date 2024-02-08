@@ -7,7 +7,7 @@
 }
 
 .user-home__auth-left {
-  width: 50%;
+  width: 45%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -17,8 +17,8 @@
 }
 
 .user-home__auth-left-logo {
-  width: 130px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
 }
 
 .user-home__auth-left-logo img {
@@ -31,7 +31,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 15px;
 }
 
 .user-home__auth-left-body {
@@ -53,7 +52,7 @@
   color: var(--color-main-yellow);
 }
 
-.user-home__auth-left-body h5{
+.user-home__auth-left-body h5 {
   width: 400px;
   font-size: 1rem;
   font-weight: 500;
@@ -201,11 +200,20 @@
 }
 
 .user-home__auth-right {
-  width: 50%;
+  width: 55%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: var(--color-main-yellow);
+}
+
+.user-home__auth-right .home-image {
+  width: 100%;
+  height: 100%;
+}
+
+.user-home__auth-right .home-image img {
+  width: 100%;
+  height: 100%;
 }

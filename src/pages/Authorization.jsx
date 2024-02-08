@@ -32,7 +32,11 @@ function Authorization() {
         </div>
       </div>
 
-      <div className='user-home__auth-right'></div>
+      <div className='user-home__auth-right'>
+        <di className='home-image'>
+          <img src='https://picsum.photos/400/600' alt='food' />
+        </di>
+      </div>
     </div>
   );
 }
