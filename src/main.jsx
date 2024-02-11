@@ -7,6 +7,7 @@ import Authorization from '@/pages/Authorization';
 import UserHome from '@/pages/UserHome';
 import DiscussionPage from '@/pages/DiscussionPage';
 import EmailVerification from '@/components/pages/Authorization/EmailVerification';
+import GoogleCallback from '@/components/pages/Authorization/GoogleCallback';
 import ResetPassword from '@/components/pages/Authorization/ResetPassword';
 import authReducer from '@/state';
 import { configureStore } from '@reduxjs/toolkit';
@@ -23,6 +24,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
+import { checkUserAuth } from '@/helpers/auth';
 
 const persistConfig = {
   key: 'root',
@@ -41,10 +43,12 @@ const store = configureStore({
     }),
 });
 
+const isAuthenticated = checkUserAuth();
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: isAuthenticated ? <App /> : <Authorization />,
     children: [
       {
         path: '',
@@ -57,16 +61,16 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/auth',
-    element: <Authorization />,
-  },
-  {
     path: '/email-verify',
     element: <EmailVerification />,
   },
   {
     path: '/reset-password',
     element: <ResetPassword />,
+  },
+  {
+    path: '/google/callback',
+    element: <GoogleCallback />,
   },
 ]);
 

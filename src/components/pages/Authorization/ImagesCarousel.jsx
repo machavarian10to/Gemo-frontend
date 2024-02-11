@@ -5,7 +5,6 @@ function ImagesCarousel() {
   const [images, setImages] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [width, setWidth] = useState(0);
 
   useEffect(() => {
     axios
@@ -18,24 +17,16 @@ function ImagesCarousel() {
         const shuffledImages = res.data.hits.sort(() => Math.random() - 0.5);
         setImages(shuffledImages);
         setLoading(false);
-        setWidth(0);
       })
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    const int = setInterval(() => {
-      setWidth((prev) => (prev === 100 ? 0 : prev + 1));
-    }, 50);
-
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     }, 5000);
 
-    return () => {
-      clearInterval(int);
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [images.length]);
 
   return (
@@ -47,16 +38,9 @@ function ImagesCarousel() {
         <div
           className='user-home__auth-food-image'
           style={{
-            backgroundImage: `url(${images[currentImage].largeImageURL})`,
+            backgroundImage: `url(${images[currentImage]?.webformatURL})`,
           }}
-        >
-          <div
-            style={{
-              width: `${width}%`,
-            }}
-            className='user-home__auth-food-time-bar'
-          ></div>
-        </div>
+        ></div>
       )}
     </div>
   );

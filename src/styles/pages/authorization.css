@@ -19,6 +19,7 @@
 .user-home__auth-left-logo {
   width: 100px;
   height: 100px;
+  margin-bottom: 10px;
 }
 
 .user-home__auth-left-logo img {

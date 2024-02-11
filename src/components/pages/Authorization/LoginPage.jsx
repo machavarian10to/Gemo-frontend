@@ -11,7 +11,12 @@ import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
 import AlertBox from '@/components/UI/AlertBox';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '@/state/index';
+
 function Login({ setCurrentTab }) {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const emailVerified = localStorage.getItem('emailVerified');
     const resetPasswordToken = localStorage.getItem('resetPasswordToken');
@@ -42,7 +47,6 @@ function Login({ setCurrentTab }) {
 
   function onGoogleLogin() {
     window.location.replace(`${import.meta.env.VITE_API_URL}/auth/google`);
-    console.log('Google login');
   }
 
   function onUsernameInput(e) {
@@ -84,11 +88,13 @@ function Login({ setCurrentTab }) {
         remember,
       })
       .then((res) => {
-        console.log(res.data);
-        // TODO: Redirect to home page
+        const { user, token } = res.data;
+        localStorage.setItem('token', token);
+        dispatch(setLogin({ user, token }));
         window.location.href = '/';
       })
       .catch((err) => {
+        console.log(err);
         if (err.response) {
           const { message, type } = err.response.data;
           if (type === 'username') {
