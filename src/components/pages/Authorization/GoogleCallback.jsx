@@ -26,8 +26,7 @@ function GoogleCallback() {
         const { user } = res.data;
         localStorage.setItem('token', token);
         dispatch(setLogin({ user, token }));
-        navigate('/');
-        window.location.reload();
+        window.location.href = '/';
       })
       .catch((err) => {
         console.log(err);
