@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import LoadingAnimation from '@/components/UI/LoadingAnimation';
 
 function ImagesCarousel() {
   const [images, setImages] = useState([]);
@@ -32,8 +33,7 @@ function ImagesCarousel() {
   return (
     <div className='user-home__auth-food-image-wrapper'>
       {loading ? (
-        // TODO: Add a loader
-        <div className='loader'>loading</div>
+        <LoadingAnimation />
       ) : (
         <div
           className='user-home__auth-food-image'
