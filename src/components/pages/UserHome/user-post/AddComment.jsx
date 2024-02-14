@@ -78,7 +78,7 @@ const AddComment = ({ placeholder, value = '' }) => {
   return (
     <>
       <div className='user-post__comment-section-user-comment'>
-        <UserAvatar src='https://picsum.photos/500/300' width='45' />
+        <UserAvatar width='45' />
         <div className='user-post__comment-section-input'>
           <div className='user-post__comment-input-wrapper'>
             <textarea

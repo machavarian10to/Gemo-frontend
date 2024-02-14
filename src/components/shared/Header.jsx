@@ -35,11 +35,7 @@ function Header() {
           <ArticleOutlinedIcon />
           <LocalGroceryStoreOutlinedIcon />
         </div>
-        <UserAvatar
-          width={30}
-          height={30}
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSK2EoGu0XOWgOd8Oj5AA8WOE1JS___K5T3QZWO2rVgQ&s'
-        />
+        <UserAvatar width={30} height={30} />
       </div>
     </div>
   );
