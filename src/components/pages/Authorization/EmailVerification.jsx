@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function EmailVerification() {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function verifyEmail() {
@@ -17,16 +19,16 @@ function EmailVerification() {
           `${import.meta.env.VITE_API_URL}/auth/email-verify?token=${token}`,
         );
         if (res.status === 200) {
-          localStorage.setItem('emailVerified', 'true');
+          user.verified = true;
         }
       } catch (err) {
         console.log(err);
       } finally {
-        navigate('/auth');
+        navigate('/');
       }
     }
     verifyEmail();
-  }, [navigate]);
+  }, [navigate, user]);
 }
 
 export default EmailVerification;

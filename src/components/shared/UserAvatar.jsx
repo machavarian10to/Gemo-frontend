@@ -4,16 +4,14 @@ import { useSelector } from 'react-redux';
 function UserAvatar({ width = 40, height = 40, src }) {
   const user = useSelector((state) => state.user);
 
-  if (!src) {
-    src = user?.profilePicture;
-  }
+  const imageSrc = src || user?.profilePicture;
 
   return (
     <div
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        backgroundImage: `url(${src})`,
+        backgroundImage: `url(${imageSrc})`,
       }}
       className='avatar'
     ></div>

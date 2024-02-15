@@ -6,6 +6,7 @@ import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
 import AlertBox from '@/components/UI/AlertBox';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function NewPassword({ setCurrentTab }) {
   const [newPassword, setNewPassword] = useState('');
@@ -15,6 +16,8 @@ function NewPassword({ setCurrentTab }) {
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const user = useSelector((state) => state.auth);
 
   const [alert, setAlert] = useState({
     message: '',
@@ -63,7 +66,17 @@ function NewPassword({ setCurrentTab }) {
     setIsButtonDisabled(true);
     setAlert({ message: '', type: '' });
 
-    const token = localStorage.getItem('resetPasswordToken');
+    const token = user.resetPasswordToken;
+
+    if (!token) {
+      setAlert({
+        message: 'Invalid reset password token!',
+        type: 'error',
+      });
+      setIsButtonDisabled(false);
+      return;
+    }
+
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/reset-password`, {
         token,
@@ -88,7 +101,6 @@ function NewPassword({ setCurrentTab }) {
       })
       .finally(() => {
         setIsButtonDisabled(false);
-        localStorage.removeItem('resetPasswordToken');
       });
   }
 

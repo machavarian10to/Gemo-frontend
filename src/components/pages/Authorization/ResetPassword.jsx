@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function ResetPassword() {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth);
 
   useEffect(() => {
-    async function getResetToken() {
+    function getResetToken() {
       const token = window.location.href.split('=')[1];
       if (!token) return;
 
-      localStorage.setItem('resetPasswordToken', token);
-      navigate('/auth');
+      user.resetPasswordToken = token;
+      navigate('/');
     }
     getResetToken();
-  }, [navigate]);
+  }, [navigate, user]);
 }
 
 export default ResetPassword;

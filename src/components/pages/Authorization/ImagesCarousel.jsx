@@ -30,6 +30,14 @@ function ImagesCarousel() {
     return () => clearInterval(interval);
   }, [images.length]);
 
+  // Preload images
+  useEffect(() => {
+    images.forEach((image) => {
+      const img = new Image();
+      img.src = image.webformatURL;
+    });
+  }, [images]);
+
   return (
     <div className='user-home__auth-food-image-wrapper'>
       {loading ? (

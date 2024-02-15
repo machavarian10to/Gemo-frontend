@@ -250,7 +250,7 @@ function Register({ setCurrentTab }) {
           <div className='user-home__auth-password-checker'>
             <div className='user-home__auth-password-progressbar'>
               <ProgressBar
-                percent='100'
+                percent={100}
                 color={
                   passwordStrength === 'Weak'
                     ? 'var(--bg-main-red)'
@@ -262,7 +262,7 @@ function Register({ setCurrentTab }) {
                 }
               />
               <ProgressBar
-                percent='100'
+                percent={100}
                 color={
                   passwordStrength === 'Normal'
                     ? 'var(--color-yellow-shade-04)'
@@ -272,7 +272,7 @@ function Register({ setCurrentTab }) {
                 }
               />
               <ProgressBar
-                percent='100'
+                percent={100}
                 color={
                   passwordStrength === 'Strong' ? 'var(--color-main-green)' : ''
                 }

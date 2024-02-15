@@ -31,9 +31,9 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 12px solid transparent;
+  border-top: 10px solid transparent;
   border-right: 30px solid var(--bg-main-white);
-  border-bottom: 12px solid transparent;
+  border-bottom: 15px solid transparent;
   margin: 10px 0 0 -15px;
 }
 

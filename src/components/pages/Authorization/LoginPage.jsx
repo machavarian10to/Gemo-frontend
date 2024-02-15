@@ -11,27 +11,30 @@ import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
 import AlertBox from '@/components/UI/AlertBox';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogin } from '@/state/index';
 
 function Login({ setCurrentTab }) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const emailVerified = localStorage.getItem('emailVerified');
-    const resetPasswordToken = localStorage.getItem('resetPasswordToken');
-    if (emailVerified === 'true') {
+    if (user === null) return;
+    const emailVerified = user.verified;
+    const resetPasswordToken = user.resetPasswordToken;
+    if (emailVerified) {
       setAlertBox({
         message: 'Email verified successfully!',
         type: 'success',
       });
-      localStorage.removeItem('emailVerified');
+      return;
     }
 
     if (resetPasswordToken) {
       setCurrentTab('new-password');
+      return;
     }
-  }, [setCurrentTab]);
+  }, [setCurrentTab, user]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
@@ -91,7 +94,7 @@ function Login({ setCurrentTab }) {
         const { user, token } = res.data;
         localStorage.setItem('token', token);
         dispatch(setLogin({ user, token }));
-        window.location.href = '/';
+        window.location.replace('/');
       })
       .catch((err) => {
         console.log(err);

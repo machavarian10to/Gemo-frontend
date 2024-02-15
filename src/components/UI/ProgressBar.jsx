@@ -13,7 +13,7 @@ function ProgressBar({ level, percent, color }) {
 
 ProgressBar.propTypes = {
   level: PropTypes.string,
-  percent: PropTypes.string,
+  percent: PropTypes.number,
   color: PropTypes.string,
 };
 
