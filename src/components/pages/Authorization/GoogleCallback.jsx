@@ -1,27 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
-import axios from 'axios';
+import axiosInstance from '@/services/axios';
 
 function GoogleCallback() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   const url = new URL(window.location.href);
-  const userId = url.searchParams.get('userId');
   const token = url.searchParams.get('token');
 
-  if (!userId || !token) {
-    navigate('/');
+  if (!token) {
+    window.location.replace('/');
   }
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/auth/user?id=${userId}`)
+    axiosInstance
+      .get(`${import.meta.env.VITE_API_URL}/auth/get-user/`)
       .then((res) => {
         const { user } = res.data;
         localStorage.setItem('token', token);
@@ -35,7 +32,7 @@ function GoogleCallback() {
           type: 'error',
         });
       });
-  }, [dispatch, navigate, token, userId]);
+  }, [dispatch, token]);
 
   return (
     <>

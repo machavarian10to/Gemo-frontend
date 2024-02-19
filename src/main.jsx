@@ -12,6 +12,7 @@ import ResetPassword from '@/components/pages/Authorization/ResetPassword';
 import authReducer from '@/state';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { setLogin } from '@/state/index';
 import {
   persistStore,
   persistReducer,
@@ -24,7 +25,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
-import { checkUserAuth } from '@/helpers/auth';
+import { getAuthUser } from '@/helpers/auth';
 
 const persistConfig = {
   key: 'root',
@@ -42,12 +43,16 @@ const store = configureStore({
     }),
 });
 
-const isAuthenticated = checkUserAuth();
+const authUser = getAuthUser();
+if (authUser) {
+  console.log('user', authUser);
+  store.dispatch(setLogin(authUser));
+}
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: isAuthenticated ? <App /> : <Authorization />,
+    element: authUser ? <App /> : <Authorization />,
     children: [
       {
         path: '',
