@@ -10,6 +10,7 @@ function GoogleCallback() {
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   const url = new URL(window.location.href);
+  const userId = url.searchParams.get('userId');
   const token = url.searchParams.get('token');
 
   if (!token) {
@@ -18,10 +19,9 @@ function GoogleCallback() {
 
   useEffect(() => {
     axiosInstance
-      .get(`${import.meta.env.VITE_API_URL}/auth/get-user/`)
+      .get(`${import.meta.env.VITE_API_URL}/auth/get-user?userId=${userId}`)
       .then((res) => {
         const { user } = res.data;
-        localStorage.setItem('token', token);
         dispatch(setLogin({ user, token }));
         window.location.replace('/');
       })
@@ -32,7 +32,7 @@ function GoogleCallback() {
           type: 'error',
         });
       });
-  }, [dispatch, token]);
+  }, [dispatch, token, userId]);
 
   return (
     <>

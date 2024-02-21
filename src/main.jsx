@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '@/App.jsx';
 import '@/index.css';
-import Authorization from '@/pages/Authorization';
 import UserHome from '@/pages/UserHome';
 import DiscussionPage from '@/pages/DiscussionPage';
 import EmailVerification from '@/components/pages/Authorization/EmailVerification';
@@ -12,7 +11,7 @@ import ResetPassword from '@/components/pages/Authorization/ResetPassword';
 import authReducer from '@/state';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { setLogin } from '@/state/index';
+import AuthRoute from '@/helpers/AuthRoute';
 import {
   persistStore,
   persistReducer,
@@ -25,7 +24,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
-import { getAuthUser } from '@/helpers/auth';
 
 const persistConfig = {
   key: 'root',
@@ -43,24 +41,30 @@ const store = configureStore({
     }),
 });
 
-const authUser = getAuthUser();
-if (authUser) {
-  console.log('user', authUser);
-  store.dispatch(setLogin(authUser));
-}
-
 const router = createBrowserRouter([
   {
     path: '/',
-    element: authUser ? <App /> : <Authorization />,
+    element: (
+      <AuthRoute>
+        <App />
+      </AuthRoute>
+    ),
     children: [
       {
         path: '',
-        element: <UserHome />,
+        element: (
+          <AuthRoute>
+            <UserHome />
+          </AuthRoute>
+        ),
       },
       {
         path: 'discussion',
-        element: <DiscussionPage />,
+        element: (
+          <AuthRoute>
+            <DiscussionPage />
+          </AuthRoute>
+        ),
       },
     ],
   },

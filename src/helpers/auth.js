@@ -8,7 +8,6 @@ export const getAuthUser = () => {
       return user;
     })
     .catch((err) => {
-      console.log(err);
       return null;
     });
 };
