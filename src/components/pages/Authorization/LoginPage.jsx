@@ -92,9 +92,11 @@ function Login({ setCurrentTab }) {
       })
       .then((res) => {
         const { user, token } = res.data;
+        console.log(user);
         localStorage.setItem('token', token);
         dispatch(setLogin({ user, token }));
-        window.location.replace('/');
+        // window.location.replace('/');
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);

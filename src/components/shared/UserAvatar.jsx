@@ -11,7 +11,7 @@ function UserAvatar({ width = 40, height = 40, src }) {
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        backgroundImage: `url(${imageSrc})`,
+        backgroundImage: `url('${imageSrc}')`,
       }}
       className='avatar'
     ></div>

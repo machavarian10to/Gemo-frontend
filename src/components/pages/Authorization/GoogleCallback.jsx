@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
 import axiosInstance from '@/services/axios';
+import axios from 'axios';
+import { ReceiptLongSharp } from '@mui/icons-material';
 
 function GoogleCallback() {
   const dispatch = useDispatch();
@@ -18,12 +20,14 @@ function GoogleCallback() {
   }
 
   useEffect(() => {
-    axiosInstance
+    axios
       .get(`${import.meta.env.VITE_API_URL}/auth/get-user?userId=${userId}`)
       .then((res) => {
         const { user } = res.data;
+        console.log(user);
         dispatch(setLogin({ user, token }));
         window.location.replace('/');
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);
