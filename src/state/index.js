@@ -4,8 +4,6 @@ const initialState = {
   mode: 'light',
   user: null,
   token: null,
-  verified: false,
-  resetPasswordToken: null,
   gems: [],
 };
 

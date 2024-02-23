@@ -6,9 +6,14 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import UserAvatar from '@/components/shared/UserAvatar';
+import { useDispatch } from 'react-redux';
+import { setLogout } from '@/state/index';
 
 function Header() {
   const [searchValue, setSearchValue] = useState('');
+
+  // DELETE LATER
+  const dispatch = useDispatch();
 
   return (
     <div className='header'>
@@ -36,6 +41,9 @@ function Header() {
           <LocalGroceryStoreOutlinedIcon />
         </div>
         <UserAvatar width={30} height={30} />
+        {/* FOR TESTING DELETE LATER */}
+        <button onClick={() => dispatch(setLogout())}>log out</button>
+        {/*  */}
       </div>
     </div>
   );

@@ -15,9 +15,8 @@
 }
 
 .user-home_user-card-avatar-wrapper {
-  border: 2px dashed var(--color-grey);
+  /* border: 2px dashed var(--color-grey); */
   border-radius: 5px;
-  padding: 6px;
   cursor: pointer;
   transition: all 0.3s;
 }

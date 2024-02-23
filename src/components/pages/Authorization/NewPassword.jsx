@@ -66,8 +66,6 @@ function NewPassword({ setCurrentTab }) {
     setIsButtonDisabled(true);
     setAlert({ message: '', type: '' });
 
-    const token = user.resetPasswordToken;
-
     if (!token) {
       setAlert({
         message: 'Invalid reset password token!',
