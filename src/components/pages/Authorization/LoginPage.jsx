@@ -25,6 +25,7 @@ function Login({ setCurrentTab }) {
         message: 'Email verified successfully!',
         type: 'success',
       });
+      localStorage.removeItem('emailVerified');
       return;
     }
 

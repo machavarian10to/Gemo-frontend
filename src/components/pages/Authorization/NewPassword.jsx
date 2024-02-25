@@ -6,7 +6,6 @@ import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
 import AlertBox from '@/components/UI/AlertBox';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 function NewPassword({ setCurrentTab }) {
   const [newPassword, setNewPassword] = useState('');
@@ -17,12 +16,12 @@ function NewPassword({ setCurrentTab }) {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const user = useSelector((state) => state.auth);
-
   const [alert, setAlert] = useState({
     message: '',
     type: '',
   });
+
+  const token = localStorage.getItem('resetPasswordToken');
 
   function onNewPasswordBlur() {
     if (!newPassword) {
@@ -87,9 +86,14 @@ function NewPassword({ setCurrentTab }) {
         });
         setNewPassword('');
         setConfirmPassword('');
+        setAlert({
+          message: 'Password reset successfully!',
+          type: 'success',
+        });
         setTimeout(() => {
           setCurrentTab('login');
         }, 2000);
+        localStorage.removeItem('resetPasswordToken');
       })
       .catch((error) => {
         setAlert({

@@ -8,7 +8,7 @@ function ResetPassword() {
     function getResetToken() {
       const token = window.location.href.split('=')[1];
       if (!token) return;
-
+      localStorage.setItem('resetPasswordToken', token);
       navigate('/');
     }
     getResetToken();
