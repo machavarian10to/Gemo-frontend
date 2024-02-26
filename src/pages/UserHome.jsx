@@ -17,7 +17,7 @@ function UserHome() {
           </div>
         </div>
 
-        {/* <FoodRecommendation /> */}
+        <FoodRecommendation />
       </div>
     </Fade>
   );

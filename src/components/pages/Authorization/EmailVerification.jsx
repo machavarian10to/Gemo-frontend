@@ -15,7 +15,6 @@ function EmailVerification() {
           `${import.meta.env.VITE_API_URL}/auth/email-verify?token=${token}`,
         );
         if (res.status === 200) {
-          console.log('Email verified successfully!');
           localStorage.setItem('emailVerified', 'true');
         }
       } catch (err) {
