@@ -6,8 +6,8 @@
   background-color: WHITE;
   background-image: none;
   border: 1px solid #747775;
-  -webkit-border-radius: var(--border-radius-rect) ;
-  border-radius: var(--border-radius-rect) ;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: #1f1f1f;

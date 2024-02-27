@@ -4,13 +4,12 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 200px;
   height: 200px;
   margin-top: 40px;
   border: 2px solid rgba(249, 161, 9, 1);
   border-radius: 12px;
   background-color: #fff;
-  /* box-shadow: 0px 2px 10px rgba(249, 161, 9, 0.3); */
+  box-shadow: 0px 2px 10px rgba(249, 161, 9, 0.3);
   transition: all 0.3s ease-in-out;
 }
 
@@ -64,6 +63,6 @@
 
 .user-home_user-card-level-bar-details > div {
   font-size: 9px;
-  font-weight: 500;
+  font-weight: 600;
   color: #828282;
 }

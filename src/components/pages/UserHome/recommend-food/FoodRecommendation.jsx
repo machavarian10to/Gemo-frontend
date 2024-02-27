@@ -16,7 +16,7 @@ function FoodRecommendation() {
 
       <div className='user-home__food-recommends-content'>
         <h6>name</h6>
-        <h4>title khsad kdjsah dkajshdkjahdsj</h4>
+        <h4>Sacivi</h4>
 
         <h6>description</h6>
         <p>

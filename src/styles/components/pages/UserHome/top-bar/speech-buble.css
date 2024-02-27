@@ -4,7 +4,7 @@
   gap: 20px;
   background-color: #fff;
   padding: 25px;
-  width: 700px;
+  width: 550px;
 }
 
 .speech-bubble {
@@ -38,7 +38,7 @@
 }
 
 .speech-bubble:hover {
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .user-home__speech-bubble-icons-wrapper {

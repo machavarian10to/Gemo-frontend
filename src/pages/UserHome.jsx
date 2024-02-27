@@ -17,7 +17,9 @@ function UserHome() {
           </div>
         </div>
 
-        <FoodRecommendation />
+        <div className='user-home__food-recommendation-wrapper'>
+          <FoodRecommendation />
+        </div>
       </div>
     </Fade>
   );
