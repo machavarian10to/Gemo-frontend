@@ -15,7 +15,7 @@
     white-space: nowrap;
     line-height: 20px;
     outline: 1.5px solid var(--color-grey);
-    border-radius: 5px;
+    border-radius: var(--border-radius-rect) ;
 
     &.extra-small{
        padding: 6px 12px;

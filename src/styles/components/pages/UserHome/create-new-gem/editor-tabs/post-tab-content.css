@@ -4,7 +4,7 @@
   height: 405px;
   overflow: auto;
   border: 1px solid var(--color-grey);
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
 }
 
 .post-container-header {
@@ -72,7 +72,7 @@
   height: 50px;
   padding: 8px 70px 8px 10px;
   margin-top: 8px;
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
   outline: 1.5px solid var(--color-grey);
   font-weight: 500;
 }

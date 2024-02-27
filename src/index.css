@@ -129,6 +129,9 @@
   /* BLUE */
   --color-blue-shade-01: #73b2df;
   --color-blue-shade-02: #276cc3;
+
+  --border-radius-rect: 5px;
+  --border-radius-circle: 50%;
 }
 
 @font-face {

@@ -2,7 +2,7 @@
   width: 100%;
   margin-top: 10px;
   height: 218px;
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
   overflow: auto;
   padding: 5px 15px 5px 5px;
 }
@@ -31,7 +31,7 @@
 }
 
 .date-picker {
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
   border: none;
   outline: 1px solid var(--color-grey);
   color: rgba(52, 51, 58, 0.8);
@@ -62,7 +62,7 @@
   position: absolute;
   top: 10px;
   left: 30%;
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
   border: none;
   outline: 1px solid var(--color-grey);
   font-weight: 500;
@@ -93,7 +93,7 @@
 
 .react-datetime-picker__clock {
   margin-top: 10px !important;
-  border-radius: 5px !important;
+  border-radius: var(--border-radius-rect)  !important;
   border: none !important;
   outline: 1px solid var(--color-grey) !important;
   font-weight: 500 !important;
@@ -108,7 +108,7 @@
   width: 100%;
   height: 210px;
   outline: 1px solid var(--color-grey);
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,7 +149,7 @@
   width: 100%;
   height: 80px;
   padding: 10px 12px;
-  border-radius: 5px;
+  border-radius: var(--border-radius-rect) ;
   outline: 1.5px solid var(--color-grey);
   font-size: 13px;
   opacity: 0.8;
