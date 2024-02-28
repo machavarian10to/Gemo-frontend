@@ -1,0 +1,26 @@
+.user-home__featured-gem-wrapper {
+  background-color: #fff;
+  width: 100%;
+  padding: 20px;
+  border-radius: var(--border-radius-rect);
+  text-align: center;
+}
+
+.user-home__featured-gem-wrapper h4 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-main-grey);
+  font-weight: 600;
+  justify-content: center;
+}
+
+.user-home__featured-gem {
+  margin-top: 10px;
+}
+
+.user-home__featured-gem .user-post {
+  margin-top: 20px;
+  box-shadow: none;
+  border: 1px solid var(--color-light-grey);
+}

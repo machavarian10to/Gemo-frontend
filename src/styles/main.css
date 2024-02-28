@@ -16,6 +16,7 @@
 @import '@/styles/components/pages/UserHome/user-post/event-container.css';
 @import '@/styles/components/pages/UserHome/user-post/poll-container.css';
 @import '@/styles/components/pages/UserHome/user-post/post.css';
+@import '@/styles/components/pages/UserHome/featured-gem.css';
 @import '@/styles/components/shared/header.css';
 @import '@/styles/components/shared/sidebar.css';
 @import '@/styles/components/shared/user-avatar.css';

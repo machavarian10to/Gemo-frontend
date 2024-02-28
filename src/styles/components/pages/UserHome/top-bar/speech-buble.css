@@ -5,6 +5,7 @@
   background-color: #fff;
   padding: 25px;
   width: 550px;
+  border-radius: var(--border-radius-rect);
 }
 
 .speech-bubble {

@@ -2,6 +2,7 @@ import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
 import Post from '@/components/pages/UserHome/user-post/Post';
 import Fade from '@mui/material/Fade';
 import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
+import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
 
 function UserHome() {
   return (
@@ -19,6 +20,7 @@ function UserHome() {
 
         <div className='user-home__food-recommendation-wrapper'>
           <FoodRecommendation />
+          <FeaturedGem />
         </div>
       </div>
     </Fade>
