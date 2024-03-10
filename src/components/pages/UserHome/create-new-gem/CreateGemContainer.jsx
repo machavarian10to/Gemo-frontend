@@ -17,17 +17,22 @@ export default function CreatePostContainer({
   activeTab,
   handleActiveTab,
 }) {
-  const [postTitle, setPostTitle] = useState('');
+  const [gemTitle, setGemTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
+  const [postContent, setPostContent] = useState('');
 
   function clickHandler() {
-    // TODO: send post data to server
-    closeModal();
+    // TODO: send post content to server
+    // closeModal();
+  }
+
+  function handlePostContentChange(content) {
+    setPostContent(content);
   }
 
   function setTitle(e) {
     setCharCount(e.target.value.length);
-    setPostTitle(e.target.value);
+    setGemTitle(e.target.value);
   }
 
   return (
@@ -81,13 +86,13 @@ export default function CreatePostContainer({
             placeholder='Title'
             maxLength={200}
             onChange={(e) => setTitle(e)}
-            value={postTitle}
+            value={gemTitle}
           />
           <span>{charCount}/200</span>
         </div>
 
         {activeTab === 'post' ? (
-          <PostTabContent />
+          <PostTabContent handlePostContentChange={handlePostContentChange} />
         ) : activeTab === 'media' ? (
           <MediaTabContent />
         ) : activeTab === 'poll' ? (

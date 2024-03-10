@@ -18,8 +18,9 @@ import EmojiPicker from 'emoji-picker-react';
 import CommandButton from '../CommandButton';
 import CustomLink from '@/components/pages/UserHome/create-new-gem/CustomLink';
 import useClickOutside from '@/hook/useClickOutside';
+import PropTypes from 'prop-types';
 
-function PostTabContent() {
+function PostTabContent({ handlePostContentChange }) {
   const initialState = {
     bold: false,
     italic: false,
@@ -115,6 +116,7 @@ function PostTabContent() {
       editorContentRef.current.innerHTML !== '<br>'
     ) {
       setState({ ...state, showPlaceholder: true });
+      handlePostContentChange(editorContentRef.current.innerHTML);
     } else {
       setState({ ...state, showPlaceholder: false });
     }
