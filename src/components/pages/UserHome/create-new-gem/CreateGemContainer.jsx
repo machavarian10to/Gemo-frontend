@@ -19,15 +19,53 @@ export default function CreatePostContainer({
 }) {
   const [gemTitle, setGemTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
-  const [postContent, setPostContent] = useState('');
+  const [postTabState, setPostTabState] = useState({
+    postContent: '',
+    file: null,
+    mediaSrc: null,
+  });
 
   function clickHandler() {
-    // TODO: send post content to server
+    // TODO: send user data to server
     // closeModal();
+    console.log(activeTab);
+    if (activeTab === 'post') {
+      console.log(postTabState);
+      console.log(gemTitle);
+    }
   }
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPostTabState((prevState) => ({
+        ...prevState,
+        file: file,
+      }));
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPostTabState((prevState) => ({
+          ...prevState,
+          mediaSrc: e.target.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   function handlePostContentChange(content) {
-    setPostContent(content);
+    setPostTabState((prevState) => ({
+      ...prevState,
+      postContent: content,
+    }));
+  }
+
+  function deleteMedia() {
+    setPostTabState((prevState) => ({
+      ...prevState,
+      mediaSrc: null,
+      file: null,
+    }));
   }
 
   function setTitle(e) {
@@ -92,7 +130,12 @@ export default function CreatePostContainer({
         </div>
 
         {activeTab === 'post' ? (
-          <PostTabContent handlePostContentChange={handlePostContentChange} />
+          <PostTabContent
+            handlePostContentChange={handlePostContentChange}
+            handleImageChange={handleImageChange}
+            deleteMedia={deleteMedia}
+            postTabState={postTabState}
+          />
         ) : activeTab === 'media' ? (
           <MediaTabContent />
         ) : activeTab === 'poll' ? (

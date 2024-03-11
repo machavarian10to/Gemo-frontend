@@ -18,9 +18,15 @@ import EmojiPicker from 'emoji-picker-react';
 import CommandButton from '../CommandButton';
 import CustomLink from '@/components/pages/UserHome/create-new-gem/CustomLink';
 import useClickOutside from '@/hook/useClickOutside';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PropTypes from 'prop-types';
 
-function PostTabContent({ handlePostContentChange }) {
+function PostTabContent({
+  handlePostContentChange,
+  handleImageChange,
+  deleteMedia,
+  postTabState,
+}) {
   const initialState = {
     bold: false,
     italic: false,
@@ -39,6 +45,7 @@ function PostTabContent({ handlePostContentChange }) {
 
   const emojiRef = useRef(null);
   const editorContentRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useClickOutside(emojiRef, () => {
     setState({ ...state, showEmojiPicker: false });
@@ -146,6 +153,10 @@ function PostTabContent({ handlePostContentChange }) {
       document.execCommand(type, false, '5');
       return;
     }
+    if (type === 'addMedia') {
+      fileInputRef.current.click();
+      return;
+    }
     setState((prevState) => ({ ...prevState, [type]: !prevState[type] }));
     document.execCommand(type, false, null);
   }
@@ -203,7 +214,7 @@ function PostTabContent({ handlePostContentChange }) {
       color: 'grey',
       fontSize: '22px',
     },
-    removeFormat: {
+    addMedia: {
       color: 'grey',
       fontSize: '22px',
     },
@@ -271,68 +282,110 @@ function PostTabContent({ handlePostContentChange }) {
       icon: <FormatAlignRightIcon style={commandStyles.justifyRight} />,
     },
     {
+      title: 'Add Media',
+      type: 'addMedia',
+      icon: <ImageOutlinedIcon style={commandStyles.addMedia} />,
+    },
+    {
       title: 'Emoji',
       type: 'showEmojiPicker',
       icon: <EmojiEmotionsOutlinedIcon style={commandStyles.emoji} />,
-    },
-    {
-      title: 'Remove styles',
-      type: 'removeFormat',
-      icon: <HighlightOffIcon style={commandStyles.removeFormat} />,
     },
   ];
 
   return (
     <Fade in={true} timeout={400}>
-      <div className='editor'>
-        <div className='editor-header'>
-          {commandButtons.map((button) => {
-            return (
-              <CommandButton
-                key={button.title}
-                title={button.title}
-                icon={button.icon}
-                type={button.type}
-                isActive={
-                  button.type === 'createLink'
-                    ? showCustomLink
-                    : state[button.type]
-                }
-                handleCommandClick={handleCommandClick}
-              />
-            );
-          })}
-        </div>
-        <div
-          className={`editor-content ${state.showPlaceholder ? 'edit' : ''}`}
-          contentEditable='true'
-          onInput={inputHandler}
-          ref={editorContentRef}
-        />
-        {showCustomLink && (
-          <CustomLink
-            inputHandler={inputHandler}
-            showCustomLink={showCustomLink}
-            setShowCustomLink={setShowCustomLink}
-            cursorPosition={state.cursorPosition}
+      <div>
+        <div className='editor'>
+          <div className='editor-header'>
+            {commandButtons.map((button) => {
+              return (
+                <CommandButton
+                  key={button.title}
+                  title={button.title}
+                  icon={button.icon}
+                  type={button.type}
+                  isActive={
+                    button.type === 'createLink'
+                      ? showCustomLink
+                      : state[button.type]
+                  }
+                  handleCommandClick={handleCommandClick}
+                />
+              );
+            })}
+          </div>
+          <div
+            className={`editor-content ${state.showPlaceholder ? 'edit' : ''}`}
+            contentEditable='true'
+            onInput={inputHandler}
+            ref={editorContentRef}
           />
-        )}
-        {state.showEmojiPicker && (
-          <Fade in={true}>
-            <div className='emoji-picker-wrapper' ref={emojiRef}>
-              <EmojiPicker
-                onEmojiClick={(emoji) => insertEmoji(emoji)}
-                previewConfig={{ showPreview: false }}
-                autoFocusSearch={false}
-                emojiStyle='native'
-                theme='light'
+          {showCustomLink && (
+            <CustomLink
+              inputHandler={inputHandler}
+              showCustomLink={showCustomLink}
+              setShowCustomLink={setShowCustomLink}
+              cursorPosition={state.cursorPosition}
+            />
+          )}
+          {state.showEmojiPicker && (
+            <Fade in={true}>
+              <div className='emoji-picker-wrapper' ref={emojiRef}>
+                <EmojiPicker
+                  onEmojiClick={(emoji) => insertEmoji(emoji)}
+                  previewConfig={{ showPreview: false }}
+                  autoFocusSearch={false}
+                  emojiStyle='native'
+                  theme='light'
+                />
+              </div>
+            </Fade>
+          )}
+        </div>
+
+        <input
+          type='file'
+          onChange={handleImageChange}
+          style={{ display: 'none' }}
+          ref={fileInputRef}
+        />
+        {postTabState.mediaSrc && (
+          <div className='media-wrapper'>
+            <button
+              title='delete media'
+              className='delete-media-icon'
+              onClick={deleteMedia}
+            >
+              <HighlightOffIcon
+                style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
-            </div>
-          </Fade>
+            </button>
+            {postTabState.file.type.includes('video') ? (
+              <video
+                controls
+                src={postTabState.mediaSrc}
+                className='user-media-preview'
+              />
+            ) : (
+              <img
+                alt='user media preview'
+                src={postTabState.mediaSrc}
+                className='user-media-preview'
+              />
+            )}
+          </div>
         )}
       </div>
     </Fade>
   );
 }
+
+PostTabContent.propTypes = {
+  handlePostContentChange: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired,
+  deleteMedia: PropTypes.func.isRequired,
+  postTabState: PropTypes.object.isRequired,
+};
 
 export default PostTabContent;
