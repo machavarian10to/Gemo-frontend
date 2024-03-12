@@ -21,12 +21,7 @@ import useClickOutside from '@/hook/useClickOutside';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PropTypes from 'prop-types';
 
-function PostTabContent({
-  handlePostContentChange,
-  handleImageChange,
-  deleteMedia,
-  postTabState,
-}) {
+function PostTabContent({ postTabState, setPostTabState }) {
   const initialState = {
     bold: false,
     italic: false,
@@ -101,7 +96,7 @@ function PostTabContent({
             ).fontSize;
             setState((prevState) => ({
               ...prevState,
-              fontSize: fontSize === '24px',
+              fontSize: fontSize === '23px',
             }));
           } else {
             setState((prevState) => ({ ...prevState, fontSize: false }));
@@ -123,7 +118,10 @@ function PostTabContent({
       editorContentRef.current.innerHTML !== '<br>'
     ) {
       setState({ ...state, showPlaceholder: true });
-      handlePostContentChange(editorContentRef.current.innerHTML);
+      setPostTabState((prevState) => ({
+        ...prevState,
+        postContent: editorContentRef.current.innerHTML,
+      }));
     } else {
       setState({ ...state, showPlaceholder: false });
     }
@@ -161,6 +159,32 @@ function PostTabContent({
     document.execCommand(type, false, null);
   }
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPostTabState((prevState) => ({
+        ...prevState,
+        file: file,
+      }));
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPostTabState((prevState) => ({
+          ...prevState,
+          mediaSrc: e.target.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  function deleteMedia() {
+    setPostTabState((prevState) => ({
+      ...prevState,
+      mediaSrc: null,
+      file: null,
+    }));
+  }
+
   const commandStyles = {
     bold: {
       color: state.bold ? 'var(--bg-shade-32)' : 'grey',
@@ -168,55 +192,55 @@ function PostTabContent({
     },
     italic: {
       color: state.italic ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '23px',
+      fontSize: '22px',
     },
     underline: {
       color: state.underline ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '23px',
+      fontSize: '22px',
     },
     strikeThrough: {
       color: state.strikeThrough ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '24px',
+      fontSize: '23px',
     },
     fontSize: {
       color: state.fontSize ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '23px',
+      fontSize: '22px',
     },
     bulletList: {
       color: state.insertUnorderedList ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '22px',
+      fontSize: '21pz',
     },
     numberedList: {
       color: state.insertOrderedList ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '22px',
+      fontSize: '21pz',
     },
     horizontal: {
       color: 'grey',
-      fontSize: '20px',
+      fontSize: '19px',
     },
     justifyLeft: {
       color: 'grey',
-      fontSize: '20px',
+      fontSize: '19px',
     },
     justifyCenter: {
       color: 'grey',
-      fontSize: '20px',
+      fontSize: '19px',
     },
     justifyRight: {
       color: 'grey',
-      fontSize: '20px',
+      fontSize: '19px',
     },
     showCustomLink: {
       color: 'grey',
-      fontSize: '24px',
+      fontSize: '23px',
     },
     emoji: {
       color: 'grey',
-      fontSize: '22px',
+      fontSize: '21px',
     },
     addMedia: {
       color: 'grey',
-      fontSize: '22px',
+      fontSize: '21px',
     },
   };
 
@@ -346,6 +370,7 @@ function PostTabContent({
 
         <input
           type='file'
+          accept='image/*, video/*'
           onChange={handleImageChange}
           style={{ display: 'none' }}
           ref={fileInputRef}
@@ -382,10 +407,8 @@ function PostTabContent({
 }
 
 PostTabContent.propTypes = {
-  handlePostContentChange: PropTypes.func.isRequired,
-  handleImageChange: PropTypes.func.isRequired,
-  deleteMedia: PropTypes.func.isRequired,
   postTabState: PropTypes.object.isRequired,
+  setPostTabState: PropTypes.func.isRequired,
 };
 
 export default PostTabContent;

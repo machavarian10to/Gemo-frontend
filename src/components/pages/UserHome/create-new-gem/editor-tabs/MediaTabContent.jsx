@@ -2,19 +2,24 @@ import { useState } from 'react';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import Fade from '@mui/material/Fade';
+import PropTypes from 'prop-types';
 
-function MediaTabContent() {
-  const [file, setFile] = useState(null);
-  const [mediaSrc, setMediaSrc] = useState(null);
+function MediaTabContent({ mediaTabState, setMediaTabState }) {
   const [isDragOver, setDragOver] = useState(false);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
-      setFile(file);
+      setMediaTabState((prevState) => ({
+        ...prevState,
+        file: file,
+      }));
       const reader = new FileReader();
       reader.onload = (e) => {
-        setMediaSrc(e.target.result);
+        setMediaTabState((prevState) => ({
+          ...prevState,
+          mediaSrc: e.target.result,
+        }));
       };
       reader.readAsDataURL(file);
     }
@@ -25,10 +30,16 @@ function MediaTabContent() {
     setDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) {
-      setFile(file);
+      setMediaTabState((prevState) => ({
+        ...prevState,
+        file: file,
+      }));
       const reader = new FileReader();
       reader.onload = (e) => {
-        setMediaSrc(e.target.result);
+        setMediaTabState((prevState) => ({
+          ...prevState,
+          mediaSrc: e.target.result,
+        }));
       };
       reader.readAsDataURL(file);
     } else {
@@ -37,8 +48,7 @@ function MediaTabContent() {
   }
 
   function deleteMedia() {
-    setMediaSrc(null);
-    setFile(null);
+    setMediaTabState({ ...mediaTabState, file: null, mediaSrc: null });
   }
 
   function handleDragOver(e) {
@@ -53,7 +63,7 @@ function MediaTabContent() {
 
   return (
     <>
-      {mediaSrc ? (
+      {mediaTabState.mediaSrc ? (
         <div className='media-wrapper'>
           <button
             title='delete media'
@@ -64,12 +74,16 @@ function MediaTabContent() {
               style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
             />
           </button>
-          {file.type.includes('video') ? (
-            <video controls src={mediaSrc} className='user-media-preview' />
+          {mediaTabState.file?.type.includes('video') ? (
+            <video
+              controls
+              src={mediaTabState.mediaSrc}
+              className='user-media-preview'
+            />
           ) : (
             <img
               alt='user media preview'
-              src={mediaSrc}
+              src={mediaTabState.mediaSrc}
               className='user-media-preview'
             />
           )}
@@ -84,8 +98,8 @@ function MediaTabContent() {
           >
             <input
               hidden
+              accept='image/*, video/*'
               type='file'
-              accept='image/png, image/gif, image/jpeg, image/webp, video/mp4, video/quicktime'
               onChange={handleFileChange}
             />
             <div className='upload-wrapper'>
@@ -102,5 +116,10 @@ function MediaTabContent() {
     </>
   );
 }
+
+MediaTabContent.propTypes = {
+  mediaTabState: PropTypes.object.isRequired,
+  setMediaTabState: PropTypes.func.isRequired,
+};
 
 export default MediaTabContent;
