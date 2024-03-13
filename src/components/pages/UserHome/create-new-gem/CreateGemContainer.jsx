@@ -83,6 +83,8 @@ export default function CreatePostContainer({
     description: '',
   });
 
+  const [gifTabState, setGifTabState] = useState('');
+
   function clickHandler() {
     // TODO: send user data to server
     // closeModal();
@@ -181,7 +183,10 @@ export default function CreatePostContainer({
             setEventTabState={setEventTabState}
           />
         ) : activeTab === 'gif' ? (
-          <GifTabContent />
+          <GifTabContent
+            gifTabState={gifTabState}
+            setGifTabState={setGifTabState}
+          />
         ) : null}
 
         <Button
