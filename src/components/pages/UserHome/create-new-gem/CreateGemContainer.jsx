@@ -75,6 +75,14 @@ export default function CreatePostContainer({
     },
   });
 
+  const [eventTabState, setEventTabState] = useState({
+    file: null,
+    mediaSrc: null,
+    startDate: new Date(),
+    location: '',
+    description: '',
+  });
+
   function clickHandler() {
     // TODO: send user data to server
     // closeModal();
@@ -86,6 +94,8 @@ export default function CreatePostContainer({
       console.log(mediaTabState);
     } else if (activeTab === 'poll') {
       console.log(pollTabState);
+    } else if (activeTab === 'event') {
+      console.log(eventTabState);
     }
   }
 
@@ -166,7 +176,10 @@ export default function CreatePostContainer({
             setPollTabState={setPollTabState}
           />
         ) : activeTab === 'event' ? (
-          <EventTabContent />
+          <EventTabContent
+            eventTabState={eventTabState}
+            setEventTabState={setEventTabState}
+          />
         ) : activeTab === 'gif' ? (
           <GifTabContent />
         ) : null}

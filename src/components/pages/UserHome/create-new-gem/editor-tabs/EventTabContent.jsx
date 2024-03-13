@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Fade from '@mui/material/Fade';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import WallpaperOutlinedIcon from '@mui/icons-material/WallpaperOutlined';
@@ -7,41 +6,58 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import Input from '@/components/UI/Input';
+import PropTypes from 'prop-types';
 
-function EventTabContent() {
-  const [mediaSrc, setMediaSrc] = useState(null);
-  const [startDate, setStartDate] = useState(new Date());
-
+function EventTabContent({ eventTabState, setEventTabState }) {
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
+      setEventTabState((prevState) => ({
+        ...prevState,
+        file: file,
+      }));
       const reader = new FileReader();
       reader.onload = (e) => {
-        setMediaSrc(e.target.result);
+        setEventTabState((prevState) => ({
+          ...prevState,
+          mediaSrc: e.target.result,
+        }));
       };
       reader.readAsDataURL(file);
     }
   }
 
+  function deleteMedia() {
+    setEventTabState({ ...eventTabState, file: null, mediaSrc: null });
+  }
+
   return (
     <Fade in={true} timeout={400}>
       <div className='event-tab-container'>
-        {mediaSrc ? (
+        {eventTabState.mediaSrc ? (
           <div className='media-wrapper'>
             <button
               title='delete media'
               className='delete-media-icon'
-              onClick={() => setMediaSrc(null)}
+              onClick={deleteMedia}
             >
               <HighlightOffIcon
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
             </button>
-            <img
-              alt='user media preview'
-              src={mediaSrc}
-              className='user-media-preview'
-            />
+            {eventTabState.file?.type.includes('video') ? (
+              <video
+                controls
+                src={eventTabState.mediaSrc}
+                className='user-media-preview'
+              />
+            ) : (
+              <img
+                alt='user media preview'
+                src={eventTabState.mediaSrc}
+                className='user-media-preview'
+              />
+            )}
           </div>
         ) : (
           <label className='event-photo'>
@@ -64,8 +80,13 @@ function EventTabContent() {
           <div className='start-date'>
             <p>start date</p>
             <DateTimePicker
-              onChange={setStartDate}
-              value={startDate}
+              onChange={() =>
+                setEventTabState((prev) => ({
+                  ...prev,
+                  startDate: prev.startDate,
+                }))
+              }
+              value={eventTabState.startDate}
               calendarClassName='calendar'
               className='date-picker'
               clearIcon={null}
@@ -75,10 +96,27 @@ function EventTabContent() {
         </div>
 
         <div className='event-location-wrapper'>
-          <Input size='extra-small' placeholder='Event location...' />
+          <Input
+            size='extra-small'
+            placeholder='Event location...'
+            value={eventTabState.location}
+            onInput={(e) =>
+              setEventTabState((prev) => ({
+                ...prev,
+                location: e.target.value,
+              }))
+            }
+          />
         </div>
 
         <textarea
+          value={eventTabState.description}
+          onChange={(e) =>
+            setEventTabState((prev) => ({
+              ...prev,
+              description: e.target.value,
+            }))
+          }
           maxLength={500}
           className='event-description'
           placeholder='Event description...'
@@ -87,5 +125,10 @@ function EventTabContent() {
     </Fade>
   );
 }
+
+EventTabContent.propTypes = {
+  eventTabState: PropTypes.object.isRequired,
+  setEventTabState: PropTypes.func.isRequired,
+};
 
 export default EventTabContent;
