@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -19,14 +19,60 @@ export default function CreatePostContainer({
 }) {
   const [gemTitle, setGemTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
+
   const [postTabState, setPostTabState] = useState({
     postContent: '',
     file: null,
     mediaSrc: null,
   });
+
   const [mediaTabState, setMediaTabState] = useState({
     file: null,
     mediaSrc: null,
+  });
+
+  const [pollTabState, setPollTabState] = useState({
+    pollOptions: [
+      {
+        id: useId(),
+        value: '',
+        placeholder: 'Option 1',
+        deleteIcon: false,
+      },
+      {
+        id: useId(),
+        value: '',
+        placeholder: 'Option 2',
+        deleteIcon: false,
+      },
+    ],
+    pollDurations: {
+      showDurations: false,
+      selectedDuration: '3 days',
+      options: [
+        {
+          id: useId(),
+          name: '1 Day',
+        },
+        {
+          id: useId(),
+          name: '2 Days',
+        },
+        {
+          id: useId(),
+          name: '3 Days',
+          selected: true,
+        },
+        {
+          id: useId(),
+          name: '4 Days',
+        },
+        {
+          id: useId(),
+          name: '5 Days',
+        },
+      ],
+    },
   });
 
   function clickHandler() {
@@ -38,6 +84,8 @@ export default function CreatePostContainer({
       console.log(postTabState);
     } else if (activeTab === 'media') {
       console.log(mediaTabState);
+    } else if (activeTab === 'poll') {
+      console.log(pollTabState);
     }
   }
 
@@ -113,7 +161,10 @@ export default function CreatePostContainer({
             setMediaTabState={setMediaTabState}
           />
         ) : activeTab === 'poll' ? (
-          <PollTabContent />
+          <PollTabContent
+            pollTabState={pollTabState}
+            setPollTabState={setPollTabState}
+          />
         ) : activeTab === 'event' ? (
           <EventTabContent />
         ) : activeTab === 'gif' ? (
