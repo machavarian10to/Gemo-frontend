@@ -4,10 +4,12 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
+import LoadingAnimation from '@/components/UI/LoadingAnimation';
 
 function GifTabContent({ gifTabState, setGifTabState }) {
   const [searchValue, setSearchValue] = useState('');
   const [gifs, setGifs] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const gifContainerRef = useRef(null);
 
@@ -16,12 +18,16 @@ function GifTabContent({ gifTabState, setGifTabState }) {
   }, []);
 
   function fetchGifs(searchValue) {
+    setLoading(true);
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${
       import.meta.env.VITE_GIPHY_API_KEY
-    }&q=${searchValue}&limit=20&offset=0&rating=g&lang=en`;
+    }&q=${searchValue}&limit=50&offset=0&rating=pg-13&lang=en`;
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setGifs(data.data));
+      .then((data) => {
+        setGifs(data.data);
+        setLoading(false);
+      });
   }
 
   function searchGifs(e) {
@@ -76,11 +82,19 @@ function GifTabContent({ gifTabState, setGifTabState }) {
       </div>
       <Fade in={true} timeout={400}>
         <div className='gifs-wrapper'>
-          {gifs.map((gif) => (
-            <div className='gif' key={gif.id} onClick={() => onGifSelect(gif)}>
-              <img src={gif.images.fixed_height.url} alt={gif.title} />
-            </div>
-          ))}
+          {loading ? (
+            <LoadingAnimation />
+          ) : (
+            gifs.map((gif) => (
+              <div
+                className='gif'
+                key={gif.id}
+                onClick={() => onGifSelect(gif)}
+              >
+                <img src={gif.images.fixed_height.url} alt={gif.title} />
+              </div>
+            ))
+          )}
         </div>
       </Fade>
     </div>
@@ -88,8 +102,8 @@ function GifTabContent({ gifTabState, setGifTabState }) {
 }
 
 GifTabContent.propTypes = {
-  gifTabState: PropTypes.object.isRequired,
-  setGifTabState: PropTypes.func.isRequired,
+  gifTabState: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  setGifTabState: PropTypes.func,
 };
 
 export default GifTabContent;

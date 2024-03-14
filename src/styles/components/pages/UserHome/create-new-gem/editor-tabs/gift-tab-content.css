@@ -12,6 +12,7 @@
 }
 
 .gifs-wrapper {
+  position: relative;
   margin-top: 20px;
   width: 100%;
   height: 100%;
@@ -19,6 +20,11 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 20px;
+}
+
+.gifs-wrapper .loading-animation-container{
+  width: 150px;
+  height: 200px;
 }
 
 .gifs-wrapper .gif {

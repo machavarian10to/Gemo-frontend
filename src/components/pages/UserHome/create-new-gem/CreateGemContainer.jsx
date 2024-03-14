@@ -61,15 +61,15 @@ export default function CreatePostContainer({
         {
           id: useId(),
           name: '3 Days',
+        },
+        {
+          id: useId(),
+          name: '7 Days',
           selected: true,
         },
         {
           id: useId(),
-          name: '4 Days',
-        },
-        {
-          id: useId(),
-          name: '5 Days',
+          name: '1 month',
         },
       ],
     },
@@ -98,6 +98,8 @@ export default function CreatePostContainer({
       console.log(pollTabState);
     } else if (activeTab === 'event') {
       console.log(eventTabState);
+    } else if (activeTab === 'gif') {
+      console.log(gifTabState);
     }
   }
 

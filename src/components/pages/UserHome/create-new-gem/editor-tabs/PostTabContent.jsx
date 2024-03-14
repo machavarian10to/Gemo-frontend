@@ -19,6 +19,7 @@ import CommandButton from '../CommandButton';
 import CustomLink from '@/components/pages/UserHome/create-new-gem/CustomLink';
 import useClickOutside from '@/hook/useClickOutside';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import PropTypes from 'prop-types';
 
 function PostTabContent({ postTabState, setPostTabState }) {
@@ -32,6 +33,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
     insertOrderedList: false,
     showPlaceholder: false,
     showEmojiPicker: false,
+    gifs: false,
     cursorPosition: null,
   };
 
@@ -155,6 +157,10 @@ function PostTabContent({ postTabState, setPostTabState }) {
       fileInputRef.current.click();
       return;
     }
+    if (type === 'gif') {
+      setState({ ...state, gifs: !state.gifs });
+      return;
+    }
     setState((prevState) => ({ ...prevState, [type]: !prevState[type] }));
     document.execCommand(type, false, null);
   }
@@ -188,59 +194,63 @@ function PostTabContent({ postTabState, setPostTabState }) {
   const commandStyles = {
     bold: {
       color: state.bold ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '24px',
+      fontSize: '22px',
     },
     italic: {
       color: state.italic ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '22px',
+      fontSize: '20px',
     },
     underline: {
       color: state.underline ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '22px',
+      fontSize: '20px',
     },
     strikeThrough: {
       color: state.strikeThrough ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '23px',
+      fontSize: '21px',
     },
     fontSize: {
       color: state.fontSize ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '22px',
+      fontSize: '20px',
     },
     bulletList: {
       color: state.insertUnorderedList ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '21pz',
+      fontSize: '20px',
     },
     numberedList: {
       color: state.insertOrderedList ? 'var(--bg-shade-32)' : 'grey',
-      fontSize: '21pz',
+      fontSize: '20px',
     },
     horizontal: {
       color: 'grey',
-      fontSize: '19px',
+      fontSize: '18px',
     },
     justifyLeft: {
       color: 'grey',
-      fontSize: '19px',
+      fontSize: '18px',
     },
     justifyCenter: {
       color: 'grey',
-      fontSize: '19px',
+      fontSize: '18px',
     },
     justifyRight: {
       color: 'grey',
-      fontSize: '19px',
+      fontSize: '18px',
     },
     showCustomLink: {
       color: 'grey',
-      fontSize: '23px',
+      fontSize: '21px',
     },
     emoji: {
       color: 'grey',
       fontSize: '21px',
     },
+    gifs: {
+      color: 'grey',
+      fontSize: '20px',
+    },
     addMedia: {
       color: 'grey',
-      fontSize: '21px',
+      fontSize: '20px',
     },
   };
 
@@ -309,6 +319,11 @@ function PostTabContent({ postTabState, setPostTabState }) {
       title: 'Add Media',
       type: 'addMedia',
       icon: <ImageOutlinedIcon style={commandStyles.addMedia} />,
+    },
+    {
+      title: 'Gifs',
+      type: 'gifs',
+      icon: <GifBoxOutlinedIcon style={commandStyles.gifs} />,
     },
     {
       title: 'Emoji',

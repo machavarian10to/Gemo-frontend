@@ -95,7 +95,7 @@
   background: #f6f7f8;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   padding-left: 5px;
 }
 
@@ -108,7 +108,7 @@
   transition: all 0.3s;
   display: grid;
   place-items: center;
-  padding: 2px;
+  padding: 1px;
 }
 
 .editor-header button:hover {
