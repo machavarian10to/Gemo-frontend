@@ -6,16 +6,11 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import TagFacesOutlinedIcon from '@mui/icons-material/TagFacesOutlined';
 import UserAvatar from '@/components/shared/UserAvatar';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import Input from '@/components/UI/Input';
-import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import GifContainer from '@/components/UI/GifContainer';
 
 const AddComment = ({ placeholder, value = '' }) => {
-  useEffect(() => {
-    fetchGifs('cooking');
-  }, []);
-
   const [userComment, setUserComment] = useState(value);
 
   const [showEmojis, setShowEmojis] = useState(false);
@@ -25,8 +20,6 @@ const AddComment = ({ placeholder, value = '' }) => {
   const [mediaSrc, setMediaSrc] = useState(null);
 
   const [showGifs, setShowGifs] = useState(false);
-  const [gifs, setGifs] = useState([]);
-  const [searchGifValue, setSearchGifValue] = useState('');
   const gifTabRef = useRef(null);
 
   useClickOutside(emojiPickerRef, () => {
@@ -56,23 +49,6 @@ const AddComment = ({ placeholder, value = '' }) => {
   function deleteMedia() {
     setMediaSrc(null);
     setFile(null);
-  }
-
-  function fetchGifs(searchValue) {
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${
-      import.meta.env.VITE_GIPHY_API_KEY
-    }&q=${searchValue}&limit=20&offset=0&rating=g&lang=en`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setGifs(data.data));
-  }
-
-  function searchGifs(e) {
-    if (e.code === 'Enter') {
-      if (!searchGifValue) fetchGifs('cooking');
-      fetchGifs(searchGifValue);
-    }
-    return;
   }
 
   return (
@@ -136,38 +112,8 @@ const AddComment = ({ placeholder, value = '' }) => {
             )}
 
             {showGifs && (
-              <div
-                className='user-post__comment-gif-tab-wrapper'
-                ref={gifTabRef}
-              >
-                <div className='user-post__comment-gif-tab'>
-                  <div className='search-gifs-wrapper' onKeyDown={searchGifs}>
-                    <Input
-                      value={searchGifValue}
-                      leftIcon={
-                        <SearchIcon
-                          style={{
-                            color: 'rgba(130, 130, 130, 0.6)',
-                            fontSize: '18px',
-                          }}
-                        />
-                      }
-                      size='extra-small'
-                      placeholder='Search most delicious gifs...'
-                      onInput={(e) => setSearchGifValue(e.target.value)}
-                    />
-                  </div>
-                  <div className='gifs-wrapper'>
-                    {gifs.map((gif) => (
-                      <div className='gif' key={gif.id}>
-                        <img
-                          src={gif.images.fixed_height.url}
-                          alt={gif.title}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <div className='add-comment__gif-container-wrapper'>
+                <GifContainer />
               </div>
             )}
           </div>

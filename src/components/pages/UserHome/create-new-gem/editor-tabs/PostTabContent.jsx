@@ -21,6 +21,7 @@ import useClickOutside from '@/hook/useClickOutside';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import PropTypes from 'prop-types';
+import GifContainer from '@/components/UI/GifContainer';
 
 function PostTabContent({ postTabState, setPostTabState }) {
   const initialState = {
@@ -380,6 +381,11 @@ function PostTabContent({ postTabState, setPostTabState }) {
                 />
               </div>
             </Fade>
+          )}
+          {state.gifs && (
+            <div className='post-tab-content__gif-container-wrapper'>
+              <GifContainer />
+            </div>
           )}
         </div>
 
