@@ -3,7 +3,7 @@
   height: 210px;
   margin-top: 15px;
   outline: 1.5px solid var(--color-grey);
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
 }
 
 .editor-content {
@@ -31,7 +31,7 @@
   padding: 8px;
   font-size: 12px;
   top: 110%;
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   z-index: 10;
   color: #fff;
   background-color: var(--bg-shade-42);
@@ -104,7 +104,7 @@
   border: none;
   outline: none;
   background: none;
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   transition: all 0.3s;
   display: grid;
   place-items: center;
@@ -180,8 +180,28 @@
   outline: 1px solid var(--color-main-yellow);
 }
 
+.EmojiPickerReact:not(.epr-search-active)
+  .epr-category-nav
+  > button.epr-cat-btn.epr-active,
+.EmojiPickerReact:not(.epr-search-active)
+  .epr-category-nav
+  > button.epr-cat-btn:hover {
+  background-position-y: none;
+}
+
 .EmojiPickerReact.epr-dark-theme {
 }
 
-.post-tab-content__gif-container-wrapper{
+.post-tab-content__gif-container-wrapper {
+  position: absolute;
+  top: 55%;
+  right: 25%;
+  width: 250px;
+  height: 300px;
+  z-index: 1000000;
+  border-radius: 10px;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  overflow: auto;
+  padding: 10px;
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
@@ -112,7 +112,10 @@ const AddComment = ({ placeholder, value = '' }) => {
             )}
 
             {showGifs && (
-              <div className='add-comment__gif-container-wrapper'>
+              <div
+                className='add-comment__gif-container-wrapper'
+                ref={gifTabRef}
+              >
                 <GifContainer />
               </div>
             )}

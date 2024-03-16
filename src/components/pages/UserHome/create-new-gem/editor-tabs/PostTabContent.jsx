@@ -44,9 +44,14 @@ function PostTabContent({ postTabState, setPostTabState }) {
   const emojiRef = useRef(null);
   const editorContentRef = useRef(null);
   const fileInputRef = useRef(null);
+  const gifRef = useRef(null);
 
   useClickOutside(emojiRef, () => {
     setState({ ...state, showEmojiPicker: false });
+  });
+
+  useClickOutside(gifRef, () => {
+    setState({ ...state, gifs: false });
   });
 
   useEffect(() => {
@@ -178,6 +183,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
         setPostTabState((prevState) => ({
           ...prevState,
           mediaSrc: e.target.result,
+          gifSrc: null,
         }));
       };
       reader.readAsDataURL(file);
@@ -189,6 +195,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
       ...prevState,
       mediaSrc: null,
       file: null,
+      gifSrc: null,
     }));
   }
 
@@ -383,11 +390,31 @@ function PostTabContent({ postTabState, setPostTabState }) {
             </Fade>
           )}
           {state.gifs && (
-            <div className='post-tab-content__gif-container-wrapper'>
-              <GifContainer />
+            <div
+              className='post-tab-content__gif-container-wrapper'
+              ref={gifRef}
+            >
+              <GifContainer setGif={setPostTabState} showGifs={setState} />
             </div>
           )}
         </div>
+
+        {postTabState.gifSrc && (
+          <div className='media-wrapper'>
+            <button
+              title='delete media'
+              className='delete-media-icon'
+              onClick={deleteMedia}
+            >
+              <HighlightOffIcon
+                style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
+              />
+            </button>
+            <div className='selected-gif'>
+              <img src={postTabState.gifSrc} alt='selected gif' />
+            </div>
+          </div>
+        )}
 
         <input
           type='file'

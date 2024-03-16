@@ -34,6 +34,7 @@ function GifTabContent({ gifTabState, setGifTabState }) {
     if (e.code === 'Enter') {
       if (searchValue === '') fetchGifs('cooking');
       fetchGifs(searchValue);
+      setGifTabState('');
     }
     return;
   }
@@ -57,11 +58,8 @@ function GifTabContent({ gifTabState, setGifTabState }) {
           placeholder='Search most delicious gifs...'
           onInput={(e) => setSearchValue(e.target.value)}
         />
-        {gifTabState && (
+        {gifTabState ? (
           <div className='selected-gif-wrapper'>
-            <h6>
-              Selected Gif: <span>{gifTabState.title}</span>
-            </h6>
             <div className='selected-gif'>
               <img
                 src={gifTabState.images.fixed_height.url}
@@ -74,29 +72,30 @@ function GifTabContent({ gifTabState, setGifTabState }) {
               onClick={() => setGifTabState('')}
             >
               <HighlightOffIcon
-                style={{ color: 'var(--color-main-yellow)', fontSize: '15px' }}
+                style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
             </button>
           </div>
+        ) : (
+          <Fade in={true} timeout={400}>
+            <div className='gifs-wrapper'>
+              {loading ? (
+                <LoadingAnimation />
+              ) : (
+                gifs.map((gif) => (
+                  <div
+                    className='gif'
+                    key={gif.id}
+                    onClick={() => onGifSelect(gif)}
+                  >
+                    <img src={gif.images.fixed_height.url} alt={gif.title} />
+                  </div>
+                ))
+              )}
+            </div>
+          </Fade>
         )}
       </div>
-      <Fade in={true} timeout={400}>
-        <div className='gifs-wrapper'>
-          {loading ? (
-            <LoadingAnimation />
-          ) : (
-            gifs.map((gif) => (
-              <div
-                className='gif'
-                key={gif.id}
-                onClick={() => onGifSelect(gif)}
-              >
-                <img src={gif.images.fixed_height.url} alt={gif.title} />
-              </div>
-            ))
-          )}
-        </div>
-      </Fade>
     </div>
   );
 }

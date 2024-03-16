@@ -38,10 +38,6 @@
   margin: 10px 0 0 -15px;
 }
 
-.speech-bubble:hover {
-  opacity: 0.8;
-}
-
 .user-home__speech-bubble-icons-wrapper {
   color: var(--color-grey);
   display: flex;

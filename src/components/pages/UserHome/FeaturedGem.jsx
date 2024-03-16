@@ -17,6 +17,7 @@ function FeaturedGem() {
         />
       </h4>
 
+      <div className='divider'></div>
       <div className='user-home__featured-gem'>
         <Post />
       </div>

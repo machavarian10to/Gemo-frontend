@@ -1,12 +1,12 @@
 .user-home__featured-gem-wrapper {
   background-color: #fff;
   width: 100%;
-  padding: 20px;
   border-radius: var(--border-radius-rect);
   text-align: center;
 }
 
 .user-home__featured-gem-wrapper h4 {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -15,12 +15,18 @@
   justify-content: center;
 }
 
+.user-home__featured-gem-wrapper .divider {
+  margin-top: 15px;
+  margin-inline: auto;
+  width: 90%;
+  opacity: 0.4;
+}
+
 .user-home__featured-gem {
   margin-top: 10px;
 }
 
 .user-home__featured-gem .user-post {
-  margin-top: 20px;
+  margin-top: 15px;
   box-shadow: none;
-  border: 1px solid var(--color-light-grey);
 }

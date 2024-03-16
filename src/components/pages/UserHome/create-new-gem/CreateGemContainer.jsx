@@ -24,6 +24,7 @@ export default function CreatePostContainer({
     postContent: '',
     file: null,
     mediaSrc: null,
+    gifSrc: '',
   });
 
   const [mediaTabState, setMediaTabState] = useState({
@@ -148,7 +149,7 @@ export default function CreatePostContainer({
           onClick={() => handleActiveTab('gif')}
         >
           <GifBoxIcon style={{ fontSize: '17px' }} />
-          <div>Gif</div>
+          <div>Gifs</div>
         </div>
       </div>
 
