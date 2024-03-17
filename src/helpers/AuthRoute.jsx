@@ -13,7 +13,6 @@ const AuthRoute = ({ children }) => {
     if (storedUser && storedToken) {
       dispatch(setLogin({ user: JSON.parse(storedUser), token: storedToken }));
       localStorage.removeItem('user');
-      localStorage.removeItem('token');
     } else {
       return <Authorization />;
     }

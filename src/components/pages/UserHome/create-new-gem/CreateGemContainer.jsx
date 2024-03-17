@@ -11,12 +11,16 @@ import PollTabContent from '@/components/pages/UserHome/create-new-gem/editor-ta
 import EventTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/EventTabContent';
 import GifTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/GifTabContent';
 import Button from '@/components/UI/Button';
+import axios from '@/services/axios';
+import { useSelector } from 'react-redux';
 
 export default function CreatePostContainer({
   closeModal,
   activeTab,
   handleActiveTab,
 }) {
+  const user = useSelector((state) => state.user);
+
   const [gemTitle, setGemTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
 
@@ -86,21 +90,46 @@ export default function CreatePostContainer({
 
   const [gifTabState, setGifTabState] = useState('');
 
-  function clickHandler() {
-    // TODO: send user data to server
-    // closeModal();
+  async function clickHandler() {
+    const formData = new FormData();
+    const selectedFile =
+      activeTab === 'post'
+        ? postTabState.file
+          ? activeTab === 'media'
+          : mediaTabState.file
+        : activeTab === 'event'
+        ? eventTabState.file
+        : null;
+    formData.append('file', selectedFile);
 
-    console.log(gemTitle);
-    if (activeTab === 'post') {
-      console.log(postTabState);
-    } else if (activeTab === 'media') {
-      console.log(mediaTabState);
-    } else if (activeTab === 'poll') {
-      console.log(pollTabState);
-    } else if (activeTab === 'event') {
-      console.log(eventTabState);
-    } else if (activeTab === 'gif') {
-      console.log(gifTabState);
+    const data = {
+      userId: user._id,
+      title: gemTitle,
+      type: activeTab,
+      desc:
+        activeTab === 'post'
+          ? postTabState
+          : activeTab === 'media'
+          ? mediaTabState
+          : activeTab === 'poll'
+          ? pollTabState
+          : activeTab === 'event'
+          ? eventTabState
+          : gifTabState,
+    };
+
+    try {
+      const response = await axios.post('/api/gems', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: data,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error sending data:', error.response.data);
+    } finally {
+      closeModal();
     }
   }
 
