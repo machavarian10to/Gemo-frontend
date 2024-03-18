@@ -177,6 +177,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
       setPostTabState((prevState) => ({
         ...prevState,
         file: file,
+        fileName: file.name,
       }));
       const reader = new FileReader();
       reader.onload = (e) => {

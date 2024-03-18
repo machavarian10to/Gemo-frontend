@@ -25,14 +25,16 @@ export default function CreatePostContainer({
   const [charCount, setCharCount] = useState(0);
 
   const [postTabState, setPostTabState] = useState({
-    postContent: '',
+    postContent: null,
     file: null,
+    fileName: null,
     mediaSrc: null,
-    gifSrc: '',
+    gifSrc: null,
   });
 
   const [mediaTabState, setMediaTabState] = useState({
     file: null,
+    fileName: null,
     mediaSrc: null,
   });
 
@@ -82,52 +84,46 @@ export default function CreatePostContainer({
 
   const [eventTabState, setEventTabState] = useState({
     file: null,
+    fileName: null,
     mediaSrc: null,
     startDate: new Date(),
-    location: '',
-    description: '',
+    location: null,
+    description: null,
   });
 
   const [gifTabState, setGifTabState] = useState('');
 
   async function clickHandler() {
     const formData = new FormData();
-    const selectedFile =
-      activeTab === 'post'
-        ? postTabState.file
-          ? activeTab === 'media'
-          : mediaTabState.file
-        : activeTab === 'event'
-        ? eventTabState.file
-        : null;
-    formData.append('file', selectedFile);
+    formData.append('userId', user._id);
+    formData.append('title', gemTitle);
+    formData.append('type', activeTab);
 
-    const data = {
-      userId: user._id,
-      title: gemTitle,
-      type: activeTab,
-      desc:
-        activeTab === 'post'
-          ? postTabState
-          : activeTab === 'media'
-          ? mediaTabState
-          : activeTab === 'poll'
-          ? pollTabState
-          : activeTab === 'event'
-          ? eventTabState
-          : gifTabState,
-    };
+    if (activeTab === 'post') {
+      formData.append('file', postTabState.file);
+      formData.append('desc', JSON.stringify(postTabState));
+    } else if (activeTab === 'media') {
+      formData.append('file', mediaTabState.file);
+      formData.append('desc', JSON.stringify(mediaTabState));
+    } else if (activeTab === 'event') {
+      formData.append('file', eventTabState.file);
+      formData.append('desc', JSON.stringify(eventTabState));
+    } else if (activeTab === 'poll') {
+      formData.append('desc', JSON.stringify(pollTabState));
+    } else if (activeTab === 'gif') {
+      formData.append('desc', JSON.stringify(gifTabState));
+    }
 
     try {
       const response = await axios.post('/api/gems', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data: data,
       });
+      //TODO: create alert for successful gem
       console.log(response.data);
     } catch (error) {
-      console.error('Error sending data:', error.response.data);
+      console.error('Error sending data:', error.response);
     } finally {
       closeModal();
     }

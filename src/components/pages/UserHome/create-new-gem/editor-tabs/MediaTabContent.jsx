@@ -13,6 +13,7 @@ function MediaTabContent({ mediaTabState, setMediaTabState }) {
       setMediaTabState((prevState) => ({
         ...prevState,
         file: file,
+        fileName: file.name,
       }));
       const reader = new FileReader();
       reader.onload = (e) => {

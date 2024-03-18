@@ -15,6 +15,7 @@ function EventTabContent({ eventTabState, setEventTabState }) {
       setEventTabState((prevState) => ({
         ...prevState,
         file: file,
+        fileName: file.name,
       }));
       const reader = new FileReader();
       reader.onload = (e) => {
