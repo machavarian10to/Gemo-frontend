@@ -99,8 +99,11 @@ export default function CreatePostContainer({
     formData.append('title', gemTitle);
     formData.append('type', activeTab);
 
+    // TODO: send the correct data to the server
     if (activeTab === 'post') {
-      formData.append('file', postTabState.file);
+      if (postTabState.file) {
+        formData.append('file', postTabState.file);
+      }
       formData.append('desc', JSON.stringify(postTabState));
     } else if (activeTab === 'media') {
       formData.append('file', mediaTabState.file);
@@ -122,10 +125,9 @@ export default function CreatePostContainer({
       });
       //TODO: create alert for successful gem
       console.log(response.data);
+      // closeModal();
     } catch (error) {
-      console.error('Error sending data:', error.response);
-    } finally {
-      closeModal();
+      console.error('Error sending data:', error);
     }
   }
 
