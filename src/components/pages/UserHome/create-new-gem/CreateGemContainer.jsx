@@ -99,12 +99,17 @@ export default function CreatePostContainer({
     formData.append('title', gemTitle);
     formData.append('type', activeTab);
 
-    // TODO: send the correct data to the server
     if (activeTab === 'post') {
-      if (postTabState.file) {
-        formData.append('file', postTabState.file);
-      }
-      formData.append('desc', JSON.stringify(postTabState));
+      if (postTabState.file) formData.append('file', postTabState.file);
+      const state = {};
+      const postTabStateKeys = Object.keys(postTabState);
+      postTabStateKeys.forEach((key) => {
+        if (postTabState[key] && key !== 'file' && key !== 'mediaSrc') {
+          state[key] = postTabState[key];
+        }
+      });
+      console.log('state:', state);
+      formData.append('desc', JSON.stringify(state));
     } else if (activeTab === 'media') {
       formData.append('file', mediaTabState.file);
       formData.append('desc', JSON.stringify(mediaTabState));
@@ -117,18 +122,18 @@ export default function CreatePostContainer({
       formData.append('desc', JSON.stringify(gifTabState));
     }
 
-    try {
-      const response = await axios.post('/api/gems', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      //TODO: create alert for successful gem
-      console.log(response.data);
-      // closeModal();
-    } catch (error) {
-      console.error('Error sending data:', error);
-    }
+    // try {
+    //   const response = await axios.post('/api/gems', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   });
+    //   //TODO: create alert for successful gem
+    //   console.log(response.data);
+    //   // closeModal();
+    // } catch (error) {
+    //   console.error('Error sending data:', error);
+    // }
   }
 
   function setTitle(e) {

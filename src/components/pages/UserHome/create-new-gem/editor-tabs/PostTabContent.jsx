@@ -196,6 +196,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
       ...prevState,
       mediaSrc: null,
       file: null,
+      fileName: null,
       gifSrc: null,
     }));
   }

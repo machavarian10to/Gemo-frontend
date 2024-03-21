@@ -6,9 +6,11 @@ import PublicIcon from '@mui/icons-material/Public';
 import useClickOutside from '@/hook/useClickOutside';
 import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 function CreatePostModal({ closeModal, activeTab, handleActiveTab }) {
   const modalContentRef = useRef();
+  const user = useSelector((state) => state.user);
 
   useClickOutside(modalContentRef, () => closeModal());
 
@@ -27,7 +29,7 @@ function CreatePostModal({ closeModal, activeTab, handleActiveTab }) {
           <div className='modal-body'>
             <UserAvatar width={45} height={40} />
             <div className='modal-body__gem-details'>
-              <h5>@machavarian10to</h5>
+              <h5>@{user.username}</h5>
               <div className='audience-wrapper'>
                 <span>audience:</span>
                 <div className='audience'>

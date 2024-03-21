@@ -40,7 +40,7 @@ function GifTabContent({ gifTabState, setGifTabState }) {
   }
 
   function onGifSelect(gif) {
-    setGifTabState(gif);
+    setGifTabState(gif.images.fixed_height.url);
     gifContainerRef.current.scrollTop = 0;
   }
 
