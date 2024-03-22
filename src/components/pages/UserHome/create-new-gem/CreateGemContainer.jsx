@@ -108,8 +108,11 @@ export default function CreatePostContainer({
           state[key] = postTabState[key];
         }
       });
-      console.log('state:', state);
       formData.append('desc', JSON.stringify(state));
+
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
     } else if (activeTab === 'media') {
       formData.append('file', mediaTabState.file);
       formData.append('desc', JSON.stringify(mediaTabState));

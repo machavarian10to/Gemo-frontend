@@ -121,15 +121,17 @@ function PostTabContent({ postTabState, setPostTabState }) {
   }, []);
 
   function inputHandler() {
-    if (
-      editorContentRef.current.innerHTML.length > 0 &&
-      editorContentRef.current.innerHTML !== '<br>'
-    ) {
+    if (editorContentRef.current.innerHTML === '<br>') {
+      editorContentRef.current.innerHTML = '';
+    }
+
+    setPostTabState((prevState) => ({
+      ...prevState,
+      postContent: editorContentRef.current.innerHTML,
+    }));
+
+    if (editorContentRef.current.innerHTML.length > 0) {
       setState({ ...state, showPlaceholder: true });
-      setPostTabState((prevState) => ({
-        ...prevState,
-        postContent: editorContentRef.current.innerHTML,
-      }));
     } else {
       setState({ ...state, showPlaceholder: false });
     }
