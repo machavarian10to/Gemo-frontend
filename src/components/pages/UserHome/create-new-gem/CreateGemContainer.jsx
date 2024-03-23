@@ -71,12 +71,12 @@ export default function CreatePostContainer({
         },
         {
           id: useId(),
-          name: '7 Days',
+          name: '5 Days',
           selected: true,
         },
         {
           id: useId(),
-          name: '1 month',
+          name: '7 days',
         },
       ],
     },
@@ -86,12 +86,15 @@ export default function CreatePostContainer({
     file: null,
     fileName: null,
     mediaSrc: null,
-    startDate: new Date(),
+    startDate: null,
     location: null,
     description: null,
   });
 
-  const [gifTabState, setGifTabState] = useState('');
+  const [gifTabState, setGifTabState] = useState({
+    gif: '',
+    title: '',
+  });
 
   async function clickHandler() {
     const formData = new FormData();
@@ -108,23 +111,51 @@ export default function CreatePostContainer({
           state[key] = postTabState[key];
         }
       });
-      formData.append('desc', JSON.stringify(state));
-
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
+      if (Object.keys(state).length !== 0) {
+        formData.append('desc', JSON.stringify(state));
+      }
     } else if (activeTab === 'media') {
-      formData.append('file', mediaTabState.file);
-      formData.append('desc', JSON.stringify(mediaTabState));
-    } else if (activeTab === 'event') {
-      formData.append('file', eventTabState.file);
-      formData.append('desc', JSON.stringify(eventTabState));
+      if (mediaTabState.file) {
+        formData.append('file', mediaTabState.file);
+        formData.append(
+          'desc',
+          JSON.stringify({ fileName: mediaTabState.fileName }),
+        );
+      }
     } else if (activeTab === 'poll') {
-      formData.append('desc', JSON.stringify(pollTabState));
+      const state = {
+        pollOptions: [],
+        pollDuration: pollTabState.pollDurations.selectedDuration,
+      };
+      pollTabState.pollOptions.forEach((option) => {
+        if (option.value) {
+          state.pollOptions.push({ id: option.id, value: option.value });
+        }
+      });
+      if (state.pollOptions.length !== 0) {
+        formData.append('desc', JSON.stringify(state));
+      }
+    } else if (activeTab === 'event') {
+      if (eventTabState.file) formData.append('file', eventTabState.file);
+      const state = {};
+      const eventTabStateKeys = Object.keys(eventTabState);
+      eventTabStateKeys.forEach((key) => {
+        if (eventTabState[key] && key !== 'file' && key !== 'mediaSrc') {
+          state[key] = eventTabState[key];
+        }
+      });
+      if (Object.keys(state).length !== 0) {
+        formData.append('desc', JSON.stringify(state));
+      }
     } else if (activeTab === 'gif') {
-      formData.append('desc', JSON.stringify(gifTabState));
+      if (gifTabState.gif) {
+        formData.append('desc', JSON.stringify(gifTabState));
+      }
     }
 
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
     // try {
     //   const response = await axios.post('/api/gems', formData, {
     //     headers: {

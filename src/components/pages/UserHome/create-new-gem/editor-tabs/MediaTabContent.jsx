@@ -49,7 +49,12 @@ function MediaTabContent({ mediaTabState, setMediaTabState }) {
   }
 
   function deleteMedia() {
-    setMediaTabState({ ...mediaTabState, file: null, mediaSrc: null });
+    setMediaTabState({
+      ...mediaTabState,
+      file: null,
+      fileName: null,
+      mediaSrc: null,
+    });
   }
 
   function handleDragOver(e) {

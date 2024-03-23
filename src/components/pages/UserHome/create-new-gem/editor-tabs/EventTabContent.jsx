@@ -29,7 +29,12 @@ function EventTabContent({ eventTabState, setEventTabState }) {
   }
 
   function deleteMedia() {
-    setEventTabState({ ...eventTabState, file: null, mediaSrc: null });
+    setEventTabState({
+      ...eventTabState,
+      file: null,
+      fileName: null,
+      mediaSrc: null,
+    });
   }
 
   return (
