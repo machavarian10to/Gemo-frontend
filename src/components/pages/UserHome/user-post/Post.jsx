@@ -114,7 +114,7 @@ function Post({ type }) {
 
   return (
     <div className='user-post'>
-      <div className='user-post__group'>
+      {/* <div className='user-post__group'>
         <PeopleAltOutlinedIcon
           style={{ color: 'var(--color-grey)', fontSize: '22px' }}
         />
@@ -125,7 +125,7 @@ function Post({ type }) {
           </div>
         </div>
         <div className='user-post__group-name'>food</div>
-      </div>
+      </div> */}
 
       <div className='user-post__header'>
         <div className='user-post__user-info'>

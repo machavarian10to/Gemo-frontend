@@ -13,6 +13,7 @@ import GifTabContent from '@/components/pages/UserHome/create-new-gem/editor-tab
 import Button from '@/components/UI/Button';
 import axios from '@/services/axios';
 import { useSelector } from 'react-redux';
+import AlertBox from '@/components/UI/AlertBox';
 
 export default function CreatePostContainer({
   closeModal,
@@ -20,6 +21,13 @@ export default function CreatePostContainer({
   handleActiveTab,
 }) {
   const user = useSelector((state) => state.user);
+
+  const [alert, setAlert] = useState({
+    message: '',
+    type: '',
+  });
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const [gemTitle, setGemTitle] = useState('');
   const [charCount, setCharCount] = useState(0);
@@ -68,11 +76,11 @@ export default function CreatePostContainer({
         {
           id: useId(),
           name: '3 Days',
+          selected: true,
         },
         {
           id: useId(),
           name: '5 Days',
-          selected: true,
         },
         {
           id: useId(),
@@ -87,8 +95,8 @@ export default function CreatePostContainer({
     fileName: null,
     mediaSrc: null,
     startDate: null,
-    location: null,
-    description: null,
+    location: '',
+    description: '',
   });
 
   const [gifTabState, setGifTabState] = useState({
@@ -97,6 +105,7 @@ export default function CreatePostContainer({
   });
 
   async function clickHandler() {
+    setIsButtonDisabled(true);
     const formData = new FormData();
     formData.append('userId', user._id);
     formData.append('title', gemTitle);
@@ -153,21 +162,26 @@ export default function CreatePostContainer({
       }
     }
 
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-    // try {
-    //   const response = await axios.post('/api/gems', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   });
-    //   //TODO: create alert for successful gem
-    //   console.log(response.data);
-    //   // closeModal();
-    // } catch (error) {
-    //   console.error('Error sending data:', error);
-    // }
+    try {
+      await axios.post('/api/gems', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setAlert({
+        message: 'Gem created successfully!',
+        type: 'success',
+      });
+      setTimeout(() => {
+        closeModal();
+      }, 2500);
+    } catch (error) {
+      setAlert({
+        message: error.response.data.message,
+        type: 'error',
+      });
+    }
+    setIsButtonDisabled(false);
   }
 
   function setTitle(e) {
@@ -261,10 +275,12 @@ export default function CreatePostContainer({
         <Button
           fillContainer
           label='Post'
-          state={charCount === 0 ? 'inactive' : 'active'}
+          state={charCount === 0 || isButtonDisabled ? 'inactive' : 'active'}
           clickHandler={clickHandler}
         />
       </div>
+
+      {alert.message && <AlertBox message={alert.message} type={alert.type} />}
     </div>
   );
 }
