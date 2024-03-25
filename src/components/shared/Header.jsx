@@ -27,6 +27,7 @@ function Header() {
               style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '22px' }}
             />
           }
+          name='search'
           size='large'
           value={searchValue}
           type='text'

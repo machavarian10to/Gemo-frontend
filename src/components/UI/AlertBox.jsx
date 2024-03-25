@@ -3,20 +3,20 @@ import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
-import { Fade } from '@mui/material';
+import { Slide } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 function AlertBox({
   type = 'warning', // info, success, error, warning
   message,
-  duration = 2100,
+  duration = 2800,
 }) {
   const [show, setShow] = useState(true);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setWidth((prevWidth) => Math.min(prevWidth + 5, 100));
+      setWidth((prevWidth) => Math.min(prevWidth + 4, 100));
     }, 100);
 
     setTimeout(() => {
@@ -30,40 +30,34 @@ function AlertBox({
   if (!show) return null;
 
   return (
-    <Fade in={show} timeout={500}>
-      <div className='notification-component' onClick={() => setShow(false)}>
+    <Slide in={show} direction='left' timeout={500} mountOnEnter unmountOnExit>
+      <div
+        className={`notification-component ${type}`}
+        onClick={() => setShow(false)}
+      >
         <div className='notification-component_icon'>
           {type === 'success' && (
-            <CheckCircleOutlineOutlinedIcon
-              style={{ color: 'var(--color-main-green)', fontSize: '30px' }}
-            />
+            <CheckCircleOutlineOutlinedIcon style={{ fontSize: '30px' }} />
           )}
           {type === 'error' && (
-            <DangerousOutlinedIcon
-              style={{ color: 'var(--bg-main-red)', fontSize: '30px' }}
-            />
+            <DangerousOutlinedIcon style={{ fontSize: '30px' }} />
           )}
           {type === 'warning' && (
             <WarningAmberOutlinedIcon
               style={{
-                color: 'var(--color-yellow-shade-07)',
                 fontSize: '30px',
               }}
             />
           )}
-          {type === 'info' && (
-            <InfoOutlinedIcon
-              style={{ color: 'var(--color-main-blue)', fontSize: '30px' }}
-            />
-          )}
+          {type === 'info' && <InfoOutlinedIcon style={{ fontSize: '30px' }} />}
         </div>
         <div
-          className={`notification-component_type ${type}`}
+          className='notification-component_type'
           style={{ width: width + '%' }}
         ></div>
         <p className={`notification-component_message ${type}`}>{message}</p>
       </div>
-    </Fade>
+    </Slide>
   );
 }
 

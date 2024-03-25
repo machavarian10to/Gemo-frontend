@@ -236,6 +236,7 @@ export default function CreatePostContainer({
       <div className='active-tab-content'>
         <div className='post-title-wrapper'>
           <textarea
+            name='post-title'
             className='title'
             placeholder='Title'
             maxLength={200}
