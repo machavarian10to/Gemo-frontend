@@ -108,6 +108,8 @@ export default function CreatePostContainer({
     setIsButtonDisabled(true);
     const formData = new FormData();
     formData.append('userId', user._id);
+    formData.append('userName', user.username);
+    formData.append('userPhoto', user.profilePicture);
     formData.append('title', gemTitle);
     formData.append('type', activeTab);
 

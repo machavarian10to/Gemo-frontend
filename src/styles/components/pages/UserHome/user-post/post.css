@@ -68,7 +68,7 @@
 .user-post__details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .user-post__username {
@@ -102,7 +102,7 @@
 }
 
 .user-post__texts h3 {
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: 600;
   font-size: 18px;
   word-break: break-word;

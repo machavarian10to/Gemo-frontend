@@ -1,5 +1,5 @@
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-import Post from '@/components/pages/UserHome/user-post/Post';
+import Gem from '@/components/pages/UserHome/user-post/Gem';
 
 function FeaturedGem() {
   return (
@@ -18,9 +18,7 @@ function FeaturedGem() {
       </h4>
 
       <div className='divider'></div>
-      <div className='user-home__featured-gem'>
-        <Post />
-      </div>
+      <div className='user-home__featured-gem'>{/* <Gem /> */}</div>
     </div>
   );
 }

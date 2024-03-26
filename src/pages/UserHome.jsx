@@ -1,10 +1,26 @@
+import { useEffect, useState } from 'react';
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
-import Post from '@/components/pages/UserHome/user-post/Post';
+import Gem from '@/components/pages/UserHome/user-post/Gem';
 import Fade from '@mui/material/Fade';
 import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
 import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
+import axiosInstance from '@/services/axios';
+import LoadingAnimation from '@/components/UI/LoadingAnimation';
 
 function UserHome() {
+  useEffect(() => {
+    axiosInstance.get('/api/gems').then((response) => {
+      console.log(response.data);
+      setGems(response.data);
+    });
+  }, []);
+
+  const [gems, setGems] = useState([]);
+
+  if (gems.length === 0) {
+    return <LoadingAnimation />;
+  }
+
   return (
     <Fade in={true} timeout={600}>
       <div className='user-home'>
@@ -12,9 +28,9 @@ function UserHome() {
           <SpeechBubble />
 
           <div className='user-home__post-wrapper'>
-            <Post />
-            <Post />
-            <Post />
+            {gems.map((gem) => (
+              <Gem key={gem._id} gem={gem} />
+            ))}
           </div>
         </div>
 

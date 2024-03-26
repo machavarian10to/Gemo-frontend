@@ -20,8 +20,9 @@ import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 
-function Post({ type }) {
+function Gem({ gem }) {
   const emojiPickerRef = useRef(null);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -60,6 +61,27 @@ function Post({ type }) {
   useClickOutside(postEditRef, () => {
     setShowPostEdit(false);
   });
+
+  function getTimeDifference(createdAt) {
+    const currentTime = new Date();
+    const timeDifference = Math.abs(currentTime - createdAt);
+    const secondsDifference = Math.round(timeDifference / 1000);
+    const minutesDifference = Math.round(secondsDifference / 60);
+    const hoursDifference = Math.round(minutesDifference / 60);
+    const daysDifference = Math.round(hoursDifference / 24);
+
+    if (daysDifference > 0) {
+      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} minute${
+        minutesDifference !== 1 ? 's' : ''
+      } ago`;
+    } else {
+      return `just now`;
+    }
+  }
 
   function addEmoji(postEmoji) {
     const emojiIndex = postEmojis.findIndex(
@@ -129,16 +151,13 @@ function Post({ type }) {
 
       <div className='user-post__header'>
         <div className='user-post__user-info'>
-          <UserAvatar
-            width={32}
-            height={32}
-            src='https://picsum.photos/400/300'
-          />
+          <UserAvatar width={32} height={32} src={gem.userPhoto} />
           <div className='user-post__details'>
-            <div className='user-post__username'>@machavarian10to</div>
+            <div className='user-post__username'>@{gem.userName}</div>
             <div className='user-post__user-level'>
               {/* <span>&middot;</span> */}
-              <span>12 hours ago</span>
+              <HistoryToggleOffOutlinedIcon style={{ fontSize: '10px' }} />
+              <span>{getTimeDifference(new Date(gem.createdAt))}</span>
             </div>
           </div>
         </div>
@@ -194,24 +213,23 @@ function Post({ type }) {
       </div>
 
       <div className='user-post__texts'>
-        <h3>Whats hardest food to swallow?</h3>
-        <div className='user-post__body'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-          nobis optio tempore magnam velit quo unde libero omnis, harum quos
-          maxime vitae exercitationem minus adipisci quae iste ullam facilis
-          aperiam.
+        <h3>{gem.title}</h3>
+        {gem.desc?.postContent && (
+          <div className='user-post__body'>{gem.desc.postContent}</div>
+        )}
+      </div>
+
+      {gem.desc?.fileName && (
+        <div className='user-post__image'>
+          <img
+            src={`${import.meta.env.VITE_API_URL}/${gem.desc.fileName}`}
+            alt={gem.title + "'s image"}
+            className='user-media-preview'
+          />
         </div>
-      </div>
+      )}
 
-      <div className='user-post__image'>
-        <img
-          src='https://picsum.photos/500/300'
-          alt='post'
-          className='user-media-preview'
-        />
-      </div>
-
-      {type === 'event' && <EventContainer />}
+      {gem.type === 'event' && <EventContainer />}
 
       {pollOptions.length > 0 && (
         <div className='user-post__poll'>
@@ -320,8 +338,8 @@ function Post({ type }) {
   );
 }
 
-Post.propTypes = {
-  type: PropTypes.string,
+Gem.propTypes = {
+  gem: PropTypes.object.isRequired,
 };
 
-export default Post;
+export default Gem;
