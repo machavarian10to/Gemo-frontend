@@ -110,7 +110,7 @@ export default function CreatePostContainer({
     formData.append('userId', user._id);
     formData.append('userName', user.username);
     formData.append('userPhoto', user.profilePicture);
-    formData.append('title', gemTitle);
+    formData.append('title', gemTitle.trim());
     formData.append('type', activeTab);
 
     if (activeTab === 'post') {
@@ -278,7 +278,11 @@ export default function CreatePostContainer({
         <Button
           fillContainer
           label='Post'
-          state={charCount === 0 || isButtonDisabled ? 'inactive' : 'active'}
+          state={
+            charCount === 0 || gemTitle.trim() === '' || isButtonDisabled
+              ? 'inactive'
+              : 'active'
+          }
           clickHandler={clickHandler}
         />
       </div>

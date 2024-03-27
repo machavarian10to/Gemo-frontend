@@ -9,10 +9,15 @@ import LoadingAnimation from '@/components/UI/LoadingAnimation';
 
 function UserHome() {
   useEffect(() => {
-    axiosInstance.get('/api/gems').then((response) => {
-      console.log(response.data);
-      setGems(response.data);
-    });
+    axiosInstance
+      .get('/api/gems')
+      .then((response) => {
+        console.log(response.data);
+        setGems(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const [gems, setGems] = useState([]);
@@ -35,8 +40,8 @@ function UserHome() {
         </div>
 
         <div className='user-home__food-recommendation-wrapper'>
-          <FoodRecommendation />
-          <FeaturedGem />
+          {/* <FoodRecommendation /> */}
+          {/* <FeaturedGem /> */}
         </div>
       </div>
     </Fade>

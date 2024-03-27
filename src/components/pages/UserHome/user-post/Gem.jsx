@@ -21,6 +21,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
+import DOMPurify from 'dompurify';
 
 function Gem({ gem }) {
   const emojiPickerRef = useRef(null);
@@ -215,25 +216,38 @@ function Gem({ gem }) {
       <div className='user-post__texts'>
         <h3>{gem.title}</h3>
         {gem.desc?.postContent && (
-          <div className='user-post__body'>{gem.desc.postContent}</div>
+          <div
+            className='user-post__body'
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(gem.desc.postContent),
+            }}
+          ></div>
         )}
       </div>
 
-      {gem.desc?.fileName && (
+      {gem.desc?.fileName ? (
         <div className='user-post__image'>
           <img
-            src={`${import.meta.env.VITE_API_URL}/${gem.desc.fileName}`}
+            src={`${import.meta.env.VITE_API_URL}/assets/${gem.desc.fileName}`}
             alt={gem.title + "'s image"}
             className='user-media-preview'
           />
         </div>
-      )}
+      ) : gem.desc?.gif ? (
+        <div className='user-post__image'>
+          <img
+            src={gem.desc.gif}
+            alt={gem.desc.title}
+            className='user-media-preview'
+          />
+        </div>
+      ) : null}
 
       {gem.type === 'event' && <EventContainer />}
 
-      {pollOptions.length > 0 && (
+      {gem.type === 'poll' && gem.desc.pollOptions.length > 0 && (
         <div className='user-post__poll'>
-          {pollOptions.map((option) => (
+          {gem.desc.pollOptions.map((option) => (
             <PollContainer
               key={option.id}
               option={option}
@@ -241,7 +255,7 @@ function Gem({ gem }) {
               onChange={onOptionChange}
             />
           ))}
-          {pollOptions.some((option) => option.checked) && (
+          {gem.desc.pollOptions.some((option) => option.checked) && (
             <div className='user-post__footer-button'>
               <Button
                 label='Remove my vote'
