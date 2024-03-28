@@ -1,4 +1,4 @@
-.user-post {
+.user-gem {
   width: 100%;
   background-color: #fff;
   border-radius: var(--border-radius-rect);
@@ -9,39 +9,39 @@
   position: relative;
 }
 
-.user-post__group {
+.user-gem__group {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 15px;
 }
 
-.user-post__group-image-wrapper {
+.user-gem__group-image-wrapper {
   border-radius: var(--border-radius-rect);
   /* border: 1px solid var(--color-grey); */
   padding: 1px;
 }
 
-.user-post__group span {
+.user-gem__group span {
   font-size: 12px;
   font-weight: 800;
   color: var(--color-grey);
 }
 
-.user-post__group-image {
+.user-gem__group-image {
   width: 17px;
   height: 16px;
   object-fit: cover;
   border-radius: var(--border-radius-circle);
 }
-.user-post__group-image img {
+.user-gem__group-image img {
   width: 100%;
   height: 100%;
   border-radius: var(--border-radius-circle);
   object-fit: cover;
 }
 
-.user-post__group-name {
+.user-gem__group-name {
   font-weight: 700;
   font-size: 13px;
   color: var(--color-main-grey);
@@ -49,39 +49,39 @@
   transition: all 0.3s;
 }
 
-.user-post__group-name:hover {
+.user-gem__group-name:hover {
   text-decoration: underline;
 }
 
-.user-post__header {
+.user-gem__header {
   display: flex;
   gap: 3px;
   margin-bottom: 5px;
 }
 
-.user-post__user-info {
+.user-gem__user-info {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 14px;
 }
 
-.user-post__details {
+.user-gem__details {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.user-post__username {
+.user-gem__username {
   font-weight: 600;
   transition: all 0.3s;
   cursor: pointer;
 }
-.user-post__username:hover {
+.user-gem__username:hover {
   text-decoration: underline;
 }
 
-.user-post__user-level {
+.user-gem__user-level {
   font-size: 9px;
   font-weight: 600;
   color: rgba(52, 51, 58, 0.3);
@@ -90,7 +90,7 @@
   gap: 3px;
 }
 
-.user-post__date {
+.user-gem__date {
   display: flex;
   gap: 3px;
   font-size: 10px;
@@ -98,11 +98,11 @@
   margin-top: 5px;
 }
 
-.user-post__date span {
+.user-gem__date span {
   color: #ccc;
 }
 
-.user-post__texts h3 {
+.user-gem__texts h3 {
   margin-bottom: 10px;
   font-weight: 500;
   font-size: 1.5rem;
@@ -110,7 +110,7 @@
   line-height: 1.5;
 }
 
-.user-post__body {
+.user-gem__body {
   margin-top: -5px;
   margin-bottom: 10px;
   font-size: 14px;
@@ -118,7 +118,7 @@
   word-break: break-word;
 }
 
-.user-post__menu {
+.user-gem__menu {
   cursor: pointer;
   position: absolute;
   top: 10px;
@@ -130,11 +130,11 @@
   padding: 3px;
 }
 
-.user-post__menu:hover {
+.user-gem__menu:hover {
   background: var(--bg-main-white);
 }
 
-.user-post__footer {
+.user-gem__footer {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -145,43 +145,43 @@
   position: relative;
 }
 
-.user-post__footer-container {
+.user-gem__footer-container {
   display: flex;
   align-items: center;
   gap: 5px;
   transition: all 0.2s ease;
 }
 
-.user-post__footer-container:last-child {
+.user-gem__footer-container:last-child {
   margin-left: auto;
 }
 
-.user-post__footer-container:hover > svg {
+.user-gem__footer-container:hover > svg {
   color: var(--color-main-yellow);
 }
 
-.user-post__footer-container span {
+.user-gem__footer-container span {
   font-weight: 600;
   font-size: 13px;
 }
 
-.user-post__image {
+.user-gem__image {
   margin-bottom: 10px;
   border-radius: var(--border-radius-rect);
 }
 
-.user-post__image img {
+.user-gem__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: var(--border-radius-rect);
 }
 
-.user-post__image .user-media-preview {
+.user-gem__image .user-media-preview {
   outline: none;
 }
 
-.user-post__emoji-picker-wrapper {
+.user-gem__emoji-picker-wrapper {
   position: absolute;
   top: 140%;
   left: -20%;
@@ -190,7 +190,7 @@
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
 
-.user-post__emoji-list {
+.user-gem__emoji-list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -198,7 +198,7 @@
   margin-top: 15px;
 }
 
-.user-post__emoji-wrapper {
+.user-gem__emoji-wrapper {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -208,7 +208,7 @@
   cursor: pointer;
 }
 
-.user-post__emoji-count {
+.user-gem__emoji-count {
   font-size: 12px;
   font-weight: 600;
   color: #ccc;
@@ -219,11 +219,11 @@
   color: var(--color-main-yellow);
 }
 
-.user-post__emoji {
+.user-gem__emoji {
   transform: scale(0.9);
 }
 
-.active-emoji .user-post__emoji-count {
+.active-emoji .user-gem__emoji-count {
   color: var(--color-main-yellow);
 }
 
@@ -231,24 +231,24 @@
   color: var(--color-main-yellow);
 }
 
-.user-post__comment-section {
+.user-gem__comment-section {
   margin-top: 15px;
 }
 
-.user-post__comment-list {
+.user-gem__comment-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-top: 15px;
 }
 
-.user-post__comment {
+.user-gem__comment {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.user-post__comment-details {
+.user-gem__comment-details {
   border: 1px solid var(--color-grey);
   background-color: rgba(204, 204, 204, 0.3);
   display: flex;
@@ -259,16 +259,16 @@
   border-radius: var(--border-radius-rect);
 }
 
-.user-post__comment-details-header-wrapper {
+.user-gem__comment-details-header-wrapper {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.user-post__comment-details-header-wrapper .user-post__date {
+.user-gem__comment-details-header-wrapper .user-gem__date {
   font-size: 11px;
 }
 
-.user-post__comment-details-header {
+.user-gem__comment-details-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -276,16 +276,16 @@
   position: relative;
 }
 
-.user-post__comment-username {
+.user-gem__comment-username {
   font-size: 13px;
   font-weight: 600;
 }
 
-.user-post__comment-text {
+.user-gem__comment-text {
   font-size: 12px;
 }
 
-.user-post__comment-actions {
+.user-gem__comment-actions {
   margin: 5px 0 0 40px;
   display: flex;
   align-items: center;
@@ -296,19 +296,19 @@
   cursor: pointer;
 }
 
-.user-post__comment-action {
+.user-gem__comment-action {
   display: flex;
   align-items: center;
   gap: 5px;
   transition: all 0.7s ease;
 }
 
-.user-post__comment-action:hover > svg path,
-.user-post__comment-reply-action:hover > svg path {
+.user-gem__comment-action:hover > svg path,
+.user-gem__comment-reply-action:hover > svg path {
   color: var(--color-main-yellow);
 }
 
-.user-post__comment-show-more-comments {
+.user-gem__comment-show-more-comments {
   margin-top: 13px;
   font-size: 13px;
   font-weight: 600;
@@ -318,15 +318,15 @@
   transition: all 0.3s;
 }
 
-.user-post__comment-show-more-comments:hover {
+.user-gem__comment-show-more-comments:hover {
   color: var(--color-main-yellow);
 }
 
-.user-post__comment-react-emoji-picker-wrapper {
+.user-gem__comment-react-emoji-picker-wrapper {
   position: absolute;
 }
 
-.user-post__comment-react-emoji-picker-wrapper .EmojiPickerReact {
+.user-gem__comment-react-emoji-picker-wrapper .EmojiPickerReact {
   top: 140%;
   left: -20%;
   z-index: 1000000;
@@ -334,17 +334,17 @@
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
 
-.user-post__comment-details .user-post__emoji-list {
+.user-gem__comment-details .user-gem__emoji-list {
   margin-top: 5px;
 }
 
-.user-post__poll {
+.user-gem__poll {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.user-post__footer-button {
+.user-gem__footer-button {
   width: 50px;
 }

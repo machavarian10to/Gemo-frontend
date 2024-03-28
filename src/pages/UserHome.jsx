@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
-import Gem from '@/components/pages/UserHome/user-post/Gem';
+import GemContainer from '@/components/pages/UserHome/user-gem/GemContainer';
 import Fade from '@mui/material/Fade';
 import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
 import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
@@ -34,7 +34,7 @@ function UserHome() {
 
           <div className='user-home__post-wrapper'>
             {gems.map((gem) => (
-              <Gem key={gem._id} gem={gem} />
+              <GemContainer key={gem._id} gem={gem} />
             ))}
           </div>
         </div>

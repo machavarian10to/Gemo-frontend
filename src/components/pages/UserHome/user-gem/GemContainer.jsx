@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AddComment from '@/components/pages/UserHome/user-post/AddComment';
-import Comment from '@/components/pages/UserHome/user-post/Comment';
-import PollContainer from '@/components/pages/UserHome/user-post/PollContainer';
-import EventContainer from '@/components/pages/UserHome/user-post/EventContainer';
+import AddComment from '@/components/pages/UserHome/user-gem/AddComment';
+import Comment from '@/components/pages/UserHome/user-gem/Comment';
+import PollContainer from '@/components/pages/UserHome/user-gem/PollContainer';
+import EventContainer from '@/components/pages/UserHome/user-gem/EventContainer';
 import UserAvatar from '@/components/shared/UserAvatar';
 import Button from '@/components/UI/Button';
 import EmojiPicker from 'emoji-picker-react';
@@ -23,7 +23,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 import DOMPurify from 'dompurify';
 
-function Gem({ gem }) {
+function GemContainer({ gem }) {
   const emojiPickerRef = useRef(null);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -136,26 +136,26 @@ function Gem({ gem }) {
   }
 
   return (
-    <div className='user-post'>
-      {/* <div className='user-post__group'>
+    <div className='user-gem'>
+      {/* <div className='user-gem__group'>
         <PeopleAltOutlinedIcon
           style={{ color: 'var(--color-grey)', fontSize: '22px' }}
         />
         <span>&gt;</span>
-        <div className='user-post__group-image-wrapper'>
-          <div className='user-post__group-image'>
+        <div className='user-gem__group-image-wrapper'>
+          <div className='user-gem__group-image'>
             <img src='https://picsum.photos/500/300' alt='post' />
           </div>
         </div>
-        <div className='user-post__group-name'>food</div>
+        <div className='user-gem__group-name'>food</div>
       </div> */}
 
-      <div className='user-post__header'>
-        <div className='user-post__user-info'>
+      <div className='user-gem__header'>
+        <div className='user-gem__user-info'>
           <UserAvatar width={32} height={32} src={gem.userPhoto} />
-          <div className='user-post__details'>
-            <div className='user-post__username'>@{gem.userName}</div>
-            <div className='user-post__user-level'>
+          <div className='user-gem__details'>
+            <div className='user-gem__username'>@{gem.userName}</div>
+            <div className='user-gem__user-level'>
               {/* <span>&middot;</span> */}
               <HistoryToggleOffOutlinedIcon style={{ fontSize: '10px' }} />
               <span>{getTimeDifference(new Date(gem.createdAt))}</span>
@@ -163,7 +163,7 @@ function Gem({ gem }) {
           </div>
         </div>
 
-        <div className='user-post__date'>
+        <div className='user-gem__date'>
           <LocalPoliceOutlinedIcon
             style={{
               color: 'var(--color-main-green)',
@@ -173,7 +173,7 @@ function Gem({ gem }) {
         </div>
 
         <div
-          className='user-post__menu'
+          className='user-gem__menu'
           style={{
             background: showPostEdit && 'var(--bg-main-white)',
           }}
@@ -185,11 +185,8 @@ function Gem({ gem }) {
 
           {showPostEdit && (
             <Fade in={showPostEdit} timeout={400}>
-              <div
-                className='user-post__comment-edit-wrapper'
-                ref={postEditRef}
-              >
-                <div className='user-post__comment-edit-item'>
+              <div className='user-gem__comment-edit-wrapper' ref={postEditRef}>
+                <div className='user-gem__comment-edit-item'>
                   <EditOutlinedIcon
                     style={{
                       fontSize: '18px',
@@ -198,7 +195,7 @@ function Gem({ gem }) {
                   />
                   <span>Edit</span>
                 </div>
-                <div className='user-post__comment-edit-item'>
+                <div className='user-gem__comment-edit-item'>
                   <DeleteOutlineOutlinedIcon
                     style={{
                       fontSize: '18px',
@@ -213,11 +210,11 @@ function Gem({ gem }) {
         </div>
       </div>
 
-      <div className='user-post__texts'>
+      <div className='user-gem__texts'>
         <h3>{gem.title}</h3>
         {gem.desc?.postContent && (
           <div
-            className='user-post__body'
+            className='user-gem__body'
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(gem.desc.postContent),
             }}
@@ -226,7 +223,7 @@ function Gem({ gem }) {
       </div>
 
       {gem.desc?.fileName ? (
-        <div className='user-post__image'>
+        <div className='user-gem__image'>
           <img
             src={`${import.meta.env.VITE_API_URL}/assets/${gem.desc.fileName}`}
             alt={gem.title + "'s image"}
@@ -234,7 +231,7 @@ function Gem({ gem }) {
           />
         </div>
       ) : gem.desc?.gif ? (
-        <div className='user-post__image'>
+        <div className='user-gem__image'>
           <img
             src={gem.desc.gif}
             alt={gem.desc.title}
@@ -246,7 +243,7 @@ function Gem({ gem }) {
       {gem.type === 'event' && <EventContainer />}
 
       {gem.type === 'poll' && gem.desc.pollOptions.length > 0 && (
-        <div className='user-post__poll'>
+        <div className='user-gem__poll'>
           {gem.desc.pollOptions.map((option) => (
             <PollContainer
               key={option.id}
@@ -256,7 +253,7 @@ function Gem({ gem }) {
             />
           ))}
           {gem.desc.pollOptions.some((option) => option.checked) && (
-            <div className='user-post__footer-button'>
+            <div className='user-gem__footer-button'>
               <Button
                 label='Remove my vote'
                 type='base'
@@ -268,9 +265,9 @@ function Gem({ gem }) {
         </div>
       )}
 
-      <div className='user-post__footer'>
+      <div className='user-gem__footer'>
         <div
-          className={`user-post__footer-container ${
+          className={`user-gem__footer-container ${
             showEmojis ? 'active-section' : ''
           }`}
           onClick={() => setShowEmojis((prev) => !prev)}
@@ -280,7 +277,7 @@ function Gem({ gem }) {
           <span>{emojiCount}</span>
         </div>
         <div
-          className={`user-post__footer-container ${
+          className={`user-gem__footer-container ${
             showCommentSection ? 'active-section' : ''
           }`}
           onClick={() => setShowCommentSection((prev) => !prev)}
@@ -289,17 +286,17 @@ function Gem({ gem }) {
           <span>Comment</span>
           <span>{commentList.length}</span>
         </div>
-        <div className='user-post__footer-container'>
+        <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Share</span>
           <span>0</span>
         </div>
-        <div className='user-post__footer-container' title='Add to favorites'>
+        <div className='user-gem__footer-container' title='Add to favorites'>
           <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
         </div>
 
         {showEmojis && (
-          <div className='user-post__emoji-picker-wrapper' ref={emojiPickerRef}>
+          <div className='user-gem__emoji-picker-wrapper' ref={emojiPickerRef}>
             <EmojiPicker
               onEmojiClick={(emoji) => addEmoji(emoji)}
               previewConfig={{ showPreview: false }}
@@ -312,17 +309,17 @@ function Gem({ gem }) {
       </div>
 
       {postEmojis.length > 0 && (
-        <div className='user-post__emoji-list'>
+        <div className='user-gem__emoji-list'>
           {postEmojis.map((postEmoji) => (
             <div
               key={postEmoji.id}
-              className={`user-post__emoji-wrapper ${
+              className={`user-gem__emoji-wrapper ${
                 postEmoji.isClicked ? 'active-emoji' : ''
               }`}
               onClick={() => removeEmojiIfAlreadyClicked(postEmoji.id)}
             >
-              <div className='user-post__emoji'>{postEmoji.emoji}</div>
-              <div className='user-post__emoji-count'>{postEmoji.count}</div>
+              <div className='user-gem__emoji'>{postEmoji.emoji}</div>
+              <div className='user-gem__emoji-count'>{postEmoji.count}</div>
             </div>
           ))}
         </div>
@@ -330,18 +327,18 @@ function Gem({ gem }) {
 
       {showCommentSection && (
         <Fade in={true} timeout={600}>
-          <div className='user-post__comment-section'>
+          <div className='user-gem__comment-section'>
             <AddComment placeholder='Write a comment' />
 
             {commentList.length > 0 && (
-              <div className='user-post__comment-list'>
+              <div className='user-gem__comment-list'>
                 {commentList.map((comment) => (
                   <Comment key={comment.id} comment={comment} />
                 ))}
               </div>
             )}
             {commentList.length > 1 && (
-              <div className='user-post__comment-show-more-comments'>
+              <div className='user-gem__comment-show-more-comments'>
                 show more comments
               </div>
             )}
@@ -352,8 +349,8 @@ function Gem({ gem }) {
   );
 }
 
-Gem.propTypes = {
+GemContainer.propTypes = {
   gem: PropTypes.object.isRequired,
 };
 
-export default Gem;
+export default GemContainer;
