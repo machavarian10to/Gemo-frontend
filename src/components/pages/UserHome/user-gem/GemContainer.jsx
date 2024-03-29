@@ -22,6 +22,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 import DOMPurify from 'dompurify';
+import { useSelector } from 'react-redux';
 
 function GemContainer({ gem }) {
   const emojiPickerRef = useRef(null);
@@ -30,12 +31,11 @@ function GemContainer({ gem }) {
   const [postEmojis, setPostEmojis] = useState([]);
 
   const [showCommentSection, setShowCommentSection] = useState(false);
-  const [commentList, setCommentList] = useState([
-    { id: 1, text: 'Hello' },
-    { id: 2, text: 'world' },
-  ]);
+  const [commentList, setCommentList] = useState([]);
 
-  const [pollOptions, setPollOptions] = useState([]);
+  const user = useSelector((state) => state.user);
+
+  const [pollOptions, setPollOptions] = useState(gem.desc.pollOptions || []);
   const [pollVotesAmount, setPollVotesAmount] = useState(0);
 
   const [showPostEdit, setShowPostEdit] = useState(false);
@@ -50,7 +50,7 @@ function GemContainer({ gem }) {
 
   useEffect(() => {
     const count = pollOptions.reduce((acc, option) => {
-      return acc + option.count;
+      return acc + option.users.length;
     }, 0);
     setPollVotesAmount(count);
   }, [pollOptions]);
@@ -119,9 +119,17 @@ function GemContainer({ gem }) {
 
   function onOptionChange(e) {
     const { value } = e.target;
-    const index = pollOptions.findIndex((option) => option.text === value);
+    const pollOptionIndex = pollOptions.findIndex(
+      (option) => option.value === value,
+    );
     const updatedPollOptions = [...pollOptions];
-    updatedPollOptions[index].checked = !updatedPollOptions[index].checked;
+    updatedPollOptions[pollOptionIndex].users = updatedPollOptions[
+      pollOptionIndex
+    ].users.includes(user.username)
+      ? updatedPollOptions[pollOptionIndex].users.filter(
+          (username) => username !== user.username,
+        )
+      : [...updatedPollOptions[pollOptionIndex].users, user.username];
     setPollOptions(updatedPollOptions);
   }
 
@@ -129,7 +137,7 @@ function GemContainer({ gem }) {
     const updatedPollOptions = pollOptions.map((option) => {
       return {
         ...option,
-        checked: false,
+        users: option.users.filter((username) => username !== user.username),
       };
     });
     setPollOptions(updatedPollOptions);
@@ -156,7 +164,6 @@ function GemContainer({ gem }) {
           <div className='user-gem__details'>
             <div className='user-gem__username'>@{gem.userName}</div>
             <div className='user-gem__user-level'>
-              {/* <span>&middot;</span> */}
               <HistoryToggleOffOutlinedIcon style={{ fontSize: '10px' }} />
               <span>{getTimeDifference(new Date(gem.createdAt))}</span>
             </div>
@@ -240,29 +247,33 @@ function GemContainer({ gem }) {
         </div>
       ) : null}
 
-      {gem.type === 'event' && <EventContainer />}
-
-      {gem.type === 'poll' && gem.desc.pollOptions.length > 0 && (
-        <div className='user-gem__poll'>
-          {gem.desc.pollOptions.map((option) => (
-            <PollContainer
-              key={option.id}
-              option={option}
-              totalVotes={pollVotesAmount}
-              onChange={onOptionChange}
-            />
-          ))}
-          {gem.desc.pollOptions.some((option) => option.checked) && (
-            <div className='user-gem__footer-button'>
-              <Button
-                label='Remove my vote'
-                type='base'
-                size='extra-small'
-                clickHandler={removeUserVote}
+      {gem.type === 'event' ? (
+        <EventContainer />
+      ) : (
+        gem.type === 'poll' && (
+          <div className='user-gem__poll'>
+            {gem.desc.pollOptions.map((option) => (
+              <PollContainer
+                key={option.id}
+                option={option}
+                totalVotes={pollVotesAmount}
+                onChange={onOptionChange}
               />
-            </div>
-          )}
-        </div>
+            ))}
+            {gem.desc.pollOptions.some((option) =>
+              option.users.includes(user.username),
+            ) && (
+              <div className='user-gem__footer-button'>
+                <Button
+                  label='Remove my vote'
+                  type='base'
+                  size='extra-small'
+                  clickHandler={removeUserVote}
+                />
+              </div>
+            )}
+          </div>
+        )
       )}
 
       <div className='user-gem__footer'>

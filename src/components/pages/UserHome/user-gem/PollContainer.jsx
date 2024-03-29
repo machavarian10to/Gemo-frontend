@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 function PollContainer({ option, onChange, totalVotes }) {
   const [percentage, setPercentage] = useState(0);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    setPercentage(Math.round((option.count / totalVotes) * 100));
-  }, [option.count, totalVotes]);
+    setPercentage(
+      totalVotes > 0 ? (option.users.length / totalVotes) * 100 : 0,
+    );
+  }, [option.users.length, totalVotes]);
 
   return (
     <label className='user-post__poll-option-wrapper'>
@@ -20,19 +24,19 @@ function PollContainer({ option, onChange, totalVotes }) {
             <input
               type='radio'
               name='radio'
-              checked={option.checked}
+              checked={option.users.includes(user.username)}
               onChange={onChange}
-              value={option.text}
+              value={option.value}
             />
             <span className='user-post__radio-checked'></span>
-            {option.text}
+            {option.value}
           </label>
         </div>
 
         <div className='user-post__poll-numbers'>
           <div className='user-post__poll-option-percentage'>{percentage}%</div>
           <div className='user-post__poll-option-count'>
-            {option.count} votes
+            {option.users.length} votes
           </div>
         </div>
       </div>

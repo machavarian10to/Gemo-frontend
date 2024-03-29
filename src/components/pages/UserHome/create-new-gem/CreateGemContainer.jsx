@@ -140,7 +140,11 @@ export default function CreatePostContainer({
       };
       pollTabState.pollOptions.forEach((option) => {
         if (option.value) {
-          state.pollOptions.push({ id: option.id, value: option.value });
+          state.pollOptions.push({
+            id: option.id,
+            value: option.value,
+            users: [],
+          });
         }
       });
       if (state.pollOptions.length !== 0) {

@@ -22,10 +22,6 @@ function UserHome() {
 
   const [gems, setGems] = useState([]);
 
-  if (gems.length === 0) {
-    return <LoadingAnimation />;
-  }
-
   return (
     <Fade in={true} timeout={600}>
       <div className='user-home'>
@@ -33,9 +29,13 @@ function UserHome() {
           <SpeechBubble />
 
           <div className='user-home__post-wrapper'>
-            {gems.map((gem) => (
-              <GemContainer key={gem._id} gem={gem} />
-            ))}
+            {gems.length > 0 ? (
+              gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
+            ) : (
+              <div className='user-home__gems-loading-wrapper'>
+                <LoadingAnimation />
+              </div>
+            )}
           </div>
         </div>
 
