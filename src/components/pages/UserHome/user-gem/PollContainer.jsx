@@ -8,7 +8,9 @@ function PollContainer({ option, onChange, totalVotes }) {
 
   useEffect(() => {
     setPercentage(
-      totalVotes > 0 ? (option.users.length / totalVotes) * 100 : 0,
+      totalVotes > 0
+        ? ((option.users.length / totalVotes) * 100).toFixed(0)
+        : 0,
     );
   }, [option.users.length, totalVotes]);
 

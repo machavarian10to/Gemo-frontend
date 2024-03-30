@@ -16,7 +16,7 @@
 .user-home__container-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 
 .user-home__post-wrapper {

@@ -56,7 +56,6 @@
 .user-gem__header {
   display: flex;
   gap: 3px;
-  margin-bottom: 5px;
 }
 
 .user-gem__user-info {
@@ -83,7 +82,7 @@
 
 .user-gem__user-level {
   font-size: 9px;
-  font-weight: 600;
+  font-weight: 700;
   color: rgba(52, 51, 58, 0.3);
   display: flex;
   align-items: center;
@@ -345,6 +344,13 @@
   margin-bottom: 10px;
 }
 
-.user-gem__footer-button {
-  width: 50px;
+.user-gem__poll-total-votes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 5px;
+  font-size: 12px;
+  color: var(--color-grey);
+  font-weight: 800;
 }

@@ -119,26 +119,33 @@ function GemContainer({ gem }) {
 
   function onOptionChange(e) {
     const { value } = e.target;
-    const pollOptionIndex = pollOptions.findIndex(
+    const updatedPollOptions = [...pollOptions];
+    const optionIndex = updatedPollOptions.findIndex(
       (option) => option.value === value,
     );
-    const updatedPollOptions = [...pollOptions];
-    updatedPollOptions[pollOptionIndex].users = updatedPollOptions[
-      pollOptionIndex
-    ].users.includes(user.username)
-      ? updatedPollOptions[pollOptionIndex].users.filter(
+
+    if (updatedPollOptions[optionIndex].users.includes(user.username)) {
+      updatedPollOptions[optionIndex].users = updatedPollOptions[
+        optionIndex
+      ].users.filter((username) => username !== user.username);
+    } else {
+      updatedPollOptions.forEach((option) => {
+        option.users = option.users.filter(
           (username) => username !== user.username,
-        )
-      : [...updatedPollOptions[pollOptionIndex].users, user.username];
+        );
+      });
+      updatedPollOptions[optionIndex].users.push(user.username);
+    }
+    updatedPollOptions.forEach((option) => console.log(option.users));
     setPollOptions(updatedPollOptions);
   }
 
   function removeUserVote() {
-    const updatedPollOptions = pollOptions.map((option) => {
-      return {
-        ...option,
-        users: option.users.filter((username) => username !== user.username),
-      };
+    const updatedPollOptions = [...pollOptions];
+    updatedPollOptions.forEach((option) => {
+      option.users = option.users.filter(
+        (username) => username !== user.username,
+      );
     });
     setPollOptions(updatedPollOptions);
   }
@@ -164,7 +171,7 @@ function GemContainer({ gem }) {
           <div className='user-gem__details'>
             <div className='user-gem__username'>@{gem.userName}</div>
             <div className='user-gem__user-level'>
-              <HistoryToggleOffOutlinedIcon style={{ fontSize: '10px' }} />
+              <HistoryToggleOffOutlinedIcon style={{ fontSize: '13px' }} />
               <span>{getTimeDifference(new Date(gem.createdAt))}</span>
             </div>
           </div>
@@ -260,18 +267,21 @@ function GemContainer({ gem }) {
                 onChange={onOptionChange}
               />
             ))}
-            {gem.desc.pollOptions.some((option) =>
-              option.users.includes(user.username),
-            ) && (
+            <div className='user-gem__poll-total-votes'>
               <div className='user-gem__footer-button'>
-                <Button
-                  label='Remove my vote'
-                  type='base'
-                  size='extra-small'
-                  clickHandler={removeUserVote}
-                />
+                {gem.desc.pollOptions.some((option) =>
+                  option.users.includes(user.username),
+                ) ? (
+                  <Button
+                    label='Remove my vote'
+                    type='base'
+                    size='extra-small'
+                    clickHandler={removeUserVote}
+                  />
+                ) : null}
               </div>
-            )}
+              total votes: {pollVotesAmount}
+            </div>
           </div>
         )
       )}
