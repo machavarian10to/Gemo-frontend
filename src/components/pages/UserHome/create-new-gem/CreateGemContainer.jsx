@@ -80,11 +80,11 @@ export default function CreatePostContainer({
         },
         {
           id: useId(),
-          name: '5 Days',
+          name: '7 Days',
         },
         {
           id: useId(),
-          name: '7 days',
+          name: 'Infinity',
         },
       ],
     },

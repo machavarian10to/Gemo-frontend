@@ -23,6 +23,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 import DOMPurify from 'dompurify';
 import { useSelector } from 'react-redux';
+import axiosInstance from '@/services/axios';
 
 function GemContainer({ gem }) {
   const emojiPickerRef = useRef(null);
@@ -37,6 +38,8 @@ function GemContainer({ gem }) {
 
   const [pollOptions, setPollOptions] = useState(gem.desc.pollOptions || []);
   const [pollVotesAmount, setPollVotesAmount] = useState(0);
+  const [pollIsEnded, setPollIsEnded] = useState(false);
+  const [pollEndTime, setPollEndTime] = useState(0);
 
   const [showPostEdit, setShowPostEdit] = useState(false);
   const postEditRef = useRef(null);
@@ -53,7 +56,42 @@ function GemContainer({ gem }) {
       return acc + option.users.length;
     }, 0);
     setPollVotesAmount(count);
-  }, [pollOptions]);
+    setPollEndTime(calculatePollEndTime());
+
+    function calculatePollEndTime() {
+      const gemCreatedAt = new Date(gem.createdAt);
+      const pollDurationInDays = gem.desc.pollDuration[0];
+
+      if (gem.desc.pollDuration === 'Infinite') return 'poll does not end';
+
+      const pollEndTime = new Date(
+        gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
+      );
+
+      const daysDifference = Math.round(
+        (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
+      );
+      const hoursDifference = Math.round(
+        (pollEndTime - new Date()) / (1000 * 60 * 60),
+      );
+      const minutesDifference = Math.round(
+        (pollEndTime - new Date()) / (1000 * 60),
+      );
+
+      if (daysDifference > 0) {
+        return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
+      } else if (hoursDifference > 0) {
+        return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
+      } else if (minutesDifference > 0) {
+        return `${minutesDifference} minute${
+          minutesDifference !== 1 ? 's' : ''
+        }`;
+      } else {
+        setPollIsEnded(true);
+        return `Poll ended`;
+      }
+    }
+  }, [pollOptions, gem]);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -136,8 +174,14 @@ function GemContainer({ gem }) {
       });
       updatedPollOptions[optionIndex].users.push(user.username);
     }
-    updatedPollOptions.forEach((option) => console.log(option.users));
     setPollOptions(updatedPollOptions);
+    const data = {
+      desc: { ...gem.desc, pollOptions: updatedPollOptions },
+    };
+    axiosInstance
+      .put(`/api/gems/${gem._id}`, data)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
   }
 
   function removeUserVote() {
@@ -148,6 +192,13 @@ function GemContainer({ gem }) {
       );
     });
     setPollOptions(updatedPollOptions);
+    const data = {
+      desc: { ...gem.desc, pollOptions: updatedPollOptions },
+    };
+    axiosInstance
+      .put(`/api/gems/${gem._id}`, data)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
   }
 
   return (
@@ -280,7 +331,12 @@ function GemContainer({ gem }) {
                   />
                 ) : null}
               </div>
-              total votes: {pollVotesAmount}
+              <div className='user-gem__poll-end'>
+                <div>total votes: {pollVotesAmount}</div>
+                <div className='user-gem__poll-time'>
+                  {pollIsEnded ? 'Poll is ended' : 'ends in ' + pollEndTime}
+                </div>
+              </div>
             </div>
           </div>
         )
