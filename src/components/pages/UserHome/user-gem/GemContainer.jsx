@@ -17,6 +17,7 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
+import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -59,6 +60,7 @@ function GemContainer({ gem }) {
     setPollEndTime(calculatePollEndTime());
 
     function calculatePollEndTime() {
+      if (gem.type !== 'poll') return;
       const gemCreatedAt = new Date(gem.createdAt);
       const pollDurationInDays = gem.desc.pollDuration[0];
 
@@ -100,6 +102,19 @@ function GemContainer({ gem }) {
   useClickOutside(postEditRef, () => {
     setShowPostEdit(false);
   });
+
+  function getUserLevel() {
+    const userLevelMap = {
+      novice: '#62baac',
+      home: '#56ccf2',
+      enthusiast: '#f8ad9d',
+      gourmet: '#a52a2a',
+      explorer: '#92bdd9',
+      professional: '#6c6377',
+      master: '#f9a109',
+    };
+    return userLevelMap[user.level];
+  }
 
   function getTimeDifference(createdAt) {
     const currentTime = new Date();
@@ -180,7 +195,7 @@ function GemContainer({ gem }) {
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then((res) => console.log(res.data))
+      .then()
       .catch((err) => console.error(err));
   }
 
@@ -197,7 +212,7 @@ function GemContainer({ gem }) {
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then((res) => console.log(res.data))
+      .then()
       .catch((err) => console.error(err));
   }
 
@@ -231,7 +246,7 @@ function GemContainer({ gem }) {
         <div className='user-gem__date'>
           <LocalPoliceOutlinedIcon
             style={{
-              color: 'var(--color-main-green)',
+              color: getUserLevel(),
               fontSize: '9px',
             }}
           />
@@ -310,12 +325,18 @@ function GemContainer({ gem }) {
       ) : (
         gem.type === 'poll' && (
           <div className='user-gem__poll'>
+            {/* <div className='user-gem__poll-time'>
+              <span>
+                {pollIsEnded ? 'Poll is ended' : 'Ends in ' + pollEndTime}
+              </span>
+            </div> */}
             {gem.desc.pollOptions.map((option) => (
               <PollContainer
                 key={option.id}
                 option={option}
                 totalVotes={pollVotesAmount}
                 onChange={onOptionChange}
+                groupName={`pollOption_${option.value}`}
               />
             ))}
             <div className='user-gem__poll-total-votes'>
@@ -333,9 +354,6 @@ function GemContainer({ gem }) {
               </div>
               <div className='user-gem__poll-end'>
                 <div>total votes: {pollVotesAmount}</div>
-                <div className='user-gem__poll-time'>
-                  {pollIsEnded ? 'Poll is ended' : 'ends in ' + pollEndTime}
-                </div>
               </div>
             </div>
           </div>

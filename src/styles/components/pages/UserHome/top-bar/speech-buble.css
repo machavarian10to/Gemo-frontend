@@ -1,7 +1,7 @@
 .speech-bubble-wrapper {
   display: flex;
   align-items: center;
-  gap: 17px;
+  gap: 10px;
   background-color: #fff;
   padding: 25px;
   width: 550px;
@@ -35,7 +35,7 @@
   border-top: 10px solid transparent;
   border-right: 30px solid #f1f1f1;
   border-bottom: 15px solid transparent;
-  margin: 10px 0 0 -15px;
+  margin: 15px 0 0 -10px;
 }
 
 .user-home__speech-bubble-icons-wrapper {

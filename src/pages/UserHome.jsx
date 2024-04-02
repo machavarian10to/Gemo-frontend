@@ -12,7 +12,6 @@ function UserHome() {
     axiosInstance
       .get('/api/gems')
       .then((response) => {
-        console.log(response.data);
         setGems(response.data);
       })
       .catch((error) => {
