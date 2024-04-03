@@ -325,11 +325,6 @@ function GemContainer({ gem }) {
       ) : (
         gem.type === 'poll' && (
           <div className='user-gem__poll'>
-            {/* <div className='user-gem__poll-time'>
-              <span>
-                {pollIsEnded ? 'Poll is ended' : 'Ends in ' + pollEndTime}
-              </span>
-            </div> */}
             {gem.desc.pollOptions.map((option) => (
               <PollContainer
                 key={option.id}
@@ -344,17 +339,24 @@ function GemContainer({ gem }) {
                 {gem.desc.pollOptions.some((option) =>
                   option.users.includes(user.username),
                 ) ? (
-                  <Button
-                    label='Remove my vote'
-                    type='base'
-                    size='extra-small'
-                    clickHandler={removeUserVote}
-                  />
-                ) : null}
+                  <>
+                    <Button
+                      label='Remove my vote'
+                      type='base'
+                      size='extra-small'
+                      clickHandler={removeUserVote}
+                    />
+                  </>
+                ) : (
+                  <div className='user-gem__poll-vote-placeholder'></div>
+                )}
               </div>
-              <div className='user-gem__poll-end'>
-                <div>total votes: {pollVotesAmount}</div>
+              <div className='user-gem__poll-time'>
+                <span>
+                  {pollIsEnded ? 'Poll is ended' : 'Ends in: ' + pollEndTime}
+                </span>
               </div>
+              <div>total votes: {pollVotesAmount}</div>
             </div>
           </div>
         )

@@ -355,17 +355,14 @@
   font-weight: 800;
 }
 
-.user-gem__poll-end {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
+.user-gem__footer-button{
+  width: 130px;
+  height: 30px;
 }
 
 .user-gem__poll-time {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-grey);
-  opacity: 0.7;
   text-align: end;
 }

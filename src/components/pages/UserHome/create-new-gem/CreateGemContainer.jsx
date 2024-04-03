@@ -63,7 +63,7 @@ export default function CreatePostContainer({
     ],
     pollDurations: {
       showDurations: false,
-      selectedDuration: '3 days',
+      selectedDuration: '- None -',
       options: [
         {
           id: useId(),
@@ -84,7 +84,7 @@ export default function CreatePostContainer({
         },
         {
           id: useId(),
-          name: 'Infinity',
+          name: '- None -',
         },
       ],
     },
