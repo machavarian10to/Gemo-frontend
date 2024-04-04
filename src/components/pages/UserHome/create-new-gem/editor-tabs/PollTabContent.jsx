@@ -5,6 +5,7 @@ import Button from '@/components/UI/Button';
 import Select from '@/components/UI/Select';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Checkbox from '@/components/UI/Checkbox';
 import PropTypes from 'prop-types';
 
 function PollTabContent({ pollTabState, setPollTabState }) {
@@ -170,6 +171,10 @@ function PollTabContent({ pollTabState, setPollTabState }) {
               <Button clickHandler={addOption} type='base' label='Add Option' />
             </div>
             <div className='select-component-wrapper'>
+              <div className='poll-tab-content-multi-select'>
+                <Checkbox label='multiple option selection' />
+              </div>
+
               <Select
                 label='Poll duration'
                 selectedOption={pollTabState.pollDurations.selectedDuration}
