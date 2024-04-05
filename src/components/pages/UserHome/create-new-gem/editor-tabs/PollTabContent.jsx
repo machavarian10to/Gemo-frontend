@@ -16,6 +16,13 @@ function PollTabContent({ pollTabState, setPollTabState }) {
     return Math.random().toString(36).substr(2, 9);
   }
 
+  function onMultipleOptionCheck(e) {
+    setPollTabState((prev) => ({
+      ...prev,
+      multipleSelection: e.target.checked,
+    }));
+  }
+
   function onInput(e, optionId) {
     const updatedOptions = pollTabState.pollOptions.map((option) => {
       if (option.id === optionId) {
@@ -172,7 +179,10 @@ function PollTabContent({ pollTabState, setPollTabState }) {
             </div>
             <div className='select-component-wrapper'>
               <div className='poll-tab-content-multi-select'>
-                <Checkbox label='multiple option selection' />
+                <Checkbox
+                  label='multiple option selection'
+                  onChange={onMultipleOptionCheck}
+                />
               </div>
 
               <Select

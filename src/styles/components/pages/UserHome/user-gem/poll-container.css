@@ -4,8 +4,12 @@
 }
 
 .user-post__poll-option-wrapper:hover {
-  outline: 1px solid var(--color-main-yellow);
+  outline: 1.5px solid var(--color-main-yellow);
   border-radius: var(--border-radius-rect) ;
+}
+
+.user-post__poll-option-wrapper.ended-poll{
+  pointer-events: none;
 }
 
 .user-post__poll-option-container {
@@ -17,11 +21,15 @@
   color: #333;
   white-space: nowrap;
   line-height: 20px;
-  border: 1px solid var(--color-main-yellow);
+  outline: 1px solid var(--color-main-yellow);
   border-radius: var(--border-radius-rect) ;
-  padding: 10px;
+  padding: 10px 10px 10px 0;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+
+.user-post__poll-option-wrapper.ended-poll .user-post__poll-option-container {
+  outline: 1px solid var(--color-grey);
 }
 
 .user-post__poll-numbers{
@@ -49,6 +57,10 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.user-post__poll-input{
+  margin-left: 10px;
 }
 
 .user-post__radio-label input {
@@ -90,9 +102,13 @@
 
 .user-post__poll-option-container-inner {
   position: absolute;
-  height: 96%;
+  height: 100%;
   background-color: var(--bg-shade-13);
-  top: 2%;
-  left: 1px;
+  /* top: 2%; */
+  /* left: 1px; */
   border-radius: var(--border-radius-rect) ;
+}
+
+.user-post__poll-option-wrapper.ended-poll .user-post__poll-option-container-inner {
+  background-color: #dcdcdc;
 }

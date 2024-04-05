@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-function PollContainer({ option, onChange, totalVotes, groupName }) {
+function PollContainer({
+  option,
+  onChange,
+  totalVotes,
+  groupName,
+  pollIsEnded,
+}) {
   const [percentage, setPercentage] = useState(0);
   const user = useSelector((state) => state.user);
 
@@ -15,15 +21,20 @@ function PollContainer({ option, onChange, totalVotes, groupName }) {
   }, [option.users.length, totalVotes]);
 
   return (
-    <label className='user-post__poll-option-wrapper'>
+    <label
+      className={`user-post__poll-option-wrapper ${
+        pollIsEnded ? 'ended-poll' : ''
+      }`}
+    >
       <div className='user-post__poll-option-container'>
         <div
-          style={{ width: `calc(${percentage}% - 2px)` }}
+          style={{ width: `${percentage}%` }}
           className='user-post__poll-option-container-inner'
         ></div>
         <div className='user-post__poll-input'>
           <label className='user-post__radio-label'>
             <input
+              disabled={pollIsEnded}
               type='radio'
               name={groupName}
               checked={option.users.includes(user.username)}
@@ -53,6 +64,7 @@ PollContainer.propTypes = {
   onChange: PropTypes.func.isRequired,
   totalVotes: PropTypes.number.isRequired,
   groupName: PropTypes.string.isRequired,
+  pollIsEnded: PropTypes.bool.isRequired,
 };
 
 export default PollContainer;

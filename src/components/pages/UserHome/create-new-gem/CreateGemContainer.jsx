@@ -47,6 +47,7 @@ export default function CreatePostContainer({
   });
 
   const [pollTabState, setPollTabState] = useState({
+    multipleSelection: false,
     pollOptions: [
       {
         id: useId(),
@@ -137,6 +138,7 @@ export default function CreatePostContainer({
       const state = {
         pollOptions: [],
         pollDuration: pollTabState.pollDurations.selectedDuration,
+        multipleSelection: pollTabState.multipleSelection,
       };
       pollTabState.pollOptions.forEach((option) => {
         if (option.value) {

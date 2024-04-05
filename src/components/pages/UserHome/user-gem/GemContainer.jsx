@@ -332,11 +332,13 @@ function GemContainer({ gem }) {
                 totalVotes={pollVotesAmount}
                 onChange={onOptionChange}
                 groupName={`pollOption_${option.value}`}
+                pollIsEnded={pollIsEnded}
               />
             ))}
             <div className='user-gem__poll-total-votes'>
               <div className='user-gem__footer-button'>
-                {gem.desc.pollOptions.some((option) =>
+                {!pollIsEnded &&
+                gem.desc.pollOptions.some((option) =>
                   option.users.includes(user.username),
                 ) ? (
                   <>
@@ -352,9 +354,9 @@ function GemContainer({ gem }) {
                 )}
               </div>
               <div className='user-gem__poll-time'>
-                <span>
+                <div>
                   {pollIsEnded ? 'Poll is ended' : 'Ends in: ' + pollEndTime}
-                </span>
+                </div>
               </div>
               <div>total votes: {pollVotesAmount}</div>
             </div>
