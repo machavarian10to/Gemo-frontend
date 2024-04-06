@@ -159,3 +159,7 @@ body,
   margin-left: 230px;
   margin-top: 58px;
 }
+
+.bold{
+  font-weight: 800;
+}

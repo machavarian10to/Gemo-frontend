@@ -64,7 +64,7 @@ function GemContainer({ gem }) {
       const gemCreatedAt = new Date(gem.createdAt);
       const pollDurationInDays = gem.desc.pollDuration[0];
 
-      if (gem.desc.pollDuration === 'Infinite') return 'poll does not end';
+      if (gem.desc.pollDuration === '- None -') return;
 
       const pollEndTime = new Date(
         gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
@@ -170,11 +170,10 @@ function GemContainer({ gem }) {
     }
   }
 
-  function onOptionChange(e) {
-    const { value } = e.target;
+  function onOptionChange(optionId) {
     const updatedPollOptions = [...pollOptions];
     const optionIndex = updatedPollOptions.findIndex(
-      (option) => option.value === value,
+      (option) => option.id === optionId,
     );
 
     if (updatedPollOptions[optionIndex].users.includes(user.username)) {
@@ -330,9 +329,10 @@ function GemContainer({ gem }) {
                 key={option.id}
                 option={option}
                 totalVotes={pollVotesAmount}
-                onChange={onOptionChange}
+                onChange={() => onOptionChange(option.id)}
                 groupName={`pollOption_${option.value}`}
                 pollIsEnded={pollIsEnded}
+                multipleSelection={gem.desc.multipleSelection}
               />
             ))}
             <div className='user-gem__poll-total-votes'>
@@ -355,10 +355,19 @@ function GemContainer({ gem }) {
               </div>
               <div className='user-gem__poll-time'>
                 <div>
-                  {pollIsEnded ? 'Poll is ended' : 'Ends in: ' + pollEndTime}
+                  {!pollIsEnded ? (
+                    <div>
+                      {pollEndTime && 'Poll ends in: '}
+                      <span>{pollEndTime}</span>
+                    </div>
+                  ) : (
+                    <span>Poll is ended!</span>
+                  )}
                 </div>
               </div>
-              <div>total votes: {pollVotesAmount}</div>
+              <div className='user-gem__total-votes'>
+                total votes: <span>{pollVotesAmount}</span>
+              </div>
             </div>
           </div>
         )

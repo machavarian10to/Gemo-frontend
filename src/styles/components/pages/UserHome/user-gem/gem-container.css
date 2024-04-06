@@ -134,6 +134,8 @@
 }
 
 .user-gem__footer {
+  padding-top: 10px;
+  border-top: 1px solid var(--color-grey);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -355,7 +357,7 @@
   font-weight: 800;
 }
 
-.user-gem__footer-button{
+.user-gem__footer-button {
   width: 130px;
   height: 30px;
 }
@@ -365,4 +367,19 @@
   font-weight: 600;
   color: var(--color-grey);
   text-align: end;
+}
+
+.user-gem__poll-time span {
+  color: var(--color-main-yellow);
+  font-weight: 800;
+}
+
+.user-gem__total-votes {
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-gem__total-votes:hover {
+  color: var(--color-main-yellow);
 }
