@@ -176,18 +176,29 @@ function GemContainer({ gem }) {
       (option) => option.id === optionId,
     );
 
-    if (updatedPollOptions[optionIndex].users.includes(user.username)) {
-      updatedPollOptions[optionIndex].users = updatedPollOptions[
-        optionIndex
-      ].users.filter((username) => username !== user.username);
+    if (gem.desc.multipleSelection) {
+      if (updatedPollOptions[optionIndex].users.includes(user.username)) {
+        updatedPollOptions[optionIndex].users = updatedPollOptions[
+          optionIndex
+        ].users.filter((username) => username !== user.username);
+      } else {
+        updatedPollOptions[optionIndex].users.push(user.username);
+      }
     } else {
-      updatedPollOptions.forEach((option) => {
-        option.users = option.users.filter(
-          (username) => username !== user.username,
-        );
-      });
-      updatedPollOptions[optionIndex].users.push(user.username);
+      if (updatedPollOptions[optionIndex].users.includes(user.username)) {
+        updatedPollOptions[optionIndex].users = updatedPollOptions[
+          optionIndex
+        ].users.filter((username) => username !== user.username);
+      } else {
+        updatedPollOptions.forEach((option) => {
+          option.users = option.users.filter(
+            (username) => username !== user.username,
+          );
+        });
+        updatedPollOptions[optionIndex].users.push(user.username);
+      }
     }
+
     setPollOptions(updatedPollOptions);
     const data = {
       desc: { ...gem.desc, pollOptions: updatedPollOptions },

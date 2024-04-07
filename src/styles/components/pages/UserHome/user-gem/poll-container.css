@@ -46,13 +46,6 @@
   color: var(--color-grey);
 }
 
-.user-post__checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  position: relative;
-}
-
 .user-post__radio-label {
   display: flex;
   align-items: center;
@@ -116,4 +109,64 @@
 .user-post__poll-option-wrapper.ended-poll
   .user-post__poll-option-container-inner {
   background-color: #dcdcdc;
+}
+
+.user-post__checkbox-label {
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.user-post__checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.user-post__checkbox-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border: 1px solid var(--color-grey);
+  border-radius: 2px;
+  margin-top: 2px;
+  transition: all 0.2s;
+}
+
+.user-post__checkbox-label input:checked ~ .user-post__checkbox-checkmark {
+  background-color: var(--color-grey);
+  border: none;
+}
+
+.user-post__checkbox-checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.user-post__checkbox-label input:checked ~ .user-post__checkbox-checkmark:after {
+  display: block;
+}
+
+.user-post__checkbox-label .user-post__checkbox-checkmark:after {
+  left: 6px;
+  top: 3.5px;
+  width: 2px;
+  height: 6px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

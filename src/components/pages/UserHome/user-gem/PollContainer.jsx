@@ -50,6 +50,7 @@ function PollContainer({
                 value={option.value}
               />
               <span>{option.value}</span>
+              <span className='user-post__checkbox-checkmark'></span>
             </label>
           ) : (
             <label className='user-post__radio-label'>
