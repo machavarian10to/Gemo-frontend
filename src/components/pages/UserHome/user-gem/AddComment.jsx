@@ -54,7 +54,7 @@ const AddComment = ({ placeholder, value = '' }) => {
   return (
     <>
       <div className='user-post__comment-section-user-comment'>
-        <UserAvatar width='45' />
+        <UserAvatar width={45} />
         <div className='user-post__comment-section-input'>
           <div className='user-post__comment-input-wrapper'>
             <textarea

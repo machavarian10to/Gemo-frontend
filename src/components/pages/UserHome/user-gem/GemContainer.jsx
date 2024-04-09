@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AddComment from '@/components/pages/UserHome/user-gem/AddComment';
 import Comment from '@/components/pages/UserHome/user-gem/Comment';
-import PollContainer from '@/components/pages/UserHome/user-gem/PollContainer';
+import PollContainer from '@/components/pages/UserHome/user-gem/poll/PollContainer';
+import PollResultsModal from '@/components/pages/UserHome/user-gem/poll/PollResultsModal';
 import EventContainer from '@/components/pages/UserHome/user-gem/EventContainer';
 import UserAvatar from '@/components/shared/UserAvatar';
 import Button from '@/components/UI/Button';
@@ -37,10 +38,11 @@ function GemContainer({ gem }) {
 
   const user = useSelector((state) => state.user);
 
-  const [pollOptions, setPollOptions] = useState(gem.desc.pollOptions || []);
+  const [pollOptions, setPollOptions] = useState(gem.body.pollOptions || []);
   const [pollVotesAmount, setPollVotesAmount] = useState(0);
   const [pollIsEnded, setPollIsEnded] = useState(false);
   const [pollEndTime, setPollEndTime] = useState(0);
+  const [showPollResultsModal, setShowPollResultsModal] = useState(false);
 
   const [showPostEdit, setShowPostEdit] = useState(false);
   const postEditRef = useRef(null);
@@ -62,9 +64,9 @@ function GemContainer({ gem }) {
     function calculatePollEndTime() {
       if (gem.type !== 'poll') return;
       const gemCreatedAt = new Date(gem.createdAt);
-      const pollDurationInDays = gem.desc.pollDuration[0];
+      const pollDurationInDays = gem.body.pollDuration[0];
 
-      if (gem.desc.pollDuration === '- None -') return;
+      if (gem.body.pollDuration === '- None -') return;
 
       const pollEndTime = new Date(
         gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
@@ -176,7 +178,7 @@ function GemContainer({ gem }) {
       (option) => option.id === optionId,
     );
 
-    if (gem.desc.multipleSelection) {
+    if (gem.body.multipleSelection) {
       if (updatedPollOptions[optionIndex].users.includes(user.username)) {
         updatedPollOptions[optionIndex].users = updatedPollOptions[
           optionIndex
@@ -201,7 +203,7 @@ function GemContainer({ gem }) {
 
     setPollOptions(updatedPollOptions);
     const data = {
-      desc: { ...gem.desc, pollOptions: updatedPollOptions },
+      body: { ...gem.body, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
@@ -218,7 +220,7 @@ function GemContainer({ gem }) {
     });
     setPollOptions(updatedPollOptions);
     const data = {
-      desc: { ...gem.desc, pollOptions: updatedPollOptions },
+      body: { ...gem.body, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
@@ -226,9 +228,14 @@ function GemContainer({ gem }) {
       .catch((err) => console.error(err));
   }
 
+  function showTotalVotesModal() {
+    setShowPollResultsModal(true);
+  }
+
   return (
-    <div className='user-gem'>
-      {/* <div className='user-gem__group'>
+    <>
+      <div className='user-gem'>
+        {/* <div className='user-gem__group'>
         <PeopleAltOutlinedIcon
           style={{ color: 'var(--color-grey)', fontSize: '22px' }}
         />
@@ -241,230 +248,250 @@ function GemContainer({ gem }) {
         <div className='user-gem__group-name'>food</div>
       </div> */}
 
-      <div className='user-gem__header'>
-        <div className='user-gem__user-info'>
-          <UserAvatar width={32} height={32} src={gem.userPhoto} />
-          <div className='user-gem__details'>
-            <div className='user-gem__username'>@{gem.userName}</div>
-            <div className='user-gem__user-level'>
-              <HistoryToggleOffOutlinedIcon style={{ fontSize: '13px' }} />
-              <span>{getTimeDifference(new Date(gem.createdAt))}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className='user-gem__date'>
-          <LocalPoliceOutlinedIcon
-            style={{
-              color: getUserLevel(),
-              fontSize: '9px',
-            }}
-          />
-        </div>
-
-        <div
-          className='user-gem__menu'
-          style={{
-            background: showPostEdit && 'var(--bg-main-white)',
-          }}
-        >
-          <MoreHorizIcon
-            style={{ color: 'var(--color-main-grey)' }}
-            onClick={() => setShowPostEdit((prev) => !prev)}
-          />
-
-          {showPostEdit && (
-            <Fade in={showPostEdit} timeout={400}>
-              <div className='user-gem__comment-edit-wrapper' ref={postEditRef}>
-                <div className='user-gem__comment-edit-item'>
-                  <EditOutlinedIcon
-                    style={{
-                      fontSize: '18px',
-                      color: 'var(--color-main-yellow)',
-                    }}
-                  />
-                  <span>Edit</span>
-                </div>
-                <div className='user-gem__comment-edit-item'>
-                  <DeleteOutlineOutlinedIcon
-                    style={{
-                      fontSize: '18px',
-                      color: 'var(--color-main-yellow)',
-                    }}
-                  />
-                  <span>Delete</span>
-                </div>
-              </div>
-            </Fade>
-          )}
-        </div>
-      </div>
-
-      <div className='user-gem__texts'>
-        <h3>{gem.title}</h3>
-        {gem.desc?.postContent && (
-          <div
-            className='user-gem__body'
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(gem.desc.postContent),
-            }}
-          ></div>
-        )}
-      </div>
-
-      {gem.desc?.fileName ? (
-        <div className='user-gem__image'>
-          <img
-            src={`${import.meta.env.VITE_API_URL}/assets/${gem.desc.fileName}`}
-            alt={gem.title + "'s image"}
-            className='user-media-preview'
-          />
-        </div>
-      ) : gem.desc?.gif ? (
-        <div className='user-gem__image'>
-          <img
-            src={gem.desc.gif}
-            alt={gem.desc.title}
-            className='user-media-preview'
-          />
-        </div>
-      ) : null}
-
-      {gem.type === 'event' ? (
-        <EventContainer />
-      ) : (
-        gem.type === 'poll' && (
-          <div className='user-gem__poll'>
-            {gem.desc.pollOptions.map((option) => (
-              <PollContainer
-                key={option.id}
-                option={option}
-                totalVotes={pollVotesAmount}
-                onChange={() => onOptionChange(option.id)}
-                groupName={`pollOption_${option.value}`}
-                pollIsEnded={pollIsEnded}
-                multipleSelection={gem.desc.multipleSelection}
-              />
-            ))}
-            <div className='user-gem__poll-total-votes'>
-              <div className='user-gem__footer-button'>
-                {!pollIsEnded &&
-                gem.desc.pollOptions.some((option) =>
-                  option.users.includes(user.username),
-                ) ? (
-                  <>
-                    <Button
-                      label='Remove my vote'
-                      type='base'
-                      size='extra-small'
-                      clickHandler={removeUserVote}
-                    />
-                  </>
-                ) : (
-                  <div className='user-gem__poll-vote-placeholder'></div>
-                )}
-              </div>
-              <div className='user-gem__poll-time'>
-                <div>
-                  {!pollIsEnded ? (
-                    <div>
-                      {pollEndTime && 'Poll ends in: '}
-                      <span>{pollEndTime}</span>
-                    </div>
-                  ) : (
-                    <span>Poll is ended!</span>
-                  )}
-                </div>
-              </div>
-              <div className='user-gem__total-votes'>
-                total votes: <span>{pollVotesAmount}</span>
+        <div className='user-gem__header'>
+          <div className='user-gem__user-info'>
+            <UserAvatar width={32} height={32} src={gem.userPhoto} />
+            <div className='user-gem__details'>
+              <div className='user-gem__username'>@{gem.userName}</div>
+              <div className='user-gem__user-level'>
+                <HistoryToggleOffOutlinedIcon style={{ fontSize: '13px' }} />
+                <span>{getTimeDifference(new Date(gem.createdAt))}</span>
               </div>
             </div>
           </div>
-        )
-      )}
 
-      <div className='user-gem__footer'>
-        <div
-          className={`user-gem__footer-container ${
-            showEmojis ? 'active-section' : ''
-          }`}
-          onClick={() => setShowEmojis((prev) => !prev)}
-        >
-          <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>React</span>
-          <span>{emojiCount}</span>
-        </div>
-        <div
-          className={`user-gem__footer-container ${
-            showCommentSection ? 'active-section' : ''
-          }`}
-          onClick={() => setShowCommentSection((prev) => !prev)}
-        >
-          <SmsOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Comment</span>
-          <span>{commentList.length}</span>
-        </div>
-        <div className='user-gem__footer-container'>
-          <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Share</span>
-          <span>0</span>
-        </div>
-        <div className='user-gem__footer-container' title='Add to favorites'>
-          <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
-        </div>
-
-        {showEmojis && (
-          <div className='user-gem__emoji-picker-wrapper' ref={emojiPickerRef}>
-            <EmojiPicker
-              onEmojiClick={(emoji) => addEmoji(emoji)}
-              previewConfig={{ showPreview: false }}
-              autoFocusSearch={false}
-              emojiStyle='native'
-              theme='light'
+          <div className='user-gem__date'>
+            <LocalPoliceOutlinedIcon
+              style={{
+                color: getUserLevel(),
+                fontSize: '9px',
+              }}
             />
           </div>
+
+          <div
+            className='user-gem__menu'
+            style={{
+              background: showPostEdit && 'var(--bg-main-white)',
+            }}
+          >
+            <MoreHorizIcon
+              style={{ color: 'var(--color-main-grey)' }}
+              onClick={() => setShowPostEdit((prev) => !prev)}
+            />
+
+            {showPostEdit && (
+              <Fade in={showPostEdit} timeout={400}>
+                <div
+                  className='user-gem__comment-edit-wrapper'
+                  ref={postEditRef}
+                >
+                  <div className='user-gem__comment-edit-item'>
+                    <EditOutlinedIcon
+                      style={{
+                        fontSize: '18px',
+                        color: 'var(--color-main-yellow)',
+                      }}
+                    />
+                    <span>Edit</span>
+                  </div>
+                  <div className='user-gem__comment-edit-item'>
+                    <DeleteOutlineOutlinedIcon
+                      style={{
+                        fontSize: '18px',
+                        color: 'var(--color-main-yellow)',
+                      }}
+                    />
+                    <span>Delete</span>
+                  </div>
+                </div>
+              </Fade>
+            )}
+          </div>
+        </div>
+
+        <div className='user-gem__texts'>
+          <h3>{gem.title}</h3>
+          {gem.body?.postContent && (
+            <div
+              className='user-gem__body'
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(gem.body.postContent),
+              }}
+            ></div>
+          )}
+        </div>
+
+        {gem.body?.fileName ? (
+          <div className='user-gem__image'>
+            <img
+              src={`${import.meta.env.VITE_API_URL}/assets/${
+                gem.body.fileName
+              }`}
+              alt={gem.title + "'s image"}
+              className='user-media-preview'
+            />
+          </div>
+        ) : gem.body?.gif ? (
+          <div className='user-gem__image'>
+            <img
+              src={gem.body.gif}
+              alt={gem.body.title}
+              className='user-media-preview'
+            />
+          </div>
+        ) : null}
+
+        {gem.type === 'event' ? (
+          <EventContainer />
+        ) : (
+          gem.type === 'poll' && (
+            <div className='user-gem__poll'>
+              {gem.body.pollOptions.map((option) => (
+                <PollContainer
+                  key={option.id}
+                  option={option}
+                  totalVotes={pollVotesAmount}
+                  onChange={() => onOptionChange(option.id)}
+                  groupName={`pollOption_${option.value}`}
+                  pollIsEnded={pollIsEnded}
+                  multipleSelection={gem.body.multipleSelection}
+                />
+              ))}
+              <div className='user-gem__poll-total-votes'>
+                <div className='user-gem__footer-button'>
+                  {!pollIsEnded &&
+                  gem.body.pollOptions.some((option) =>
+                    option.users.includes(user.username),
+                  ) ? (
+                    <>
+                      <Button
+                        label='Remove my vote'
+                        type='base'
+                        size='extra-small'
+                        clickHandler={removeUserVote}
+                      />
+                    </>
+                  ) : (
+                    <div className='user-gem__poll-vote-placeholder'></div>
+                  )}
+                </div>
+                <div className='user-gem__poll-time'>
+                  <div>
+                    {!pollIsEnded ? (
+                      <div>
+                        {pollEndTime && 'Poll ends in: '}
+                        <span>{pollEndTime}</span>
+                      </div>
+                    ) : (
+                      <span>Poll is ended!</span>
+                    )}
+                  </div>
+                </div>
+                <div
+                  className='user-gem__total-votes'
+                  onClick={showTotalVotesModal}
+                >
+                  total votes: <span>{pollVotesAmount}</span>
+                </div>
+              </div>
+            </div>
+          )
+        )}
+
+        <div className='user-gem__footer'>
+          <div
+            className={`user-gem__footer-container ${
+              showEmojis ? 'active-section' : ''
+            }`}
+            onClick={() => setShowEmojis((prev) => !prev)}
+          >
+            <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
+            <span>React</span>
+            <span>{emojiCount}</span>
+          </div>
+          <div
+            className={`user-gem__footer-container ${
+              showCommentSection ? 'active-section' : ''
+            }`}
+            onClick={() => setShowCommentSection((prev) => !prev)}
+          >
+            <SmsOutlinedIcon style={{ fontSize: '19px' }} />
+            <span>Comment</span>
+            <span>{commentList.length}</span>
+          </div>
+          <div className='user-gem__footer-container'>
+            <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
+            <span>Share</span>
+            <span>0</span>
+          </div>
+          <div className='user-gem__footer-container' title='Add to favorites'>
+            <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
+          </div>
+
+          {showEmojis && (
+            <div
+              className='user-gem__emoji-picker-wrapper'
+              ref={emojiPickerRef}
+            >
+              <EmojiPicker
+                onEmojiClick={(emoji) => addEmoji(emoji)}
+                previewConfig={{ showPreview: false }}
+                autoFocusSearch={false}
+                emojiStyle='native'
+                theme='light'
+              />
+            </div>
+          )}
+        </div>
+
+        {postEmojis.length > 0 && (
+          <div className='user-gem__emoji-list'>
+            {postEmojis.map((postEmoji) => (
+              <div
+                key={postEmoji.id}
+                className={`user-gem__emoji-wrapper ${
+                  postEmoji.isClicked ? 'active-emoji' : ''
+                }`}
+                onClick={() => removeEmojiIfAlreadyClicked(postEmoji.id)}
+              >
+                <div className='user-gem__emoji'>{postEmoji.emoji}</div>
+                <div className='user-gem__emoji-count'>{postEmoji.count}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {showCommentSection && (
+          <Fade in={true} timeout={600}>
+            <div className='user-gem__comment-section'>
+              <AddComment placeholder='Write a comment' />
+
+              {commentList.length > 0 && (
+                <div className='user-gem__comment-list'>
+                  {commentList.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                  ))}
+                </div>
+              )}
+              {commentList.length > 1 && (
+                <div className='user-gem__comment-show-more-comments'>
+                  show more comments
+                </div>
+              )}
+            </div>
+          </Fade>
         )}
       </div>
 
-      {postEmojis.length > 0 && (
-        <div className='user-gem__emoji-list'>
-          {postEmojis.map((postEmoji) => (
-            <div
-              key={postEmoji.id}
-              className={`user-gem__emoji-wrapper ${
-                postEmoji.isClicked ? 'active-emoji' : ''
-              }`}
-              onClick={() => removeEmojiIfAlreadyClicked(postEmoji.id)}
-            >
-              <div className='user-gem__emoji'>{postEmoji.emoji}</div>
-              <div className='user-gem__emoji-count'>{postEmoji.count}</div>
-            </div>
-          ))}
-        </div>
+      {showPollResultsModal && (
+        <PollResultsModal
+          pollOptions={pollOptions}
+          totalVotes={pollVotesAmount}
+          closeModal={() => setShowPollResultsModal(false)}
+        />
       )}
-
-      {showCommentSection && (
-        <Fade in={true} timeout={600}>
-          <div className='user-gem__comment-section'>
-            <AddComment placeholder='Write a comment' />
-
-            {commentList.length > 0 && (
-              <div className='user-gem__comment-list'>
-                {commentList.map((comment) => (
-                  <Comment key={comment.id} comment={comment} />
-                ))}
-              </div>
-            )}
-            {commentList.length > 1 && (
-              <div className='user-gem__comment-show-more-comments'>
-                show more comments
-              </div>
-            )}
-          </div>
-        </Fade>
-      )}
-    </div>
+    </>
   );
 }
 

@@ -124,13 +124,13 @@ export default function CreatePostContainer({
         }
       });
       if (Object.keys(state).length !== 0) {
-        formData.append('desc', JSON.stringify(state));
+        formData.append('body', JSON.stringify(state));
       }
     } else if (activeTab === 'media') {
       if (mediaTabState.file) {
         formData.append('file', mediaTabState.file);
         formData.append(
-          'desc',
+          'body',
           JSON.stringify({ fileName: mediaTabState.fileName }),
         );
       }
@@ -150,7 +150,7 @@ export default function CreatePostContainer({
         }
       });
       if (state.pollOptions.length !== 0) {
-        formData.append('desc', JSON.stringify(state));
+        formData.append('body', JSON.stringify(state));
       }
     } else if (activeTab === 'event') {
       if (eventTabState.file) formData.append('file', eventTabState.file);
@@ -162,11 +162,11 @@ export default function CreatePostContainer({
         }
       });
       if (Object.keys(state).length !== 0) {
-        formData.append('desc', JSON.stringify(state));
+        formData.append('body', JSON.stringify(state));
       }
     } else if (activeTab === 'gif') {
       if (gifTabState.gif) {
-        formData.append('desc', JSON.stringify(gifTabState));
+        formData.append('body', JSON.stringify(gifTabState));
       }
     }
 

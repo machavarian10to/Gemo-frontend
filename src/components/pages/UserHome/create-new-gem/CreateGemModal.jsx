@@ -8,7 +8,7 @@ import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-function CreatePostModal({ closeModal, activeTab, handleActiveTab }) {
+function CreateGemModal({ closeModal, activeTab, handleActiveTab }) {
   const modalContentRef = useRef();
   const user = useSelector((state) => state.user);
 
@@ -51,10 +51,10 @@ function CreatePostModal({ closeModal, activeTab, handleActiveTab }) {
   );
 }
 
-CreatePostModal.propTypes = {
+CreateGemModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   handleActiveTab: PropTypes.func.isRequired,
 };
 
-export default CreatePostModal;
+export default CreateGemModal;

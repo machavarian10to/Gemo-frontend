@@ -11,10 +11,11 @@
 @import '@/styles/components/pages/UserHome/create-new-gem/custom-link.css';
 @import '@/styles/components/pages/UserHome/recommend-food/food-recommendation.css';
 @import '@/styles/components/pages/UserHome/top-bar/speech-buble.css';
+@import '@/styles/components/pages/UserHome/user-gem/poll/poll-container.css';
+@import '@/styles/components/pages/UserHome/user-gem/poll/poll-results-modal.css';
 @import '@/styles/components/pages/UserHome/user-gem/add-comment.css';
 @import '@/styles/components/pages/UserHome/user-gem/comment.css';
 @import '@/styles/components/pages/UserHome/user-gem/event-container.css';
-@import '@/styles/components/pages/UserHome/user-gem/poll-container.css';
 @import '@/styles/components/pages/UserHome/user-gem/gem-container.css';
 @import '@/styles/components/pages/UserHome/featured-gem.css';
 @import '@/styles/components/shared/header.css';
