@@ -13,15 +13,29 @@ function PollResultsModal({ pollOptions, totalVotes, closeModal }) {
     <Fade in={true} timeout={600}>
       <div className='modal'>
         <div className='modal-content' ref={modalContentRef}>
-          <button onClick={closeModal}>
-            <HighlightOffIcon
-              style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
-            />
-          </button>
-          <div className='modal-body'>
-            <div className='modal-body__gem-details'></div>
+          <div className='modal-header'>
+            <h4>Poll results</h4>
+            <button onClick={closeModal}>
+              <HighlightOffIcon
+                style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
+              />
+            </button>
           </div>
-          <div className='modal-footer'></div>
+
+          {pollOptions.map((option) => (
+            <div key={option.id} className='poll-results__option'>
+              <div className='poll-results__option-wrapper'>
+                <div className='poll-results__option-value'>{option.value}</div>
+                <div>
+                  {totalVotes > 0
+                    ? ((option.users.length / totalVotes) * 100).toFixed(0)
+                    : 0}
+                  %
+                </div>
+              </div>
+              <div>{option.users[0]}</div>
+            </div>
+          ))}
         </div>
       </div>
     </Fade>

@@ -1,0 +1,24 @@
+.user-gem__poll-results-close-wrapper {
+  position: relative;
+}
+
+.user-gem__poll-results-close-wrapper button {
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.3s;
+}
+
+.user-gem__poll-results-close-wrapper button:hover {
+  opacity: 0.7;
+}
+
+.poll-results__option-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

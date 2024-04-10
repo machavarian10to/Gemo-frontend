@@ -97,6 +97,14 @@ function GemContainer({ gem }) {
     }
   }, [pollOptions, gem]);
 
+  useEffect(() => {
+    if (showPollResultsModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showPollResultsModal]);
+
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
@@ -179,25 +187,41 @@ function GemContainer({ gem }) {
     );
 
     if (gem.body.multipleSelection) {
-      if (updatedPollOptions[optionIndex].users.includes(user.username)) {
+      if (
+        updatedPollOptions[optionIndex].users.find(
+          (u) => u.username === user.username,
+        )
+      ) {
         updatedPollOptions[optionIndex].users = updatedPollOptions[
           optionIndex
-        ].users.filter((username) => username !== user.username);
+        ].users.filter((u) => u.username !== user.username);
       } else {
-        updatedPollOptions[optionIndex].users.push(user.username);
+        updatedPollOptions[optionIndex].users.push({
+          id: user._id,
+          username: user.username,
+          userPhoto: user.profilePicture,
+        });
       }
     } else {
-      if (updatedPollOptions[optionIndex].users.includes(user.username)) {
+      if (
+        updatedPollOptions[optionIndex].users.find(
+          (u) => u.username === user.username,
+        )
+      ) {
         updatedPollOptions[optionIndex].users = updatedPollOptions[
           optionIndex
-        ].users.filter((username) => username !== user.username);
+        ].users.filter((u) => u.username !== user.username);
       } else {
         updatedPollOptions.forEach((option) => {
           option.users = option.users.filter(
-            (username) => username !== user.username,
+            (u) => u.username !== user.username,
           );
         });
-        updatedPollOptions[optionIndex].users.push(user.username);
+        updatedPollOptions[optionIndex].users.push({
+          id: user._id,
+          username: user.username,
+          userPhoto: user.profilePicture,
+        });
       }
     }
 
