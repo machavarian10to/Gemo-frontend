@@ -238,9 +238,7 @@ function GemContainer({ gem }) {
   function removeUserVote() {
     const updatedPollOptions = [...pollOptions];
     updatedPollOptions.forEach((option) => {
-      option.users = option.users.filter(
-        (username) => username !== user.username,
-      );
+      option.users = option.users.filter((u) => u.username !== user.username);
     });
     setPollOptions(updatedPollOptions);
     const data = {
@@ -386,7 +384,7 @@ function GemContainer({ gem }) {
                 <div className='user-gem__footer-button'>
                   {!pollIsEnded &&
                   gem.body.pollOptions.some((option) =>
-                    option.users.includes(user.username),
+                    option.users.find((u) => u.username === user.username),
                   ) ? (
                     <>
                       <Button

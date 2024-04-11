@@ -45,7 +45,10 @@ function PollContainer({
                 disabled={pollIsEnded}
                 type='checkbox'
                 id={groupName}
-                checked={option.users.includes(user.username)}
+                checked={
+                  option.users.find((u) => u.username === user.username) ||
+                  false
+                }
                 onChange={onChange}
                 value={option.value}
               />
@@ -58,7 +61,10 @@ function PollContainer({
                 disabled={pollIsEnded}
                 type='radio'
                 name={groupName}
-                checked={option.users.includes(user.username)}
+                checked={
+                  option.users.find((u) => u.username === user.username) ||
+                  false
+                }
                 onChange={onChange}
                 value={option.value}
               />

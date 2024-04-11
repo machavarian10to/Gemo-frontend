@@ -22,20 +22,29 @@ function PollResultsModal({ pollOptions, totalVotes, closeModal }) {
             </button>
           </div>
 
-          {pollOptions.map((option) => (
-            <div key={option.id} className='poll-results__option'>
-              <div className='poll-results__option-wrapper'>
-                <div className='poll-results__option-value'>{option.value}</div>
-                <div>
-                  {totalVotes > 0
-                    ? ((option.users.length / totalVotes) * 100).toFixed(0)
-                    : 0}
-                  %
+          <div className='poll-results__modal-content-wrapper'>
+            {pollOptions.map((option) => (
+              <div key={option.id} className='poll-results__option'>
+                <div className='poll-results__option-wrapper'>
+                  <div className='poll-results__option-value'>
+                    {option.value}
+                  </div>
+                  <div>
+                    {totalVotes > 0
+                      ? ((option.users.length / totalVotes) * 100).toFixed(0)
+                      : 0}
+                    %
+                  </div>
                 </div>
+                {/* {option.users.map((user) => (
+                <div key={user.id}>
+                  <div className='poll-results__user'>{user.username}</div>
+                  <img src={user.userPhoto} alt={user.username} />
+                </div>
+              ))} */}
               </div>
-              <div>{option.users[0]}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </Fade>
