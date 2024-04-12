@@ -17,8 +17,40 @@
   opacity: 0.7;
 }
 
-.poll-results__option-wrapper{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.poll-results__modal-content-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow: auto;
+}
+
+.poll-results__options-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 1px solid var(--color-grey);
+  height: 100%;
+  padding: 5px 5px 5px 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.poll-results__option-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: var(--border-radius-rect);
+  transition: all 0.3s;
+}
+
+.poll-results__option-wrapper:hover {
+  background-color: var(--bg-main-white);
+}
+
+.poll-results__option-wrapper span{
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-grey);
 }
