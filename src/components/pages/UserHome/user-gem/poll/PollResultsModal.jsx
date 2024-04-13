@@ -2,10 +2,13 @@ import PropTypes from 'prop-types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Fade } from '@mui/material';
 import useClickOutside from '@/hook/useClickOutside';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import UserAvatar from '@/components/shared/UserAvatar';
 
-function PollResultsModal({ pollOptions, totalVotes, closeModal }) {
+function PollResultsModal({ pollOptions, closeModal }) {
   const modalContentRef = useRef();
+
+  const [activeOption, setActiveOption] = useState(pollOptions[0].id);
 
   useClickOutside(modalContentRef, () => closeModal());
 
@@ -25,16 +28,18 @@ function PollResultsModal({ pollOptions, totalVotes, closeModal }) {
           <div className='poll-results__modal-content-wrapper'>
             <div className='poll-results__options-wrapper'>
               {pollOptions.map((option) => (
-                <div key={option.id} className='poll-results__option'>
+                <div
+                  key={option.id}
+                  className={`poll-results__option ${
+                    activeOption === option.id ? 'active-option' : ''
+                  }`}
+                  onClick={() => setActiveOption(option.id)}
+                >
                   <div className='poll-results__option-wrapper'>
                     <div className='poll-results__option-value'>
                       {option.value}
                     </div>
                     <span>
-                      {/* {totalVotes > 0
-                        ? ((option.users.length / totalVotes) * 100).toFixed(0)
-                        : 0}
-                      % */}
                       {`${option.users.length} ${
                         option.users.length > 1 ? 'votes' : 'vote'
                       }`}
@@ -43,12 +48,16 @@ function PollResultsModal({ pollOptions, totalVotes, closeModal }) {
                 </div>
               ))}
             </div>
-            {/* {option.users.map((user) => (
-                <div key={user.id}>
-                  <div className='poll-results__user'>{user.username}</div>
-                  <img src={user.userPhoto} alt={user.username} />
-                </div>
-              ))} */}
+            <div className='poll-results__votes'>
+              {pollOptions
+                .find((option) => option.id === activeOption)
+                .users.map((user) => (
+                  <div key={user.id} className='poll-results__user-wrapper'>
+                    <UserAvatar width={30} height={30} src={user.userPhoto} />
+                    <div className='poll-results__user'>@{user.username}</div>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>
@@ -58,7 +67,6 @@ function PollResultsModal({ pollOptions, totalVotes, closeModal }) {
 
 PollResultsModal.propTypes = {
   pollOptions: PropTypes.array.isRequired,
-  totalVotes: PropTypes.number.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 

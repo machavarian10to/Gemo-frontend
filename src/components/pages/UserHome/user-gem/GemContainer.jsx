@@ -509,7 +509,6 @@ function GemContainer({ gem }) {
       {showPollResultsModal && (
         <PollResultsModal
           pollOptions={pollOptions}
-          totalVotes={pollVotesAmount}
           closeModal={() => setShowPollResultsModal(false)}
         />
       )}

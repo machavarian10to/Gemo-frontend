@@ -5,18 +5,17 @@
   --bg-main-white: #ebedf0;
   --bg-main-yellow: #fff0de;
   --bg-main-brown: #80485b;
-  --bg-main-red: #FF5252;
+  --bg-main-red: #ff5252;
   /* --color-main-yellow: #f9a109; */
   --color-grey: rgba(128, 128, 128, 0.5);
-  --color-main-yellow: #FFA500;
+  --color-main-yellow: #ffa500;
   --color-main-yellow-light: rgba(255, 165, 0, 0.8);
   --color-main-grey: #808080;
   --color-main-silver: #c0c0c0;
   --color-light-grey: #ccc;
   --color-main-black: #34333a;
-  --color-main-green: #4CAF50;
+  --color-main-green: #4caf50;
   --color-main-blue: #0070b5;
-
 
   /* YELLOW */
   --color-yellow-shade-01: #ffba69;
@@ -139,6 +138,15 @@
   src: local('Quicksand'), url('@/assets/fonts/Quicksand-VariableFont_wght.ttf');
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-grey);
+  border-radius: 10px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -160,6 +168,6 @@ body,
   margin-top: 58px;
 }
 
-.bold{
+.bold {
   font-weight: 800;
 }
