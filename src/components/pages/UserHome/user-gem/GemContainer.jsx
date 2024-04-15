@@ -354,10 +354,10 @@ function GemContainer({ gem }) {
               className='user-media-preview'
             />
           </div>
-        ) : gem.body?.gif ? (
+        ) : gem.body?.gifSrc ? (
           <div className='user-gem__image'>
             <img
-              src={gem.body.gif}
+              src={gem.body.gifSrc}
               alt={gem.body.title}
               className='user-media-preview'
             />

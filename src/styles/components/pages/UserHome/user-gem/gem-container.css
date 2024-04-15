@@ -9,6 +9,10 @@
   position: relative;
 }
 
+.user-gem a{
+  color: var(--color-main-yellow);
+}
+
 .user-gem__group {
   display: flex;
   align-items: center;
