@@ -23,6 +23,12 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
+import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
+import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
+import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import OpenInFullOutlinedIcon from '@mui/icons-material/OpenInFullOutlined';
+import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
+import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
 import DOMPurify from 'dompurify';
 import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
@@ -254,6 +260,13 @@ function GemContainer({ gem }) {
     setShowPollResultsModal(true);
   }
 
+  function deleteGem() {
+    axiosInstance
+      .delete(`/api/gems/${gem._id}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  }
+
   return (
     <>
       <div className='user-gem'>
@@ -280,55 +293,66 @@ function GemContainer({ gem }) {
                 <span>{getTimeDifference(new Date(gem.createdAt))}</span>
               </div>
             </div>
+
+            <div className='user-gem__date'>
+              <LocalPoliceOutlinedIcon
+                style={{
+                  color: getUserLevel(),
+                  fontSize: '9px',
+                }}
+              />
+            </div>
           </div>
 
-          <div className='user-gem__date'>
-            <LocalPoliceOutlinedIcon
+          <div className='user-gem__menu-options-wrapper'>
+            <div className='user-gem__fullscreen'>
+              <AspectRatioOutlinedIcon
+                style={{ fontSize: '20px', color: 'var(--color-grey)' }}
+              />
+            </div>
+
+            <div
+              className='user-gem__menu'
               style={{
-                color: getUserLevel(),
-                fontSize: '9px',
+                background: showPostEdit && 'var(--bg-main-white)',
               }}
-            />
-          </div>
+            >
+              <MoreVertOutlinedIcon
+                style={{ color: 'var(--color-grey)', fontSize: '20px' }}
+                onClick={() => setShowPostEdit((prev) => !prev)}
+              />
 
-          <div
-            className='user-gem__menu'
-            style={{
-              background: showPostEdit && 'var(--bg-main-white)',
-            }}
-          >
-            <MoreHorizIcon
-              style={{ color: 'var(--color-main-grey)' }}
-              onClick={() => setShowPostEdit((prev) => !prev)}
-            />
-
-            {showPostEdit && (
-              <Fade in={showPostEdit} timeout={400}>
-                <div
-                  className='user-gem__comment-edit-wrapper'
-                  ref={postEditRef}
-                >
-                  <div className='user-gem__comment-edit-item'>
-                    <EditOutlinedIcon
-                      style={{
-                        fontSize: '18px',
-                        color: 'var(--color-main-yellow)',
-                      }}
-                    />
-                    <span>Edit</span>
+              {showPostEdit && (
+                <Fade in={showPostEdit} timeout={400}>
+                  <div
+                    className='user-gem__comment-edit-wrapper'
+                    ref={postEditRef}
+                  >
+                    <div className='user-gem__comment-edit-item'>
+                      <EditOutlinedIcon
+                        style={{
+                          fontSize: '18px',
+                          color: 'var(--color-main-yellow)',
+                        }}
+                      />
+                      <span>Edit</span>
+                    </div>
+                    <div
+                      className='user-gem__comment-edit-item'
+                      onClick={deleteGem}
+                    >
+                      <DeleteOutlineOutlinedIcon
+                        style={{
+                          fontSize: '18px',
+                          color: 'var(--color-main-yellow)',
+                        }}
+                      />
+                      <span>Delete</span>
+                    </div>
                   </div>
-                  <div className='user-gem__comment-edit-item'>
-                    <DeleteOutlineOutlinedIcon
-                      style={{
-                        fontSize: '18px',
-                        color: 'var(--color-main-yellow)',
-                      }}
-                    />
-                    <span>Delete</span>
-                  </div>
-                </div>
-              </Fade>
-            )}
+                </Fade>
+              )}
+            </div>
           </div>
         </div>
 
@@ -358,6 +382,14 @@ function GemContainer({ gem }) {
           <div className='user-gem__image'>
             <img
               src={gem.body.gifSrc}
+              alt={gem.body.title}
+              className='user-media-preview'
+            />
+          </div>
+        ) : gem.body?.gif ? (
+          <div className='user-gem__image'>
+            <img
+              src={gem.body.gif}
               alt={gem.body.title}
               className='user-media-preview'
             />
@@ -445,6 +477,11 @@ function GemContainer({ gem }) {
           <div className='user-gem__footer-container'>
             <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
             <span>Share</span>
+            <span>0</span>
+          </div>
+          <div className='user-gem__footer-container'>
+            <ForwardToInboxOutlinedIcon style={{ fontSize: '20px' }} />
+            <span>Send</span>
             <span>0</span>
           </div>
           <div className='user-gem__footer-container' title='Add to favorites'>

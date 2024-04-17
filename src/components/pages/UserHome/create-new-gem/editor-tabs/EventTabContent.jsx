@@ -86,11 +86,12 @@ function EventTabContent({ eventTabState, setEventTabState }) {
           <div className='start-date'>
             <p>start date</p>
             <DateTimePicker
-              onChange={() =>
-                setEventTabState((prev) => ({
-                  ...prev,
-                  startDate: prev.startDate,
-                }))
+              onChange={
+                (e) => console.log(e)
+                // setEventTabState((prev) => ({
+                //   ...prev,
+                //   startDate: e.target.value,
+                // }))
               }
               value={eventTabState.startDate}
               calendarClassName='calendar'

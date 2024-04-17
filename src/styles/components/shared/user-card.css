@@ -23,6 +23,9 @@
 .user-home_user-card-username{
   text-align: center;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 130px;
 }
 
 .user-home_user-card a {
