@@ -95,9 +95,11 @@ export default function CreatePostContainer({
     file: null,
     fileName: null,
     mediaSrc: null,
-    startDate: null,
+    startDate: new Date(),
     location: '',
     description: '',
+    interested: [],
+    going: [],
   });
 
   const [gifTabState, setGifTabState] = useState({
