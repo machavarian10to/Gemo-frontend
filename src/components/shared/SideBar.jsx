@@ -20,13 +20,13 @@ function SideBar() {
               <LocalDiningOutlinedIcon />
               <span>Home</span>
             </NavLink>
-            <NavLink to='/discussion'>
+            <NavLink to='/groups'>
               <PeopleAltOutlinedIcon />
               <span>Groups</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
-            <NavLink to='/videos'>
+            <NavLink to='/bites'>
               <PlayCircleOutlinedIcon />
               <span>Bites</span>
             </NavLink>
@@ -36,7 +36,7 @@ function SideBar() {
             </NavLink>
           </div>
           <div className='navigation-container'>
-            <NavLink to='/watch'>
+            <NavLink to='/events'>
               <EventIcon />
               <span>Events</span>
             </NavLink>
@@ -50,7 +50,7 @@ function SideBar() {
               <SettingsOutlinedIcon />
               <span>Settings</span>
             </NavLink>
-            <NavLink to='/saved'>
+            <NavLink to='/favorites'>
               <GradeOutlinedIcon />
               <span>Favorites</span>
             </NavLink>

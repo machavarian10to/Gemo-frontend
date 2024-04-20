@@ -1,5 +1,4 @@
 .user-post__event-wrapper {
-  margin-block: 10px;
   border: 1px solid var(--color-grey);
   border-radius: var(--border-radius-rect) ;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
@@ -48,7 +47,6 @@
   font-weight: 600;
   font-size: 12px;
   color: var(--color-main-yellow);
-  font-style: italic;
 }
 
 .user-post__event-date,
@@ -56,7 +54,27 @@
 .user-post__event-attendance {
   display: flex;
   align-items: center;
+  gap: 3px;
+}
+
+.user-post__event-attendance{
+  gap: 10px;
+}
+
+.user-post__event-attendance > div{
+  display: flex;
+  align-items: center;
   gap: 5px;
+}
+
+.user-post__event-attendance > div span{
+  color: var(--color-grey);
+}
+
+.user-post__event-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .user-post__event-description p {

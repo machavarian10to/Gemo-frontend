@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -5,12 +6,46 @@ import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import Button from '@/components/UI/Button';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function EventContainer() {
+function EventContainer({ gem }) {
+  const user = useSelector((state) => state.user);
+  const [event, setEvent] = useState(gem);
+
+  function goingHandler() {
+    const updatedEvent = {
+      ...event,
+      body: {
+        ...event.body,
+        going: [...event.body.going, { userId: user._id }],
+      },
+    };
+    setEvent(updatedEvent);
+  }
+
+  function interestedHandler() {
+    const updatedEvent = {
+      ...event,
+      body: {
+        ...event.body,
+        interested: [...event.body.interested, { userId: user._id }],
+      },
+    };
+    setEvent(updatedEvent);
+  }
+
   return (
     <div className='user-post__event-wrapper'>
       <div className='user-post__event-image'>
-        <img src='https://picsum.photos/500/300' alt='post' />
+        {event.body?.fileName && (
+          <img
+            src={`${import.meta.env.VITE_API_URL}/assets/${
+              event.body.fileName
+            }`}
+            alt='post'
+          />
+        )}
         <div className='user-post__event-icon'>
           <EventAvailableIcon style={{ color: '#fff' }} />
         </div>
@@ -21,56 +56,60 @@ function EventContainer() {
           <div className='user-post__event'>
             <div className='user-post__event-date'>
               <AccessTimeIcon style={{ fontSize: '15px' }} />
-              <div>Sat,</div>
-              <div>Oct 30,</div>
-              <div>8:00 PM</div>
+              <div>{new Date(event.body.startDate).toLocaleString()}</div>
             </div>
 
             <div className='user-post__event-details'>
               <div className='user-post__event-details-location'>
                 <LocationOnIcon style={{ fontSize: '15px' }} />
-                <span>1234 Street, City, State 12345</span>
+                <span>{event.body.location}</span>
               </div>
             </div>
           </div>
 
           <div className='user-post__event-attendance'>
-            <DirectionsWalkIcon style={{ fontSize: '20px' }} />
-            <span>3</span>
+            <div>
+              <DirectionsWalkIcon style={{ fontSize: '20px' }} />
+              <span>{event.body.going.length}</span>
+            </div>
+            <div>
+              <RemoveRedEyeOutlinedIcon style={{ fontSize: '18px' }} />
+              <span>{event.body.interested.length}</span>
+            </div>
           </div>
         </div>
 
         <div className='user-post__event-description'>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            quibusdam, quas, voluptates, voluptatum quia quod doloribus
-            voluptatem esse fugiat dolorum nemo. Quisquam quibusdam, quas,
-            voluptates, voluptatum quia quod doloribus voluptatem esse fugiat
-            dolorum nemo.
-          </p>
+          <p>{event.body.description}</p>
         </div>
 
-        <div className='user-post__event-attendees'>
+        <div className='user-post__event-buttons-wrapper'>
           <Button
-            label='Join'
+            label='Going'
             size='small'
             fillContainer
             leftIcon={
               <AddCircleOutlineOutlinedIcon style={{ fontSize: '20px' }} />
             }
+            clickHandler={() => goingHandler(gem._id)}
           />
 
           <Button
             type='base'
-            label='Watch'
+            label='Interested'
             size='small'
             fillContainer
             leftIcon={<RemoveRedEyeOutlinedIcon style={{ fontSize: '20px' }} />}
+            clickHandler={() => interestedHandler(gem._id)}
           />
         </div>
       </div>
     </div>
   );
 }
+
+EventContainer.propTypes = {
+  gem: PropTypes.object.isRequired,
+};
 
 export default EventContainer;

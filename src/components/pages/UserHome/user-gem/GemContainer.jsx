@@ -368,7 +368,7 @@ function GemContainer({ gem }) {
           )}
         </div>
 
-        {gem.body?.fileName ? (
+        {gem.body?.fileName && gem.type !== 'event' ? (
           <div className='user-gem__image'>
             <img
               src={`${import.meta.env.VITE_API_URL}/assets/${
@@ -397,7 +397,7 @@ function GemContainer({ gem }) {
         ) : null}
 
         {gem.type === 'event' ? (
-          <EventContainer />
+          <EventContainer gem={gem} />
         ) : (
           gem.type === 'poll' && (
             <div className='user-gem__poll'>
