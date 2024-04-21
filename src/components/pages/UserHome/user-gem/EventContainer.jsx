@@ -8,12 +8,23 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import Button from '@/components/UI/Button';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
+import axiosInstance from '@/services/axios';
 
 function EventContainer({ gem }) {
   const user = useSelector((state) => state.user);
   const [event, setEvent] = useState(gem);
+  const [isGoing, setIsGoing] = useState(
+    gem.body.going.some((goingUser) => goingUser.userId === user._id),
+  );
+  const [isInterested, setIsInterested] = useState(
+    gem.body.interested.some(
+      (interestedUser) => interestedUser.userId === user._id,
+    ),
+  );
 
   function goingHandler() {
+    setIsGoing(true);
     const updatedEvent = {
       ...event,
       body: {
@@ -22,9 +33,14 @@ function EventContainer({ gem }) {
       },
     };
     setEvent(updatedEvent);
+    axiosInstance
+      .put(`/api/gems/${gem._id}`, updatedEvent)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
   }
 
   function interestedHandler() {
+    setIsInterested(true);
     const updatedEvent = {
       ...event,
       body: {
@@ -33,6 +49,46 @@ function EventContainer({ gem }) {
       },
     };
     setEvent(updatedEvent);
+    axiosInstance
+      .put(`/api/gems/${gem._id}`, updatedEvent)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  }
+
+  function notGoingHandler() {
+    setIsGoing(false);
+    const updatedEvent = {
+      ...event,
+      body: {
+        ...event.body,
+        going: event.body.going.filter(
+          (goingUser) => goingUser.userId !== user._id,
+        ),
+      },
+    };
+    setEvent(updatedEvent);
+    axiosInstance
+      .put(`/api/gems/${gem._id}`, updatedEvent)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  }
+
+  function notInterestedHandler() {
+    setIsInterested(false);
+    const updatedEvent = {
+      ...event,
+      body: {
+        ...event.body,
+        interested: event.body.interested.filter(
+          (interestedUser) => interestedUser.userId !== user._id,
+        ),
+      },
+    };
+    setEvent(updatedEvent);
+    axiosInstance
+      .put(`/api/gems/${gem._id}`, updatedEvent)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
   }
 
   return (
@@ -83,26 +139,58 @@ function EventContainer({ gem }) {
           <p>{event.body.description}</p>
         </div>
 
-        <div className='user-post__event-buttons-wrapper'>
-          <Button
-            label='Going'
-            size='small'
-            fillContainer
-            leftIcon={
-              <AddCircleOutlineOutlinedIcon style={{ fontSize: '20px' }} />
-            }
-            clickHandler={() => goingHandler(gem._id)}
-          />
+        {!isGoing && !isInterested && (
+          <div className='user-post__event-buttons-wrapper'>
+            <Button
+              label='Going'
+              size='small'
+              fillContainer
+              leftIcon={
+                <AddCircleOutlineOutlinedIcon style={{ fontSize: '20px' }} />
+              }
+              clickHandler={() => goingHandler(gem._id)}
+            />
 
-          <Button
-            type='base'
-            label='Interested'
-            size='small'
-            fillContainer
-            leftIcon={<RemoveRedEyeOutlinedIcon style={{ fontSize: '20px' }} />}
-            clickHandler={() => interestedHandler(gem._id)}
-          />
-        </div>
+            <Button
+              type='base'
+              label='Interested'
+              size='small'
+              fillContainer
+              leftIcon={
+                <RemoveRedEyeOutlinedIcon style={{ fontSize: '20px' }} />
+              }
+              clickHandler={() => interestedHandler(gem._id)}
+            />
+          </div>
+        )}
+
+        {isGoing && (
+          <div className='user-post__event-buttons-wrapper'>
+            <Button
+              label='Not Going'
+              size='small'
+              fillContainer
+              leftIcon={
+                <HighlightOffOutlinedIcon style={{ fontSize: '20px' }} />
+              }
+              clickHandler={() => notGoingHandler()}
+            />
+          </div>
+        )}
+
+        {isInterested && (
+          <div className='user-post__event-buttons-wrapper'>
+            <Button
+              label='Not Interested'
+              size='small'
+              fillContainer
+              leftIcon={
+                <HighlightOffOutlinedIcon style={{ fontSize: '20px' }} />
+              }
+              clickHandler={() => notInterestedHandler()}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

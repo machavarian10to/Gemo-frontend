@@ -29,6 +29,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import OpenInFullOutlinedIcon from '@mui/icons-material/OpenInFullOutlined';
 import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import DOMPurify from 'dompurify';
 import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
@@ -141,11 +142,11 @@ function GemContainer({ gem }) {
     const daysDifference = Math.round(hoursDifference / 24);
 
     if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
+      return `${daysDifference} Day${daysDifference !== 1 ? 's' : ''} ago`;
     } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
+      return `${hoursDifference} Hour${hoursDifference !== 1 ? 's' : ''} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
+      return `${minutesDifference} Minute${
         minutesDifference !== 1 ? 's' : ''
       } ago`;
     } else {
@@ -289,7 +290,8 @@ function GemContainer({ gem }) {
             <div className='user-gem__details'>
               <div className='user-gem__username'>@{gem.userName}</div>
               <div className='user-gem__user-level'>
-                <HistoryToggleOffOutlinedIcon style={{ fontSize: '13px' }} />
+                <AccessTimeOutlinedIcon style={{ fontSize: '10px' }} />
+                <span>&#8226;</span>
                 <span>{getTimeDifference(new Date(gem.createdAt))}</span>
               </div>
             </div>
