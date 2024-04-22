@@ -9,23 +9,16 @@ import { useState, useEffect } from 'react';
 function AlertBox({
   type = 'warning', // info, success, error, warning
   message,
-  duration = 2800,
 }) {
   const [show, setShow] = useState(true);
-  const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setWidth((prevWidth) => Math.min(prevWidth + 4, 100));
-    }, 100);
-
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShow(false);
-      clearInterval(interval);
-    }, duration);
+    }, 3000);
 
-    return () => clearInterval(interval);
-  }, [duration]);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!show) return null;
 
@@ -35,27 +28,7 @@ function AlertBox({
         className={`notification-component ${type}`}
         onClick={() => setShow(false)}
       >
-        <div className='notification-component_icon'>
-          {type === 'success' && (
-            <CheckCircleOutlineOutlinedIcon style={{ fontSize: '30px' }} />
-          )}
-          {type === 'error' && (
-            <DangerousOutlinedIcon style={{ fontSize: '30px' }} />
-          )}
-          {type === 'warning' && (
-            <WarningAmberOutlinedIcon
-              style={{
-                fontSize: '30px',
-              }}
-            />
-          )}
-          {type === 'info' && <InfoOutlinedIcon style={{ fontSize: '30px' }} />}
-        </div>
-        <div
-          className='notification-component_type'
-          style={{ width: width + '%' }}
-        ></div>
-        <p className={`notification-component_message ${type}`}>{message}</p>
+        <p className='notification-component_message'>{message}</p>
       </div>
     </Slide>
   );

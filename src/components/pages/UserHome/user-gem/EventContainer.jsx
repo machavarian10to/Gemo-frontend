@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import axiosInstance from '@/services/axios';
+import AlertBox from '@/components/UI/AlertBox';
 
 function EventContainer({ gem }) {
   const user = useSelector((state) => state.user);
@@ -22,6 +23,10 @@ function EventContainer({ gem }) {
       (interestedUser) => interestedUser.userId === user._id,
     ),
   );
+  const [alertBox, setAlertBox] = useState({
+    type: 'success',
+    message: 'op',
+  });
 
   function goingHandler() {
     setIsGoing(true);
@@ -93,6 +98,10 @@ function EventContainer({ gem }) {
 
   return (
     <div className='user-post__event-wrapper'>
+      {alertBox.message && (
+        <AlertBox message={alertBox.message} type={alertBox.type} />
+      )}
+
       <div className='user-post__event-image'>
         {event.body?.fileName && (
           <img

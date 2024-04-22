@@ -1,52 +1,25 @@
 .notification-component {
   position: fixed;
-  top: 30px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
   width: 300px;
   height: 80px;
   padding-inline: 10px;
   z-index: 9999;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  background-color: var(--color-yellow-shade-06);
+  border: 2px solid var(--color-main-yellow);
   border-radius: var(--border-radius-rect);
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease;
+  animation: slideInFromRight 0.5s;
 }
 
 .notification-component:hover {
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.2);
-}
-
-.notification-component_icon {
-  display: grid;
-  place-items: center;
-}
-
-.notification-component.info {
-  background: var(--color-main-blue);
-}
-
-.notification-component.error {
-  background: var(--bg-main-red);
-}
-
-.notification-component.success {
-  background: var(--color-main-green);
-}
-
-.notification-component.warning {
-  background: var(--color-yellow-shade-07);
-}
-
-.notification-component_type {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 5px;
-  background-color: #fff;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.15);
 }
 
 .notification-component_message {
@@ -55,4 +28,13 @@
   text-align: center;
   line-height: 1.5;
   color: #fff;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
 }

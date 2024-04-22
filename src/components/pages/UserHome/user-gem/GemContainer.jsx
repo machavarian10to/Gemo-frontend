@@ -142,11 +142,11 @@ function GemContainer({ gem }) {
     const daysDifference = Math.round(hoursDifference / 24);
 
     if (daysDifference > 0) {
-      return `${daysDifference} Day${daysDifference !== 1 ? 's' : ''} ago`;
+      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
     } else if (hoursDifference > 0) {
-      return `${hoursDifference} Hour${hoursDifference !== 1 ? 's' : ''} ago`;
+      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} Minute${
+      return `${minutesDifference} minute${
         minutesDifference !== 1 ? 's' : ''
       } ago`;
     } else {
