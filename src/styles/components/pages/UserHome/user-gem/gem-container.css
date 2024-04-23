@@ -68,7 +68,7 @@
 .user-gem__details {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 
 .user-gem__username {

@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
-import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
 import { Slide } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 function AlertBox({
-  type = 'warning', // info, success, error, warning
+  type = 'success', // info, success, error
   message,
 }) {
   const [show, setShow] = useState(true);
