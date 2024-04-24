@@ -25,7 +25,7 @@ function EventContainer({ gem }) {
   );
   const [alertBox, setAlertBox] = useState({
     type: 'success',
-    message: 'op',
+    message: 'gem created sucedalkdjalkjlk dsadsa dsadasd',
   });
 
   function goingHandler() {

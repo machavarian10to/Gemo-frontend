@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
 import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
 import axiosInstance from '@/services/axios';
-import LoadingAnimation from '@/components/UI/LoadingAnimation';
+import LoadingAnimation from '@/components/animations/LoadingAnimation';
 
 function UserHome() {
   useEffect(() => {

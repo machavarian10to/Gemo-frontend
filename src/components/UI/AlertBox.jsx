@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import { Slide } from '@mui/material';
 import { useState, useEffect } from 'react';
+import MealPrepareAnimation from '@/components/animations/MealPrepareAnimation';
 
 function AlertBox({
-  type = 'success', // info, success, error
+  type = 'success', // info, success, error, warning
   message,
 }) {
   const [show, setShow] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShow(false);
-    }, 3000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShow(false);
+  //   }, 3000);
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   if (!show) return null;
 
@@ -24,6 +25,9 @@ function AlertBox({
         className={`notification-component ${type}`}
         onClick={() => setShow(false)}
       >
+        <div className='meal-prepare-animation-wrapper'>
+          <MealPrepareAnimation />
+        </div>
         <p className='notification-component_message'>{message}</p>
       </div>
     </Slide>

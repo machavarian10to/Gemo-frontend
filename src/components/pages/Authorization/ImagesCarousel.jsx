@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import LoadingAnimation from '@/components/UI/LoadingAnimation';
+import LoadingAnimation from '@/components/animations/LoadingAnimation';
 
 function ImagesCarousel() {
   const [images, setImages] = useState([]);

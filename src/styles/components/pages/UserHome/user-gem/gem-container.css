@@ -61,7 +61,7 @@
 
 .user-gem__user-info {
   display: flex;
-  gap: 7px;
+  gap: 5px;
   font-size: 14px;
 }
 
@@ -208,7 +208,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .user-gem__emoji-wrapper {
@@ -245,7 +245,7 @@
 }
 
 .user-gem__comment-section {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .user-gem__comment-list {

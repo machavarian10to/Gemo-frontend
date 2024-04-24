@@ -4,7 +4,7 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
-import LoadingAnimation from '@/components/UI/LoadingAnimation';
+import LoadingAnimation from '@/components/animations/LoadingAnimation';
 
 function GifTabContent({ gifTabState, setGifTabState }) {
   const [searchValue, setSearchValue] = useState('');

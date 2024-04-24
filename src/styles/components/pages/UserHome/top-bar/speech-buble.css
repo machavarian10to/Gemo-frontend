@@ -1,7 +1,7 @@
 .speech-bubble-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background-color: #fff;
   padding: 25px;
   width: 550px;
@@ -14,7 +14,7 @@
   text-indent: 20px;
   color: #bdbdbd;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   width: 80%;
   height: 50px;
   position: relative;
@@ -24,7 +24,7 @@
   cursor: pointer;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
   background-color: #f1f1f1;
-  transition: all 0.3s;
+  background-color: var(--bg-main-white);
 }
 
 .speech-bubble:before {
@@ -32,10 +32,20 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-right: 25px solid #f1f1f1;
-  border-bottom: 20px solid transparent;
-  margin: 15px 0 0 -8px;
+  border-top: 20px solid transparent;
+  border-right: 25px solid var(--bg-main-white);
+  border-bottom: 15px solid transparent;
+  margin: 8px 5px 5px -10px;
+}
+
+.speech-bubble:hover:before {
+  border-right: 25px solid var(--bg-shade-03);
+}
+
+.speech-bubble:hover {
+  background-color: var(--bg-shade-03);
+  color: rgba(128, 128, 128, 0.5);
+  font-weight: 600;
 }
 
 .user-home__speech-bubble-icons-wrapper {
