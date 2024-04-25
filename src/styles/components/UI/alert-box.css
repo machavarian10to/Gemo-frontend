@@ -4,23 +4,21 @@
   right: 20px;
   width: 300px;
   height: 100px;
-  padding-inline: 10px;
+  padding: 8px;
+  border: 2.5px solid var(--color-main-yellow);
   z-index: 99999999;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.2);
-
-  background-color: var(--color-yellow-shade-05);
-  background-color: var(--bg-shade-11);
   background-color: var(--bg-shade-13);
-
   border-radius: var(--border-radius-rect);
   display: flex;
   align-items: center;
+  gap: 10px;
   cursor: pointer;
   transition: all 0.5s;
   animation: slideInFromRight 0.5s;
 }
 
-.notification-component.success {
+/* .notification-component.success {
   border: 2.5px solid var(--color-main-green);
 }
 
@@ -34,11 +32,11 @@
 
 .notification-component.warning {
   border: 2.5px solid var(--color-main-yellow);
-}
+} */
 
 .notification-component_message {
-  width: 90%;
   font-size: 1rem;
+  line-height: 1.5;
   font-weight: 700;
   word-break: break-all;
 }
@@ -54,7 +52,7 @@
 
 .meal-prepare-animation-wrapper {
   position: relative;
-  width: 80px;
-  height: 80px;
-  margin-bottom: 30px;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
 }

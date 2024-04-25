@@ -9,13 +9,13 @@ function AlertBox({
 }) {
   const [show, setShow] = useState(true);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setShow(false);
-  //   }, 3000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 3000);
 
-  //   return () => clearTimeout(timer);
-  // }, []);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!show) return null;
 

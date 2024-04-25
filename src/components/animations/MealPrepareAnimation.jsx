@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import lottie from 'lottie-web';
-import dishPreparation from '@/assets/animations/dish-getting-ready.json';
+import dishPreparation from '@/assets/animations/food-stirring.json';
 
 function MealPrepareAnimation() {
   const container = useRef(null);
