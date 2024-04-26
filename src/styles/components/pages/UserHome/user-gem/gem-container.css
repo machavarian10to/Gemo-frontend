@@ -14,6 +14,13 @@
   color: var(--color-main-yellow);
 }
 
+.user-gem__body hr {
+  border: none;
+  height: 1px;
+  background-color: var(--color-main-black);
+  margin: 10px 0;
+}
+
 .user-gem ol,
 .user-gem ul {
   padding-left: 15px;
@@ -88,8 +95,12 @@
   transition: all 0.3s;
   cursor: pointer;
 }
-.user-gem__username:hover {
+.user-gem__username a:hover {
   text-decoration: underline;
+}
+.user-gem__username a{
+  text-decoration: none;
+  color: var(--color-main-black);
 }
 
 .user-gem__user-level {

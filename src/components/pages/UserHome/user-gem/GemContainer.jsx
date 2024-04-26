@@ -288,7 +288,16 @@ function GemContainer({ gem }) {
           <div className='user-gem__user-info'>
             <UserAvatar width={32} height={32} src={gem.userPhoto} />
             <div className='user-gem__details'>
-              <div className='user-gem__username'>@{gem.userName}</div>
+              <div className='user-gem__username'>
+                @
+                <a
+                  href={`/user/@${gem.userName}`}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {gem.userName}
+                </a>
+              </div>
               <div className='user-gem__user-level'>
                 <AccessTimeOutlinedIcon style={{ fontSize: '10px' }} />
                 <span>&#8226;</span>
