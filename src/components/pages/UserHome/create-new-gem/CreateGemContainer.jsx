@@ -15,7 +15,7 @@ import axios from '@/services/axios';
 import { useSelector } from 'react-redux';
 import AlertBox from '@/components/UI/AlertBox';
 
-export default function CreatePostContainer({
+export default function CreateGemContainer({
   closeModal,
   activeTab,
   handleActiveTab,
@@ -48,17 +48,12 @@ export default function CreatePostContainer({
 
   const [pollTabState, setPollTabState] = useState({
     multipleSelection: false,
+    hidePeoplesVotes: false,
     pollOptions: [
       {
         id: useId(),
         value: '',
         placeholder: 'Option 1',
-        deleteIcon: false,
-      },
-      {
-        id: useId(),
-        value: '',
-        placeholder: 'Option 2',
         deleteIcon: false,
       },
     ],
@@ -114,7 +109,22 @@ export default function CreatePostContainer({
     formData.append('userName', user.username);
     formData.append('userPhoto', user.profilePicture);
     formData.append('title', gemTitle.trim());
-    formData.append('type', activeTab);
+    if (
+      (activeTab === 'media' && !mediaTabState.file) ||
+      (activeTab === 'gif' && !gifTabState.gif) ||
+      (activeTab === 'poll' &&
+        pollTabState.pollOptions.filter((option) => option.value).length ===
+          0) ||
+      (activeTab === 'event' &&
+        !eventTabState.startDate &&
+        !eventTabState.location &&
+        !eventTabState.description &&
+        !eventTabState.file)
+    ) {
+      formData.append('type', 'post');
+    } else {
+      formData.append('type', activeTab);
+    }
 
     if (activeTab === 'post') {
       if (postTabState.file) formData.append('file', postTabState.file);
@@ -141,6 +151,7 @@ export default function CreatePostContainer({
         pollOptions: [],
         pollDuration: pollTabState.pollDurations.selectedDuration,
         multipleSelection: pollTabState.multipleSelection,
+        hidePeoplesVotes: pollTabState.hidePeoplesVotes,
       };
       pollTabState.pollOptions.forEach((option) => {
         if (option.value) {
@@ -155,6 +166,20 @@ export default function CreatePostContainer({
         formData.append('body', JSON.stringify(state));
       }
     } else if (activeTab === 'event') {
+      console.log(alert);
+      if (
+        !eventTabState.file ||
+        !eventTabState.startDate ||
+        !eventTabState.location ||
+        !eventTabState.description
+      ) {
+        setAlert({
+          message: 'Please fill all the fields!',
+          type: 'error',
+        });
+        setIsButtonDisabled(false);
+        return;
+      }
       if (eventTabState.file) formData.append('file', eventTabState.file);
       const state = {};
       const eventTabStateKeys = Object.keys(eventTabState);
@@ -300,7 +325,7 @@ export default function CreatePostContainer({
   );
 }
 
-CreatePostContainer.propTypes = {
+CreateGemContainer.propTypes = {
   closeModal: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   handleActiveTab: PropTypes.func.isRequired,

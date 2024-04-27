@@ -83,6 +83,14 @@
   overflow: auto;
 }
 
+.poll-results__no-votes {
+  text-align: center;
+  color: var(--color-main-yellow);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
 .poll-results__user-wrapper {
   display: flex;
   align-items: center;

@@ -49,14 +49,19 @@ function PollResultsModal({ pollOptions, closeModal }) {
               ))}
             </div>
             <div className='poll-results__votes'>
-              {pollOptions
-                .find((option) => option.id === activeOption)
-                .users.map((user) => (
-                  <div key={user.id} className='poll-results__user-wrapper'>
-                    <UserAvatar width={30} height={30} src={user.userPhoto} />
-                    <div className='poll-results__user'>@{user.username}</div>
-                  </div>
-                ))}
+              {pollOptions.find((option) => option.id === activeOption).users
+                .length === 0 ? (
+                <div className='poll-results__no-votes'>No votes yet.</div>
+              ) : (
+                pollOptions
+                  .find((option) => option.id === activeOption)
+                  .users.map((user) => (
+                    <div key={user.id} className='poll-results__user-wrapper'>
+                      <UserAvatar width={30} height={30} src={user.userPhoto} />
+                      <div className='poll-results__user'>@{user.username}</div>
+                    </div>
+                  ))
+              )}
             </div>
           </div>
         </div>

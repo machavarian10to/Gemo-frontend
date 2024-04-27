@@ -418,3 +418,10 @@
 .user-gem__total-votes:hover {
   color: var(--color-main-yellow);
 }
+
+.hide-votes{
+  cursor: default;
+  text-decoration: none;
+  user-select: none;
+  pointer-events: none;
+}

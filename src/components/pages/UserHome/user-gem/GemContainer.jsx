@@ -45,7 +45,7 @@ function GemContainer({ gem }) {
 
   const user = useSelector((state) => state.user);
 
-  const [pollOptions, setPollOptions] = useState(gem.body.pollOptions || []);
+  const [pollOptions, setPollOptions] = useState(gem?.body?.pollOptions || []);
   const [pollVotesAmount, setPollVotesAmount] = useState(0);
   const [pollIsEnded, setPollIsEnded] = useState(false);
   const [pollEndTime, setPollEndTime] = useState(0);
@@ -258,6 +258,7 @@ function GemContainer({ gem }) {
   }
 
   function showTotalVotesModal() {
+    if (gem.body.hidePeoplesVotes) return;
     setShowPollResultsModal(true);
   }
 
@@ -454,7 +455,9 @@ function GemContainer({ gem }) {
                   </div>
                 </div>
                 <div
-                  className='user-gem__total-votes'
+                  className={`user-gem__total-votes ${
+                    gem.body.hidePeoplesVotes ? 'hide-votes' : ''
+                  }`}
                   onClick={showTotalVotesModal}
                 >
                   total votes: <span>{pollVotesAmount}</span>

@@ -23,6 +23,13 @@ function PollTabContent({ pollTabState, setPollTabState }) {
     }));
   }
 
+  function onHidePeopleVotes(e) {
+    setPollTabState((prev) => ({
+      ...prev,
+      hidePeoplesVotes: e.target.checked,
+    }));
+  }
+
   function onInput(e, optionId) {
     const updatedOptions = pollTabState.pollOptions.map((option) => {
       if (option.id === optionId) {
@@ -66,7 +73,7 @@ function PollTabContent({ pollTabState, setPollTabState }) {
   function handleSort(options) {
     const clonedOptions = [...options];
     clonedOptions.forEach((option, index) => {
-      if (index > 1) {
+      if (index > 0) {
         option.deleteIcon = true;
       } else {
         option.deleteIcon = false;
@@ -182,6 +189,10 @@ function PollTabContent({ pollTabState, setPollTabState }) {
                 <Checkbox
                   label='multiple option selection'
                   onChange={onMultipleOptionCheck}
+                />
+                <Checkbox
+                  label="hide people's votes"
+                  onChange={onHidePeopleVotes}
                 />
               </div>
 

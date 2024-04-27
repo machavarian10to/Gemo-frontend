@@ -33,6 +33,7 @@ function Input({
         onInput={onInput}
         onBlur={onBlur}
         placeholder={placeholder}
+        autoComplete='off'
         disabled={state === 'inactive'}
         className={`input-component ${size} ${state} ${
           leftIcon ? size + '-left-icon' : ''
