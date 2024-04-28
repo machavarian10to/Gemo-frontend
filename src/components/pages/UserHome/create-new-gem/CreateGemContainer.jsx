@@ -1,4 +1,4 @@
-import { useState, useId } from 'react';
+import { useState, useId, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -22,7 +22,7 @@ export default function CreateGemContainer({
 }) {
   const user = useSelector((state) => state.user);
 
-  const [alert, setAlert] = useState({
+  const [alertBox, setAlertBox] = useState({
     message: '',
     type: '',
   });
@@ -103,7 +103,6 @@ export default function CreateGemContainer({
   });
 
   async function clickHandler() {
-    setIsButtonDisabled(true);
     const formData = new FormData();
     formData.append('userId', user._id);
     formData.append('userName', user.username);
@@ -166,18 +165,17 @@ export default function CreateGemContainer({
         formData.append('body', JSON.stringify(state));
       }
     } else if (activeTab === 'event') {
-      console.log(alert);
+      setAlertBox({ message: '', type: '' });
       if (
         !eventTabState.file ||
         !eventTabState.startDate ||
         !eventTabState.location ||
         !eventTabState.description
       ) {
-        setAlert({
+        setAlertBox({
           message: 'Please fill all the fields!',
           type: 'error',
         });
-        setIsButtonDisabled(false);
         return;
       }
       if (eventTabState.file) formData.append('file', eventTabState.file);
@@ -203,7 +201,8 @@ export default function CreateGemContainer({
           'Content-Type': 'multipart/form-data',
         },
       });
-      setAlert({
+      setIsButtonDisabled(true);
+      setAlertBox({
         message: 'Gem created successfully!',
         type: 'success',
       });
@@ -211,12 +210,12 @@ export default function CreateGemContainer({
         closeModal();
       }, 2500);
     } catch (error) {
-      setAlert({
+      setAlertBox({
         message: error.response.data.message,
         type: 'error',
       });
+      setIsButtonDisabled(false);
     }
-    setIsButtonDisabled(false);
   }
 
   function setTitle(e) {
@@ -226,6 +225,10 @@ export default function CreateGemContainer({
 
   return (
     <div className='create-post-container'>
+      {alertBox.message && (
+        <AlertBox message={alertBox.message} type={alertBox.type} />
+      )}
+
       <div className='post-container-header'>
         <div
           className={`post ${activeTab === 'post' ? 'active' : ''}`}
@@ -319,8 +322,6 @@ export default function CreateGemContainer({
           clickHandler={clickHandler}
         />
       </div>
-
-      {alert.message && <AlertBox message={alert.message} type={alert.type} />}
     </div>
   );
 }
