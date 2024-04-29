@@ -7,13 +7,18 @@ import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
 import axiosInstance from '@/services/axios';
 import LoadingAnimation from '@/components/animations/LoadingAnimation';
 import AlertBox from '@/components/UI/AlertBox';
+import { setGems } from '@/state/index';
+import { useSelector, useDispatch } from 'react-redux';
 
 function UserHome() {
+  const dispatch = useDispatch();
+  const gems = useSelector((state) => state.gems || []);
+
   useEffect(() => {
     axiosInstance
       .get('/api/gems')
       .then((response) => {
-        setGems(response.data);
+        dispatch(setGems(response.data));
       })
       .catch((error) => {
         setAlertBox({
@@ -21,9 +26,8 @@ function UserHome() {
           type: 'error',
         });
       });
-  }, []);
+  }, [dispatch]);
 
-  const [gems, setGems] = useState([]);
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   return (

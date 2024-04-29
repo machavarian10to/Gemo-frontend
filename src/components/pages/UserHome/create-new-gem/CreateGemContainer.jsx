@@ -1,4 +1,4 @@
-import { useState, useId, useEffect } from 'react';
+import { useState, useId } from 'react';
 import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -12,14 +12,16 @@ import EventTabContent from '@/components/pages/UserHome/create-new-gem/editor-t
 import GifTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/GifTabContent';
 import Button from '@/components/UI/Button';
 import axios from '@/services/axios';
-import { useSelector } from 'react-redux';
 import AlertBox from '@/components/UI/AlertBox';
+import { setGem } from '@/state/index';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function CreateGemContainer({
   closeModal,
   activeTab,
   handleActiveTab,
 }) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   const [alertBox, setAlertBox] = useState({
@@ -196,11 +198,12 @@ export default function CreateGemContainer({
     }
 
     try {
-      await axios.post('/api/gems', formData, {
+      const newGem = await axios.post('/api/gems', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      dispatch(setGem(newGem.data));
       setIsButtonDisabled(true);
       setAlertBox({
         message: 'Gem created successfully!',

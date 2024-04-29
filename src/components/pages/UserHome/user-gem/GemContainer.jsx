@@ -31,10 +31,12 @@ import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import DOMPurify from 'dompurify';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteGem } from '@/state/index';
 import axiosInstance from '@/services/axios';
 
 function GemContainer({ gem }) {
+  const dispatch = useDispatch();
   const emojiPickerRef = useRef(null);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -262,10 +264,10 @@ function GemContainer({ gem }) {
     setShowPollResultsModal(true);
   }
 
-  function deleteGem() {
+  function onGemDelete() {
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
-      .then((res) => console.log(res))
+      .then((res) => dispatch(deleteGem(res.data._id)))
       .catch((err) => console.error(err));
   }
 
@@ -351,7 +353,7 @@ function GemContainer({ gem }) {
                     </div>
                     <div
                       className='user-gem__comment-edit-item'
-                      onClick={deleteGem}
+                      onClick={onGemDelete}
                     >
                       <DeleteOutlineOutlinedIcon
                         style={{

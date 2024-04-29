@@ -22,28 +22,22 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
-    setFriends: (state, action) => {
-      if (state.user) {
-        state.user.friends = action.payload.friends;
-      } else {
-        console.error('User friends not exist :(');
-      }
-    },
     setGems: (state, action) => {
-      state.gems = action.payload.gems;
+      state.gems = action.payload;
     },
     setGem: (state, action) => {
-      const updatedGems = state.gems.map((gem) => {
-        if (gem.id === action.payload.gem._id) {
-          return action.payload.gem;
-        }
-        return gem;
-      });
+      const updatedGems = [action.payload, ...state.gems];
+      state.gems = updatedGems;
+    },
+    deleteGem(state, action) {
+      const updatedGems = state.gems.filter(
+        (gem) => gem._id !== action.payload,
+      );
       state.gems = updatedGems;
     },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setGems, setGem } =
+export const { setMode, setLogin, setLogout, setGems, setGem, deleteGem } =
   authSlice.actions;
 export default authSlice.reducer;
