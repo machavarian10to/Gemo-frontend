@@ -5,38 +5,21 @@ import Comment from '@/components/pages/UserHome/user-gem/Comment';
 import PollContainer from '@/components/pages/UserHome/user-gem/poll/PollContainer';
 import PollResultsModal from '@/components/pages/UserHome/user-gem/poll/PollResultsModal';
 import EventContainer from '@/components/pages/UserHome/user-gem/EventContainer';
-import UserAvatar from '@/components/shared/UserAvatar';
 import Button from '@/components/UI/Button';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
-import Fade from '@mui/material/Fade';
-import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import SwapCallsOutlinedIcon from '@mui/icons-material/SwapCallsOutlined';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
-import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
-import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
-import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
-import OpenInFullOutlinedIcon from '@mui/icons-material/OpenInFullOutlined';
-import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
-import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import DOMPurify from 'dompurify';
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteGem } from '@/state/index';
+import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
+import UserGemHeader from '@/components/pages/UserHome/user-gem/layout/UserGemHeader';
+import Fade from '@mui/material/Fade';
 
 function GemContainer({ gem }) {
-  const dispatch = useDispatch();
   const emojiPickerRef = useRef(null);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -52,9 +35,6 @@ function GemContainer({ gem }) {
   const [pollIsEnded, setPollIsEnded] = useState(false);
   const [pollEndTime, setPollEndTime] = useState(0);
   const [showPollResultsModal, setShowPollResultsModal] = useState(false);
-
-  const [showPostEdit, setShowPostEdit] = useState(false);
-  const postEditRef = useRef(null);
 
   useEffect(() => {
     const count = postEmojis.reduce((acc, emoji) => {
@@ -117,44 +97,6 @@ function GemContainer({ gem }) {
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
-
-  useClickOutside(postEditRef, () => {
-    setShowPostEdit(false);
-  });
-
-  function getUserLevel() {
-    const userLevelMap = {
-      novice: '#62baac',
-      home: '#56ccf2',
-      enthusiast: '#f8ad9d',
-      gourmet: '#a52a2a',
-      explorer: '#92bdd9',
-      professional: '#6c6377',
-      master: '#f9a109',
-    };
-    return userLevelMap[user.level];
-  }
-
-  function getTimeDifference(createdAt) {
-    const currentTime = new Date();
-    const timeDifference = Math.abs(currentTime - createdAt);
-    const secondsDifference = Math.round(timeDifference / 1000);
-    const minutesDifference = Math.round(secondsDifference / 60);
-    const hoursDifference = Math.round(minutesDifference / 60);
-    const daysDifference = Math.round(hoursDifference / 24);
-
-    if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
-    } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
-    } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference !== 1 ? 's' : ''
-      } ago`;
-    } else {
-      return `just now`;
-    }
-  }
 
   function addEmoji(postEmoji) {
     const emojiIndex = postEmojis.findIndex(
@@ -264,111 +206,10 @@ function GemContainer({ gem }) {
     setShowPollResultsModal(true);
   }
 
-  function onGemDelete() {
-    axiosInstance
-      .delete(`/api/gems/${gem._id}`)
-      .then((res) => dispatch(deleteGem(res.data._id)))
-      .catch((err) => console.error(err));
-  }
-
   return (
     <>
       <div className='user-gem'>
-        {/* <div className='user-gem__group'>
-        <PeopleAltOutlinedIcon
-          style={{ color: 'var(--color-grey)', fontSize: '22px' }}
-        />
-        <span>&gt;</span>
-        <div className='user-gem__group-image-wrapper'>
-          <div className='user-gem__group-image'>
-            <img src='https://picsum.photos/500/300' alt='post' />
-          </div>
-        </div>
-        <div className='user-gem__group-name'>food</div>
-      </div> */}
-
-        <div className='user-gem__header'>
-          <div className='user-gem__user-info'>
-            <UserAvatar width={32} height={32} src={gem.userPhoto} />
-            <div className='user-gem__details'>
-              <div className='user-gem__username'>
-                @
-                <a
-                  href={`/user/@${gem.userName}`}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  {gem.userName}
-                </a>
-              </div>
-              <div className='user-gem__user-level'>
-                <AccessTimeOutlinedIcon style={{ fontSize: '10px' }} />
-                <span>&#8226;</span>
-                <span>{getTimeDifference(new Date(gem.createdAt))}</span>
-              </div>
-            </div>
-
-            <div className='user-gem__date'>
-              <LocalPoliceOutlinedIcon
-                style={{
-                  color: getUserLevel(),
-                  fontSize: '9px',
-                }}
-              />
-            </div>
-          </div>
-
-          <div className='user-gem__menu-options-wrapper'>
-            <div className='user-gem__fullscreen'>
-              <AspectRatioOutlinedIcon
-                style={{ fontSize: '20px', color: 'var(--color-grey)' }}
-              />
-            </div>
-
-            <div
-              className='user-gem__menu'
-              style={{
-                background: showPostEdit && 'var(--bg-main-white)',
-              }}
-            >
-              <MoreVertOutlinedIcon
-                style={{ color: 'var(--color-grey)', fontSize: '20px' }}
-                onClick={() => setShowPostEdit((prev) => !prev)}
-              />
-
-              {showPostEdit && (
-                <Fade in={showPostEdit} timeout={400}>
-                  <div
-                    className='user-gem__comment-edit-wrapper'
-                    ref={postEditRef}
-                  >
-                    <div className='user-gem__comment-edit-item'>
-                      <EditOutlinedIcon
-                        style={{
-                          fontSize: '18px',
-                          color: 'var(--color-main-yellow)',
-                        }}
-                      />
-                      <span>Edit</span>
-                    </div>
-                    <div
-                      className='user-gem__comment-edit-item'
-                      onClick={onGemDelete}
-                    >
-                      <DeleteOutlineOutlinedIcon
-                        style={{
-                          fontSize: '18px',
-                          color: 'var(--color-main-yellow)',
-                        }}
-                      />
-                      <span>Delete</span>
-                    </div>
-                  </div>
-                </Fade>
-              )}
-            </div>
-          </div>
-        </div>
+        <UserGemHeader gem={gem} />
 
         <div className='user-gem__texts'>
           <h3>{gem.title}</h3>
