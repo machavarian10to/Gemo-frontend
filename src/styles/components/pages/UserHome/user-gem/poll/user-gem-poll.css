@@ -1,0 +1,46 @@
+.user-gem__poll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.user-gem__poll-total-votes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 5px;
+  font-size: 12px;
+  color: var(--color-grey);
+  font-weight: 800;
+}
+
+.user-gem__poll-time {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-grey);
+  text-align: end;
+}
+
+.user-gem__poll-time span {
+  color: var(--color-main-yellow);
+  font-weight: 800;
+}
+
+.user-gem__total-votes {
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-gem__total-votes:hover {
+  color: var(--color-main-yellow);
+}
+
+.hide-votes {
+  cursor: default;
+  text-decoration: none;
+  user-select: none;
+  pointer-events: none;
+}

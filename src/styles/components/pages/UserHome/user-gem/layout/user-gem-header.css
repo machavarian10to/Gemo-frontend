@@ -1,0 +1,50 @@
+.user-gem__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: c;
+}
+.user-gem__user-info {
+  display: flex;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.user-gem__details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-gem__username {
+  font-weight: 600;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.user-gem__username a:hover {
+  text-decoration: underline;
+}
+.user-gem__username-link {
+  text-decoration: none;
+  color: var(--color-main-black);
+}
+
+.user-gem__user-level {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--color-grey);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.user-gem__date {
+  display: flex;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.user-gem__date span {
+  color: #ccc;
+}

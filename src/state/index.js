@@ -29,6 +29,12 @@ export const authSlice = createSlice({
       const updatedGems = [action.payload, ...state.gems];
       state.gems = updatedGems;
     },
+    updateGem: (state, action) => {
+      const updatedGems = state.gems.map((gem) =>
+        gem._id === action.payload._id ? action.payload : gem,
+      );
+      state.gems = updatedGems;
+    },
     deleteGem(state, action) {
       const updatedGems = state.gems.filter(
         (gem) => gem._id !== action.payload,
@@ -38,6 +44,13 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setGems, setGem, deleteGem } =
-  authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setGems,
+  setGem,
+  updateGem,
+  deleteGem,
+} = authSlice.actions;
 export default authSlice.reducer;
