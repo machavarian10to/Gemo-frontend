@@ -71,44 +71,52 @@ function UserGemPoll({ gem }) {
     const optionIndex = updatedPollOptions.findIndex(
       (option) => option.id === optionId,
     );
+    const userVoted = updatedPollOptions[optionIndex].users.find(
+      (u) => u.username === user.username,
+    );
 
     if (gem.body.multipleSelection) {
-      if (
-        updatedPollOptions[optionIndex].users.find(
-          (u) => u.username === user.username,
-        )
-      ) {
-        updatedPollOptions[optionIndex].users = updatedPollOptions[
-          optionIndex
-        ].users.filter((u) => u.username !== user.username);
+      if (userVoted) {
+        updatedPollOptions[optionIndex] = {
+          ...updatedPollOptions[optionIndex],
+          users: updatedPollOptions[optionIndex].users.filter(
+            (u) => u.username !== user.username,
+          ),
+        };
       } else {
-        updatedPollOptions[optionIndex].users.push({
-          id: user._id,
-          username: user.username,
-          userPhoto: user.profilePicture,
-        });
+        updatedPollOptions[optionIndex] = {
+          ...updatedPollOptions[optionIndex],
+          users: [
+            ...updatedPollOptions[optionIndex].users,
+            {
+              id: user._id,
+              username: user.username,
+              userPhoto: user.photo,
+            },
+          ],
+        };
       }
     } else {
-      if (
-        updatedPollOptions[optionIndex].users.find(
-          (u) => u.username === user.username,
-        )
-      ) {
-        updatedPollOptions[optionIndex].users = updatedPollOptions[
-          optionIndex
-        ].users.filter((u) => u.username !== user.username);
-      } else {
-        updatedPollOptions.forEach((option) => {
-          option.users = option.users.filter(
-            (u) => u.username !== user.username,
-          );
-        });
-        updatedPollOptions[optionIndex].users.push({
-          id: user._id,
-          username: user.username,
-          userPhoto: user.profilePicture,
-        });
-      }
+      updatedPollOptions.forEach((option, index) => {
+        if (index === optionIndex) {
+          updatedPollOptions[index] = {
+            ...option,
+            users: [
+              ...option.users.filter((u) => u.username !== user.username),
+              {
+                id: user._id,
+                username: user.username,
+                userPhoto: user.photo,
+              },
+            ],
+          };
+        } else {
+          updatedPollOptions[index] = {
+            ...option,
+            users: option.users.filter((u) => u.username !== user.username),
+          };
+        }
+      });
     }
 
     setPollOptions(updatedPollOptions);
@@ -128,9 +136,11 @@ function UserGemPoll({ gem }) {
   }
 
   function removeUserVote() {
-    const updatedPollOptions = [...pollOptions];
-    updatedPollOptions.forEach((option) => {
-      option.users = option.users.filter((u) => u.username !== user.username);
+    const updatedPollOptions = pollOptions.map((option) => {
+      return {
+        ...option,
+        users: option.users.filter((u) => u.username !== user.username),
+      };
     });
     setPollOptions(updatedPollOptions);
     dispatch(
