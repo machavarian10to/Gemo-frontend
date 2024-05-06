@@ -16,6 +16,7 @@ function UserGemPoll({ gem }) {
   const [pollIsEnded, setPollIsEnded] = useState(false);
   const [pollEndTime, setPollEndTime] = useState('');
   const [showPollResultsModal, setShowPollResultsModal] = useState(false);
+  const [showAllOptions, setShowAllOptions] = useState(false);
 
   useEffect(() => {
     const count = pollOptions.reduce((acc, option) => {
@@ -163,20 +164,34 @@ function UserGemPoll({ gem }) {
     setShowPollResultsModal(true);
   }
 
+  function toggleShowAllOptions() {
+    setShowAllOptions(!showAllOptions);
+  }
+
   return (
     <>
       <div className='user-gem__poll'>
-        {gem.body.pollOptions.map((option) => (
-          <PollContainer
-            key={option.id}
-            option={option}
-            totalVotes={pollVotesAmount}
-            onChange={() => onOptionChange(option.id)}
-            groupName={`pollOption_${option.value}`}
-            pollIsEnded={pollIsEnded}
-            multipleSelection={gem.body.multipleSelection}
+        {pollOptions
+          .slice(0, showAllOptions ? pollOptions.length : 5)
+          .map((option) => (
+            <PollContainer
+              key={option.id}
+              option={option}
+              totalVotes={pollVotesAmount}
+              onChange={() => onOptionChange(option.id)}
+              groupName={`pollOption_${option.value}`}
+              pollIsEnded={pollIsEnded}
+              multipleSelection={gem.body.multipleSelection}
+            />
+          ))}
+        {pollOptions.length > 5 && (
+          <Button
+            label={showAllOptions ? 'Show less' : 'Show all options'}
+            type='base'
+            size='extra-small'
+            clickHandler={toggleShowAllOptions}
           />
-        ))}
+        )}
         <div className='user-gem__poll-total-votes'>
           <div className='user-gem__footer-button'>
             {!pollIsEnded &&
