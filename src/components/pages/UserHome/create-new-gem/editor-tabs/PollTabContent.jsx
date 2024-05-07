@@ -191,7 +191,11 @@ function PollTabContent({ pollTabState, setPollTabState }) {
                   onChange={onMultipleOptionCheck}
                 />
                 <Checkbox
-                  label="hide people's votes"
+                  label='hide peoples votes'
+                  onChange={onHidePeopleVotes}
+                />
+                <Checkbox
+                  label='users can add options'
                   onChange={onHidePeopleVotes}
                 />
               </div>

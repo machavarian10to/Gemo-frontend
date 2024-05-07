@@ -48,6 +48,23 @@
   word-break: break-word;
 }
 
+.user-gem__show-full-gem {
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--color-grey);
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s;
+}
+
+.user-gem__show-full-gem:hover {
+  color: var(--color-main-yellow);
+}
+
 .user-gem__menu-options-wrapper {
   display: flex;
   align-items: center;
