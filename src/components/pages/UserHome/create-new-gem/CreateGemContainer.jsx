@@ -51,6 +51,7 @@ export default function CreateGemContainer({
   const [pollTabState, setPollTabState] = useState({
     multipleSelection: false,
     hidePeoplesVotes: false,
+    usersCanAddOptions: false,
     pollOptions: [
       {
         id: useId(),
@@ -153,6 +154,7 @@ export default function CreateGemContainer({
         pollDuration: pollTabState.pollDurations.selectedDuration,
         multipleSelection: pollTabState.multipleSelection,
         hidePeoplesVotes: pollTabState.hidePeoplesVotes,
+        usersCanAddOptions: pollTabState.usersCanAddOptions,
       };
       pollTabState.pollOptions.forEach((option) => {
         if (option.value) {
@@ -211,7 +213,7 @@ export default function CreateGemContainer({
       });
       setTimeout(() => {
         closeModal();
-      }, 2500);
+      }, 1000);
     } catch (error) {
       setAlertBox({
         message: error.response.data.message,

@@ -9,6 +9,7 @@ function Input({
   state = 'active', // danger, inactive
   size = 'medium', // extra-small, small, medium, large
   onInput,
+  onKeyPress,
   onBlur,
   placeholder,
   helperText,
@@ -31,6 +32,7 @@ function Input({
         type={type}
         value={value}
         onInput={onInput}
+        onKeyPress={onKeyPress}
         onBlur={onBlur}
         placeholder={placeholder}
         autoComplete='off'
@@ -59,6 +61,7 @@ Input.propTypes = {
   state: PropTypes.string,
   size: PropTypes.string,
   onInput: PropTypes.func,
+  onKeyPress: PropTypes.func,
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   helperText: PropTypes.string,

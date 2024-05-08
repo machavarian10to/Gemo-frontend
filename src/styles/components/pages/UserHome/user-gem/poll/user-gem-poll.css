@@ -5,6 +5,10 @@
   margin-bottom: 10px;
 }
 
+.user-gem__users-can-add-options{
+  margin-top: 5px;
+}
+
 .user-gem__poll-total-votes {
   width: 100%;
   display: flex;

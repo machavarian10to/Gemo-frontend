@@ -22,7 +22,7 @@ function UserHome() {
       })
       .catch((error) => {
         setAlertBox({
-          message: error.response.data.message,
+          message: error.response.data,
           type: 'error',
         });
       });

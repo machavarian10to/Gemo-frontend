@@ -30,6 +30,13 @@ function PollTabContent({ pollTabState, setPollTabState }) {
     }));
   }
 
+  function onUsersCanAddOptions(e) {
+    setPollTabState((prev) => ({
+      ...prev,
+      usersCanAddOptions: e.target.checked,
+    }));
+  }
+
   function onInput(e, optionId) {
     const updatedOptions = pollTabState.pollOptions.map((option) => {
       if (option.id === optionId) {
@@ -196,7 +203,7 @@ function PollTabContent({ pollTabState, setPollTabState }) {
                 />
                 <Checkbox
                   label='users can add options'
-                  onChange={onHidePeopleVotes}
+                  onChange={onUsersCanAddOptions}
                 />
               </div>
 

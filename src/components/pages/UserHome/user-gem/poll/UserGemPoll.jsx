@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import axiosInstance from '@/services/axios';
 import PollContainer from '@/components/pages/UserHome/user-gem/poll/PollContainer';
 import Button from '@/components/UI/Button';
@@ -6,6 +6,8 @@ import PollResultsModal from '@/components/pages/UserHome/user-gem/poll/PollResu
 import PropTypes from 'prop-types';
 import { updateGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
+import Input from '@/components/UI/Input';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 function UserGemPoll({ gem }) {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function UserGemPoll({ gem }) {
   const [pollEndTime, setPollEndTime] = useState('');
   const [showPollResultsModal, setShowPollResultsModal] = useState(false);
   const [showAllOptions, setShowAllOptions] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     const count = pollOptions.reduce((acc, option) => {
@@ -168,6 +171,38 @@ function UserGemPoll({ gem }) {
     setShowAllOptions(!showAllOptions);
   }
 
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' && inputValue.trim() !== '') {
+      const updatedPollOptions = [
+        ...pollOptions,
+        {
+          id: generateId(),
+          value: inputValue,
+          users: [],
+        },
+      ];
+      setPollOptions(updatedPollOptions);
+      dispatch(
+        updateGem({
+          ...gem,
+          body: { ...gem.body, pollOptions: updatedPollOptions },
+        }),
+      );
+      const data = {
+        body: { ...gem.body, pollOptions: updatedPollOptions },
+      };
+      axiosInstance
+        .put(`/api/gems/${gem._id}`, data)
+        .then()
+        .catch((err) => console.error(err));
+      setInputValue('');
+    }
+  }
+
   return (
     <>
       <div className='user-gem__poll'>
@@ -184,6 +219,21 @@ function UserGemPoll({ gem }) {
               multipleSelection={gem.body.multipleSelection}
             />
           ))}
+        {gem.body.usersCanAddOptions && !pollIsEnded && (
+          <div className='user-gem__users-can-add-options'>
+            <Input
+              size='large'
+              type='text'
+              value={inputValue}
+              placeholder='Add new option...'
+              leftIcon={
+                <AddCircleOutlineOutlinedIcon style={{ fontSize: '21px' }} />
+              }
+              onInput={(e) => setInputValue(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+            />
+          </div>
+        )}
         {pollOptions.length > 5 && (
           <Button
             label={showAllOptions ? 'Show less' : 'Show all options'}

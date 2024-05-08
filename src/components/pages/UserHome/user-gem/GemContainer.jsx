@@ -44,7 +44,7 @@ function GemContainer({ gem }) {
           {gem.body?.postContent?.length > 200 && showMore && (
             <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
               <VisibilityOffOutlinedIcon style={{ fontSize: '16px' }} />
-              <span>Show less</span>
+              <span>See less</span>
             </div>
           )}
         </div>
