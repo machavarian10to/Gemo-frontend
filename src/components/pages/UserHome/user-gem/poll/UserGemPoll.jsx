@@ -1,4 +1,4 @@
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect } from 'react';
 import axiosInstance from '@/services/axios';
 import PollContainer from '@/components/pages/UserHome/user-gem/poll/PollContainer';
 import Button from '@/components/UI/Button';
@@ -8,6 +8,7 @@ import { updateGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import Input from '@/components/UI/Input';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AlertBox from '@/components/UI/AlertBox';
 
 function UserGemPoll({ gem }) {
   const dispatch = useDispatch();
@@ -19,7 +20,12 @@ function UserGemPoll({ gem }) {
   const [pollEndTime, setPollEndTime] = useState('');
   const [showPollResultsModal, setShowPollResultsModal] = useState(false);
   const [showAllOptions, setShowAllOptions] = useState(false);
+
   const [inputValue, setInputValue] = useState('');
+  const [alert, setAlert] = useState({
+    type: '',
+    message: '',
+  });
 
   useEffect(() => {
     const count = pollOptions.reduce((acc, option) => {
@@ -95,7 +101,7 @@ function UserGemPoll({ gem }) {
             {
               id: user._id,
               username: user.username,
-              userPhoto: user.photo,
+              userPhoto: user.profilePicture,
             },
           ],
         };
@@ -110,7 +116,7 @@ function UserGemPoll({ gem }) {
               {
                 id: user._id,
                 username: user.username,
-                userPhoto: user.photo,
+                userPhoto: user.profilePicture,
               },
             ],
           };
@@ -175,7 +181,7 @@ function UserGemPoll({ gem }) {
     return Math.random().toString(36).substr(2, 9);
   }
 
-  function handleKeyPress(e) {
+  function handleKeyDown(e) {
     if (e.key === 'Enter' && inputValue.trim() !== '') {
       const updatedPollOptions = [
         ...pollOptions,
@@ -197,14 +203,27 @@ function UserGemPoll({ gem }) {
       };
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
-        .then()
+        .then(() => {
+          setAlert({
+            type: 'success',
+            message: 'Option added!',
+          });
+        })
         .catch((err) => console.error(err));
       setInputValue('');
+      setTimeout(() => {
+        setAlert({
+          type: '',
+          message: '',
+        });
+      }, 2000);
     }
   }
 
   return (
     <>
+      {alert.message && <AlertBox type={alert.type} message={alert.message} />}
+
       <div className='user-gem__poll'>
         {pollOptions
           .slice(0, showAllOptions ? pollOptions.length : 5)
@@ -230,7 +249,7 @@ function UserGemPoll({ gem }) {
                 <AddCircleOutlineOutlinedIcon style={{ fontSize: '21px' }} />
               }
               onInput={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => handleKeyPress(e)}
+              onKeyDown={(e) => handleKeyDown(e)}
             />
           </div>
         )}

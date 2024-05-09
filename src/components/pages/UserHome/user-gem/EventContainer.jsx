@@ -91,8 +91,8 @@ function EventContainer({ gem }) {
   }
 
   return (
-    <div className='user-post__event-wrapper'>
-      <div className='user-post__event-image'>
+    <div className='user-gem__event-wrapper'>
+      <div className='user-gem__event-image'>
         {event.body?.fileName && (
           <img
             src={`${import.meta.env.VITE_API_URL}/assets/${
@@ -101,28 +101,28 @@ function EventContainer({ gem }) {
             alt='post'
           />
         )}
-        <div className='user-post__event-icon'>
+        <div className='user-gem__event-icon'>
           <EventAvailableIcon style={{ color: '#fff' }} />
         </div>
       </div>
 
-      <div className='user-post__info-wrapper'>
-        <div className='user-post__event-header'>
-          <div className='user-post__event'>
-            <div className='user-post__event-date'>
+      <div className='user-gem__info-wrapper'>
+        <div className='user-gem__event-header'>
+          <div className='user-gem__event'>
+            <div className='user-gem__event-date'>
               <AccessTimeIcon style={{ fontSize: '15px' }} />
               <div>{new Date(event.body.startDate).toLocaleString()}</div>
             </div>
 
-            <div className='user-post__event-details'>
-              <div className='user-post__event-details-location'>
+            <div className='user-gem__event-details'>
+              <div className='user-gem__event-details-location'>
                 <LocationOnIcon style={{ fontSize: '15px' }} />
                 <span>{event.body.location}</span>
               </div>
             </div>
           </div>
 
-          <div className='user-post__event-attendance'>
+          <div className='user-gem__event-attendance'>
             <div>
               <DirectionsWalkIcon style={{ fontSize: '20px' }} />
               <span>{event.body.going.length}</span>
@@ -134,12 +134,12 @@ function EventContainer({ gem }) {
           </div>
         </div>
 
-        <div className='user-post__event-description'>
+        <div className='user-gem__event-description'>
           <p>{event.body.description}</p>
         </div>
 
         {!isGoing && !isInterested && (
-          <div className='user-post__event-buttons-wrapper'>
+          <div className='user-gem__event-buttons-wrapper'>
             <Button
               label='Going'
               size='small'
@@ -164,7 +164,7 @@ function EventContainer({ gem }) {
         )}
 
         {isGoing && (
-          <div className='user-post__event-buttons-wrapper'>
+          <div className='user-gem__event-buttons-wrapper'>
             <Button
               label='Not Going'
               size='small'
@@ -178,7 +178,7 @@ function EventContainer({ gem }) {
         )}
 
         {isInterested && (
-          <div className='user-post__event-buttons-wrapper'>
+          <div className='user-gem__event-buttons-wrapper'>
             <Button
               label='Not Interested'
               size='small'

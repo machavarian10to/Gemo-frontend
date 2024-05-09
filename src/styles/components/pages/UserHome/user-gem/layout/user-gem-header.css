@@ -48,3 +48,12 @@
 .user-gem__date span {
   color: #ccc;
 }
+
+.user-gem__menu-options-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}

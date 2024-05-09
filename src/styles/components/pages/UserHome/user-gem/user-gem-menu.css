@@ -1,0 +1,48 @@
+.user-gem__menu,
+.user-gem__fullscreen {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.3s;
+  border-radius: var(--border-radius-rect);
+}
+
+.user-gem__fullscreen:hover svg path,
+.user-gem__menu:not(.user-gem__menu-active):hover svg path {
+  color: var(--color-main-yellow);
+}
+
+.user-gem__menu {
+  padding: 3px 4px;
+}
+
+.user-gem__menu-active {
+  background-color: var(--bg-main-white);
+}
+
+.user-gem__edit-wrapper {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  padding: 3px;
+  background-color: #fff;
+  z-index: 200;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--border-radius-rect);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.user-gem__edit-item {
+  color: var(--color-main-grey);
+  padding: 8px;
+  border-radius: var(--border-radius-rect);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.user-gem__edit-item:hover {
+  background-color: #f2f2f2;
+}

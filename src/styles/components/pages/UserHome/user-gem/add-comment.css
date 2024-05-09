@@ -1,18 +1,18 @@
-.user-post__comment-section-user-comment {
+.user-gem__comment-section-user-comment {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.user-post__comment-section-input {
+.user-gem__comment-section-input {
   width: 100%;
 }
 
-.user-post__comment-input-wrapper {
+.user-gem__comment-input-wrapper {
   position: relative;
 }
 
-.user-post__comment-input {
+.user-gem__comment-input {
   padding: 10px 105px 0 10px;
   min-height: 60px;
   height: 60px;
@@ -39,7 +39,7 @@
   }
 }
 
-.user-post__comment-icons {
+.user-gem__comment-icons {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -48,24 +48,24 @@
   right: 20px;
 }
 
-.user-post__comment-icons svg {
+.user-gem__comment-icons svg {
   cursor: pointer;
 }
 
-.user-post__comment-icons svg path {
+.user-gem__comment-icons svg path {
   transition: all 0.3s ease;
 }
 
-.user-post__comment-icons svg:hover > path {
+.user-gem__comment-icons svg:hover > path {
   color: var(--color-main-yellow);
 }
 
-.user-post__comment-input-label {
+.user-gem__comment-input-label {
   display: flex;
   align-items: center;
 }
 
-.user-post__comment-input-emoji-picker-wrapper {
+.user-gem__comment-input-emoji-picker-wrapper {
   position: absolute;
   top: 55%;
   right: -20%;
@@ -74,7 +74,7 @@
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
 
-.user-post__add-comment-btn {
+.user-gem__add-comment-btn {
   margin-bottom: 5px;
 }
 

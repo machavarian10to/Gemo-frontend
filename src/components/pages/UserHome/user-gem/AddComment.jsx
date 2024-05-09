@@ -53,18 +53,18 @@ const AddComment = ({ placeholder, value = '' }) => {
 
   return (
     <>
-      <div className='user-post__comment-section-user-comment'>
+      <div className='user-gem__comment-section-user-comment'>
         <UserAvatar width={45} />
-        <div className='user-post__comment-section-input'>
-          <div className='user-post__comment-input-wrapper'>
+        <div className='user-gem__comment-section-input'>
+          <div className='user-gem__comment-input-wrapper'>
             <textarea
-              className='user-post__comment-input'
+              className='user-gem__comment-input'
               placeholder={placeholder}
               value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
             />
 
-            <div className='user-post__comment-icons'>
+            <div className='user-gem__comment-icons'>
               <TagFacesOutlinedIcon
                 style={{
                   color: showEmojis
@@ -74,7 +74,7 @@ const AddComment = ({ placeholder, value = '' }) => {
                 }}
                 onClick={() => setShowEmojis((prev) => !prev)}
               />
-              <label className='user-post__comment-input-label'>
+              <label className='user-gem__comment-input-label'>
                 <input
                   hidden
                   type='file'
@@ -98,7 +98,7 @@ const AddComment = ({ placeholder, value = '' }) => {
 
             {showEmojis && (
               <div
-                className='user-post__comment-input-emoji-picker-wrapper'
+                className='user-gem__comment-input-emoji-picker-wrapper'
                 ref={emojiPickerRef}
               >
                 <EmojiPicker
@@ -122,7 +122,7 @@ const AddComment = ({ placeholder, value = '' }) => {
           </div>
         </div>
 
-        <div className='user-post__add-comment-btn'>
+        <div className='user-gem__add-comment-btn'>
           <SendOutlinedIcon
             style={{
               color:
@@ -137,7 +137,7 @@ const AddComment = ({ placeholder, value = '' }) => {
       </div>
 
       {mediaSrc && (
-        <div className='user-post__comment-image-preview'>
+        <div className='user-gem__comment-image-preview'>
           <button
             title='delete media'
             className='delete-media-icon'
@@ -150,7 +150,7 @@ const AddComment = ({ placeholder, value = '' }) => {
           {file?.type.includes('video') ? (
             <video controls src={mediaSrc} className='user-media-preview' />
           ) : (
-            <img src={mediaSrc} alt='user-post__comment-preview' />
+            <img src={mediaSrc} alt='user-gem__comment-preview' />
           )}
         </div>
       )}

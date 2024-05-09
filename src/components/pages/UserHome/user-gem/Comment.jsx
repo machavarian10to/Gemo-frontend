@@ -71,26 +71,24 @@ function Comment({ comment }) {
   }
 
   return (
-    <div className='user-post__comment-wrapper'>
-      <div className='user-post__comment'>
+    <div className='user-gem__comment-wrapper'>
+      <div className='user-gem__comment'>
         <UserAvatar
           width={32}
           height={32}
           src='https://picsum.photos/400/600'
         />
-        <div className='user-post__comment-details'>
-          <div className='user-post__comment-details-header'>
-            <div className='user-post__comment-details-header-wrapper'>
-              <div className='user-post__comment-username'>
-                @machavarian10to
-              </div>
-              <div className='user-post__date'>
+        <div className='user-gem__comment-details'>
+          <div className='user-gem__comment-details-header'>
+            <div className='user-gem__comment-details-header-wrapper'>
+              <div className='user-gem__comment-username'>@machavarian10to</div>
+              <div className='user-gem__date'>
                 <span>•</span>
                 <span>1 day ago</span>
               </div>
             </div>
             <div
-              className='user-post__comment-menu'
+              className='user-gem__comment-menu'
               style={{
                 background: showEditComment && '#fff',
               }}
@@ -104,10 +102,10 @@ function Comment({ comment }) {
             {showEditComment && (
               <Fade in={showEditComment} timeout={400}>
                 <div
-                  className='user-post__comment-edit-wrapper'
+                  className='user-gem__comment-edit-wrapper'
                   ref={editCommentRef}
                 >
-                  <div className='user-post__comment-edit-item'>
+                  <div className='user-gem__comment-edit-item'>
                     <EditOutlinedIcon
                       style={{
                         fontSize: '18px',
@@ -116,7 +114,7 @@ function Comment({ comment }) {
                     />
                     <span>Edit</span>
                   </div>
-                  <div className='user-post__comment-edit-item'>
+                  <div className='user-gem__comment-edit-item'>
                     <DeleteOutlineOutlinedIcon
                       style={{
                         fontSize: '18px',
@@ -129,19 +127,19 @@ function Comment({ comment }) {
               </Fade>
             )}
           </div>
-          <div className='user-post__comment-text'>{comment.text}</div>
+          <div className='user-gem__comment-text'>{comment.text}</div>
           {commentEmojis.length > 0 && (
-            <div className='user-post__emoji-list'>
+            <div className='user-gem__emoji-list'>
               {commentEmojis.map((commentEmoji) => (
                 <div
                   key={commentEmoji.id}
-                  className={`user-post__emoji-wrapper ${
+                  className={`user-gem__emoji-wrapper ${
                     commentEmoji.isClicked ? 'active-emoji' : ''
                   }`}
                   onClick={() => removeEmojiIfAlreadyClicked(commentEmoji.id)}
                 >
-                  <div className='user-post__emoji'>{commentEmoji.emoji}</div>
-                  <div className='user-post__emoji-count'>
+                  <div className='user-gem__emoji'>{commentEmoji.emoji}</div>
+                  <div className='user-gem__emoji-count'>
                     {commentEmoji.count}
                   </div>
                 </div>
@@ -151,9 +149,9 @@ function Comment({ comment }) {
         </div>
       </div>
 
-      <div className='user-post__comment-actions'>
+      <div className='user-gem__comment-actions'>
         <div
-          className='user-post__comment-action'
+          className='user-gem__comment-action'
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon
@@ -168,7 +166,7 @@ function Comment({ comment }) {
           <span>{emojiCount}</span>
         </div>
         <div
-          className='user-post__comment-action'
+          className='user-gem__comment-action'
           onClick={() => setShowCommentReply(true)}
         >
           <ModeCommentOutlinedIcon
@@ -184,7 +182,7 @@ function Comment({ comment }) {
 
       {showEmojis && (
         <div
-          className='user-post__comment-react-emoji-picker-wrapper'
+          className='user-gem__comment-react-emoji-picker-wrapper'
           ref={emojiPickerRef}
         >
           <EmojiPicker
@@ -199,14 +197,14 @@ function Comment({ comment }) {
 
       {showCommentReply && (
         <Fade in={showCommentReply} timeout={400}>
-          <div className='user-post__comment-reply-wrapper'>
-            <div className='user-post__comment-reply'>
+          <div className='user-gem__comment-reply-wrapper'>
+            <div className='user-gem__comment-reply'>
               <AddComment placeholder={`Reply to ${emojiCount}`} value='test' />
             </div>
 
-            <div className='user-post__comment-reply-actions'>
+            <div className='user-gem__comment-reply-actions'>
               <div
-                className='user-post__comment-reply-action'
+                className='user-gem__comment-reply-action'
                 onClick={() => setShowCommentReply(false)}
               >
                 <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />

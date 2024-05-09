@@ -1,27 +1,12 @@
-import Fade from '@mui/material/Fade';
 import UserAvatar from '@/components/shared/UserAvatar';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
-import { deleteGem } from '@/state/index';
-import { useSelector, useDispatch } from 'react-redux';
-import axiosInstance from '@/services/axios';
-import useClickOutside from '@/hook/useClickOutside';
+import { useSelector } from 'react-redux';
+import UserGemMenu from '@/components/pages/UserHome/user-gem/UserGemMenu';
 
 function UserGemHeader({ gem }) {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  const [showPostEdit, setShowPostEdit] = useState(false);
-  const postEditRef = useRef(null);
-
-  useClickOutside(postEditRef, () => {
-    setShowPostEdit(false);
-  });
 
   function getTimeDifference(createdAt) {
     const currentTime = new Date();
@@ -55,13 +40,6 @@ function UserGemHeader({ gem }) {
       master: '#f9a109',
     };
     return userLevelMap[user.level];
-  }
-
-  function onGemDelete() {
-    axiosInstance
-      .delete(`/api/gems/${gem._id}`)
-      .then((res) => dispatch(deleteGem(res.data._id)))
-      .catch((err) => console.error(err));
   }
 
   return (
@@ -103,45 +81,7 @@ function UserGemHeader({ gem }) {
           />
         </div>
 
-        <div
-          className='user-gem__menu'
-          style={{
-            background: showPostEdit && 'var(--bg-main-white)',
-          }}
-        >
-          <MoreVertOutlinedIcon
-            style={{ color: 'var(--color-grey)', fontSize: '20px' }}
-            onClick={() => setShowPostEdit((prev) => !prev)}
-          />
-
-          {showPostEdit && (
-            <Fade in={showPostEdit} timeout={400}>
-              <div className='user-gem__comment-edit-wrapper' ref={postEditRef}>
-                <div className='user-gem__comment-edit-item'>
-                  <EditOutlinedIcon
-                    style={{
-                      fontSize: '18px',
-                      color: 'var(--color-main-yellow)',
-                    }}
-                  />
-                  <span>Edit</span>
-                </div>
-                <div
-                  className='user-gem__comment-edit-item'
-                  onClick={onGemDelete}
-                >
-                  <DeleteOutlineOutlinedIcon
-                    style={{
-                      fontSize: '18px',
-                      color: 'var(--color-main-yellow)',
-                    }}
-                  />
-                  <span>Delete</span>
-                </div>
-              </div>
-            </Fade>
-          )}
-        </div>
+        <UserGemMenu gem={gem} />
       </div>
     </div>
   );

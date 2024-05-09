@@ -65,25 +65,3 @@
   color: var(--color-main-yellow);
 }
 
-.user-gem__menu-options-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: absolute;
-  top: 15px;
-  right: 10px;
-}
-
-.user-gem__menu,
-.user-gem__fullscreen {
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: all 0.3s;
-  border-radius: var(--border-radius-rect);
-}
-
-.user-gem__fullscreen:hover svg path,
-.user-gem__menu:hover svg path {
-  color: var(--color-main-yellow);
-}

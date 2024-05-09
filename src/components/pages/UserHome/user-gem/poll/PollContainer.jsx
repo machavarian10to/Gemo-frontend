@@ -23,11 +23,11 @@ function PollContainer({
 
   return (
     <label
-      className={`user-post__poll-option-wrapper ${
+      className={`user-gem__poll-option-wrapper ${
         pollIsEnded ? 'ended-poll' : ''
       }`}
     >
-      <div className='user-post__poll-option-container'>
+      <div className='user-gem__poll-option-container'>
         <div
           style={{
             width: `${percentage}%`,
@@ -36,11 +36,11 @@ function PollContainer({
                 ? 'var(--border-radius-rect)'
                 : '5px 0 0 5px',
           }}
-          className='user-post__poll-option-container-inner'
+          className='user-gem__poll-option-container-inner'
         ></div>
-        <div className='user-post__poll-input'>
+        <div className='user-gem__poll-input'>
           {multipleSelection ? (
-            <label className='user-post__checkbox-label' htmlFor={groupName}>
+            <label className='user-gem__checkbox-label' htmlFor={groupName}>
               <input
                 disabled={pollIsEnded}
                 type='checkbox'
@@ -53,10 +53,10 @@ function PollContainer({
                 value={option.value}
               />
               <span>{option.value}</span>
-              <span className='user-post__checkbox-checkmark'></span>
+              <span className='user-gem__checkbox-checkmark'></span>
             </label>
           ) : (
-            <label className='user-post__radio-label'>
+            <label className='user-gem__radio-label'>
               <input
                 disabled={pollIsEnded}
                 type='radio'
@@ -68,15 +68,15 @@ function PollContainer({
                 onChange={onChange}
                 value={option.value}
               />
-              <span className='user-post__radio-checked'></span>
+              <span className='user-gem__radio-checked'></span>
               {option.value}
             </label>
           )}
         </div>
 
-        <div className='user-post__poll-numbers'>
-          <div className='user-post__poll-option-percentage'>{percentage}%</div>
-          <div className='user-post__poll-option-count'>
+        <div className='user-gem__poll-numbers'>
+          <div className='user-gem__poll-option-percentage'>{percentage}%</div>
+          <div className='user-gem__poll-option-count'>
             {option.users.length > 1
               ? `${option.users.length} votes`
               : `${option.users.length} vote`}
