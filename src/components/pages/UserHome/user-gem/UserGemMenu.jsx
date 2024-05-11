@@ -6,14 +6,22 @@ import { useDispatch } from 'react-redux';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
+import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
+import IntegrationInstructionsOutlinedIcon from '@mui/icons-material/IntegrationInstructionsOutlined';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
+import { useSelector } from 'react-redux';
 
 function UserGemMenu({ gem }) {
-  const [showPostEdit, setShowPostEdit] = useState(false);
-  const postEditRef = useRef(null);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const [showGemAuthEdit, setShowGemAuthEdit] = useState(false);
+  const [showGemEdit, setShowGemEdit] = useState(false);
+
+  const postEditRef = useRef(null);
 
   const [alertBox, setAlertBox] = useState({
     type: '',
@@ -21,8 +29,17 @@ function UserGemMenu({ gem }) {
   });
 
   useClickOutside(postEditRef, () => {
-    setShowPostEdit(false);
+    setShowGemAuthEdit(false);
+    setShowGemEdit(false);
   });
+
+  function showGemEditWrapper() {
+    if (gem.userId === user._id) {
+      setShowGemAuthEdit(!showGemAuthEdit);
+    } else {
+      setShowGemEdit(!showGemEdit);
+    }
+  }
 
   function onGemDelete() {
     axiosInstance
@@ -45,37 +62,69 @@ function UserGemMenu({ gem }) {
 
       <div
         className={`user-gem__menu ${
-          showPostEdit ? 'user-gem__menu-active' : ''
+          showGemAuthEdit || showGemEdit ? 'user-gem__menu-active' : ''
         }`}
       >
         <MoreVertOutlinedIcon
-          style={{ color: 'var(--color-grey)', fontSize: '20px' }}
-          onClick={() => setShowPostEdit((prev) => !prev)}
+          style={{ color: 'var(--color-grey)', fontSize: '22px' }}
+          onClick={() => showGemEditWrapper()}
         />
 
-        {showPostEdit && (
-          <Fade in={showPostEdit} timeout={400}>
+        {showGemAuthEdit && (
+          <Fade in={showGemAuthEdit} timeout={400}>
             <div className='user-gem__edit-wrapper' ref={postEditRef}>
               <div className='user-gem__edit-item'>
                 <EditOutlinedIcon
                   style={{
-                    fontSize: '18px',
+                    fontSize: '22px',
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Edit</span>
+                <span>Edit gem</span>
               </div>
               <div className='user-gem__edit-item' onClick={onGemDelete}>
                 <DeleteOutlineOutlinedIcon
                   style={{
-                    fontSize: '18px',
+                    fontSize: '22px',
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Delete</span>
+                <span>Delete gem</span>
+              </div>
+              <div className='user-gem__edit-item'>
+                <NotificationsOffOutlinedIcon
+                  style={{
+                    fontSize: '22px',
+                    color: 'var(--color-main-yellow)',
+                  }}
+                />
+                <span>Turn off notifications</span>
+              </div>
+              <div className='user-gem__edit-item'>
+                <IntegrationInstructionsOutlinedIcon
+                  style={{
+                    fontSize: '22px',
+                    color: 'var(--color-main-yellow)',
+                  }}
+                />
+                <span>Embed</span>
               </div>
             </div>
           </Fade>
+        )}
+
+        {showGemEdit && (
+          <div className='user-gem__edit-wrapper' ref={postEditRef}>
+            <div className='user-gem__edit-item'>
+              <ReportGmailerrorredOutlinedIcon
+                style={{
+                  fontSize: '22px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Report gem</span>
+            </div>
+          </div>
         )}
       </div>
     </>
