@@ -28,7 +28,7 @@
 }
 
 .user-gem__poll-time span {
-  color: var(--bg-main-red);
+  color: var(--color-grey);
   font-size: 18px;
   font-weight: 800;
 }

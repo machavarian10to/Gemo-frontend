@@ -9,6 +9,9 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
 import IntegrationInstructionsOutlinedIcon from '@mui/icons-material/IntegrationInstructionsOutlined';
+import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
@@ -107,7 +110,7 @@ function UserGemMenu({ gem }) {
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Embed</span>
+                <span>Embed gem</span>
               </div>
             </div>
           </Fade>
@@ -115,6 +118,36 @@ function UserGemMenu({ gem }) {
 
         {showGemEdit && (
           <div className='user-gem__edit-wrapper' ref={postEditRef}>
+            <div className='user-gem__edit-item'>
+              <SentimentDissatisfiedOutlinedIcon
+                style={{
+                  fontSize: '20px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Not interested with gem content</span>
+            </div>
+
+            <div className='user-gem__edit-item'>
+              <VisibilityOffOutlinedIcon
+                style={{
+                  fontSize: '20px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Hide gem</span>
+            </div>
+
+            <div className='user-gem__edit-item'>
+              <BlockOutlinedIcon
+                style={{
+                  fontSize: '20px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Block @{gem.userName}</span>
+            </div>
+
             <div className='user-gem__edit-item'>
               <ReportGmailerrorredOutlinedIcon
                 style={{
