@@ -69,7 +69,7 @@ function MediaTabContent({ mediaTabState, setMediaTabState }) {
 
   return (
     <>
-      {mediaTabState.mediaSrc ? (
+      {mediaTabState.mediaSrc || mediaTabState.fileName ? (
         <div className='media-wrapper'>
           <button
             title='delete media'
@@ -89,7 +89,12 @@ function MediaTabContent({ mediaTabState, setMediaTabState }) {
           ) : (
             <img
               alt='user media preview'
-              src={mediaTabState.mediaSrc}
+              src={
+                mediaTabState.mediaSrc ||
+                `${import.meta.env.VITE_API_URL}/assets/${
+                  mediaTabState.fileName
+                }`
+              }
               className='user-media-preview'
             />
           )}

@@ -12,18 +12,14 @@
   color: var(--color-main-yellow);
 }
 
-.user-gem__menu {
-  padding: 3px 4px;
-}
-
-.user-gem__menu-active {
-  background-color: var(--bg-main-white);
+.user-gem__menu-active svg path {
+  color: var(--color-main-yellow);
 }
 
 .user-gem__edit-wrapper {
   position: absolute;
-  top: 120%;
-  right: 0;
+  top: 115%;
+  right: -100%;
   padding: 3px;
   background-color: #fff;
   z-index: 200;

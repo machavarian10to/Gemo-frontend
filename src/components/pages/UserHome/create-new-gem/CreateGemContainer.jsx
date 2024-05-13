@@ -1,4 +1,4 @@
-import { useState, useId } from 'react';
+import { useState, generateId } from 'react';
 import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -17,6 +17,7 @@ import { setGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function CreateGemContainer({
+  gem,
   closeModal,
   activeTab,
   handleActiveTab,
@@ -31,79 +32,98 @@ export default function CreateGemContainer({
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const [gemTitle, setGemTitle] = useState('');
-  const [charCount, setCharCount] = useState(0);
+  const [gemTitle, setGemTitle] = useState(gem ? gem.title : '');
+  const [charCount, setCharCount] = useState(gem ? gem.title.length : 0);
 
-  const [postTabState, setPostTabState] = useState({
-    postContent: null,
-    file: null,
-    fileName: null,
-    mediaSrc: null,
-    gifSrc: null,
-  });
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
 
-  const [mediaTabState, setMediaTabState] = useState({
-    file: null,
-    fileName: null,
-    mediaSrc: null,
-  });
+  const [postTabState, setPostTabState] = useState(
+    gem && gem.body
+      ? gem.body
+      : {
+          postContent: null,
+          file: null,
+          fileName: null,
+          mediaSrc: null,
+          gifSrc: null,
+        },
+  );
 
-  const [pollTabState, setPollTabState] = useState({
-    multipleSelection: false,
-    hidePeoplesVotes: false,
-    usersCanAddOptions: false,
-    pollOptions: [
-      {
-        id: useId(),
-        value: '',
-        placeholder: 'Option 1',
-        deleteIcon: false,
-      },
-    ],
-    pollDurations: {
-      showDurations: false,
-      selectedDuration: '- None -',
-      options: [
-        {
-          id: useId(),
-          name: '1 Day',
-        },
-        {
-          id: useId(),
-          name: '2 Days',
-        },
-        {
-          id: useId(),
-          name: '3 Days',
-          selected: true,
-        },
-        {
-          id: useId(),
-          name: '7 Days',
-        },
-        {
-          id: useId(),
-          name: '- None -',
-        },
-      ],
-    },
-  });
+  const [mediaTabState, setMediaTabState] = useState(
+    gem && gem.body ? gem.body : { file: null, fileName: null, mediaSrc: null },
+  );
 
-  const [eventTabState, setEventTabState] = useState({
-    file: null,
-    fileName: null,
-    mediaSrc: null,
-    startDate: new Date(),
-    location: '',
-    description: '',
-    interested: [],
-    going: [],
-  });
+  const [pollTabState, setPollTabState] = useState(
+    gem && gem.body
+      ? {
+          ...gem.body,
+          pollDurations: {
+            ...gem.body.pollDurations,
+            selectedDuration: gem.body.pollDuration,
+          },
+        }
+      : {
+          multipleSelection: false,
+          hidePeoplesVotes: false,
+          usersCanAddOptions: false,
+          pollOptions: [
+            {
+              id: generateId(),
+              value: '',
+              placeholder: 'Option 1',
+              deleteIcon: false,
+            },
+          ],
+          pollDurations: {
+            showDurations: false,
+            selectedDuration: '- None -',
+            options: [
+              {
+                id: generateId(),
+                name: '1 Day',
+              },
+              {
+                id: generateId(),
+                name: '2 Days',
+              },
+              {
+                id: generateId(),
+                name: '3 Days',
+                selected: true,
+              },
+              {
+                id: generateId(),
+                name: '7 Days',
+              },
+              {
+                id: generateId(),
+                name: '- None -',
+              },
+            ],
+          },
+        },
+  );
 
-  const [gifTabState, setGifTabState] = useState({
-    gif: '',
-    title: '',
-  });
+  const [eventTabState, setEventTabState] = useState(
+    gem && gem.body
+      ? gem.body
+      : {
+          file: null,
+          fileName: null,
+          mediaSrc: null,
+          startDate: new Date(),
+          location: '',
+          description: '',
+          interested: [],
+          going: [],
+        },
+  );
+
+  const [gifTabState, setGifTabState] = useState(
+    gem && gem.body ? gem.body : { gif: '', title: '' },
+  );
 
   async function clickHandler() {
     const formData = new FormData();
@@ -208,7 +228,7 @@ export default function CreateGemContainer({
       dispatch(setGem(newGem.data));
       setIsButtonDisabled(true);
       setAlertBox({
-        message: 'Gem created successfully!',
+        message: gem ? 'Gem edited successfully' : 'Gem created successfully!',
         type: 'success',
       });
       setTimeout(() => {
@@ -332,6 +352,7 @@ export default function CreateGemContainer({
 }
 
 CreateGemContainer.propTypes = {
+  gem: PropTypes.object,
   closeModal: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   handleActiveTab: PropTypes.func.isRequired,

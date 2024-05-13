@@ -8,7 +8,13 @@ import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-function CreateGemModal({ closeModal, activeTab, handleActiveTab }) {
+function CreateGemModal({
+  title,
+  closeModal,
+  activeTab,
+  handleActiveTab,
+  gem,
+}) {
   const modalContentRef = useRef();
   const user = useSelector((state) => state.user);
 
@@ -19,7 +25,7 @@ function CreateGemModal({ closeModal, activeTab, handleActiveTab }) {
       <div className='modal'>
         <div className='modal-content' ref={modalContentRef}>
           <div className='modal-header'>
-            <h4>Create a Gem</h4>
+            <h4>{title}</h4>
             <button onClick={closeModal}>
               <HighlightOffIcon
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
@@ -43,6 +49,7 @@ function CreateGemModal({ closeModal, activeTab, handleActiveTab }) {
               closeModal={closeModal}
               activeTab={activeTab}
               handleActiveTab={handleActiveTab}
+              gem={gem}
             />
           </div>
         </div>
@@ -52,9 +59,11 @@ function CreateGemModal({ closeModal, activeTab, handleActiveTab }) {
 }
 
 CreateGemModal.propTypes = {
+  title: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   handleActiveTab: PropTypes.func.isRequired,
+  gem: PropTypes.object,
 };
 
 export default CreateGemModal;

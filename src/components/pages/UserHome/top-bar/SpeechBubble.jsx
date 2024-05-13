@@ -43,6 +43,7 @@ function SpeechBubble() {
       </div>
       {showModal && (
         <CreateGemModal
+          title='Create a gem'
           closeModal={() => setShowModal(false)}
           activeTab={activeTab}
           handleActiveTab={handleActiveTab}

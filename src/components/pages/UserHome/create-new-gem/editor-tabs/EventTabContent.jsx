@@ -40,7 +40,7 @@ function EventTabContent({ eventTabState, setEventTabState }) {
   return (
     <Fade in={true} timeout={400}>
       <div className='event-tab-container'>
-        {eventTabState.mediaSrc ? (
+        {eventTabState.mediaSrc || eventTabState.fileName ? (
           <div className='media-wrapper'>
             <button
               title='delete media'
@@ -60,7 +60,12 @@ function EventTabContent({ eventTabState, setEventTabState }) {
             ) : (
               <img
                 alt='user media preview'
-                src={eventTabState.mediaSrc}
+                src={
+                  eventTabState.mediaSrc ||
+                  `${import.meta.env.VITE_API_URL}/assets/${
+                    eventTabState.fileName
+                  }`
+                }
                 className='user-media-preview'
               />
             )}

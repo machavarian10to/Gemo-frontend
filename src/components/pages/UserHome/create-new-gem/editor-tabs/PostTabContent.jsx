@@ -55,6 +55,13 @@ function PostTabContent({ postTabState, setPostTabState }) {
   });
 
   useEffect(() => {
+    if (postTabState.postContent) {
+      editorContentRef.current.innerHTML = postTabState.postContent;
+      setState({ ...state, showPlaceholder: true });
+    }
+  }, []);
+
+  useEffect(() => {
     const handleSelectionChange = () => {
       if (
         editorContentRef.current &&

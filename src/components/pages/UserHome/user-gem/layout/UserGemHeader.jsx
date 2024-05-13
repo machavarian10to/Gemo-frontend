@@ -8,9 +8,9 @@ import UserGemMenu from '@/components/pages/UserHome/user-gem/UserGemMenu';
 function UserGemHeader({ gem }) {
   const user = useSelector((state) => state.user);
 
-  function getTimeDifference(createdAt) {
+  function getTimeDifference(updatedAt) {
     const currentTime = new Date();
-    const timeDifference = Math.abs(currentTime - createdAt);
+    const timeDifference = Math.abs(currentTime - updatedAt);
     const secondsDifference = Math.round(timeDifference / 1000);
     const minutesDifference = Math.round(secondsDifference / 60);
     const hoursDifference = Math.round(minutesDifference / 60);
@@ -60,7 +60,7 @@ function UserGemHeader({ gem }) {
           </div>
           <div className='user-gem__user-level'>
             <span>&#8226;</span>
-            <span>{getTimeDifference(new Date(gem.createdAt))}</span>
+            <span>{getTimeDifference(new Date(gem.updatedAt))}</span>
           </div>
         </div>
 

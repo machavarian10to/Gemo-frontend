@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import useClickOutside from '@/hook/useClickOutside';
 import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
@@ -12,6 +12,8 @@ import IntegrationInstructionsOutlinedIcon from '@mui/icons-material/Integration
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
+import NoMealsOutlinedIcon from '@mui/icons-material/NoMealsOutlined';
+import CreateGemModal from '@/components/pages/UserHome/create-new-gem/CreateGemModal';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
@@ -24,7 +26,18 @@ function UserGemMenu({ gem }) {
   const [showGemAuthEdit, setShowGemAuthEdit] = useState(false);
   const [showGemEdit, setShowGemEdit] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
+  const [activeTab, setActiveTab] = useState(gem.type);
+
   const postEditRef = useRef(null);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showModal]);
 
   const [alertBox, setAlertBox] = useState({
     type: '',
@@ -57,10 +70,53 @@ function UserGemMenu({ gem }) {
       .catch((err) => console.error(err));
   }
 
+  function isPollEnded() {
+    if (gem.body.pollDuration === '- None -') return false;
+    const gemCreatedAt = new Date(gem.createdAt);
+    const pollDurationInDays = gem.body.pollDuration[0];
+    const pollEndTime = new Date(
+      gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
+    );
+    return pollEndTime < new Date();
+  }
+
+  function onGemEdit() {
+    if (gem.type === 'poll' && isPollEnded()) {
+      setAlertBox({
+        type: 'error',
+        message: 'You cannot edit a poll which is ended',
+      });
+      setTimeout(() => {
+        setAlertBox({ type: '', message: '' });
+      }, 2000);
+      return;
+    }
+    setShowModal(true);
+    if (gem.userId === user._id) {
+      setShowGemAuthEdit(false);
+    } else {
+      setShowGemEdit(false);
+    }
+  }
+
+  function handleActiveTab(tabName) {
+    setActiveTab(tabName);
+  }
+
   return (
     <>
       {alertBox.message && (
         <AlertBox type={alertBox.type} message={alertBox.message} />
+      )}
+
+      {showModal && (
+        <CreateGemModal
+          gem={gem}
+          title='Edit gem'
+          closeModal={() => setShowModal(false)}
+          activeTab={activeTab}
+          handleActiveTab={handleActiveTab}
+        />
       )}
 
       <div
@@ -76,7 +132,7 @@ function UserGemMenu({ gem }) {
         {showGemAuthEdit && (
           <Fade in={showGemAuthEdit} timeout={400}>
             <div className='user-gem__edit-wrapper' ref={postEditRef}>
-              <div className='user-gem__edit-item'>
+              <div className='user-gem__edit-item' onClick={onGemEdit}>
                 <EditOutlinedIcon
                   style={{
                     fontSize: '22px',
@@ -119,13 +175,23 @@ function UserGemMenu({ gem }) {
         {showGemEdit && (
           <div className='user-gem__edit-wrapper' ref={postEditRef}>
             <div className='user-gem__edit-item'>
+              <NoMealsOutlinedIcon
+                style={{
+                  fontSize: '20px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Not food related</span>
+            </div>
+
+            <div className='user-gem__edit-item'>
               <SentimentDissatisfiedOutlinedIcon
                 style={{
                   fontSize: '20px',
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Not interested with gem content</span>
+              <span>Not interesting for me</span>
             </div>
 
             <div className='user-gem__edit-item'>
