@@ -25,7 +25,7 @@
 .poll-results__options-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   border-right: 1px solid var(--color-grey);
   width: 300px;
   max-height: 480px;

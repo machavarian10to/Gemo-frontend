@@ -1,4 +1,4 @@
-import { useState, generateId } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -40,7 +40,7 @@ export default function CreateGemContainer({
   }
 
   const [postTabState, setPostTabState] = useState(
-    gem && gem.body
+    gem && gem.type === 'post' && gem.body
       ? gem.body
       : {
           postContent: null,
@@ -52,11 +52,13 @@ export default function CreateGemContainer({
   );
 
   const [mediaTabState, setMediaTabState] = useState(
-    gem && gem.body ? gem.body : { file: null, fileName: null, mediaSrc: null },
+    gem && gem.type === 'media' && gem.body
+      ? gem.body
+      : { file: null, fileName: null, mediaSrc: null },
   );
 
   const [pollTabState, setPollTabState] = useState(
-    gem && gem.body
+    gem && gem.type === 'poll' && gem.body
       ? {
           ...gem.body,
           pollDurations: {
@@ -107,7 +109,7 @@ export default function CreateGemContainer({
   );
 
   const [eventTabState, setEventTabState] = useState(
-    gem && gem.body
+    gem && gem.type === 'event' && gem.body
       ? gem.body
       : {
           file: null,
@@ -122,7 +124,7 @@ export default function CreateGemContainer({
   );
 
   const [gifTabState, setGifTabState] = useState(
-    gem && gem.body ? gem.body : { gif: '', title: '' },
+    gem && gem.type === 'gif' && gem.body ? gem.body : { gif: '', title: '' },
   );
 
   async function clickHandler() {

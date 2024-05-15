@@ -1,7 +1,7 @@
 .speech-bubble-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
   background-color: #fff;
   padding: 25px;
   width: 550px;
@@ -18,14 +18,11 @@
   width: 80%;
   height: 50px;
   position: relative;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   cursor: pointer;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2); */
   background-color: #f1f1f1;
-  background-color: var(--bg-main-white);
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .speech-bubble:before {
@@ -34,26 +31,26 @@
   width: 0;
   height: 0;
   border-top: 20px solid transparent;
-  border-right: 25px solid var(--bg-main-white);
+  border-right: 25px solid #f1f1f1;
+  /* border-right: 25px solid #fff; */
   border-bottom: 15px solid transparent;
   margin: 8px 5px 5px -10px;
   transition: all 0.2s;
 }
 
 .speech-bubble:hover:before {
-  border-right: 25px solid var(--bg-shade-01);
+  /* border-right: 25px solid var(--bg-shade-01); */
 }
 
 .speech-bubble:hover {
-  background-color: var(--bg-shade-01);
-  color: rgba(128, 128, 128, 0.5);
-  font-weight: 600;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
 .user-home__speech-bubble-icons-wrapper {
   color: var(--color-grey);
   display: flex;
   gap: 20px;
+  margin-left: 10px;
 }
 
 .user-home__speech-bubble-icons-wrapper svg {
