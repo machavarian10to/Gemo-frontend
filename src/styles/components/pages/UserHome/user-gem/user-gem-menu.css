@@ -44,3 +44,15 @@
   background-color: #f2f2f2;
   color: var(--color-main-black);
 }
+
+
+.modal-container{
+  background-color: #fff;
+  border-radius: var(--border-radius-rect);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
+  padding: 30px;
+  width: 400px;
+  height: 200px;
+  line-height: 1.5;
+  position: relative;
+}

@@ -33,7 +33,7 @@
   font-size: 18px;
 }
 
-.modal-header button {
+.modal-header button, .modal-container button {
   outline: none;
   border: none;
   background: none;
@@ -44,7 +44,12 @@
   transition: all 0.3s;
 }
 
-.modal-header button:hover {
+.modal-container button{
+  top: 10px;
+  right: 10px;
+}
+
+.modal-header button:hover, .modal-container button:hover {
   opacity: 0.7;
 }
 

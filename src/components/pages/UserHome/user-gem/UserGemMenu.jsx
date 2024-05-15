@@ -12,12 +12,14 @@ import IntegrationInstructionsOutlinedIcon from '@mui/icons-material/Integration
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import NoMealsOutlinedIcon from '@mui/icons-material/NoMealsOutlined';
 import CreateGemModal from '@/components/pages/UserHome/create-new-gem/CreateGemModal';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
 import { useSelector } from 'react-redux';
+import Button from '@/components/UI/Button';
 
 function UserGemMenu({ gem }) {
   const user = useSelector((state) => state.user);
@@ -29,15 +31,17 @@ function UserGemMenu({ gem }) {
   const [showModal, setShowModal] = useState(false);
   const [activeTab, setActiveTab] = useState(gem.type);
 
+  const [showGemDeleteModal, setShowGemDeleteModal] = useState(false);
+
   const postEditRef = useRef(null);
 
   useEffect(() => {
-    if (showModal) {
+    if (showModal || showGemDeleteModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [showModal]);
+  }, [showModal, showGemDeleteModal]);
 
   const [alertBox, setAlertBox] = useState({
     type: '',
@@ -58,6 +62,10 @@ function UserGemMenu({ gem }) {
   }
 
   function onGemDelete() {
+    setShowGemDeleteModal(true);
+  }
+
+  function gemDeleteHandler() {
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
       .then((res) => {
@@ -119,6 +127,36 @@ function UserGemMenu({ gem }) {
         />
       )}
 
+      {showGemDeleteModal && (
+        <Fade in={true} timeout={500}>
+          <div className='modal' onClick={() => setShowGemDeleteModal(false)}>
+            <div className='modal-container'>
+              <h3>Are you sure you want to delete this gem?</h3>
+              <button onClick={() => setShowGemDeleteModal(false)}>
+                <HighlightOffIcon
+                  style={{
+                    color: 'var(--color-main-yellow)',
+                    fontSize: '25px',
+                  }}
+                />
+              </button>
+              <div>
+                <div>
+                  <Button
+                    label='Cancel'
+                    clickHandler={() => setShowGemDeleteModal(false)}
+                    type='danger'
+                  />
+                </div>
+                <div>
+                  <Button label='Delete' clickHandler={gemDeleteHandler} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </Fade>
+      )}
+
       <div
         className={`user-gem__menu ${
           showGemAuthEdit || showGemEdit ? 'user-gem__menu-active' : ''
@@ -130,7 +168,7 @@ function UserGemMenu({ gem }) {
         />
 
         {showGemAuthEdit && (
-          <Fade in={showGemAuthEdit} timeout={400}>
+          <Fade in={showGemAuthEdit} timeout={500}>
             <div className='user-gem__edit-wrapper' ref={postEditRef}>
               <div className='user-gem__edit-item' onClick={onGemEdit}>
                 <EditOutlinedIcon
