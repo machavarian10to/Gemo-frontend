@@ -1,8 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import useClickOutside from '@/hook/useClickOutside';
-import axiosInstance from '@/services/axios';
-import { deleteGem } from '@/state/index';
-import { useDispatch } from 'react-redux';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -12,18 +9,16 @@ import IntegrationInstructionsOutlinedIcon from '@mui/icons-material/Integration
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import NoMealsOutlinedIcon from '@mui/icons-material/NoMealsOutlined';
 import CreateGemModal from '@/components/pages/UserHome/create-new-gem/CreateGemModal';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
 import { useSelector } from 'react-redux';
-import Button from '@/components/UI/Button';
+import UserGemDeleteModal from '@/components/pages/UserHome/user-gem/UserGemDeleteModal';
 
 function UserGemMenu({ gem }) {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   const [showGemAuthEdit, setShowGemAuthEdit] = useState(false);
   const [showGemEdit, setShowGemEdit] = useState(false);
@@ -59,23 +54,6 @@ function UserGemMenu({ gem }) {
     } else {
       setShowGemEdit(!showGemEdit);
     }
-  }
-
-  function onGemDelete() {
-    setShowGemDeleteModal(true);
-  }
-
-  function gemDeleteHandler() {
-    axiosInstance
-      .delete(`/api/gems/${gem._id}`)
-      .then((res) => {
-        setAlertBox({ type: 'success', message: 'Gem deleted successfully!' });
-        dispatch(deleteGem(res.data._id));
-        setTimeout(() => {
-          setAlertBox({ type: '', message: '' });
-        }, 2000);
-      })
-      .catch((err) => console.error(err));
   }
 
   function isPollEnded() {
@@ -128,33 +106,10 @@ function UserGemMenu({ gem }) {
       )}
 
       {showGemDeleteModal && (
-        <Fade in={true} timeout={500}>
-          <div className='modal' onClick={() => setShowGemDeleteModal(false)}>
-            <div className='modal-container'>
-              <h3>Are you sure you want to delete this gem?</h3>
-              <button onClick={() => setShowGemDeleteModal(false)}>
-                <HighlightOffIcon
-                  style={{
-                    color: 'var(--color-main-yellow)',
-                    fontSize: '25px',
-                  }}
-                />
-              </button>
-              <div>
-                <div>
-                  <Button
-                    label='Cancel'
-                    clickHandler={() => setShowGemDeleteModal(false)}
-                    type='danger'
-                  />
-                </div>
-                <div>
-                  <Button label='Delete' clickHandler={gemDeleteHandler} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Fade>
+        <UserGemDeleteModal
+          setShowGemDeleteModal={setShowGemDeleteModal}
+          gemId={gem._id}
+        />
       )}
 
       <div
@@ -179,7 +134,10 @@ function UserGemMenu({ gem }) {
                 />
                 <span>Edit gem</span>
               </div>
-              <div className='user-gem__edit-item' onClick={onGemDelete}>
+              <div
+                className='user-gem__edit-item'
+                onClick={() => setShowGemDeleteModal(true)}
+              >
                 <DeleteOutlineOutlinedIcon
                   style={{
                     fontSize: '22px',

@@ -15,7 +15,7 @@
   width: 570px;
   height: 555px;
   background-color: #fff;
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
   padding: 15px;
 }
@@ -33,7 +33,7 @@
   font-size: 18px;
 }
 
-.modal-header button, .modal-container button {
+.modal-header button{
   outline: none;
   border: none;
   background: none;
@@ -44,12 +44,12 @@
   transition: all 0.3s;
 }
 
-.modal-container button{
+.modal-container button {
   top: 10px;
   right: 10px;
 }
 
-.modal-header button:hover, .modal-container button:hover {
+.modal-header button:hover {
   opacity: 0.7;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .modal-body .audience-wrapper .audience {
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   display: grid;
   place-self: center;
   cursor: pointer;

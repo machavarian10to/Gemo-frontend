@@ -47,6 +47,13 @@
   background: rgba(251, 222, 190, 0.1);
 }
 
+.button-danger:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.button-danger:active {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
 .button-extra-small {
   padding: 6px 10px;
   font-size: 12px;
