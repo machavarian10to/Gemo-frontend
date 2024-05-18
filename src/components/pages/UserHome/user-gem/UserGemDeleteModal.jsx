@@ -7,32 +7,39 @@ import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
 
-function UserGemDeleteModal({ setShowGemDeleteModal, gemId }) {
+function UserGemDeleteModal({ closeDeleteGemModal, gemId }) {
   const dispatch = useDispatch();
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  const [alertBox, setAlertBox] = useState({
-    type: '',
-    message: '',
-  });
+  const [alertBox, setAlertBox] = useState({ type: '', message: '' });
 
   function gemDeleteHandler() {
     setIsButtonDisabled(true);
     axiosInstance
       .delete(`/api/gems/${gemId}`)
-      .then((res) => {
-        dispatch(deleteGem(res.data._id));
-        setAlertBox({ type: 'success', message: 'Gem deleted successfully!' });
-        console.log(alertBox);
+      .then(() => {
+        setAlertBox({
+          type: 'success',
+          message: 'Gem deleted successfully!',
+        });
+
         setTimeout(() => {
+          dispatch(deleteGem(gemId));
+          closeDeleteGemModal();
           setAlertBox({ type: '', message: '' });
-          console.log(alertBox);
         }, 2000);
       })
       .catch((err) => {
-        console.error(err);
+        setAlertBox({
+          type: 'error',
+          message: err.response.data.message || 'Something went wrong!',
+        });
         setIsButtonDisabled(false);
+
+        setTimeout(() => {
+          closeDeleteGemModal();
+          setAlertBox({ type: '', message: '' });
+        }, 2000);
       });
   }
 
@@ -43,7 +50,7 @@ function UserGemDeleteModal({ setShowGemDeleteModal, gemId }) {
       )}
 
       <Fade in={true} timeout={500}>
-        <div className='modal' onClick={() => setShowGemDeleteModal(false)}>
+        <div className='modal' onClick={() => closeDeleteGemModal()}>
           <div
             className='modal-container-wrapper'
             onClick={(e) => e.stopPropagation()}
@@ -55,7 +62,7 @@ function UserGemDeleteModal({ setShowGemDeleteModal, gemId }) {
                 size='large'
                 type='base'
                 label='Cancel'
-                clickHandler={() => setShowGemDeleteModal(false)}
+                clickHandler={() => closeDeleteGemModal()}
               />
               <Button
                 state={isButtonDisabled ? 'inactive' : 'active'}
@@ -73,7 +80,7 @@ function UserGemDeleteModal({ setShowGemDeleteModal, gemId }) {
 }
 
 UserGemDeleteModal.propTypes = {
-  setShowGemDeleteModal: PropTypes.func.isRequired,
+  closeDeleteGemModal: PropTypes.func.isRequired,
   gemId: PropTypes.string.isRequired,
 };
 

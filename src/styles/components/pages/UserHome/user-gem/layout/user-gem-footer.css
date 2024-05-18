@@ -22,8 +22,9 @@
   gap: 8px;
 }
 
-.user-gem__footer-container:last-child {
-  margin-left: auto;
+.user-gem__footer-container[title='Add to favorites'] {
+  position: absolute;
+  right: 0;
 }
 
 .user-gem__footer-container:hover > svg {

@@ -235,7 +235,7 @@ export default function CreateGemContainer({
       });
       setTimeout(() => {
         closeModal();
-      }, 1000);
+      }, 1500);
     } catch (error) {
       setAlertBox({
         message: error.response.data.message,

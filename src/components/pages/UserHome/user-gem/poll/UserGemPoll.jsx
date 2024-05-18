@@ -130,18 +130,19 @@ function UserGemPoll({ gem }) {
     }
 
     setPollOptions(updatedPollOptions);
-    dispatch(
-      updateGem({
-        ...gem,
-        body: { ...gem.body, pollOptions: updatedPollOptions },
-      }),
-    );
     const data = {
       body: { ...gem.body, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then()
+      .then(() => {
+        dispatch(
+          updateGem({
+            ...gem,
+            body: { ...gem.body, pollOptions: updatedPollOptions },
+          }),
+        );
+      })
       .catch((err) => console.error(err));
   }
 
@@ -153,18 +154,19 @@ function UserGemPoll({ gem }) {
       };
     });
     setPollOptions(updatedPollOptions);
-    dispatch(
-      updateGem({
-        ...gem,
-        body: { ...gem.body, pollOptions: updatedPollOptions },
-      }),
-    );
     const data = {
       body: { ...gem.body, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then()
+      .then(() => {
+        dispatch(
+          updateGem({
+            ...gem,
+            body: { ...gem.body, pollOptions: updatedPollOptions },
+          }),
+        );
+      })
       .catch((err) => console.error(err));
   }
 
@@ -192,18 +194,18 @@ function UserGemPoll({ gem }) {
         },
       ];
       setPollOptions(updatedPollOptions);
-      dispatch(
-        updateGem({
-          ...gem,
-          body: { ...gem.body, pollOptions: updatedPollOptions },
-        }),
-      );
       const data = {
         body: { ...gem.body, pollOptions: updatedPollOptions },
       };
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
         .then(() => {
+          dispatch(
+            updateGem({
+              ...gem,
+              body: { ...gem.body, pollOptions: updatedPollOptions },
+            }),
+          );
           setAlert({
             type: 'success',
             message: 'Option added!',

@@ -107,7 +107,7 @@ function UserGemMenu({ gem }) {
 
       {showGemDeleteModal && (
         <UserGemDeleteModal
-          setShowGemDeleteModal={setShowGemDeleteModal}
+          closeDeleteGemModal={() => setShowGemDeleteModal(false)}
           gemId={gem._id}
         />
       )}
