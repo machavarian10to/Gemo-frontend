@@ -9,29 +9,30 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import Fade from '@mui/material/Fade';
 import AddComment from '@/components/pages/UserHome/user-gem/AddComment';
 import Comment from '@/components/pages/UserHome/user-gem/Comment';
+import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateGem } from '@/state/index';
 
-function UserGemFooter() {
+function UserGemFooter({ gem }) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const emojiPickerRef = useRef(null);
-  const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
-  const [postEmojis, setPostEmojis] = useState([]);
 
   const [showCommentSection, setShowCommentSection] = useState(false);
   const [commentList, setCommentList] = useState([]);
-
-  useEffect(() => {
-    const count = postEmojis.reduce((acc, emoji) => {
-      return acc + emoji.count;
-    }, 0);
-    setEmojiCount(count);
-  }, [postEmojis]);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
 
+  function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
   function addEmoji(postEmoji) {
-    const emojiIndex = postEmojis.findIndex(
+    const emojiIndex = gem.reacts.findIndex(
       (emoji) => emoji.emoji === postEmoji.emoji,
     );
 
@@ -40,15 +41,24 @@ function UserGemFooter() {
       return;
     }
 
-    setPostEmojis((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        emoji: postEmoji.emoji,
-        count: 1,
-        isClicked: true,
-      },
-    ]);
+    const newGem = {
+      ...gem,
+      reacts: [
+        ...gem.reacts,
+        {
+          userId: user._id,
+          userName: user.userName,
+          userPhoto: user.profilePicture,
+          id: generateId(),
+          emoji: postEmoji.emoji,
+          count: 1,
+          isClicked: true,
+        },
+      ],
+    };
+
+    dispatch(updateGem({ _id: gem._id, ...newGem }));
+
     setShowEmojis(false);
   }
 
@@ -74,7 +84,7 @@ function UserGemFooter() {
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
           <span>React</span>
-          <span>{emojiCount}</span>
+          <span>{gem.reacts.length}</span>
         </div>
         <div
           className={`user-gem__footer-container ${
@@ -113,7 +123,7 @@ function UserGemFooter() {
         )}
       </div>
 
-      {postEmojis.length > 0 && (
+      {gem.reacts.length > 0 && (
         <div className='user-gem__emoji-list'>
           {postEmojis.map((postEmoji) => (
             <div
@@ -153,5 +163,9 @@ function UserGemFooter() {
     </>
   );
 }
+
+UserGemFooter.propTypes = {
+  gem: PropTypes.object.isRequired,
+};
 
 export default UserGemFooter;

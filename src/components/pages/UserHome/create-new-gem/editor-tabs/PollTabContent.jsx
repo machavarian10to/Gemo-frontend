@@ -194,14 +194,17 @@ function PollTabContent({ pollTabState, setPollTabState }) {
             <div className='select-component-wrapper'>
               <div className='poll-tab-content-multi-select'>
                 <Checkbox
+                  checked={pollTabState.multipleSelection}
                   label='multiple option selection'
                   onChange={onMultipleOptionCheck}
                 />
                 <Checkbox
+                  checked={pollTabState.hidePeoplesVotes}
                   label='hide peoples votes'
                   onChange={onHidePeopleVotes}
                 />
                 <Checkbox
+                  checked={pollTabState.usersCanAddOptions}
                   label='users can add options'
                   onChange={onUsersCanAddOptions}
                 />

@@ -57,7 +57,7 @@ function GemContainer({ gem }) {
           gem.type === 'poll' && <UserGemPoll gem={gem} />
         )}
 
-        <UserGemFooter />
+        <UserGemFooter gem={gem} />
       </div>
     </>
   );

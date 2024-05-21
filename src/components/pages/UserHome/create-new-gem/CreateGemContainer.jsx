@@ -22,6 +22,30 @@ export default function CreateGemContainer({
   activeTab,
   handleActiveTab,
 }) {
+  const pollDurationOptions = [
+    {
+      id: generateId(),
+      name: '1 Day',
+    },
+    {
+      id: generateId(),
+      name: '2 Days',
+    },
+    {
+      id: generateId(),
+      name: '3 Days',
+      selected: true,
+    },
+    {
+      id: generateId(),
+      name: '7 Days',
+    },
+    {
+      id: generateId(),
+      name: '- None -',
+    },
+  ];
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -61,9 +85,14 @@ export default function CreateGemContainer({
     gem && gem.type === 'poll' && gem.body
       ? {
           ...gem.body,
+          pollOptions: gem.body.pollOptions.map((option, index) => ({
+            ...option,
+            deleteIcon: index > 0 ? true : false,
+          })),
           pollDurations: {
-            ...gem.body.pollDurations,
+            showDurations: false,
             selectedDuration: gem.body.pollDuration,
+            options: pollDurationOptions,
           },
         }
       : {
@@ -81,29 +110,7 @@ export default function CreateGemContainer({
           pollDurations: {
             showDurations: false,
             selectedDuration: '- None -',
-            options: [
-              {
-                id: generateId(),
-                name: '1 Day',
-              },
-              {
-                id: generateId(),
-                name: '2 Days',
-              },
-              {
-                id: generateId(),
-                name: '3 Days',
-                selected: true,
-              },
-              {
-                id: generateId(),
-                name: '7 Days',
-              },
-              {
-                id: generateId(),
-                name: '- None -',
-              },
-            ],
+            options: pollDurationOptions,
           },
         },
   );

@@ -186,7 +186,7 @@
 .EmojiPickerReact:not(.epr-search-active)
   .epr-category-nav
   > button.epr-cat-btn:hover {
-  background-position-y: none;
+  background-position-y: 0px !important;
 }
 
 .EmojiPickerReact.epr-dark-theme {
