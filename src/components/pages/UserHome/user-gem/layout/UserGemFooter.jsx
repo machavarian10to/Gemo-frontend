@@ -32,59 +32,53 @@ function UserGemFooter({ gem }) {
   }
 
   function addEmoji(gemEmoji) {
-    // const isUserAlreadyReacted = gem.reacts.some(
-    //   (react) => react.userId === user._id,
-    // );
-
     const isEmojiAlreadyExists = gem.reacts.some(
       (react) => react.emoji === gemEmoji.emoji,
     );
 
-    if (isEmojiAlreadyExists) {
+    if (!isEmojiAlreadyExists) {
       const reactedGem = {
         ...gem,
-        reacts: gem.reacts.map((react) =>
-          react.emoji === gemEmoji.emoji && react.userId !== user._id
-            ? {
-                ...react,
-                count: react.count + 1,
-              }
-            : react,
-        ),
+        reacts: [
+          ...gem.reacts,
+          {
+            id: generateId(),
+            count: 1,
+            emoji: gemEmoji.emoji,
+            users: [
+              {
+                id: user._id,
+                userName: user.username,
+                userPhoto: user.profilePicture,
+              },
+            ],
+          },
+        ],
       };
+
       dispatch(updateGem({ _id: gem._id, ...reactedGem }));
       setShowEmojis(false);
       return;
     }
 
-    const reactedGem = {
-      ...gem,
-      reacts: [
-        ...gem.reacts,
-        {
-          id: generateId(),
-          emoji: gemEmoji.emoji,
-          count: 1,
-          userId: user._id,
-          userName: user.username,
-          userPhoto: user.profilePicture,
-        },
-      ],
-    };
+    const isUserAlreadyReacted = gem.reacts.some((react) =>
+      react.users.some((user) => user.id === user._id),
+    );
+
     dispatch(updateGem({ _id: gem._id, ...reactedGem }));
     setShowEmojis(false);
   }
 
-  // function removeEmojiIfAlreadyClicked(id) {
-  //   const emojiIndex = postEmojis.findIndex((emoji) => emoji.id === id);
-  //   if (postEmojis[emojiIndex].isClicked) {
-  //     setPostEmojis((prev) => [
-  //       ...prev.slice(0, emojiIndex),
-  //       ...prev.slice(emojiIndex + 1),
-  //     ]);
-  //     return;
-  //   }
-  // }
+  function removeEmojiIfAlreadyClicked(id) {
+    //   const emojiIndex = postEmojis.findIndex((emoji) => emoji.id === id);
+    //   if (postEmojis[emojiIndex].isClicked) {
+    //     setPostEmojis((prev) => [
+    //       ...prev.slice(0, emojiIndex),
+    //       ...prev.slice(emojiIndex + 1),
+    //     ]);
+    //     return;
+    //   }
+  }
 
   return (
     <>
@@ -136,22 +130,22 @@ function UserGemFooter({ gem }) {
         )}
       </div>
 
-      {/* {gem.reacts.length > 0 && (
+      {gem.reacts.length > 0 && (
         <div className='user-gem__emoji-list'>
-          {postEmojis.map((postEmoji) => (
+          {gem.reacts.map((react) => (
             <div
-              key={postEmoji.id}
-              className={`user-gem__emoji-wrapper ${
-                postEmoji.isClicked ? 'active-emoji' : ''
-              }`}
-              onClick={() => removeEmojiIfAlreadyClicked(postEmoji.id)}
+              key={react.id}
+              className='user-gem__emoji-wrapper'
+              // className={`user-gem__emoji-wrapper
+              // ${react.isClicked ? 'active-emoji' : ''}`}
+              onClick={() => removeEmojiIfAlreadyClicked(react.id)}
             >
-              <div className='user-gem__emoji'>{postEmoji.emoji}</div>
-              <div className='user-gem__emoji-count'>{postEmoji.count}</div>
+              <div className='user-gem__emoji'>{react.emoji}</div>
+              <div className='user-gem__emoji-count'>{react.count}</div>
             </div>
           ))}
         </div>
-      )} */}
+      )}
 
       {showCommentSection && (
         <Fade in={true} timeout={600}>
