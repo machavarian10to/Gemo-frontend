@@ -160,7 +160,6 @@ body,
   color: var(--color-main-black);
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 html {

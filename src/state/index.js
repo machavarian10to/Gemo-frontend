@@ -30,7 +30,7 @@ export const authSlice = createSlice({
       state.gems = updatedGems;
     },
     updateGem: (state, action) => {
-      console.log(action.payload);
+      console.log('redux', action.payload);
       const updatedGems = state.gems.map((gem) =>
         gem._id === action.payload._id ? action.payload : gem,
       );

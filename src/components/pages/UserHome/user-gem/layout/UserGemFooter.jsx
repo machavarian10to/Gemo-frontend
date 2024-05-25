@@ -12,7 +12,7 @@ import Comment from '@/components/pages/UserHome/user-gem/Comment';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateGem } from '@/state/index';
-
+import axiosInstance from '@/services/axios';
 function UserGemFooter({ gem }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -27,57 +27,75 @@ function UserGemFooter({ gem }) {
     setShowEmojis(false);
   });
 
-  function generateId() {
-    return Math.random().toString(36).substr(2, 9);
-  }
-
   function addEmoji(gemEmoji) {
-    const isEmojiAlreadyExists = gem.reacts.some(
+    const newReaction = {
+      emoji: gemEmoji.emoji,
+      users: [
+        {
+          id: user._id,
+          userName: user.username,
+          userPhoto: user.profilePicture,
+        },
+      ],
+    };
+
+    let updatedReactions = gem.reacts
+      .map((react) => {
+        const updatedUsers = react.users.filter(
+          (reactingUser) => reactingUser.id !== user._id,
+        );
+        return updatedUsers.length > 0
+          ? { ...react, users: updatedUsers }
+          : null;
+      })
+      .filter((react) => react !== null);
+
+    const existingReactionIndex = updatedReactions.findIndex(
       (react) => react.emoji === gemEmoji.emoji,
     );
 
-    if (!isEmojiAlreadyExists) {
-      const reactedGem = {
-        ...gem,
-        reacts: [
-          ...gem.reacts,
-          {
-            id: generateId(),
-            count: 1,
-            emoji: gemEmoji.emoji,
-            users: [
-              {
-                id: user._id,
-                userName: user.username,
-                userPhoto: user.profilePicture,
-              },
-            ],
-          },
-        ],
-      };
-
-      dispatch(updateGem({ _id: gem._id, ...reactedGem }));
-      setShowEmojis(false);
-      return;
+    if (existingReactionIndex !== -1) {
+      updatedReactions[existingReactionIndex].users.push(newReaction.users[0]);
+    } else {
+      updatedReactions.push(newReaction);
     }
 
-    const isUserAlreadyReacted = gem.reacts.some((react) =>
-      react.users.some((user) => user.id === user._id),
-    );
-
-    dispatch(updateGem({ _id: gem._id, ...reactedGem }));
-    setShowEmojis(false);
+    axiosInstance
+      .put(`/api/gems/${gem._id}/add-gem-react`, { reacts: updatedReactions })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(updateGem({ _id: gem._id, ...res.data }));
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setShowEmojis(false);
+      });
   }
 
   function removeEmojiIfAlreadyClicked(id) {
-    //   const emojiIndex = postEmojis.findIndex((emoji) => emoji.id === id);
-    //   if (postEmojis[emojiIndex].isClicked) {
-    //     setPostEmojis((prev) => [
-    //       ...prev.slice(0, emojiIndex),
-    //       ...prev.slice(emojiIndex + 1),
-    //     ]);
-    //     return;
-    //   }
+    const updatedReactions = gem.reacts
+      .map((react) => {
+        const userIndex = react.users.findIndex(
+          (reactingUser) => reactingUser.id === user._id,
+        );
+
+        if (userIndex !== -1) {
+          return {
+            ...react,
+            users: [
+              ...react.users.slice(0, userIndex),
+              ...react.users.slice(userIndex + 1),
+            ],
+          };
+        }
+
+        return react;
+      })
+      .filter((react) => react.users.length > 0);
+
+    const updatedGem = { ...gem, reacts: updatedReactions };
+
+    dispatch(updateGem({ _id: gem._id, ...updatedGem }));
   }
 
   return (
@@ -134,14 +152,17 @@ function UserGemFooter({ gem }) {
         <div className='user-gem__emoji-list'>
           {gem.reacts.map((react) => (
             <div
-              key={react.id}
-              className='user-gem__emoji-wrapper'
-              // className={`user-gem__emoji-wrapper
-              // ${react.isClicked ? 'active-emoji' : ''}`}
+              key={react._id}
+              className={`user-gem__emoji-wrapper ${
+                react.users.some((reactingUser) => reactingUser.id === user._id)
+                  ? 'active-emoji'
+                  : ''
+              }`}
               onClick={() => removeEmojiIfAlreadyClicked(react.id)}
             >
               <div className='user-gem__emoji'>{react.emoji}</div>
-              <div className='user-gem__emoji-count'>{react.count}</div>
+              <div className='user-gem__emoji-count'>{react.users.length}</div>
+              {react.users[0]._id}
             </div>
           ))}
         </div>
