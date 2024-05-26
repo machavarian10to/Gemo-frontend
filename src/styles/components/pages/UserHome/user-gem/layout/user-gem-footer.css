@@ -63,13 +63,18 @@
   align-items: center;
   gap: 5px;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 3px 8px;
+  border: 2px solid #ccc;
+  padding: 5px 10px;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-gem__emoji-wrapper:hover {
+  transform: scale(1.05);
 }
 
 .user-gem__emoji-count {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #ccc;
 }
@@ -168,7 +173,9 @@
   color: var(--color-main-yellow);
 }
 
-.user-gem__comment-show-more-comments {
+.user-gem__comment-show-more-comments,
+.user-gem__view-reacts {
+  width: 100px;
   margin-top: 13px;
   font-size: 13px;
   font-weight: 600;
@@ -178,7 +185,12 @@
   transition: all 0.3s;
 }
 
-.user-gem__comment-show-more-comments:hover {
+.user-gem__view-reacts {
+  margin-top: 8px;
+}
+
+.user-gem__comment-show-more-comments:hover,
+.user-gem__view-reacts:hover {
   color: var(--color-main-yellow);
 }
 
