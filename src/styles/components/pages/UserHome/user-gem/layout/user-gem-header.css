@@ -1,7 +1,7 @@
 .user-gem__header {
   display: flex;
   justify-content: space-between;
-  align-items: c;
+  align-items: center;
 }
 .user-gem__user-info {
   display: flex;

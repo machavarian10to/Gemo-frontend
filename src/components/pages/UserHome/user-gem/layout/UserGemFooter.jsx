@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
@@ -13,12 +13,15 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateGem } from '@/state/index';
 import axiosInstance from '@/services/axios';
+import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
+
 function UserGemFooter({ gem }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const emojiPickerRef = useRef(null);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [showReactionsModal, setShowReactionsModal] = useState(false);
 
   const [showCommentSection, setShowCommentSection] = useState(false);
   const [commentList, setCommentList] = useState([]);
@@ -26,6 +29,14 @@ function UserGemFooter({ gem }) {
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
+
+  useEffect(() => {
+    if (showReactionsModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showReactionsModal]);
 
   function addEmoji(gemEmoji) {
     const newReaction = {
@@ -141,7 +152,11 @@ function UserGemFooter({ gem }) {
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
           <span>React</span>
-          <span>{gem.reacts.length}</span>
+          <span>
+            {gem.reacts
+              .map((react) => react.users.length)
+              .reduce((a, b) => a + b, 0)}
+          </span>
         </div>
         <div
           className={`user-gem__footer-container ${
@@ -203,8 +218,20 @@ function UserGemFooter({ gem }) {
             ))}
           </div>
 
-          <span className='user-gem__view-reacts'>View reactions</span>
+          <span
+            className='user-gem__view-reacts'
+            onClick={() => setShowReactionsModal(true)}
+          >
+            view reactions
+          </span>
         </>
+      )}
+
+      {showReactionsModal && (
+        <ViewReactsModal
+          reacts={gem.reacts}
+          closeModal={() => setShowReactionsModal(false)}
+        />
       )}
 
       {showCommentSection && (
