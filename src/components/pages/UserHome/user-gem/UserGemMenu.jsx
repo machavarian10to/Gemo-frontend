@@ -14,10 +14,13 @@ import CreateGemModal from '@/components/pages/UserHome/create-new-gem/CreateGem
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import UserGemDeleteModal from '@/components/pages/UserHome/user-gem/UserGemDeleteModal';
+import axiosInstance from '@/services/axios';
+import { deleteGem } from '@/state/index';
 
 function UserGemMenu({ gem }) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   const [showGemAuthEdit, setShowGemAuthEdit] = useState(false);
@@ -89,6 +92,32 @@ function UserGemMenu({ gem }) {
     setActiveTab(tabName);
   }
 
+  function gemDeleteHandler() {
+    setShowGemAuthEdit(false);
+    axiosInstance
+      .delete(`/api/gems/${gem._id}`)
+      .then(() => {
+        setAlertBox({
+          type: 'success',
+          message: 'Gem deleted successfully!',
+        });
+
+        setTimeout(() => {
+          dispatch(deleteGem(gem._id));
+          setAlertBox({ type: '', message: '' });
+        }, 1000);
+      })
+      .catch((err) => {
+        setAlertBox({
+          type: 'error',
+          message: err.response.data.message || 'Something went wrong!',
+        });
+        setTimeout(() => {
+          setAlertBox({ type: '', message: '' });
+        }, 1000);
+      });
+  }
+
   return (
     <>
       {alertBox.message && (
@@ -134,10 +163,7 @@ function UserGemMenu({ gem }) {
                 />
                 <span>Edit gem</span>
               </div>
-              <div
-                className='user-gem__edit-item'
-                onClick={() => setShowGemDeleteModal(true)}
-              >
+              <div className='user-gem__edit-item' onClick={gemDeleteHandler}>
                 <DeleteOutlineOutlinedIcon
                   style={{
                     fontSize: '22px',

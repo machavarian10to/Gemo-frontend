@@ -1,16 +1,22 @@
 .modal-reactions {
   display: flex;
   align-items: center;
+  overflow-x: auto;
+}
+
+.modal-reactions-user-reacts-list {
+  height: 430px;
+  overflow: auto;
 }
 
 .modal-reactions-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 13px 15px;
   gap: 10px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   font-weight: 600;
   transition: all 0.3s;
 }
@@ -22,7 +28,7 @@
 }
 
 .modal-reactions-header.active {
-  border-bottom: 2px solid var(--color-main-yellow);
+  border-bottom: 3px solid var(--color-main-yellow);
 }
 
 .modal-reactions-user-react {

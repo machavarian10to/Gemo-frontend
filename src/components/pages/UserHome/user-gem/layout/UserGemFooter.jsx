@@ -143,6 +143,46 @@ function UserGemFooter({ gem }) {
 
   return (
     <>
+      {gem.reacts.length > 0 && (
+        <>
+          <div className='user-gem__emoji-list'>
+            {gem.reacts.map((react) => (
+              <div
+                key={react._id}
+                className={`user-gem__emoji-wrapper ${
+                  react.users.some(
+                    (reactingUser) => reactingUser.userId === user._id,
+                  )
+                    ? 'active-emoji'
+                    : ''
+                }`}
+                onClick={() => updateGemReacts(react.emoji)}
+              >
+                <div className='user-gem__emoji'>{react.emoji}</div>
+                <div className='user-gem__emoji-count'>
+                  {react.users.length}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className='user-gem__view-reacts-wrapper'>
+            <span
+              className='user-gem__view-reacts'
+              onClick={() => setShowReactionsModal(true)}
+            >
+              see reactions
+            </span>
+          </div>
+        </>
+      )}
+
+      {showReactionsModal && (
+        <ViewReactsModal
+          reacts={gem.reacts}
+          closeModal={() => setShowReactionsModal(false)}
+        />
+      )}
       <div className='user-gem__footer'>
         <div
           className={`user-gem__footer-container ${
@@ -194,45 +234,6 @@ function UserGemFooter({ gem }) {
           </div>
         )}
       </div>
-
-      {gem.reacts.length > 0 && (
-        <>
-          <div className='user-gem__emoji-list'>
-            {gem.reacts.map((react) => (
-              <div
-                key={react._id}
-                className={`user-gem__emoji-wrapper ${
-                  react.users.some(
-                    (reactingUser) => reactingUser.userId === user._id,
-                  )
-                    ? 'active-emoji'
-                    : ''
-                }`}
-                onClick={() => updateGemReacts(react.emoji)}
-              >
-                <div className='user-gem__emoji'>{react.emoji}</div>
-                <div className='user-gem__emoji-count'>
-                  {react.users.length}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <span
-            className='user-gem__view-reacts'
-            onClick={() => setShowReactionsModal(true)}
-          >
-            view reactions
-          </span>
-        </>
-      )}
-
-      {showReactionsModal && (
-        <ViewReactsModal
-          reacts={gem.reacts}
-          closeModal={() => setShowReactionsModal(false)}
-        />
-      )}
 
       {showCommentSection && (
         <Fade in={true} timeout={600}>

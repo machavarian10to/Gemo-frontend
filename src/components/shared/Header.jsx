@@ -18,7 +18,7 @@ function Header() {
   return (
     <div className='header'>
       <NavLink to='/' className='logo-link'>
-        <div className='logo'></div>
+        <div className='logo' onClick={() => window.scrollTo(0, 0)}></div>
       </NavLink>
       <div className='header-search'>
         <Input

@@ -58,7 +58,17 @@ function PollResultsModal({ pollOptions, closeModal }) {
                   .users.map((user) => (
                     <div key={user.id} className='poll-results__user-wrapper'>
                       <UserAvatar width={30} height={30} src={user.userPhoto} />
-                      <div className='poll-results__user'>@{user.username}</div>
+                      <div className='user-gem__username'>
+                        @
+                        <a
+                          href={`/user/@${user.username}`}
+                          target='_blank'
+                          rel='noreferrer'
+                          className='user-gem__username-link'
+                        >
+                          {user.username}
+                        </a>
+                      </div>
                     </div>
                   ))
               )}

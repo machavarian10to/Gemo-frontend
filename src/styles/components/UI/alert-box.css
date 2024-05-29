@@ -17,7 +17,7 @@
   animation: slideInFromRight 0.5s;
 }
 
-/* .notification-component.success {
+.notification-component.success {
   border: 2.5px solid var(--color-main-green);
 }
 
@@ -31,7 +31,7 @@
 
 .notification-component.warning {
   border: 2.5px solid var(--color-main-yellow);
-} */
+}
 
 .notification-component_message {
   font-size: 1rem;

@@ -6,7 +6,6 @@ import { useRef, useState } from 'react';
 import UserAvatar from '@/components/shared/UserAvatar';
 
 function ViewReactsModal({ reacts, closeModal }) {
-  console.log(reacts);
   const modalContentRef = useRef();
   useClickOutside(modalContentRef, () => closeModal());
 
@@ -58,7 +57,7 @@ function ViewReactsModal({ reacts, closeModal }) {
           <div className='modal-reactions-list'>
             <div className='modal-reactions-container'>
               {activeTab === 'all' ? (
-                <div>
+                <div className='modal-reactions-user-reacts-list'>
                   {reacts.map((react) => (
                     <div key={react._id}>
                       {react.users.map((user) => (
