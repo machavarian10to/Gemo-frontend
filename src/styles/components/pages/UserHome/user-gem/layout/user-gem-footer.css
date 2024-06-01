@@ -176,8 +176,7 @@
 .user-gem__view-reacts-wrapper {
   display: flex;
   align-items: center;
-  gap: 2px;
-  margin-block: 10px;
+  margin: 5px 0 10px 0;
 }
 
 .user-gem__comment-show-more-comments,

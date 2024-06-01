@@ -6,14 +6,13 @@ import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import Fade from '@mui/material/Fade';
-import AddComment from '@/components/pages/UserHome/user-gem/AddComment';
-import Comment from '@/components/pages/UserHome/user-gem/Comment';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateGem } from '@/state/index';
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
 
 function UserGemFooter({ gem }) {
   const user = useSelector((state) => state.user);
@@ -24,7 +23,6 @@ function UserGemFooter({ gem }) {
   const [showReactionsModal, setShowReactionsModal] = useState(false);
 
   const [showCommentSection, setShowCommentSection] = useState(false);
-  const [commentList, setCommentList] = useState([]);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -167,6 +165,9 @@ function UserGemFooter({ gem }) {
           </div>
 
           <div className='user-gem__view-reacts-wrapper'>
+            <KeyboardArrowRightOutlinedIcon
+              style={{ color: 'var(--color-grey)', fontSize: '23px' }}
+            />
             <span
               className='user-gem__view-reacts'
               onClick={() => setShowReactionsModal(true)}
@@ -183,6 +184,7 @@ function UserGemFooter({ gem }) {
           closeModal={() => setShowReactionsModal(false)}
         />
       )}
+
       <div className='user-gem__footer'>
         <div
           className={`user-gem__footer-container ${
@@ -206,7 +208,7 @@ function UserGemFooter({ gem }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
-          <span>{commentList.length}</span>
+          <span>{gem.comments.length}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
@@ -235,26 +237,7 @@ function UserGemFooter({ gem }) {
         )}
       </div>
 
-      {showCommentSection && (
-        <Fade in={true} timeout={600}>
-          <div className='user-gem__comment-section'>
-            <AddComment placeholder='Write a comment' />
-
-            {commentList.length > 0 && (
-              <div className='user-gem__comment-list'>
-                {commentList.map((comment) => (
-                  <Comment key={comment.id} comment={comment} />
-                ))}
-              </div>
-            )}
-            {commentList.length > 1 && (
-              <div className='user-gem__comment-show-more-comments'>
-                show more comments
-              </div>
-            )}
-          </div>
-        </Fade>
-      )}
+      {showCommentSection && <CommentSection gem={gem} />}
     </>
   );
 }

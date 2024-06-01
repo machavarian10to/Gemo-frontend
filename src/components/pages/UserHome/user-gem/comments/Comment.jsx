@@ -10,7 +10,8 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import { Fade } from '@mui/material';
-import AddComment from '@/components/pages/UserHome/user-gem/AddComment';
+import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
+
 function Comment({ comment }) {
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
