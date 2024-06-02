@@ -67,5 +67,8 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--color-grey);
-  cursor: pointer;
+}
+
+.user-gem__username-comment {
+  font-size: 0.8rem;
 }

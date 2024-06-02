@@ -57,20 +57,22 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
       commentData.gif = media.gifSrc;
     }
 
-    // axiosInstance
-    //   .post(`/api/comments/${gem._id}`, commentData)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.error(err));
-
     if (media.file) {
       const formData = new FormData();
       commentData.fileName = media.fileName;
       formData.append('comment', JSON.stringify(commentData));
       formData.append('file', media.file);
-      dispatch(updateGem({ ...gem, comments: [...gem.comments, commentData] }));
-    } else {
-      dispatch(updateGem({ ...gem, comments: [...gem.comments, commentData] }));
     }
+
+    axiosInstance
+      .post(`/api/comments/${gem._id}`, commentData)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(
+          updateGem({ ...gem, comments: [...gem.comments, commentData] }),
+        );
+      })
+      .catch((err) => console.error(err));
 
     setUserComment('');
     setMedia({
@@ -244,7 +246,7 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
 };
 
 AddComment.propTypes = {
-  gem: PropTypes.object.isRequired,
+  gem: PropTypes.object,
   placeholder: PropTypes.string,
   value: PropTypes.string,
 };

@@ -46,7 +46,10 @@
 }
 
 .user-gem__date span {
-  color: #ccc;
+  color: var(--color-grey);
+  opacity: 0.9;
+  font-weight: 500;
+  font-size: 0.6rem;
 }
 
 .user-gem__menu-options-wrapper {

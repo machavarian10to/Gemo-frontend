@@ -13,6 +13,7 @@ import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 
 function Comment({ comment }) {
+  console.log(comment);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
@@ -37,6 +38,27 @@ function Comment({ comment }) {
   useClickOutside(editCommentRef, () => {
     setShowEditComment(false);
   });
+
+  function getTimeDifference(date) {
+    const currentTime = new Date();
+    const timeDifference = Math.abs(currentTime - date);
+    const secondsDifference = Math.round(timeDifference / 1000);
+    const minutesDifference = Math.round(secondsDifference / 60);
+    const hoursDifference = Math.round(minutesDifference / 60);
+    const daysDifference = Math.round(hoursDifference / 24);
+
+    if (daysDifference > 0) {
+      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} minute${
+        minutesDifference !== 1 ? 's' : ''
+      } ago`;
+    } else {
+      return `just now`;
+    }
+  }
 
   function addEmoji(commentEmoji) {
     const emojiIndex = commentEmojis.findIndex(
@@ -74,18 +96,24 @@ function Comment({ comment }) {
   return (
     <div className='user-gem__comment-wrapper'>
       <div className='user-gem__comment'>
-        <UserAvatar
-          width={32}
-          height={32}
-          src='https://picsum.photos/400/600'
-        />
+        <UserAvatar width={35} height={32} src={comment.userPhoto} />
         <div className='user-gem__comment-details'>
           <div className='user-gem__comment-details-header'>
             <div className='user-gem__comment-details-header-wrapper'>
-              <div className='user-gem__comment-username'>@machavarian10to</div>
+              <div className='user-gem__username user-gem__username-comment'>
+                @
+                <a
+                  href={`/user/@${comment.userName}`}
+                  target='_blank'
+                  rel='noreferrer'
+                  className='user-gem__username-link'
+                >
+                  {comment.userName}
+                </a>
+              </div>
               <div className='user-gem__date'>
                 <span>•</span>
-                <span>1 day ago</span>
+                <span>{getTimeDifference(new Date(comment.createdAt))}</span>
               </div>
             </div>
             <div
@@ -128,7 +156,7 @@ function Comment({ comment }) {
               </Fade>
             )}
           </div>
-          <div className='user-gem__comment-text'>{comment.text}</div>
+          <div className='user-gem__comment-text'>{comment.comment}</div>
           {commentEmojis.length > 0 && (
             <div className='user-gem__emoji-list'>
               {commentEmojis.map((commentEmoji) => (
@@ -200,7 +228,10 @@ function Comment({ comment }) {
         <Fade in={showCommentReply} timeout={400}>
           <div className='user-gem__comment-reply-wrapper'>
             <div className='user-gem__comment-reply'>
-              <AddComment placeholder={`Reply to ${emojiCount}`} value='test' />
+              <AddComment
+                placeholder={`Reply to ${comment.userName}`}
+                value={'@' + comment.userName}
+              />
             </div>
 
             <div className='user-gem__comment-reply-actions'>
