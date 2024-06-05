@@ -15,8 +15,8 @@
 
 .user-gem__comment-edit-wrapper {
   position: absolute;
-  top: 120%;
-  right: 0;
+  top: 115%;
+  right: -10%;
   padding: 3px;
   background-color: #fff;
   z-index: 200;
@@ -32,20 +32,24 @@
   transition: all 0.2s;
   border-radius: var(--border-radius-rect) ;
   padding: 2px;
+  cursor: pointer;
 }
 
-.user-gem__comment-menu:hover{
-  background-color: #fff;
+.user-gem__comment-menu.active path{
+  color: var(--color-main-yellow);
+}
+
+.user-gem__comment-menu path{
+  transition: all 0.2s;
+}
+
+.user-gem__comment-menu:hover path{
+  color: var(--color-main-yellow);
 }
 
 .user-gem__comment-edit-item {
-  color: var(--color-main-grey);
-  padding: 8px;
-  border-radius: var(--border-radius-rect) ;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .user-gem__comment-edit-item:hover {

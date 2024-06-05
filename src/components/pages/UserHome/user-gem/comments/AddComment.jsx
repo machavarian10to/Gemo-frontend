@@ -67,7 +67,6 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
     axiosInstance
       .post(`/api/comments/${gem._id}`, commentData)
       .then((res) => {
-        console.log(res.data);
         dispatch(
           updateGem({ ...gem, comments: [...gem.comments, commentData] }),
         );

@@ -4,16 +4,16 @@ import useClickOutside from '@/hook/useClickOutside';
 import PropTypes from 'prop-types';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EmojiPicker from 'emoji-picker-react';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
+import axiosInstance from '@/services/axios';
 
 function Comment({ comment }) {
-  console.log(comment);
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
@@ -93,6 +93,11 @@ function Comment({ comment }) {
     }
   }
 
+  function deleteComment() {
+    console.log('Comment deleted');
+    // axiosInstance.delete(`/api/comments/${comment._id}`);
+  }
+
   return (
     <div className='user-gem__comment-wrapper'>
       <div className='user-gem__comment'>
@@ -117,12 +122,11 @@ function Comment({ comment }) {
               </div>
             </div>
             <div
-              className='user-gem__comment-menu'
-              style={{
-                background: showEditComment && '#fff',
-              }}
+              className={`user-gem__comment-menu ${
+                showEditComment && 'active'
+              }`}
             >
-              <MoreHorizIcon
+              <MoreVertOutlinedIcon
                 style={{ color: 'var(--color-main-grey)', fontSize: '20px' }}
                 onClick={() => setShowEditComment((prev) => !prev)}
               />
@@ -141,16 +145,19 @@ function Comment({ comment }) {
                         color: 'var(--color-main-yellow)',
                       }}
                     />
-                    <span>Edit</span>
+                    <span>Edit comment</span>
                   </div>
-                  <div className='user-gem__comment-edit-item'>
+                  <div
+                    className='user-gem__comment-edit-item'
+                    onClick={deleteComment}
+                  >
                     <DeleteOutlineOutlinedIcon
                       style={{
                         fontSize: '18px',
                         color: 'var(--color-main-yellow)',
                       }}
                     />
-                    <span>Delete</span>
+                    <span>Delete comment</span>
                   </div>
                 </div>
               </Fade>
@@ -229,7 +236,7 @@ function Comment({ comment }) {
           <div className='user-gem__comment-reply-wrapper'>
             <div className='user-gem__comment-reply'>
               <AddComment
-                placeholder={`Reply to ${comment.userName}`}
+                placeholder={`Reply to @${comment.userName}`}
                 value={'@' + comment.userName}
               />
             </div>
