@@ -41,6 +41,19 @@ export const authSlice = createSlice({
       );
       state.gems = updatedGems;
     },
+    deleteComment(state, action) {
+      const updatedGem = {
+        ...state.gems.find((gem) => gem._id === action.payload.gemId),
+      };
+      const updatedComments = updatedGem.comments.filter(
+        (comment) => comment._id !== action.payload.commentId,
+      );
+      updatedGem.comments = updatedComments;
+      const updatedGems = state.gems.map((gem) =>
+        gem._id === action.payload.gemId ? updatedGem : gem,
+      );
+      state.gems = updatedGems;
+    },
   },
 });
 
@@ -52,5 +65,6 @@ export const {
   setGem,
   updateGem,
   deleteGem,
+  deleteComment,
 } = authSlice.actions;
 export default authSlice.reducer;

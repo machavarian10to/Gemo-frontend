@@ -12,8 +12,12 @@ import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import axiosInstance from '@/services/axios';
+import { deleteComment } from '@/state/index';
+import { useDispatch } from 'react-redux';
 
 function Comment({ comment }) {
+  const dispatch = useDispatch();
+
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
@@ -94,8 +98,18 @@ function Comment({ comment }) {
   }
 
   function deleteComment() {
-    console.log('Comment deleted');
-    // axiosInstance.delete(`/api/comments/${comment._id}`);
+    console.log(comment);
+    axiosInstance
+      .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
+      .then((res) => {
+        dispatch(
+          deleteComment({ gemId: comment.gemId, commentId: comment._id }),
+        );
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err.response);
+      });
   }
 
   return (
