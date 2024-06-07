@@ -53,9 +53,7 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
       comment: userComment,
     };
 
-    if (media.gifSrc) {
-      commentData.gif = media.gifSrc;
-    }
+    if (media.gifSrc) commentData.gif = media.gifSrc;
 
     if (media.file) {
       const formData = new FormData();
@@ -80,8 +78,6 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
       gifSrc: null,
     });
     setIsButtonDisabled(true);
-
-    console.log('Comment added');
   }
 
   function handleCommentChange(e) {
