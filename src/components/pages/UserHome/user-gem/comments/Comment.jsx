@@ -97,7 +97,7 @@ function Comment({ comment }) {
     }
   }
 
-  function deleteComment() {
+  function onDeleteComment() {
     console.log(comment);
     axiosInstance
       .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
@@ -163,7 +163,7 @@ function Comment({ comment }) {
                   </div>
                   <div
                     className='user-gem__comment-edit-item'
-                    onClick={deleteComment}
+                    onClick={onDeleteComment}
                   >
                     <DeleteOutlineOutlinedIcon
                       style={{
@@ -177,7 +177,23 @@ function Comment({ comment }) {
               </Fade>
             )}
           </div>
+
           <div className='user-gem__comment-text'>{comment.comment}</div>
+          {comment.gif && (
+            <div className='user-gem__comment-media'>
+              <img src={comment.gif} alt='user-gem-comment-media' />
+            </div>
+          )}
+          {comment.fileName && (
+            <div className='user-gem__comment-media'>
+              <img
+                src={`${import.meta.env.VITE_API_URL}/assets/${
+                  comment.fileName
+                }`}
+                alt='user-gem-comment-media'
+              />
+            </div>
+          )}
           {commentEmojis.length > 0 && (
             <div className='user-gem__emoji-list'>
               {commentEmojis.map((commentEmoji) => (

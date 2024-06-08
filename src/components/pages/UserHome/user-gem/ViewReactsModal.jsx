@@ -62,7 +62,10 @@ function ViewReactsModal({ reacts, closeModal }) {
                     <div key={react._id}>
                       {react.users.map((user) => (
                         <>
-                          <div className='modal-reactions-user-react'>
+                          <div
+                            key={user._id}
+                            className='modal-reactions-user-react'
+                          >
                             <div className='modal-reactions-user-with-emoji'>
                               <div className='modal-reactions-emoji'>
                                 {react.emoji}

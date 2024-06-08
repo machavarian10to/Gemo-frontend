@@ -50,8 +50,9 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
       userId: user._id,
       userName: user.username,
       userPhoto: user.profilePicture,
-      comment: userComment,
     };
+
+    if (userComment.trim().length > 0) commentData.comment = userComment;
 
     if (media.gifSrc) commentData.gif = media.gifSrc;
 
@@ -65,6 +66,7 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
     axiosInstance
       .post(`/api/comments/${gem._id}`, commentData)
       .then((res) => {
+        console.log(res);
         dispatch(
           updateGem({ ...gem, comments: [...gem.comments, commentData] }),
         );
