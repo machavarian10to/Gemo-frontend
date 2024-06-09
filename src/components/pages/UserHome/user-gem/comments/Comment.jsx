@@ -5,28 +5,18 @@ import PropTypes from 'prop-types';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import EmojiPicker from 'emoji-picker-react';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
-import axiosInstance from '@/services/axios';
-import { deleteComment } from '@/state/index';
-import { useDispatch } from 'react-redux';
+import CommentHeader from '@/components/pages/UserHome/user-gem/comments/CommentHeader';
 
 function Comment({ comment }) {
-  const dispatch = useDispatch();
-
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
   const emojiPickerRef = useRef(null);
 
   const [showCommentReply, setShowCommentReply] = useState(false);
-
-  const [showEditComment, setShowEditComment] = useState(false);
-  const editCommentRef = useRef(null);
 
   useEffect(() => {
     const count = commentEmojis.reduce((acc, emoji) => {
@@ -38,31 +28,6 @@ function Comment({ comment }) {
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
-
-  useClickOutside(editCommentRef, () => {
-    setShowEditComment(false);
-  });
-
-  function getTimeDifference(date) {
-    const currentTime = new Date();
-    const timeDifference = Math.abs(currentTime - date);
-    const secondsDifference = Math.round(timeDifference / 1000);
-    const minutesDifference = Math.round(secondsDifference / 60);
-    const hoursDifference = Math.round(minutesDifference / 60);
-    const daysDifference = Math.round(hoursDifference / 24);
-
-    if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
-    } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
-    } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference !== 1 ? 's' : ''
-      } ago`;
-    } else {
-      return `just now`;
-    }
-  }
 
   function addEmoji(commentEmoji) {
     const emojiIndex = commentEmojis.findIndex(
@@ -86,134 +51,42 @@ function Comment({ comment }) {
     setShowEmojis(false);
   }
 
-  function removeEmojiIfAlreadyClicked(id) {
-    const emojiIndex = commentEmojis.findIndex((emoji) => emoji.id === id);
-    if (commentEmojis[emojiIndex].isClicked) {
-      setCommentEmojis((prev) => [
-        ...prev.slice(0, emojiIndex),
-        ...prev.slice(emojiIndex + 1),
-      ]);
-      return;
-    }
-  }
-
-  function onDeleteComment() {
-    console.log(comment);
-    axiosInstance
-      .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
-      .then((res) => {
-        dispatch(
-          deleteComment({ gemId: comment.gemId, commentId: comment._id }),
-        );
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error(err.response);
-      });
-  }
-
   return (
     <div className='user-gem__comment-wrapper'>
       <div className='user-gem__comment'>
-        <UserAvatar width={35} height={32} src={comment.userPhoto} />
-        <div className='user-gem__comment-details'>
-          <div className='user-gem__comment-details-header'>
-            <div className='user-gem__comment-details-header-wrapper'>
-              <div className='user-gem__username user-gem__username-comment'>
-                @
-                <a
-                  href={`/user/@${comment.userName}`}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='user-gem__username-link'
-                >
-                  {comment.userName}
-                </a>
-              </div>
-              <div className='user-gem__date'>
-                <span>•</span>
-                <span>{getTimeDifference(new Date(comment.createdAt))}</span>
-              </div>
-            </div>
-            <div
-              className={`user-gem__comment-menu ${
-                showEditComment && 'active'
-              }`}
-            >
-              <MoreVertOutlinedIcon
-                style={{ color: 'var(--color-main-grey)', fontSize: '20px' }}
-                onClick={() => setShowEditComment((prev) => !prev)}
-              />
-            </div>
+        <UserAvatar width={32} height={30} src={comment.userPhoto} />
 
-            {showEditComment && (
-              <Fade in={showEditComment} timeout={400}>
-                <div
-                  className='user-gem__comment-edit-wrapper'
-                  ref={editCommentRef}
-                >
-                  <div className='user-gem__comment-edit-item'>
-                    <EditOutlinedIcon
-                      style={{
-                        fontSize: '18px',
-                        color: 'var(--color-main-yellow)',
-                      }}
-                    />
-                    <span>Edit comment</span>
-                  </div>
-                  <div
-                    className='user-gem__comment-edit-item'
-                    onClick={onDeleteComment}
-                  >
-                    <DeleteOutlineOutlinedIcon
-                      style={{
-                        fontSize: '18px',
-                        color: 'var(--color-main-yellow)',
-                      }}
-                    />
-                    <span>Delete comment</span>
-                  </div>
-                </div>
-              </Fade>
-            )}
+        {!comment.body ? (
+          <div className='user-gem__comment-details-only-media'>
+            <CommentHeader comment={comment} />
           </div>
-
-          <div className='user-gem__comment-text'>{comment.comment}</div>
-          {comment.gif && (
-            <div className='user-gem__comment-media'>
-              <img src={comment.gif} alt='user-gem-comment-media' />
-            </div>
-          )}
-          {comment.fileName && (
-            <div className='user-gem__comment-media'>
-              <img
-                src={`${import.meta.env.VITE_API_URL}/assets/${
-                  comment.fileName
-                }`}
-                alt='user-gem-comment-media'
-              />
-            </div>
-          )}
-          {commentEmojis.length > 0 && (
-            <div className='user-gem__emoji-list'>
-              {commentEmojis.map((commentEmoji) => (
-                <div
-                  key={commentEmoji.id}
-                  className={`user-gem__emoji-wrapper ${
-                    commentEmoji.isClicked ? 'active-emoji' : ''
-                  }`}
-                  onClick={() => removeEmojiIfAlreadyClicked(commentEmoji.id)}
-                >
-                  <div className='user-gem__emoji'>{commentEmoji.emoji}</div>
-                  <div className='user-gem__emoji-count'>
-                    {commentEmoji.count}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        ) : (
+          <div className='user-gem__comment-details'>
+            <CommentHeader comment={comment} />
+            <div className='user-gem__comment-text'>{comment.body}</div>
+          </div>
+        )}
       </div>
+
+      {comment.gif && (
+        <div
+          className='user-gem__comment-media'
+          style={{ marginTop: comment.body && '8px' }}
+        >
+          <img src={comment.gif} alt='user-gem-comment-media' />
+        </div>
+      )}
+      {comment.fileName && (
+        <div
+          className='user-gem__comment-media'
+          style={{ marginTop: comment.body && '8px' }}
+        >
+          <img
+            src={`${import.meta.env.VITE_API_URL}/assets/${comment.fileName}`}
+            alt='user-gem-comment-media'
+          />
+        </div>
+      )}
 
       <div className='user-gem__comment-actions'>
         <div

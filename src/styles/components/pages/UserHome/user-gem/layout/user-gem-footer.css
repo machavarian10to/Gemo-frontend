@@ -43,7 +43,7 @@
 
 .user-gem__emoji-picker-wrapper {
   position: absolute;
-  top: 140%;
+  top: 115%;
   left: -20%;
   z-index: 1000000;
   border-radius: 10px;
@@ -96,20 +96,8 @@
   color: var(--color-main-yellow);
 }
 
-.user-gem__comment-section {
-  margin-top: 10px;
-}
-
-.user-gem__comment-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 15px;
-}
-
 .user-gem__comment {
   display: flex;
-  align-items: center;
   gap: 10px;
 }
 
@@ -120,26 +108,10 @@
   flex-direction: column;
   gap: 3px;
   width: 100%;
-  padding: 5px 10px 15px 10px;
+  padding: 5px 10px 10px 10px;
   border-radius: var(--border-radius-rect);
   /* color: var(--color-main-grey); */
   font-weight: 600;
-}
-
-.user-gem__comment-details-header-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.user-gem__comment-details-header-wrapper .user-gem__date {
-  font-size: 11px;
-}
-
-.user-gem__comment-details-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
 }
 
 .user-gem__comment-username {
@@ -186,7 +158,6 @@
 
 .user-gem__comment-show-more-comments,
 .user-gem__view-reacts {
-  width: 100px;
   margin-top: 13px;
   font-size: 13px;
   font-weight: 600;

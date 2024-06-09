@@ -1,0 +1,10 @@
+.user-gem__comment-section {
+  margin-top: 10px;
+}
+
+.user-gem__comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
