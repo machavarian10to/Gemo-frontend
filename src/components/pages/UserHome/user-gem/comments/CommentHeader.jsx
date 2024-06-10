@@ -43,15 +43,14 @@ function CommentHeader({ comment }) {
 
   function onDeleteComment() {
     axiosInstance
-      .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
-      .then((res) => {
+      .delete(`/api/comments/${comment._id}/gems/${comment.gemId}`)
+      .then(() => {
         dispatch(
           deleteComment({ gemId: comment.gemId, commentId: comment._id }),
         );
-        console.log(res.data);
       })
       .catch((err) => {
-        console.error(err.response);
+        console.error(err);
       });
   }
 
