@@ -7,17 +7,23 @@ import useClickOutside from '@/hook/useClickOutside';
 import { Fade } from '@mui/material';
 import axiosInstance from '@/services/axios';
 import { deleteComment } from '@/state/index';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 
 function CommentHeader({ comment }) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const [showEditComment, setShowEditComment] = useState(false);
+  const [showAuthEditComment, setShowAuthEditComment] = useState(false);
 
   const editCommentRef = useRef(null);
 
   useClickOutside(editCommentRef, () => {
     setShowEditComment(false);
+    setShowAuthEditComment(false);
   });
 
   function getTimeDifference(date) {
@@ -54,6 +60,14 @@ function CommentHeader({ comment }) {
       });
   }
 
+  function showEdit() {
+    if (user._id === comment.userId) {
+      setShowAuthEditComment(!showAuthEditComment);
+    } else {
+      setShowEditComment(!showEditComment);
+    }
+  }
+
   return (
     <div className='user-gem__comment-details-header'>
       <div className='user-gem__comment-details-header-wrapper'>
@@ -73,15 +87,19 @@ function CommentHeader({ comment }) {
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>
         </div>
       </div>
-      <div className={`user-gem__comment-menu ${showEditComment && 'active'}`}>
+      <div
+        className={`user-gem__comment-menu ${
+          (showEditComment || showAuthEditComment) && 'active'
+        }`}
+      >
         <MoreVertOutlinedIcon
           style={{ color: 'var(--color-main-grey)', fontSize: '20px' }}
-          onClick={() => setShowEditComment((prev) => !prev)}
+          onClick={showEdit}
         />
       </div>
 
-      {showEditComment && (
-        <Fade in={showEditComment} timeout={400}>
+      {showAuthEditComment && (
+        <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
             <div className='user-gem__comment-edit-item'>
               <EditOutlinedIcon
@@ -103,6 +121,42 @@ function CommentHeader({ comment }) {
                 }}
               />
               <span>Delete comment</span>
+            </div>
+          </div>
+        </Fade>
+      )}
+
+      {showEditComment && (
+        <Fade in={true} timeout={400}>
+          <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
+            <div className='user-gem__comment-edit-item'>
+              <VisibilityOffOutlinedIcon
+                style={{
+                  fontSize: '20px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Hide comment</span>
+            </div>
+
+            <div className='user-gem__comment-edit-item'>
+              <BlockOutlinedIcon
+                style={{
+                  fontSize: '20px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Block @{comment.userName}</span>
+            </div>
+
+            <div className='user-gem__comment-edit-item'>
+              <ReportGmailerrorredOutlinedIcon
+                style={{
+                  fontSize: '22px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Report comment</span>
             </div>
           </div>
         </Fade>
