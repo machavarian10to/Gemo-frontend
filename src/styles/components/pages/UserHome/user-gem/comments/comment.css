@@ -54,3 +54,19 @@
   gap: 3px;
   width: 100%;
 }
+
+.user-gem__comment-cancel {
+  margin: 0 0 0 45px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--color-grey);
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all 0.7s ease;
+}
+
+.user-gem__comment-cancel:hover > svg path{
+  color: var(--color-main-yellow);
+}

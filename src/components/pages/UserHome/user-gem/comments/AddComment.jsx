@@ -124,7 +124,7 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
   return (
     <>
       <div className='user-gem__comment-section-user-comment'>
-        <UserAvatar width={45} />
+        <UserAvatar width={50} height={43} />
         <div className='user-gem__comment-section-input'>
           <div className='user-gem__comment-input-wrapper'>
             <textarea

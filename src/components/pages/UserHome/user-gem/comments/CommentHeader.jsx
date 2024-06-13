@@ -12,7 +12,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 
-function CommentHeader({ comment }) {
+function CommentHeader({ comment, onEditComment }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -101,7 +101,10 @@ function CommentHeader({ comment }) {
       {showAuthEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
-            <div className='user-gem__comment-edit-item'>
+            <div
+              className='user-gem__comment-edit-item'
+              onClick={onEditComment}
+            >
               <EditOutlinedIcon
                 style={{
                   fontSize: '18px',
@@ -167,6 +170,7 @@ function CommentHeader({ comment }) {
 
 CommentHeader.propTypes = {
   comment: PropTypes.object.isRequired,
+  onEditComment: PropTypes.func.isRequired,
 };
 
 export default CommentHeader;
