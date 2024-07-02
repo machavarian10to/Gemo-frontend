@@ -56,7 +56,7 @@
 }
 
 .user-gem__comment-cancel {
-  margin: 0 0 0 45px;
+  margin: 5px 0 0 45px;
   display: flex;
   align-items: center;
   gap: 4px;

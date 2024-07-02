@@ -61,13 +61,19 @@ function Comment({ comment }) {
     <>
       {showEditComment ? (
         <div className='user-gem__comment-edit'>
-          <AddComment placeholder='Edit comment...' value={comment.body} />
+          {console.log(comment)}
+          <AddComment
+            placeholder='Edit comment...'
+            value={comment.body}
+            gif={comment.gif}
+            fileName={comment.fileName}
+          />
 
           <div
             className='user-gem__comment-cancel'
             onClick={() => setShowEditComment(false)}
           >
-            <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
+            <DoDisturbOnOutlinedIcon style={{ fontSize: '14px' }} />
             <span>Cancel</span>
           </div>
         </div>

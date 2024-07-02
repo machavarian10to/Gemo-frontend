@@ -1,5 +1,6 @@
 .user-gem__comment-section-user-comment {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 

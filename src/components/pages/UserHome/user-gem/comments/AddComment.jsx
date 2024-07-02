@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateGem } from '@/state/index.js';
 import axiosInstance from '@/services/axios';
 
-const AddComment = ({ gem, placeholder, value = '' }) => {
+const AddComment = ({ gem, placeholder, value = '', gif, fileName }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -24,14 +24,16 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
 
   const [media, setMedia] = useState({
     file: null,
-    fileName: null,
+    fileName: fileName || null,
     mediaSrc: null,
-    gifSrc: null,
+    gifSrc: gif || null,
   });
 
   const [showGifs, setShowGifs] = useState({ gifs: null });
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(
+    value.trim().length === 0 ? true : false,
+  );
 
   const gifTabRef = useRef(null);
 
@@ -124,7 +126,7 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
   return (
     <>
       <div className='user-gem__comment-section-user-comment'>
-        <UserAvatar width={50} height={43} />
+        <UserAvatar width={40} height={35} />
         <div className='user-gem__comment-section-input'>
           <div className='user-gem__comment-input-wrapper'>
             <textarea
@@ -210,7 +212,7 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
         </div>
       </div>
 
-      {(media.mediaSrc || media.gifSrc) && (
+      {(media.fileName || media.gifSrc) && (
         <div className='user-gem__comment-image-preview'>
           <button
             title='delete media'
@@ -229,7 +231,11 @@ const AddComment = ({ gem, placeholder, value = '' }) => {
             />
           ) : (
             <img
-              src={media.mediaSrc || media.gifSrc}
+              src={
+                media.mediaSrc ||
+                media.gifSrc ||
+                `${import.meta.env.VITE_API_URL}/assets/${media.fileName}`
+              }
               alt='user-gem__comment-preview'
             />
           )}
@@ -243,6 +249,8 @@ AddComment.propTypes = {
   gem: PropTypes.object,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  gif: PropTypes.string,
+  fileName: PropTypes.string,
 };
 
 export default AddComment;
