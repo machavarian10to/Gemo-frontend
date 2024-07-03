@@ -66,6 +66,8 @@ function Comment({ comment }) {
             value={comment.body}
             gif={comment.gif}
             fileName={comment.fileName}
+            commentId={comment._id}
+            gemId={comment.gemId}
           />
 
           <div

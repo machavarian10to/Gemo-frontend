@@ -13,7 +13,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateGem } from '@/state/index.js';
 import axiosInstance from '@/services/axios';
 
-const AddComment = ({ gem, placeholder, value = '', gif, fileName }) => {
+const AddComment = ({
+  gem,
+  placeholder,
+  value = '',
+  gif,
+  fileName,
+  commentId,
+  gemId,
+}) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -45,7 +53,28 @@ const AddComment = ({ gem, placeholder, value = '', gif, fileName }) => {
     setShowGifs(false);
   });
 
-  function addComment() {
+  function addComment(commentData) {
+    axiosInstance
+      .post(`/api/comments/${gem._id}`, commentData)
+      .then((res) => {
+        dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function updateComment(commentData) {
+    commentData.commentId = commentId;
+
+    axiosInstance
+      .put(`/api/comments/${gemId}`, commentData)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function onClickHandler() {
     if (isButtonDisabled) return;
 
     const commentData = {
@@ -65,12 +94,11 @@ const AddComment = ({ gem, placeholder, value = '', gif, fileName }) => {
       formData.append('file', media.file);
     }
 
-    axiosInstance
-      .post(`/api/comments/${gem._id}`, commentData)
-      .then((res) => {
-        dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
-      })
-      .catch((err) => console.error(err));
+    if (commentId) {
+      updateComment(commentData);
+    } else {
+      addComment(commentData);
+    }
 
     setUserComment('');
     setMedia({
@@ -199,7 +227,7 @@ const AddComment = ({ gem, placeholder, value = '', gif, fileName }) => {
           </div>
         </div>
 
-        <div className='user-gem__add-comment-btn' onClick={addComment}>
+        <div className='user-gem__add-comment-btn' onClick={onClickHandler}>
           <SendOutlinedIcon
             style={{
               color: !isButtonDisabled
@@ -251,6 +279,8 @@ AddComment.propTypes = {
   value: PropTypes.string,
   gif: PropTypes.string,
   fileName: PropTypes.string,
+  commentId: PropTypes.string,
+  gemId: PropTypes.string,
 };
 
 export default AddComment;
