@@ -34,7 +34,6 @@ function EventContainer({ gem }) {
     setEvent(updatedEvent);
     axiosInstance
       .put(`/api/gems/${gem._id}`, updatedEvent)
-      .then((res) => console.log(res))
       .catch((err) => console.error(err));
   }
 
@@ -50,7 +49,6 @@ function EventContainer({ gem }) {
     setEvent(updatedEvent);
     axiosInstance
       .put(`/api/gems/${gem._id}`, updatedEvent)
-      .then((res) => console.log(res))
       .catch((err) => console.error(err));
   }
 
@@ -68,7 +66,6 @@ function EventContainer({ gem }) {
     setEvent(updatedEvent);
     axiosInstance
       .put(`/api/gems/${gem._id}`, updatedEvent)
-      .then((res) => console.log(res))
       .catch((err) => console.error(err));
   }
 
@@ -86,7 +83,6 @@ function EventContainer({ gem }) {
     setEvent(updatedEvent);
     axiosInstance
       .put(`/api/gems/${gem._id}`, updatedEvent)
-      .then((res) => console.log(res))
       .catch((err) => console.error(err));
   }
 

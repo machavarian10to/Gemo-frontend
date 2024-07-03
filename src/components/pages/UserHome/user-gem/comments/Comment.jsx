@@ -61,7 +61,6 @@ function Comment({ comment }) {
     <>
       {showEditComment ? (
         <div className='user-gem__comment-edit'>
-          {console.log(comment)}
           <AddComment
             placeholder='Edit comment...'
             value={comment.body}
