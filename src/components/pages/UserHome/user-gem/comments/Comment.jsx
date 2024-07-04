@@ -68,6 +68,7 @@ function Comment({ comment }) {
             fileName={comment.fileName}
             commentId={comment._id}
             gemId={comment.gemId}
+            hideEditComment={() => setShowEditComment(false)}
           />
 
           <div

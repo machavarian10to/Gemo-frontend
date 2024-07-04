@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import GifContainer from '@/components/UI/GifContainer';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateGem } from '@/state/index.js';
+import { updateGem, updateGemComment } from '@/state/index.js';
 import axiosInstance from '@/services/axios';
 
 const AddComment = ({
@@ -21,6 +21,7 @@ const AddComment = ({
   fileName,
   commentId,
   gemId,
+  hideEditComment,
 }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const AddComment = ({
   const [showGifs, setShowGifs] = useState({ gifs: null });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(
-    value.trim().length === 0 ? true : false,
+    value.trim().length > 0 || media.fileName || media.gifSrc ? false : true,
   );
 
   const gifTabRef = useRef(null);
@@ -60,6 +61,13 @@ const AddComment = ({
         dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
       })
       .catch((err) => console.error(err));
+    setUserComment('');
+    setMedia({
+      file: null,
+      mediaSrc: null,
+      gifSrc: null,
+    });
+    setIsButtonDisabled(true);
   }
 
   function updateComment(commentData) {
@@ -68,8 +76,8 @@ const AddComment = ({
     axiosInstance
       .put(`/api/comments/${gemId}`, commentData)
       .then((res) => {
-        console.log(res.data);
-        dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
+        hideEditComment();
+        dispatch(updateGemComment({ ...res.data }));
       })
       .catch((err) => console.error(err));
   }
@@ -99,14 +107,6 @@ const AddComment = ({
     } else {
       addComment(commentData);
     }
-
-    setUserComment('');
-    setMedia({
-      file: null,
-      mediaSrc: null,
-      gifSrc: null,
-    });
-    setIsButtonDisabled(true);
   }
 
   function handleCommentChange(e) {
@@ -281,6 +281,7 @@ AddComment.propTypes = {
   fileName: PropTypes.string,
   commentId: PropTypes.string,
   gemId: PropTypes.string,
+  hideEditComment: PropTypes.func,
 };
 
 export default AddComment;
