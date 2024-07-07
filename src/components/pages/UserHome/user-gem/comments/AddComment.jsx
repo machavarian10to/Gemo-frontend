@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import useClickOutside from '@/hook/useClickOutside';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
@@ -40,9 +40,7 @@ const AddComment = ({
 
   const [showGifs, setShowGifs] = useState({ gifs: null });
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(
-    value.trim().length > 0 || media.fileName || media.gifSrc ? false : true,
-  );
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const gifTabRef = useRef(null);
 
@@ -53,6 +51,14 @@ const AddComment = ({
   useClickOutside(gifTabRef, () => {
     setShowGifs(false);
   });
+
+  useEffect(() => {
+    if (userComment.trim().length > 0 || media.fileName || media.gifSrc) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [userComment, media]);
 
   function addComment(commentData) {
     axiosInstance

@@ -42,7 +42,6 @@ export const authSlice = createSlice({
       state.gems = updatedGems;
     },
     updateGemComment(state, action) {
-      console.log(action.payload);
       const foundedGem = state.gems.find(
         (gem) => gem._id === action.payload.gemId,
       );
