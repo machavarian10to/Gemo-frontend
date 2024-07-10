@@ -6,11 +6,16 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
+import { useSelector, useDispatch } from 'react-redux';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import CommentHeader from '@/components/pages/UserHome/user-gem/comments/CommentHeader';
+import axiosInstance from '@/services/axios';
 
 function Comment({ comment }) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [emojiCount, setEmojiCount] = useState(0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [commentEmojis, setCommentEmojis] = useState([]);
@@ -20,41 +25,62 @@ function Comment({ comment }) {
 
   const [showEditComment, setShowEditComment] = useState(false);
 
-  useEffect(() => {
-    const count = commentEmojis.reduce((acc, emoji) => {
-      return acc + emoji.count;
-    }, 0);
-    setEmojiCount(count);
-  }, [commentEmojis]);
-
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
   });
 
-  function addEmoji(commentEmoji) {
-    const emojiIndex = commentEmojis.findIndex(
-      (emoji) => emoji.emoji === commentEmoji.emoji,
-    );
-
-    if (emojiIndex !== -1) {
-      setShowEmojis(false);
-      return;
-    }
-
-    setCommentEmojis((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        emoji: commentEmoji.emoji,
-        count: 1,
-        isClicked: true,
-      },
-    ]);
-    setShowEmojis(false);
-  }
-
   function onEditComment() {
     setShowEditComment(true);
+  }
+
+  function addEmoji(commentEmoji) {
+    const newReaction = {
+      emoji: commentEmoji.emoji,
+      users: [
+        {
+          userId: user._id,
+          userName: user.username,
+          userPhoto: user.profilePicture,
+        },
+      ],
+    };
+
+    let updatedReactions = comment.reacts
+      .map((react) => {
+        if (react.emoji === commentEmoji.emoji) {
+          const updatedUsers = react.users.filter(
+            (reactingUser) => reactingUser.userId !== user._id,
+          );
+          return {
+            ...react,
+            users: [...updatedUsers, newReaction.users[0]],
+          };
+        } else {
+          return {
+            ...react,
+            users: react.users.filter(
+              (reactingUser) => reactingUser.userId !== user._id,
+            ),
+          };
+        }
+      })
+      .filter((react) => react.users.length > 0);
+
+    if (!updatedReactions.some((react) => react.emoji === commentEmoji.emoji)) {
+      updatedReactions.push(newReaction);
+    }
+
+    // axiosInstance
+    //   .put(`/api/gems/${gem._id}/update-gem-reacts`, {
+    //     reacts: updatedReactions,
+    //   })
+    //   .then((res) => {
+    //     dispatch(updateGem({ _id: gem._id, ...res.data }));
+    //   })
+    //   .catch((err) => console.error(err))
+    //   .finally(() => {
+    //     setShowEmojis(false);
+    //   });
   }
 
   return (
