@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   overflow-x: auto;
+  gap: 10px;
 }
 
 .modal-reactions-user-reacts-list {
@@ -13,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 13px 15px;
+  padding: 13px 10px;
   gap: 10px;
   cursor: pointer;
   border-bottom: 3px solid transparent;
@@ -29,6 +30,11 @@
 
 .modal-reactions-header.active {
   border-bottom: 3px solid var(--color-main-yellow);
+  color: var(--color-main-yellow);
+}
+
+.modal-reactions-header.active .modal-reactions-react-amount {
+  color: var(--color-main-yellow);
 }
 
 .modal-reactions-user-react {

@@ -11,19 +11,27 @@ import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import CommentHeader from '@/components/pages/UserHome/user-gem/comments/CommentHeader';
 import axiosInstance from '@/services/axios';
+import { updateGemComment } from '@/state/index.js';
 
 function Comment({ comment }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [emojiCount, setEmojiCount] = useState(0);
-  const [showEmojis, setShowEmojis] = useState(false);
-  const [commentEmojis, setCommentEmojis] = useState([]);
   const emojiPickerRef = useRef(null);
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [showReactionsModal, setShowReactionsModal] = useState(false);
 
   const [showCommentReply, setShowCommentReply] = useState(false);
 
   const [showEditComment, setShowEditComment] = useState(false);
+
+  useEffect(() => {
+    if (showReactionsModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showReactionsModal]);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -70,17 +78,20 @@ function Comment({ comment }) {
       updatedReactions.push(newReaction);
     }
 
-    // axiosInstance
-    //   .put(`/api/gems/${gem._id}/update-gem-reacts`, {
-    //     reacts: updatedReactions,
-    //   })
-    //   .then((res) => {
-    //     dispatch(updateGem({ _id: gem._id, ...res.data }));
-    //   })
-    //   .catch((err) => console.error(err))
-    //   .finally(() => {
-    //     setShowEmojis(false);
-    //   });
+    axiosInstance
+      .put(
+        `/api/comments/${comment._id}/gems/${comment.gemId}/update-comment-reacts`,
+        {
+          reacts: updatedReactions,
+        },
+      )
+      .then((res) => {
+        dispatch(updateGemComment({ ...res.data }));
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setShowEmojis(false);
+      });
   }
 
   return (
@@ -150,6 +161,29 @@ function Comment({ comment }) {
             </div>
           )}
 
+          {comment.reacts.length > 0 && (
+            <div className='user-gem__emoji-list'>
+              {comment.reacts.map((react) => (
+                <div
+                  key={react._id}
+                  className={`user-gem__emoji-wrapper ${
+                    react.users.some(
+                      (reactingUser) => reactingUser.userId === user._id,
+                    )
+                      ? 'active-emoji'
+                      : ''
+                  }`}
+                  onClick={() => console.log(react.emoji, react.users.length)}
+                >
+                  <div className='user-gem__emoji'>{react.emoji}</div>
+                  <div className='user-gem__emoji-count'>
+                    {react.users.length}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className='user-gem__comment-actions'>
             <div
               className='user-gem__comment-action'
@@ -164,7 +198,11 @@ function Comment({ comment }) {
                 }}
               />
               <div>React</div>
-              <span>{emojiCount}</span>
+              <span>
+                {comment.reacts
+                  .map((react) => react.users.length)
+                  .reduce((a, b) => a + b, 0)}
+              </span>
             </div>
             <div
               className='user-gem__comment-action'
