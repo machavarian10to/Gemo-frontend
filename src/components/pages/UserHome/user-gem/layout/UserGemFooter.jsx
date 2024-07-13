@@ -163,18 +163,6 @@ function UserGemFooter({ gem }) {
               </div>
             ))}
           </div>
-
-          <div className='user-gem__view-reacts-wrapper'>
-            <KeyboardArrowRightOutlinedIcon
-              style={{ color: 'var(--color-grey)', fontSize: '23px' }}
-            />
-            <span
-              className='user-gem__view-reacts'
-              onClick={() => setShowReactionsModal(true)}
-            >
-              see reactions
-            </span>
-          </div>
         </>
       )}
 

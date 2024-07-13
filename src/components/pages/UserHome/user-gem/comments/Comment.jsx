@@ -6,12 +6,14 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import CommentHeader from '@/components/pages/UserHome/user-gem/comments/CommentHeader';
 import axiosInstance from '@/services/axios';
 import { updateGemComment } from '@/state/index.js';
+import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
 function Comment({ comment }) {
   const user = useSelector((state) => state.user);
@@ -77,6 +79,62 @@ function Comment({ comment }) {
     if (!updatedReactions.some((react) => react.emoji === commentEmoji.emoji)) {
       updatedReactions.push(newReaction);
     }
+
+    axiosInstance
+      .put(
+        `/api/comments/${comment._id}/gems/${comment.gemId}/update-comment-reacts`,
+        {
+          reacts: updatedReactions,
+        },
+      )
+      .then((res) => {
+        dispatch(updateGemComment({ ...res.data }));
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setShowEmojis(false);
+      });
+  }
+
+  function updateCommentReacts(emoji) {
+    const updatedReactions = comment.reacts
+      .map((react) => {
+        if (react.emoji === emoji) {
+          const userIndex = react.users.findIndex(
+            (reactingUser) => reactingUser.userId === user._id,
+          );
+
+          if (userIndex !== -1) {
+            return {
+              ...react,
+              users: [
+                ...react.users.slice(0, userIndex),
+                ...react.users.slice(userIndex + 1),
+              ],
+            };
+          } else {
+            return {
+              ...react,
+              users: [
+                ...react.users,
+                {
+                  userId: user._id,
+                  userName: user.username,
+                  userPhoto: user.profilePicture,
+                },
+              ],
+            };
+          }
+        } else {
+          return {
+            ...react,
+            users: react.users.filter(
+              (reactingUser) => reactingUser.userId !== user._id,
+            ),
+          };
+        }
+      })
+      .filter((react) => react.users.length > 0);
 
     axiosInstance
       .put(
@@ -162,26 +220,35 @@ function Comment({ comment }) {
           )}
 
           {comment.reacts.length > 0 && (
-            <div className='user-gem__emoji-list'>
-              {comment.reacts.map((react) => (
-                <div
-                  key={react._id}
-                  className={`user-gem__emoji-wrapper ${
-                    react.users.some(
-                      (reactingUser) => reactingUser.userId === user._id,
-                    )
-                      ? 'active-emoji'
-                      : ''
-                  }`}
-                  onClick={() => console.log(react.emoji, react.users.length)}
-                >
-                  <div className='user-gem__emoji'>{react.emoji}</div>
-                  <div className='user-gem__emoji-count'>
-                    {react.users.length}
+            <>
+              <div className='user-gem__emoji-list'>
+                {comment.reacts.map((react) => (
+                  <div
+                    key={react._id}
+                    className={`user-gem__emoji-wrapper user-gem__emoji-comment-wrapper ${
+                      react.users.some(
+                        (reactingUser) => reactingUser.userId === user._id,
+                      )
+                        ? 'active-emoji'
+                        : ''
+                    }`}
+                    onClick={() => updateCommentReacts(react.emoji)}
+                  >
+                    <div className='user-gem__emoji'>{react.emoji}</div>
+                    <div className='user-gem__emoji-count'>
+                      {react.users.length}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {showReactionsModal && (
+            <ViewReactsModal
+              reacts={comment.reacts}
+              closeModal={() => setShowReactionsModal(false)}
+            />
           )}
 
           <div className='user-gem__comment-actions'>
