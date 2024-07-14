@@ -11,6 +11,10 @@
   margin: 0 0 0 40px;
 }
 
+.user-gem__comment-wrapper .user-gem__view-reactions{
+  font-size: 12px;
+}
+
 .user-gem__comment-image-preview {
   width: 60px;
   height: 60px;

@@ -23,7 +23,7 @@
   }
 
   &.small {
-    padding: 8px 16px;
+    padding: 8px 14px;
   }
 
   &.medium {
@@ -56,10 +56,10 @@
 }
 
 .input-component.extra-small-left-icon {
-  padding: 9px 10px 10px 30px;
+  padding: 4px 10px 4px 26px;
 }
 .input-component.small-left-icon {
-  padding: 8px 16px 8px 32px;
+  padding: 6px 12px 6px 28px;
 }
 .input-component.medium-left-icon {
   padding: 10px 20px 10px 34px;
@@ -70,7 +70,6 @@
 
 .input-component-left-icon {
   position: absolute;
-  top: 11px;
   left: 8px;
   display: grid;
   place-items: center;

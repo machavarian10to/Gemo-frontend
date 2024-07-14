@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateGem } from '@/state/index';
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
 
 function UserGemFooter({ gem }) {
@@ -162,13 +162,22 @@ function UserGemFooter({ gem }) {
                 </div>
               </div>
             ))}
+            <div
+              className='user-gem__view-reactions'
+              onClick={() => setShowReactionsModal(true)}
+            >
+              <EmojiEmotionsOutlinedIcon
+                style={{ fontSize: '15px', color: 'var(--color-grey)' }}
+              />
+              <div>see reacts</div>
+            </div>
           </div>
         </>
       )}
 
       {showReactionsModal && (
         <ViewReactsModal
-          reacts={gem.reacts}
+          modalReacts={gem.reacts}
           closeModal={() => setShowReactionsModal(false)}
         />
       )}

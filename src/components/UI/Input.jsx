@@ -61,7 +61,7 @@ Input.propTypes = {
   state: PropTypes.string,
   size: PropTypes.string,
   onInput: PropTypes.func,
-  onkeydown: PropTypes.func,
+  onKeyDown: PropTypes.func,
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   helperText: PropTypes.string,

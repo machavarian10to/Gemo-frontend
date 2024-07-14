@@ -28,6 +28,10 @@
   font-weight: 800;
 }
 
+.user-gem__search-usernames-input{
+  margin-top: 10px;
+}
+
 .modal-reactions-header.active {
   border-bottom: 3px solid var(--color-main-yellow);
   color: var(--color-main-yellow);

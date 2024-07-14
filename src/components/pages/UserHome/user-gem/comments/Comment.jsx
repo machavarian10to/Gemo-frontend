@@ -6,7 +6,7 @@ import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
@@ -219,7 +219,7 @@ function Comment({ comment }) {
             </div>
           )}
 
-          {comment.reacts.length > 0 && (
+          {comment.reacts?.length > 0 && (
             <>
               <div className='user-gem__emoji-list'>
                 {comment.reacts.map((react) => (
@@ -240,13 +240,22 @@ function Comment({ comment }) {
                     </div>
                   </div>
                 ))}
+                <div
+                  className='user-gem__view-reactions'
+                  onClick={() => setShowReactionsModal(true)}
+                >
+                  <EmojiEmotionsOutlinedIcon
+                    style={{ fontSize: '13px', color: 'var(--color-grey)' }}
+                  />
+                  <div>see reacts</div>
+                </div>
               </div>
             </>
           )}
 
           {showReactionsModal && (
             <ViewReactsModal
-              reacts={comment.reacts}
+              modalReacts={comment.reacts}
               closeModal={() => setShowReactionsModal(false)}
             />
           )}
@@ -267,7 +276,7 @@ function Comment({ comment }) {
               <div>React</div>
               <span>
                 {comment.reacts
-                  .map((react) => react.users.length)
+                  ?.map((react) => react.users.length)
                   .reduce((a, b) => a + b, 0)}
               </span>
             </div>

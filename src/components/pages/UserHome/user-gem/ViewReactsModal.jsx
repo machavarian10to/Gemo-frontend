@@ -4,12 +4,35 @@ import { Fade } from '@mui/material';
 import useClickOutside from '@/hook/useClickOutside';
 import { useRef, useState } from 'react';
 import UserAvatar from '@/components/shared/UserAvatar';
+import Input from '@/components/UI/Input';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
-function ViewReactsModal({ reacts, closeModal }) {
+function ViewReactsModal({ modalReacts, closeModal }) {
   const modalContentRef = useRef();
   useClickOutside(modalContentRef, () => closeModal());
 
   const [activeTab, setActiveTab] = useState('all');
+  const [searchValue, setSearchValue] = useState('');
+
+  const [reacts, setReacts] = useState(modalReacts);
+
+  function onSearchUsernames(e) {
+    const value = e.target.value;
+    setSearchValue(value);
+    if (value === '') {
+      setReacts(modalReacts);
+    } else {
+      const filteredReacts = modalReacts.map((react) => {
+        return {
+          ...react,
+          users: react.users.filter((user) =>
+            user.userName.toLowerCase().includes(value.toLowerCase()),
+          ),
+        };
+      });
+      setReacts(filteredReacts);
+    }
+  }
 
   return (
     <Fade in={true} timeout={600}>
@@ -53,6 +76,22 @@ function ViewReactsModal({ reacts, closeModal }) {
               </div>
             ))}
           </div>
+
+          {activeTab === 'all' && (
+            <div className='user-gem__search-usernames-input'>
+              <Input
+                leftIcon={
+                  <AlternateEmailIcon
+                    style={{ color: 'var(--color-grey)', fontSize: '15px' }}
+                  />
+                }
+                placeholder='Search by username...'
+                size='small'
+                value={searchValue}
+                onInput={onSearchUsernames}
+              />
+            </div>
+          )}
 
           <div className='modal-reactions-list'>
             <div className='modal-reactions-container'>
@@ -143,7 +182,7 @@ function ViewReactsModal({ reacts, closeModal }) {
 }
 
 ViewReactsModal.propTypes = {
-  reacts: PropTypes.array.isRequired,
+  modalReacts: PropTypes.array.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 

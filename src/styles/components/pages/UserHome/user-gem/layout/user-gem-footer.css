@@ -85,6 +85,20 @@
   animation: slide-down 0.3s ease;
 }
 
+.user-gem__view-reactions{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--color-grey);
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.user-gem__view-reactions:hover {
+  text-decoration: underline;
+}
+
 @keyframes slide-down {
   0% {
     transform: translateY(10px);
