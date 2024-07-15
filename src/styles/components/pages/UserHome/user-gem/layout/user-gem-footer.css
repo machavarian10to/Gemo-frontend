@@ -69,10 +69,6 @@
   transition: all 0.3s;
 }
 
-.user-gem__emoji-wrapper:hover {
-  transform: scale(1.05);
-}
-
 .user-gem__emoji-count {
   font-size: 13px;
   font-weight: 600;
@@ -81,11 +77,12 @@
   transition: all 0.3s;
 }
 
-.user-gem__emoji-wrapper.active-emoji .user-gem__emoji-count {
-  animation: slide-down 0.3s ease;
+.user-gem__emoji-wrapper.active-emoji .user-gem__emoji-count,
+.user-gem__emoji-wrapper.active-emoji {
+  animation: slide-down 0.1s ease;
 }
 
-.user-gem__view-reactions{
+.user-gem__view-reactions {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -101,10 +98,13 @@
 
 @keyframes slide-down {
   0% {
-    transform: translateY(10px);
+    transform: translateY(10px) scale(1);
+  }
+  50% {
+    transform: translateY(5px) scale(1.05);
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -139,7 +139,6 @@
   width: 100%;
   padding: 5px 10px 10px 10px;
   border-radius: var(--border-radius-rect);
-  /* color: var(--color-main-grey); */
   font-weight: 600;
 }
 
