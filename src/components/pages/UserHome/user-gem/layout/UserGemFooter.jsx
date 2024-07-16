@@ -167,7 +167,11 @@ function UserGemFooter({ gem }) {
               onClick={() => setShowReactionsModal(true)}
             >
               <EmojiEmotionsOutlinedIcon
-                style={{ fontSize: '15px', color: 'var(--color-grey)' }}
+                style={{
+                  fontSize: '13px',
+                  color: 'var(--color-grey)',
+                  marginTop: '2px',
+                }}
               />
               <div>see reacts</div>
             </div>

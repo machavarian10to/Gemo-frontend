@@ -388,17 +388,15 @@ function PostTabContent({ postTabState, setPostTabState }) {
             />
           )}
           {state.showEmojiPicker && (
-            <Fade in={true}>
-              <div className='emoji-picker-wrapper' ref={emojiRef}>
-                <EmojiPicker
-                  onEmojiClick={(emoji) => insertEmoji(emoji)}
-                  previewConfig={{ showPreview: false }}
-                  autoFocusSearch={false}
-                  emojiStyle='native'
-                  theme='light'
-                />
-              </div>
-            </Fade>
+            <div className='emoji-picker-wrapper' ref={emojiRef}>
+              <EmojiPicker
+                onEmojiClick={(emoji) => insertEmoji(emoji)}
+                previewConfig={{ showPreview: false }}
+                autoFocusSearch={false}
+                emojiStyle='native'
+                theme='light'
+              />
+            </div>
           )}
           {state.gifs && (
             <div

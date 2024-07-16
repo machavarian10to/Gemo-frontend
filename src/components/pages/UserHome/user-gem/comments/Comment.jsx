@@ -219,7 +219,7 @@ function Comment({ comment }) {
             </div>
           )}
 
-          {comment.reacts?.length > 0 && (
+          {comment.reacts.length > 0 && (
             <>
               <div className='user-gem__emoji-list'>
                 {comment.reacts.map((react) => (
@@ -245,7 +245,11 @@ function Comment({ comment }) {
                   onClick={() => setShowReactionsModal(true)}
                 >
                   <EmojiEmotionsOutlinedIcon
-                    style={{ fontSize: '13px', color: 'var(--color-grey)' }}
+                    style={{
+                      fontSize: '11px',
+                      color: 'var(--color-grey)',
+                      marginTop: '2px',
+                    }}
                   />
                   <div>see reacts</div>
                 </div>
@@ -276,7 +280,7 @@ function Comment({ comment }) {
               <div>React</div>
               <span>
                 {comment.reacts
-                  ?.map((react) => react.users.length)
+                  .map((react) => react.users.length)
                   .reduce((a, b) => a + b, 0)}
               </span>
             </div>

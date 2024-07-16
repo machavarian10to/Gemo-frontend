@@ -56,6 +56,11 @@
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+.user-gem__emoji-list:hover .user-gem__view-reactions{
+  display: flex;
 }
 
 .user-gem__emoji-wrapper {
@@ -79,21 +84,18 @@
 
 .user-gem__emoji-wrapper.active-emoji .user-gem__emoji-count,
 .user-gem__emoji-wrapper.active-emoji {
-  animation: slide-down 0.1s ease;
+  animation: slide-down 0.3s ease;
 }
 
 .user-gem__view-reactions {
+  text-decoration: underline;
   cursor: pointer;
-  display: flex;
+  display: none;
   align-items: center;
   gap: 3px;
   color: var(--color-grey);
   font-size: 14px;
   transition: all 0.3s;
-}
-
-.user-gem__view-reactions:hover {
-  text-decoration: underline;
 }
 
 @keyframes slide-down {
