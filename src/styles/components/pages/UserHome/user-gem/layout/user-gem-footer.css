@@ -60,7 +60,7 @@
 }
 
 .user-gem__emoji-list:hover .user-gem__view-reactions{
-  display: flex;
+  opacity: 1;
 }
 
 .user-gem__emoji-wrapper {
@@ -88,9 +88,9 @@
 }
 
 .user-gem__view-reactions {
-  text-decoration: underline;
+  display: flex;
   cursor: pointer;
-  display: none;
+  opacity: 0;
   align-items: center;
   gap: 3px;
   color: var(--color-grey);
