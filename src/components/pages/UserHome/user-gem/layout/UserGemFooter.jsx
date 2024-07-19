@@ -194,7 +194,7 @@ function UserGemFooter({ gem }) {
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>React</span>
+          <span>Flavor</span>
           <span>
             {gem.reacts
               .map((react) => react.users.length)

@@ -277,7 +277,7 @@ function Comment({ comment }) {
                   fontSize: '15px',
                 }}
               />
-              <div>React</div>
+              <div>Flavor</div>
               <span>
                 {comment.reacts
                   .map((react) => react.users.length)
