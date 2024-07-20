@@ -169,11 +169,12 @@ function UserGemFooter({ gem }) {
               <EmojiEmotionsOutlinedIcon
                 style={{
                   fontSize: '13px',
+                  fontWeight: '800',
                   color: 'var(--color-grey)',
                   marginTop: '2px',
                 }}
               />
-              <div>see reacts</div>
+              <div>view flavors</div>
             </div>
           </div>
         </>

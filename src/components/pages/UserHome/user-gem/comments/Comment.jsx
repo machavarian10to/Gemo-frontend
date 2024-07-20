@@ -15,7 +15,7 @@ import axiosInstance from '@/services/axios';
 import { updateGemComment } from '@/state/index.js';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ comment }) {
+function Comment({ comment, onUpdateComment }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -88,6 +88,7 @@ function Comment({ comment }) {
         },
       )
       .then((res) => {
+        onUpdateComment({ ...res.data });
         dispatch(updateGemComment({ ...res.data }));
       })
       .catch((err) => console.error(err))
@@ -251,7 +252,7 @@ function Comment({ comment }) {
                       marginTop: '2px',
                     }}
                   />
-                  <div>see reacts</div>
+                  <div>view flavors</div>
                 </div>
               </div>
             </>
@@ -344,6 +345,7 @@ function Comment({ comment }) {
 
 Comment.propTypes = {
   comment: PropTypes.object.isRequired,
+  onUpdateComment: PropTypes.func.isRequired,
 };
 
 export default Comment;

@@ -91,10 +91,12 @@
   display: flex;
   cursor: pointer;
   opacity: 0;
+  text-decoration: underline;
   align-items: center;
   gap: 3px;
   color: var(--color-grey);
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 800;
   transition: all 0.3s;
 }
 

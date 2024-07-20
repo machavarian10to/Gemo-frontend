@@ -22,6 +22,7 @@ const AddComment = ({
   commentId,
   gemId,
   hideEditComment,
+  onAddComment,
 }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const AddComment = ({
     axiosInstance
       .post(`/api/comments/${gem._id}`, commentData)
       .then((res) => {
+        onAddComment(res.data);
         dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
       })
       .catch((err) => console.error(err));
@@ -288,6 +290,7 @@ AddComment.propTypes = {
   commentId: PropTypes.string,
   gemId: PropTypes.string,
   hideEditComment: PropTypes.func,
+  onAddComment: PropTypes.func,
 };
 
 export default AddComment;
