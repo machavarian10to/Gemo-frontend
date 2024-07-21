@@ -16,6 +16,27 @@ function ViewReactsModal({ modalReacts, closeModal }) {
 
   const [reacts, setReacts] = useState(modalReacts);
 
+  function getTimeDifference(createdAt) {
+    const currentTime = new Date();
+    const timeDifference = Math.abs(currentTime - createdAt);
+    const secondsDifference = Math.round(timeDifference / 1000);
+    const minutesDifference = Math.round(secondsDifference / 60);
+    const hoursDifference = Math.round(minutesDifference / 60);
+    const daysDifference = Math.round(hoursDifference / 24);
+
+    if (daysDifference > 0) {
+      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} minute${
+        minutesDifference !== 1 ? 's' : ''
+      } ago`;
+    } else {
+      return `just now`;
+    }
+  }
+
   function onSearchUsernames(e) {
     const value = e.target.value;
     setSearchValue(value);
@@ -105,9 +126,61 @@ function ViewReactsModal({ modalReacts, closeModal }) {
                             key={user._id}
                             className='modal-reactions-user-react'
                           >
+                            <div className='modal-reactions-user-wrapper'>
+                              <div className='modal-reactions-user-with-emoji'>
+                                <div className='modal-reactions-emoji'>
+                                  {react.emoji}
+                                </div>
+                                <UserAvatar
+                                  key={user._id}
+                                  src={user.userPhoto}
+                                  width={40}
+                                  height={40}
+                                />
+                              </div>
+                              <div className='user-gem__username'>
+                                @
+                                <a
+                                  href={`/user/@${user.userName}`}
+                                  target='_blank'
+                                  rel='noreferrer'
+                                  className='user-gem__username-link'
+                                >
+                                  {user.userName}
+                                </a>
+                              </div>
+                            </div>
+
+                            <div className='user-view-reacts-timestamp'>
+                              <span>&#8226;</span>
+                              <span>
+                                {getTimeDifference(new Date(react?.createdAt))}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className='modal-reactions-list-all'>
+                  {reacts
+                    .find((react) => react._id === activeTab)
+                    .users.map((user) => (
+                      <>
+                        <div
+                          className='modal-reactions-user-react'
+                          key={user._id}
+                        >
+                          <div className='modal-reactions-user-wrapper'>
                             <div className='modal-reactions-user-with-emoji'>
                               <div className='modal-reactions-emoji'>
-                                {react.emoji}
+                                {
+                                  reacts.find(
+                                    (react) => react._id === activeTab,
+                                  ).emoji
+                                }
                               </div>
                               <UserAvatar
                                 key={user._id}
@@ -128,45 +201,17 @@ function ViewReactsModal({ modalReacts, closeModal }) {
                               </a>
                             </div>
                           </div>
-                        </>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className='modal-reactions-list-all'>
-                  {reacts
-                    .find((react) => react._id === activeTab)
-                    .users.map((user) => (
-                      <>
-                        <div
-                          className='modal-reactions-user-react'
-                          key={user._id}
-                        >
-                          <div className='modal-reactions-user-with-emoji'>
-                            <div className='modal-reactions-emoji'>
-                              {
-                                reacts.find((react) => react._id === activeTab)
-                                  .emoji
-                              }
-                            </div>
-                            <UserAvatar
-                              key={user._id}
-                              src={user.userPhoto}
-                              width={40}
-                              height={40}
-                            />
-                          </div>
-                          <div className='user-gem__username'>
-                            @
-                            <a
-                              href={`/user/@${user.userName}`}
-                              target='_blank'
-                              rel='noreferrer'
-                              className='user-gem__username-link'
-                            >
-                              {user.userName}
-                            </a>
+                          <div className='user-view-reacts-timestamp'>
+                            <span>&#8226;</span>
+                            <span>
+                              {getTimeDifference(
+                                new Date(
+                                  reacts.find(
+                                    (react) => react._id === activeTab,
+                                  )?.createdAt,
+                                ),
+                              )}
+                            </span>
                           </div>
                         </div>
                       </>

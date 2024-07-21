@@ -3,6 +3,22 @@
   align-items: center;
   overflow-x: auto;
   gap: 10px;
+  color: var(--color-main-grey);
+}
+
+.user-view-reacts-timestamp {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: var(--color-grey);
+  font-weight: 700;
+}
+
+.modal-reactions-user-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .modal-reactions-user-reacts-list {
@@ -27,7 +43,7 @@
   font-weight: 800;
 }
 
-.user-gem__search-usernames-input{
+.user-gem__search-usernames-input {
   margin-top: 10px;
 }
 
@@ -42,6 +58,7 @@
 
 .modal-reactions-user-react {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 15px;
   padding: 15px;

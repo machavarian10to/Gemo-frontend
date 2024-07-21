@@ -23,6 +23,7 @@ const AddComment = ({
   gemId,
   hideEditComment,
   onAddComment,
+  focus,
 }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const AddComment = ({
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const gifTabRef = useRef(null);
+  const textAreaRef = useRef(null);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -60,6 +62,12 @@ const AddComment = ({
       setIsButtonDisabled(true);
     }
   }, [userComment, media]);
+
+  useEffect(() => {
+    if (focus) {
+      textAreaRef.current.focus();
+    }
+  }, [focus]);
 
   function addComment(commentData) {
     axiosInstance
@@ -166,6 +174,7 @@ const AddComment = ({
         <div className='user-gem__comment-section-input'>
           <div className='user-gem__comment-input-wrapper'>
             <textarea
+              ref={textAreaRef}
               className='user-gem__comment-input'
               placeholder={placeholder}
               value={userComment}
@@ -291,6 +300,7 @@ AddComment.propTypes = {
   gemId: PropTypes.string,
   hideEditComment: PropTypes.func,
   onAddComment: PropTypes.func,
+  focus: PropTypes.bool,
 };
 
 export default AddComment;
