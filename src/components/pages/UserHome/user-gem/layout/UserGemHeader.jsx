@@ -4,30 +4,10 @@ import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import UserGemMenu from '@/components/pages/UserHome/user-gem/UserGemMenu';
+import getTimeDifference from '@/helpers/getTimeDifference';
 
 function UserGemHeader({ gem }) {
   const user = useSelector((state) => state.user);
-
-  function getTimeDifference(createdAt) {
-    const currentTime = new Date();
-    const timeDifference = Math.abs(currentTime - createdAt);
-    const secondsDifference = Math.round(timeDifference / 1000);
-    const minutesDifference = Math.round(secondsDifference / 60);
-    const hoursDifference = Math.round(minutesDifference / 60);
-    const daysDifference = Math.round(hoursDifference / 24);
-
-    if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
-    } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
-    } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference !== 1 ? 's' : ''
-      } ago`;
-    } else {
-      return `just now`;
-    }
-  }
 
   function getUserLevel() {
     const userLevelMap = {

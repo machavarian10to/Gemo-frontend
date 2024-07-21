@@ -7,14 +7,11 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Checkbox from '@/components/UI/Checkbox';
 import PropTypes from 'prop-types';
+import getId from '@/helpers/getId';
 
 function PollTabContent({ pollTabState, setPollTabState }) {
   const draggedOption = useRef(null);
   const draggedOverOption = useRef(null);
-
-  function generateId() {
-    return Math.random().toString(36).substr(2, 9);
-  }
 
   function onMultipleOptionCheck(e) {
     setPollTabState((prev) => ({
@@ -55,7 +52,7 @@ function PollTabContent({ pollTabState, setPollTabState }) {
 
   function addOption() {
     const newOption = {
-      id: generateId(),
+      id: getId(),
       value: '',
       placeholder: `Option ${pollTabState.pollOptions.length + 1}`,
       deleteIcon: true,

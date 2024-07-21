@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
+import getTimeDifference from '@/helpers/getTimeDifference';
 
 function CommentHeader({ comment, onEditComment }) {
   const dispatch = useDispatch();
@@ -25,27 +26,6 @@ function CommentHeader({ comment, onEditComment }) {
     setShowEditComment(false);
     setShowAuthEditComment(false);
   });
-
-  function getTimeDifference(date) {
-    const currentTime = new Date();
-    const timeDifference = Math.abs(currentTime - date);
-    const secondsDifference = Math.round(timeDifference / 1000);
-    const minutesDifference = Math.round(secondsDifference / 60);
-    const hoursDifference = Math.round(minutesDifference / 60);
-    const daysDifference = Math.round(hoursDifference / 24);
-
-    if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
-    } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
-    } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference !== 1 ? 's' : ''
-      } ago`;
-    } else {
-      return `just now`;
-    }
-  }
 
   function onDeleteComment() {
     axiosInstance
