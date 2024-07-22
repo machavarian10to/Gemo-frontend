@@ -12,6 +12,7 @@ import GifContainer from '@/components/UI/GifContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateGem, updateGemComment } from '@/state/index.js';
 import axiosInstance from '@/services/axios';
+import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 
 const AddComment = ({
   gem,
@@ -24,6 +25,7 @@ const AddComment = ({
   hideEditComment,
   onAddComment,
   focus,
+  comment,
 }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -169,6 +171,39 @@ const AddComment = ({
 
   return (
     <>
+      {comment && (
+        <div className='user-gem_comment-reply-wrapper'>
+          <div className='user-gem__comment-replying-to'>
+            <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
+            reply to <span>@{comment.userName}</span>
+          </div>
+          <div className='user-gem__comment-reply-highlight'>
+            <div
+              style={{
+                marginBottom: comment.gif || comment.fileName ? '5px' : '0',
+              }}
+            >
+              {comment.body}
+            </div>
+            {console.log(comment)}
+            {comment.gif && (
+              <div className='user-gem__comment-media'>
+                <img src={comment.gif} alt='gif' />
+              </div>
+            )}
+
+            {comment.fileName && (
+              <img
+                src={`${import.meta.env.VITE_API_URL}/assets/${
+                  comment.fileName
+                }`}
+                alt='comment-media'
+              />
+            )}
+          </div>
+        </div>
+      )}
+
       <div className='user-gem__comment-section-user-comment'>
         <UserAvatar width={40} height={35} />
         <div className='user-gem__comment-section-input'>
@@ -301,6 +336,7 @@ AddComment.propTypes = {
   hideEditComment: PropTypes.func,
   onAddComment: PropTypes.func,
   focus: PropTypes.bool,
+  comment: PropTypes.object,
 };
 
 export default AddComment;

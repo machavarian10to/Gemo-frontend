@@ -320,7 +320,9 @@ function Comment({ comment, onUpdateComment }) {
               <div className='user-gem__comment-reply-wrapper'>
                 <div className='user-gem__comment-reply'>
                   <AddComment
-                    placeholder={`Reply to @${comment.userName}`}
+                    comment={comment}
+                    placeholder={'Write a reply...'}
+                    // placeholder={`Reply to @${comment.userName}`}
                     focus={true}
                   />
                 </div>
