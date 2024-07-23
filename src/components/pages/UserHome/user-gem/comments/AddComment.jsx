@@ -100,6 +100,24 @@ const AddComment = ({
       .catch((err) => console.error(err));
   }
 
+  function replyComment(commentData) {
+    axiosInstance
+      .post(`/api/comments/${comment.gemId}/${comment._id}/reply`, commentData)
+      .then((res) => {
+        console.log(res.data);
+        // onAddComment(res.data);
+        // dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
+      })
+      .catch((err) => console.error(err));
+    setUserComment('');
+    setMedia({
+      file: null,
+      mediaSrc: null,
+      gifSrc: null,
+    });
+    setIsButtonDisabled(true);
+  }
+
   function onClickHandler() {
     if (isButtonDisabled) return;
 
@@ -122,6 +140,8 @@ const AddComment = ({
 
     if (commentId) {
       updateComment(commentData);
+    } else if (comment) {
+      replyComment(commentData);
     } else {
       addComment(commentData);
     }
@@ -185,7 +205,6 @@ const AddComment = ({
             >
               {comment.body}
             </div>
-            {console.log(comment)}
             {comment.gif && (
               <div className='user-gem__comment-media'>
                 <img src={comment.gif} alt='gif' />

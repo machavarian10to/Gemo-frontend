@@ -322,7 +322,6 @@ function Comment({ comment, onUpdateComment }) {
                   <AddComment
                     comment={comment}
                     placeholder={'Write a reply...'}
-                    // placeholder={`Reply to @${comment.userName}`}
                     focus={true}
                   />
                 </div>
