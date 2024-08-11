@@ -23,7 +23,7 @@ const renewAccessToken = async () => {
 const getCurrentUser = async () => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/auth/me`,
+      `${import.meta.env.VITE_API_URL}/auth/get-user`,
       {
         headers: {
           Authorization: `Bearer ${getToken('accessToken')}`,
@@ -34,7 +34,7 @@ const getCurrentUser = async () => {
   } catch (error) {
     await renewAccessToken();
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/auth/me`,
+      `${import.meta.env.VITE_API_URL}/auth/get-user`,
       {
         headers: {
           Authorization: `Bearer ${getToken('accessToken')}`,
