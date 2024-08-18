@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
 import axios from 'axios';
+import authService from '@/services/authService';
 
 function GoogleCallback() {
   const dispatch = useDispatch();
@@ -19,13 +20,17 @@ function GoogleCallback() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/auth/get-user?userId=${userId}`)
+      .get(`${import.meta.env.VITE_API_URL}/auth/get-user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         const { user } = res.data;
         dispatch(setLogin({ user, token }));
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', token);
-        window.location.replace('/');
+        authService.setToken('accessToken', token);
+        authService.setToken('refreshToken', user.refreshToken);
+        window.location.href = '/';
       })
       .catch((err) => {
         console.log(err);

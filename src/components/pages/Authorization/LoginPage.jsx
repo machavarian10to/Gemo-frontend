@@ -48,7 +48,7 @@ function Login({ setCurrentTab }) {
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   function onGoogleLogin() {
-    window.location.replace(`${import.meta.env.VITE_API_URL}/auth/google`);
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   }
 
   function onUsernameInput(e) {

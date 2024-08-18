@@ -28,7 +28,6 @@ const logout = async () => {
 const authService = {
   setToken,
   getToken,
-  renewAccessToken,
   getCurrentUser,
   logout,
 };
