@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 function UserAvatar({ width = 40, height = 40, src }) {
   const user = useSelector((state) => state.user);
 
-  const imageSrc = src || user?.profilePicture;
+  const imageSrc = src || user.profilePhoto;
 
   return (
     <div

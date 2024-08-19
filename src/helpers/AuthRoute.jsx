@@ -8,6 +8,7 @@ import authService from '@/services/authService';
 const AuthRoute = ({ children }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user);
 
   useEffect(() => {
     const fetchUser = async () => {

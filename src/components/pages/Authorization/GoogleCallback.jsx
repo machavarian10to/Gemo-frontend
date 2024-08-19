@@ -13,6 +13,7 @@ function GoogleCallback() {
   const url = new URL(window.location.href);
   const userId = url.searchParams.get('userId');
   const token = url.searchParams.get('token');
+  const refreshToken = url.searchParams.get('refreshToken');
 
   if (!token) {
     window.location.replace('/');
@@ -20,17 +21,13 @@ function GoogleCallback() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/auth/get-user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${import.meta.env.VITE_API_URL}/users/get-user/${userId}`)
       .then((res) => {
         const { user } = res.data;
         dispatch(setLogin({ user, token }));
         authService.setToken('accessToken', token);
-        authService.setToken('refreshToken', user.refreshToken);
-        window.location.href = '/';
+        authService.setToken('refreshToken', refreshToken);
+        window.location.replace('/');
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +36,7 @@ function GoogleCallback() {
           type: 'error',
         });
       });
-  }, [dispatch, token, userId]);
+  }, [dispatch, refreshToken, token, userId]);
 
   return (
     <>
