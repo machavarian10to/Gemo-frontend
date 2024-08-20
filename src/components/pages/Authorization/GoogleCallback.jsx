@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
-import axios from 'axios';
+import axiosInstance from '@/services/axios';
 import authService from '@/services/authService';
 
 function GoogleCallback() {
@@ -19,14 +19,15 @@ function GoogleCallback() {
     window.location.replace('/');
   }
 
+  authService.setToken('accessToken', token);
+  authService.setToken('refreshToken', refreshToken);
+
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/users/get-user/${userId}`)
+    axiosInstance
+      .get('/api/users/get-user')
       .then((res) => {
         const { user } = res.data;
         dispatch(setLogin({ user, token }));
-        authService.setToken('accessToken', token);
-        authService.setToken('refreshToken', refreshToken);
         window.location.replace('/');
       })
       .catch((err) => {

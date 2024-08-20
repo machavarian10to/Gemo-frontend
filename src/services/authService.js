@@ -12,7 +12,7 @@ const getToken = (name) => {
 
 const getCurrentUser = async () => {
   try {
-    const response = await axiosInstance.get('/users/get-user');
+    const response = await axiosInstance.get('/api/users/get-user');
     return response.data;
   } catch (error) {
     console.log(error);
