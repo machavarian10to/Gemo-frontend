@@ -13,11 +13,13 @@ import axios from 'axios';
 import AlertBox from '@/components/UI/AlertBox';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
+import authService from '@/services/authService';
 
 function Login({ setCurrentTab }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // TODO: Refactor this with better practice
     const emailVerified = localStorage.getItem('emailVerified');
     const resetPasswordToken = localStorage.getItem('resetPasswordToken');
     if (emailVerified) {
@@ -91,8 +93,7 @@ function Login({ setCurrentTab }) {
       })
       .then((res) => {
         const { user, token } = res.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+        authService.setToken('accessToken', token);
         dispatch(setLogin({ user, token }));
       })
       .catch((err) => {
