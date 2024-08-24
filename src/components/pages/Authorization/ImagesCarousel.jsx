@@ -12,7 +12,7 @@ function ImagesCarousel() {
       .get(
         `https://pixabay.com/api/?key=${
           import.meta.env.VITE_PIXABAY_API_KEY
-        }&q=delicious+food&image_type=photo&per_page=200&orientation=vertical&category=food&safesearch=true&editors_choice=true`,
+        }&q=delicious+food&image_type=photo&per_page=10&orientation=vertical&category=food&safesearch=true&editors_choice=true`,
       )
       .then((res) => {
         const shuffledImages = res.data.hits.sort(() => Math.random() - 0.5);
@@ -30,13 +30,17 @@ function ImagesCarousel() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // Preload images
   useEffect(() => {
-    images.forEach((image) => {
-      const img = new Image();
-      img.src = image.webformatURL;
-    });
-  }, [images]);
+    if (images.length > 0) {
+      const imgCurrent = new Image();
+      imgCurrent.src = images[currentImage]?.webformatURL;
+
+      const nextImage =
+        currentImage === images.length - 1 ? 0 : currentImage + 1;
+      const imgNext = new Image();
+      imgNext.src = images[nextImage]?.webformatURL;
+    }
+  }, [images, currentImage]);
 
   return (
     <div className='user-home__auth-food-image-wrapper'>
@@ -47,6 +51,7 @@ function ImagesCarousel() {
           className='user-home__auth-food-image'
           style={{
             backgroundImage: `url(${images[currentImage]?.webformatURL})`,
+            transition: 'background-image 2s ease-in-out',
           }}
         ></div>
       )}

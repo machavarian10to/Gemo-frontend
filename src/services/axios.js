@@ -14,14 +14,9 @@ axiosInstance.defaults.withCredentials = true;
 axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = authService.getToken('accessToken');
-    const refreshToken = authService.getToken('refreshToken');
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-
-    if (refreshToken) {
-      config.headers['Refresh-Token'] = refreshToken;
     }
 
     return config;

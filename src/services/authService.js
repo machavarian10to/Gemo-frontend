@@ -1,7 +1,7 @@
 import axiosInstance from '@/services/axios';
 
 const setToken = (name, value) => {
-  document.cookie = `${name}=${value}; HttpOnly; Secure`;
+  document.cookie = `${name}=${value}; Secure; SameSite=Strict; Path=/`;
 };
 
 const getToken = (name) => {
@@ -15,14 +15,12 @@ const getCurrentUser = async () => {
     const response = await axiosInstance.get('/api/users/get-user');
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log('Error getting user: ', error.response.data);
   }
 };
 
 const logout = async () => {
-  document.cookie = `accessToken=; HttpOnly; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-  document.cookie = `refreshToken=; HttpOnly; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-  window.location.href = '/';
+  document.cookie = `accessToken=; Secure; SameSite=Strict; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
 };
 
 const authService = {

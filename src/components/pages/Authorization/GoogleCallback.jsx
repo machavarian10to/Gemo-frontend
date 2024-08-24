@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
-import axiosInstance from '@/services/axios';
 import authService from '@/services/authService';
+import axios from 'axios';
 
 function GoogleCallback() {
   const dispatch = useDispatch();
@@ -13,22 +13,19 @@ function GoogleCallback() {
   const url = new URL(window.location.href);
   const userId = url.searchParams.get('userId');
   const token = url.searchParams.get('token');
-  const refreshToken = url.searchParams.get('refreshToken');
 
   if (!token) {
-    window.location.replace('/');
+    window.location.href = '/';
   }
 
-  authService.setToken('accessToken', token);
-  authService.setToken('refreshToken', refreshToken);
-
   useEffect(() => {
-    axiosInstance
-      .get('/api/users/get-user')
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/auth/get-user/${userId}`)
       .then((res) => {
-        const { user } = res.data;
+        const user = res.data;
+        authService.setToken('accessToken', token);
         dispatch(setLogin({ user, token }));
-        window.location.replace('/');
+        window.location.href = '/';
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +34,7 @@ function GoogleCallback() {
           type: 'error',
         });
       });
-  }, [dispatch, refreshToken, token, userId]);
+  }, [dispatch, token, userId]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Authorization from '@/pages/Authorization';
 import { setLogin } from '@/state/index';
@@ -8,6 +8,7 @@ import authService from '@/services/authService';
 const AuthRoute = ({ children }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -20,13 +21,21 @@ const AuthRoute = ({ children }) => {
         }
       } catch (error) {
         console.log('Failed to fetch user', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     if (!user) {
       fetchUser();
+    } else {
+      setLoading(false);
     }
   }, [user, dispatch]);
+
+  if (loading) {
+    return;
+  }
 
   if (!user) {
     return <Authorization />;

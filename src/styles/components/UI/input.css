@@ -70,6 +70,7 @@
 
 .input-component-left-icon {
   position: absolute;
+  top: 10px;
   left: 8px;
   display: grid;
   place-items: center;

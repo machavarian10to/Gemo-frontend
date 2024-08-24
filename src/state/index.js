@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import authService from '@/services/authService';
 
 const initialState = {
   mode: 'light',
@@ -21,6 +22,7 @@ export const authSlice = createSlice({
     setLogout: (state) => {
       state.user = null;
       state.token = null;
+      authService.logout();
     },
     setGems: (state, action) => {
       state.gems = action.payload;
