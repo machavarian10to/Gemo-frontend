@@ -12,15 +12,15 @@ function UserCard() {
         <UserAvatar width={50} height={50} />
       </div>
       <NavLink to='/profile'>
-        <div className='user-home_user-card-username'>@{user?.username}</div>
+        <div className='user-home_user-card-username'>@{user.username}</div>
       </NavLink>
       <div className='divider'></div>
       <div className='user-home_user-card-level-bar-wrapper'>
         <div className='user-home_user-card-level-bar-details'>
-          <div>{user?.level} cook</div>
-          <div>{user?.levelPercent} %</div>
+          <div>{user.levelType} cook</div>
+          <div>{user.levelPercent} %</div>
         </div>
-        <ProgressBar level={user?.level} percent={user?.levelPercent} />
+        <ProgressBar level={user.levelType} percent={user.levelPercent} />
       </div>
     </div>
   );

@@ -51,7 +51,6 @@ function ImagesCarousel() {
           className='user-home__auth-food-image'
           style={{
             backgroundImage: `url(${images[currentImage]?.webformatURL})`,
-            transition: 'background-image 2s ease-in-out',
           }}
         ></div>
       )}
