@@ -1,0 +1,21 @@
+.email-verification-wrapper{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.email-verification-container{
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    background-color: var(--color-green-shade-01);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.email-verification-container h4{
+    font-size: 1.5rem;
+    margin: 4rem 0;
+}

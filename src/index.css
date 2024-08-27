@@ -151,24 +151,28 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Quicksand', 'Roboto';
-}
-
-body,
-.app {
-  background: var(--bg-main-white);
-  color: var(--color-main-black);
-  height: 100%;
-  width: 100%;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
+}
+
+body,
+#root {
+  background: var(--bg-main-white);
+  color: var(--color-main-black);
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .outlet {
   margin-left: 230px;
   margin-top: 58px;
+  width: calc(100% - 230px);
+  height: calc(100% - 58px);
 }
 
 .bold {
