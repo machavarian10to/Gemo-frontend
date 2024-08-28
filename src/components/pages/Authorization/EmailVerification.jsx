@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import VerificationDone from '@/components/animations/VerificationDone';
 
 function EmailVerification() {
   const navigate = useNavigate();
@@ -12,17 +13,19 @@ function EmailVerification() {
       if (!token) return;
 
       try {
-        // const res = await axios.get(
-        //   `${import.meta.env.VITE_API_URL}/auth/email-verify?token=${token}`,
-        // );
-        // if (res.status === 200) {
-        setVerified('Successful');
-        // }
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/auth/email-verify?token=${token}`,
+        );
+        if (res.status === 200) {
+          setVerified('Email Verified!');
+        }
       } catch (err) {
         console.log(err);
-        setVerified('Failed');
+        setVerified('Verification Failed');
       } finally {
-        // navigate('/');
+        setTimeout(() => {
+          navigate('/');
+        }, 5000);
       }
     }
     verifyEmail();
@@ -33,9 +36,17 @@ function EmailVerification() {
       {verified && (
         <div className='email-verification-wrapper'>
           <div className='email-verification-container'>
-            <h4 className={`verify-state-${verified}`}>
-              Email verification is {verified}!
-            </h4>
+            {verified === 'Email Verified!' ? (
+              <>
+                <h4>{verified}</h4>
+                <p>You will be redirected to the home page.</p>
+                <div className='verification-dene-animation-container'>
+                  <VerificationDone />
+                </div>
+              </>
+            ) : (
+              <h4>{verified}</h4>
+            )}
           </div>
         </div>
       )}

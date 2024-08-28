@@ -10,7 +10,6 @@ import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
-import AlertBox from '@/components/UI/AlertBox';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '@/state/index';
 import authService from '@/services/authService';
@@ -20,17 +19,7 @@ function Login({ setCurrentTab }) {
 
   useEffect(() => {
     // TODO: Refactor this with better practice
-    const emailVerified = localStorage.getItem('emailVerified');
     const resetPasswordToken = localStorage.getItem('resetPasswordToken');
-    if (emailVerified) {
-      setAlertBox({
-        message: 'Email verified successfully!',
-        type: 'success',
-      });
-      localStorage.removeItem('emailVerified');
-      return;
-    }
-
     if (resetPasswordToken) {
       setCurrentTab('new-password');
       return;
@@ -46,8 +35,6 @@ function Login({ setCurrentTab }) {
   const [passwordError, setPasswordError] = useState('');
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   function onGoogleLogin() {
     window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
@@ -81,7 +68,8 @@ function Login({ setCurrentTab }) {
     onUsernameBlur();
     onPasswordBlur();
 
-    if (usernameError || passwordError || !username || !password) return;
+    if (usernameError || passwordError || !username.trim() || !password.trim())
+      return;
 
     setIsButtonDisabled(true);
 
@@ -210,9 +198,6 @@ function Login({ setCurrentTab }) {
             </span>
           </div>
         </div>
-        {alertBox.message && (
-          <AlertBox type={alertBox.type} message={alertBox.message} />
-        )}
       </form>
     </Fade>
   );
