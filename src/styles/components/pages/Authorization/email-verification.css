@@ -12,8 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: red; */
-  border:3px solid var(--color-main-yellow);
+  border: 1.5px solid var(--color-grey);
   border-radius: var(--border-radius-rect);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
@@ -26,19 +25,22 @@
 .email-verification-container p {
   font-size: 1rem;
   margin-top: 15px;
-  font-weight: 600;
-  color: var(--color-main-grey);
+  font-weight: 700;
+  color: var(--color-grey);
 }
 
-.verification-dene-animation-container {
-  width: 400px;
-  height: 350px;
+.verification-dene-animation-container-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 200px;
 }
 
-.verification-dene-animation-container > div {
-    width: 100%;
-    height: 100%;
+.verification-dene-animation-container {
+  height: 100%;
+  width: 100%;
+}
+
+.email-verification-redirect-button {
+  margin-block: 10px 20px;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import VerificationDone from '@/components/animations/VerificationDone';
+import Button from '@/components/UI/Button';
 
 function EmailVerification() {
   const navigate = useNavigate();
@@ -21,11 +22,10 @@ function EmailVerification() {
         }
       } catch (err) {
         console.log(err);
-        setVerified('Verification Failed');
-      } finally {
-        setTimeout(() => {
-          navigate('/');
-        }, 5000);
+        setVerified({
+          text: 'Email verification failed!',
+          error: err.response.data.message,
+        });
       }
     }
     verifyEmail();
@@ -39,13 +39,30 @@ function EmailVerification() {
             {verified === 'Email Verified!' ? (
               <>
                 <h4>{verified}</h4>
-                <p>You will be redirected to the home page.</p>
-                <div className='verification-dene-animation-container'>
+                <p>Your email address was successfully verified!</p>
+                <div className='verification-dene-animation-container-wrapper'>
                   <VerificationDone />
+                </div>
+                <div className='email-verification-redirect-button'>
+                  <Button
+                    type='base'
+                    label='Return to login page'
+                    clickHandler={() => navigate('/')}
+                  />
                 </div>
               </>
             ) : (
-              <h4>{verified}</h4>
+              <>
+                <h4>{verified.text}</h4>
+                <p>{verified.error}</p>
+                <div className='email-verification-redirect-button'>
+                  <Button
+                    type='base'
+                    label='Return to login page'
+                    clickHandler={() => navigate('/')}
+                  />
+                </div>
+              </>
             )}
           </div>
         </div>

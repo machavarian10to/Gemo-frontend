@@ -14,7 +14,12 @@ function VerificationDone() {
     });
   }, []);
 
-  return <div ref={container}></div>;
+  return (
+    <div
+      className='verification-dene-animation-container'
+      ref={container}
+    ></div>
+  );
 }
 
 export default VerificationDone;
