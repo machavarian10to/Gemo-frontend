@@ -11,7 +11,7 @@ function EmailVerification() {
   useEffect(() => {
     async function verifyEmail() {
       const token = window.location.href.split('=')[1];
-      if (!token) return;
+      if (!token) return navigate('/');
 
       try {
         const res = await axios.get(

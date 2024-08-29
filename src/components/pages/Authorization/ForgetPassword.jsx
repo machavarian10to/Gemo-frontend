@@ -10,42 +10,36 @@ import AlertBox from '@/components/UI/AlertBox';
 function ForgetPassword({ setCurrentTab }) {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  const [alert, setAlert] = useState({
-    message: '',
-    type: '',
-  });
+  const [alert, setAlert] = useState({ message: '', type: '' });
 
   function isValidEmail() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
   function checkEmail() {
-    if (!email) {
+    if (!email.trim()) {
       setEmailError('Email should not be empty!');
-      return;
+      return false;
     }
     if (!isValidEmail()) {
       setEmailError('Email is invalid!');
-      return;
+      return false;
     }
+    setEmailError('');
+    return true;
   }
 
   function onSendInstructions(e) {
     e.preventDefault();
-    checkEmail();
 
-    if (emailError) return;
+    if (!checkEmail()) return;
 
     setIsButtonDisabled(true);
     setAlert({ message: '', type: '' });
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/forget-password`, {
-        email,
-      })
+      .post(`${import.meta.env.VITE_API_URL}/auth/forget-password`, { email })
       .then((res) => {
         setAlert({
           message: res.data.message,
@@ -65,8 +59,10 @@ function ForgetPassword({ setCurrentTab }) {
   }
 
   function onEmailInput(e) {
-    setEmailError('');
     setEmail(e.target.value);
+    if (emailError) {
+      checkEmail();
+    }
   }
 
   return (
