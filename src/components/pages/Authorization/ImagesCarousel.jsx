@@ -12,7 +12,7 @@ function ImagesCarousel() {
       .get(
         `https://pixabay.com/api/?key=${
           import.meta.env.VITE_PIXABAY_API_KEY
-        }&q=delicious+food&image_type=photo&per_page=10&orientation=vertical&category=food&safesearch=true&editors_choice=true`,
+        }&q=delicious+food&image_type=photo&per_page=20&orientation=vertical&category=food&safesearch=true&editors_choice=true`,
       )
       .then((res) => {
         const shuffledImages = res.data.hits.sort(() => Math.random() - 0.5);

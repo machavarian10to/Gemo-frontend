@@ -10,55 +10,61 @@ import GoogleButton from '@/components/pages/Authorization/GoogleButton';
 import { Fade } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogin } from '@/state/index';
 import authService from '@/services/authService';
 
 function Login({ setCurrentTab }) {
   const dispatch = useDispatch();
+  const resetPasswordToken = useSelector((state) => state.resetToken);
 
   useEffect(() => {
-    // TODO: Refactor this with better practice
-    const resetPasswordToken = localStorage.getItem('resetPasswordToken');
     if (resetPasswordToken) {
-      setCurrentTab('new-password');
-      return;
+      return setCurrentTab('new-password');
     }
-  }, [setCurrentTab]);
+  }, [setCurrentTab, resetPasswordToken]);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
-
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  function onGoogleLogin() {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
-  }
+  const [formState, setFormState] = useState({
+    username: '',
+    password: '',
+    usernameError: '',
+    passwordError: '',
+    remember: false,
+    showPassword: false,
+    isButtonDisabled: false,
+  });
 
   function onUsernameInput(e) {
-    setUsernameError('');
-    setUsername(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      usernameError: '',
+      username: e.target.value,
+    }));
   }
 
   function onPasswordInput(e) {
-    setPasswordError('');
-    setPassword(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      passwordError: '',
+      password: e.target.value,
+    }));
   }
 
   function onUsernameBlur() {
-    if (!username) {
-      setUsernameError('Username should not be empty!');
+    if (!formState.username.trim()) {
+      setFormState((prev) => ({
+        ...prev,
+        usernameError: 'Username should not be empty!',
+      }));
     }
   }
 
   function onPasswordBlur() {
-    if (!password) {
-      setPasswordError('Password should not be empty!');
+    if (!formState.password.trim()) {
+      setFormState((prev) => ({
+        ...prev,
+        passwordError: 'Password should not be empty!',
+      }));
     }
   }
 
@@ -68,46 +74,57 @@ function Login({ setCurrentTab }) {
     onUsernameBlur();
     onPasswordBlur();
 
-    if (usernameError || passwordError || !username.trim() || !password.trim())
+    if (
+      formState.usernameError ||
+      formState.passwordError ||
+      !formState.username.trim() ||
+      !formState.password.trim()
+    )
       return;
 
-    setIsButtonDisabled(true);
+    setFormState((prev) => ({ ...prev, isButtonDisabled: true }));
 
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/login`, {
-        username,
-        password,
-        remember,
+        username: formState.username,
+        password: formState.password,
+        remember: formState.remember,
       })
       .then((res) => {
         const { user, token } = res.data;
         authService.setToken('accessToken', token);
-        dispatch(setLogin({ user, token }));
+        dispatch(setLogin({ user }));
       })
       .catch((err) => {
         console.log(err);
         if (err.response) {
           const { message, type } = err.response.data;
           if (type === 'username') {
-            setUsernameError(message);
+            setFormState((prev) => ({
+              ...prev,
+              usernameError: message,
+            }));
           }
           if (type === 'password') {
-            setPasswordError(message);
+            setFormState((prev) => ({
+              ...prev,
+              passwordError: message,
+            }));
           }
           if (type === 'all') {
-            setUsernameError(message);
-            setPasswordError(message);
+            setFormState((prev) => ({
+              ...prev,
+              usernameError: message,
+              passwordError: message,
+            }));
           }
-        }
-        if (err.message === 'Network Error') {
-          setAlertBox({
-            message: 'Network Error',
-            type: 'error',
-          });
         }
       })
       .finally(() => {
-        setIsButtonDisabled(false);
+        setFormState((prev) => ({
+          ...prev,
+          isButtonDisabled: false,
+        }));
       });
   }
 
@@ -117,7 +134,7 @@ function Login({ setCurrentTab }) {
         <h6>Welcome back! Please enter your details.</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
-            value={username}
+            value={formState.username}
             onInput={(e) => onUsernameInput(e)}
             onBlur={onUsernameBlur}
             leftIcon={
@@ -126,13 +143,15 @@ function Login({ setCurrentTab }) {
               />
             }
             placeholder='Enter username'
-            state={usernameError ? 'danger' : 'active'}
-            helperText={usernameError ? usernameError : null}
+            state={formState.usernameError ? 'danger' : 'active'}
+            helperText={
+              formState.usernameError ? formState.usernameError : null
+            }
           />
           <div className='user-home__auth-password-input-wrapper'>
             <Input
-              type={showPassword ? 'text' : 'password'}
-              value={password}
+              type={formState.showPassword ? 'text' : 'password'}
+              value={formState.password}
               onInput={(e) => onPasswordInput(e)}
               onBlur={onPasswordBlur}
               leftIcon={
@@ -144,19 +163,31 @@ function Login({ setCurrentTab }) {
                 />
               }
               placeholder='Enter password'
-              state={passwordError ? 'danger' : 'active'}
-              helperText={passwordError ? passwordError : null}
+              state={formState.passwordError ? 'danger' : 'active'}
+              helperText={
+                formState.passwordError ? formState.passwordError : null
+              }
             />
 
             <div className='user-home__auth-password-eye'>
-              {!showPassword ? (
+              {!formState.showPassword ? (
                 <RemoveRedEyeOutlinedIcon
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      showPassword: !prev.showPassword,
+                    }))
+                  }
                   style={{ color: 'var(--color-grey)', fontSize: '18px' }}
                 />
               ) : (
                 <VisibilityOffOutlinedIcon
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      showPassword: !prev.showPassword,
+                    }))
+                  }
                   style={{ color: 'var(--color-grey)', fontSize: '18px' }}
                 />
               )}
@@ -167,8 +198,13 @@ function Login({ setCurrentTab }) {
             <div className='user-home__auth-remember-wrapper'>
               <Checkbox
                 label='Remember me'
-                checked={remember}
-                onChange={() => setRemember((prev) => !prev)}
+                checked={formState.remember}
+                onChange={() =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    remember: !prev.remember,
+                  }))
+                }
               />
             </div>
 
@@ -185,12 +221,18 @@ function Login({ setCurrentTab }) {
             submit
             label='Log in'
             clickHandler={onLogin}
-            state={isButtonDisabled ? 'inactive' : 'active'}
+            state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />
           <p className='user-home__auth-divider'>
             <span>or</span>
           </p>
-          <GoogleButton onClick={onGoogleLogin} />
+          <GoogleButton
+            onClick={() =>
+              (window.location.href = `${
+                import.meta.env.VITE_API_URL
+              }/auth/google`)
+            }
+          />
           <div className='user-home__auth-footer'>
             <span>Don&apos;t have an account?</span>
             <span className='link' onClick={() => setCurrentTab('register')}>

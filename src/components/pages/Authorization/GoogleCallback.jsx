@@ -24,7 +24,7 @@ function GoogleCallback() {
       .then((res) => {
         const user = res.data;
         authService.setToken('accessToken', token);
-        dispatch(setLogin({ user, token }));
+        dispatch(setLogin({ user }));
         window.location.href = '/';
       })
       .catch((err) => {

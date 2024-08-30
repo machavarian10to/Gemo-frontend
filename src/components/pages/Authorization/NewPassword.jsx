@@ -6,53 +6,71 @@ import Input from '@/components/UI/Input';
 import Button from '@/components/UI/Button';
 import AlertBox from '@/components/UI/AlertBox';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setResetToken } from '@/state/index';
 
 function NewPassword({ setCurrentTab }) {
-  const [newPassword, setNewPassword] = useState('');
-  const [newPasswordError, setNewPasswordError] = useState('');
-
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  const [alert, setAlert] = useState({
-    message: '',
-    type: '',
+  const [formState, setFormState] = useState({
+    newPassword: '',
+    newPasswordError: '',
+    confirmPassword: '',
+    confirmPasswordError: '',
+    isButtonDisabled: false,
   });
 
-  const token = localStorage.getItem('resetPasswordToken');
+  const [alert, setAlert] = useState({ message: '', type: '' });
+
+  const dispatch = useDispatch();
+  const resetPasswordToken = useSelector((state) => state.resetToken);
 
   function onNewPasswordBlur() {
-    if (!newPassword) {
-      setNewPasswordError('Password should not be empty!');
+    if (!formState.newPassword.trim()) {
+      setFormState((prev) => ({
+        ...prev,
+        newPasswordError: 'Password should not be empty!',
+      }));
       return;
     }
-    if (newPassword.length < 6) {
-      setNewPasswordError('Password should be at least 6 characters long!');
+    if (formState.newPassword.length < 6) {
+      setFormState((prev) => ({
+        ...prev,
+        newPasswordError: 'Password should be at least 6 characters long!',
+      }));
       return;
     }
   }
 
   function onRepeatPasswordBlur() {
-    if (!confirmPassword) {
-      setConfirmPasswordError('Repeat password should not be empty!');
+    if (!formState.confirmPassword.trim()) {
+      setFormState((prev) => ({
+        ...prev,
+        confirmPasswordError: 'Repeat password should not be empty!',
+      }));
       return;
     }
-    if (confirmPassword !== newPassword) {
-      setConfirmPasswordError('Passwords do not match!');
+    if (formState.confirmPassword !== formState.newPassword) {
+      setFormState((prev) => ({
+        ...prev,
+        confirmPasswordError: 'Passwords do not match!',
+      }));
       return;
     }
   }
 
   function onNewPasswordInput(e) {
-    setNewPasswordError('');
-    setNewPassword(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      newPasswordError: '',
+      newPassword: e.target.value,
+    }));
   }
 
   function onConfirmPasswordInput(e) {
-    setConfirmPasswordError('');
-    setConfirmPassword(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      confirmPasswordError: '',
+      confirmPassword: e.target.value,
+    }));
   }
 
   function ResetPassword(e) {
@@ -60,49 +78,37 @@ function NewPassword({ setCurrentTab }) {
     onNewPasswordBlur();
     onRepeatPasswordBlur();
 
-    if (newPasswordError || confirmPasswordError) return;
+    if (formState.newPasswordError || formState.confirmPasswordError) return;
 
-    setIsButtonDisabled(true);
+    setFormState((prev) => ({ ...prev, isButtonDisabled: true }));
     setAlert({ message: '', type: '' });
 
-    if (!token) {
-      setAlert({
-        message: 'Invalid reset password token!',
-        type: 'error',
-      });
-      setIsButtonDisabled(false);
+    if (!resetPasswordToken) {
+      setAlert({ message: 'Invalid reset password token!', type: 'error' });
+      setFormState((prev) => ({ ...prev, isButtonDisabled: false }));
       return;
     }
 
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/reset-password`, {
-        token,
-        password: newPassword,
+        token: resetPasswordToken,
+        password: formState.newPassword,
       })
       .then((res) => {
-        setAlert({
-          message: res.data.message,
-          type: 'success',
-        });
-        setNewPassword('');
-        setConfirmPassword('');
-        setAlert({
-          message: 'Password reset successfully!',
-          type: 'success',
-        });
-        setTimeout(() => {
-          setCurrentTab('login');
-        }, 2000);
-        localStorage.removeItem('resetPasswordToken');
+        setAlert({ message: res.data.message, type: 'success' });
+        setTimeout(() => setCurrentTab('login'), 2000);
+        setFormState((prev) => ({
+          ...prev,
+          newPassword: '',
+          confirmPassword: '',
+        }));
+        dispatch(setResetToken(''));
       })
       .catch((error) => {
-        setAlert({
-          message: error.response.data.message,
-          type: 'error',
-        });
+        setAlert({ message: error.response.data.message, type: 'error' });
       })
       .finally(() => {
-        setIsButtonDisabled(false);
+        setFormState((prev) => ({ ...prev, isButtonDisabled: false }));
       });
   }
 
@@ -118,15 +124,15 @@ function NewPassword({ setCurrentTab }) {
             type='password'
             onInput={onNewPasswordInput}
             onBlur={onNewPasswordBlur}
-            value={newPassword}
+            value={formState.newPassword}
             state={
-              isButtonDisabled
+              formState.isButtonDisabled
                 ? 'inactive'
-                : newPasswordError
+                : formState.newPasswordError
                 ? 'danger'
                 : 'active'
             }
-            helperText={newPasswordError}
+            helperText={formState.newPasswordError}
             placeholder='New password'
             leftIcon={
               <VpnKeyOutlinedIcon
@@ -141,15 +147,15 @@ function NewPassword({ setCurrentTab }) {
             type='password'
             onInput={onConfirmPasswordInput}
             onBlur={onRepeatPasswordBlur}
-            value={confirmPassword}
+            value={formState.confirmPassword}
             state={
-              isButtonDisabled
+              formState.isButtonDisabled
                 ? 'inactive'
-                : confirmPasswordError
+                : formState.confirmPasswordError
                 ? 'danger'
                 : 'active'
             }
-            helperText={confirmPasswordError}
+            helperText={formState.confirmPasswordError}
             placeholder='Repeat password'
             leftIcon={
               <VpnKeyOutlinedIcon
@@ -164,7 +170,7 @@ function NewPassword({ setCurrentTab }) {
             submit
             label='Reset password'
             clickHandler={ResetPassword}
-            state={isButtonDisabled ? 'inactive' : 'active'}
+            state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />
         </div>
         {alert.message && (

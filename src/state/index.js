@@ -5,6 +5,7 @@ const initialState = {
   mode: 'light',
   user: null,
   token: null,
+  resetToken: null,
   gems: [],
 };
 
@@ -23,6 +24,9 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
       authService.logout();
+    },
+    setResetToken: (state, action) => {
+      state.resetToken = action.payload;
     },
     setGems: (state, action) => {
       state.gems = action.payload;
@@ -76,6 +80,7 @@ export const {
   setMode,
   setLogin,
   setLogout,
+  setResetToken,
   setGems,
   setGem,
   updateGem,

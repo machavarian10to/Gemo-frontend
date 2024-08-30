@@ -11,49 +11,61 @@ import axios from 'axios';
 import AlertBox from '@/components/UI/AlertBox';
 
 function Register({ setCurrentTab }) {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-
-  const [emailError, setEmailError] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [repeatPasswordError, setRepeatPasswordError] = useState('');
-
-  const [passwordStrength, setPasswordStrength] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [formState, setFormState] = useState({
+    email: '',
+    username: '',
+    password: '',
+    repeatPassword: '',
+    emailError: '',
+    usernameError: '',
+    passwordError: '',
+    repeatPasswordError: '',
+    passwordStrength: '',
+    isButtonDisabled: false,
+  });
 
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
   function isValidEmail() {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email);
   }
 
   function checkEmail() {
-    if (!email) {
-      setEmailError('Email should not be empty!');
+    if (!formState.email.trim()) {
+      setFormState((prev) => ({
+        ...prev,
+        emailError: 'Email should not be empty!',
+      }));
       return;
     }
     if (!isValidEmail()) {
-      setEmailError('Email is invalid!');
+      setFormState((prev) => ({ ...prev, emailError: 'Email is invalid!' }));
       return;
     }
   }
 
   function onEmailInput(e) {
-    setEmailError('');
-    setEmail(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      emailError: '',
+      email: e.target.value,
+    }));
   }
 
   function onUsernameInput(e) {
-    setUsernameError('');
-    setUsername(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      usernameError: '',
+      username: e.target.value,
+    }));
   }
 
   function onPasswordInput(e) {
-    setPasswordError('');
-    setPassword(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      passwordError: '',
+      password: e.target.value,
+    }));
     checkPasswordStrength(e.target.value);
   }
 
@@ -64,48 +76,66 @@ function Register({ setCurrentTab }) {
         /\d/.test(password) &&
         /[!@#$%^&*()-_=+{}[\]:;<>,.?/\\|_]/.test(password)
       ) {
-        setPasswordStrength('Strong');
+        setFormState((prev) => ({ ...prev, passwordStrength: 'Strong' }));
       } else if (/[A-Z]/.test(password) || /\d/.test(password)) {
-        setPasswordStrength('Normal');
+        setFormState((prev) => ({ ...prev, passwordStrength: 'Normal' }));
       } else {
-        setPasswordStrength('Weak');
+        setFormState((prev) => ({ ...prev, passwordStrength: 'Weak' }));
       }
     } else {
-      setPasswordStrength('Weak');
+      setFormState((prev) => ({ ...prev, passwordStrength: 'Weak' }));
     }
   };
 
   function onRepeatPasswordInput(e) {
-    setRepeatPasswordError('');
-    setRepeatPassword(e.target.value);
+    setFormState((prev) => ({
+      ...prev,
+      repeatPasswordError: '',
+      repeatPassword: e.target.value,
+    }));
   }
 
   function onUsernameBlur() {
-    if (!username) {
-      setUsernameError('Username should not be empty!');
+    if (!formState.username.trim()) {
+      setFormState((prev) => ({
+        ...prev,
+        usernameError: 'Username should not be empty!',
+      }));
     }
   }
 
   function onPasswordBlur() {
-    if (!password) {
-      setPasswordError('Password should not be empty!');
-      setPasswordStrength('');
+    if (!formState.password) {
+      setFormState((prev) => ({
+        ...prev,
+        passwordError: 'Password should not be empty!',
+        passwordStrength: '',
+      }));
       return;
     }
-    if (password.length < 6) {
-      setPasswordError('Password should be at least 6 characters long!');
-      setPasswordStrength('');
+    if (formState.password.length < 6) {
+      setFormState((prev) => ({
+        ...prev,
+        passwordError: 'Password should be at least 6 characters long!',
+        passwordStrength: '',
+      }));
       return;
     }
   }
 
   function onRepeatPasswordBlur() {
-    if (!repeatPassword) {
-      setRepeatPasswordError('Repeat password should not be empty!');
+    if (!formState.repeatPassword) {
+      setFormState((prev) => ({
+        ...prev,
+        repeatPasswordError: 'Repeat password should not be empty!',
+      }));
       return;
     }
-    if (repeatPassword !== password) {
-      setRepeatPasswordError('Passwords do not match!');
+    if (formState.repeatPassword !== formState.password) {
+      setFormState((prev) => ({
+        ...prev,
+        repeatPasswordError: 'Passwords do not match!',
+      }));
       return;
     }
   }
@@ -119,32 +149,38 @@ function Register({ setCurrentTab }) {
     onRepeatPasswordBlur();
 
     if (
-      emailError ||
-      usernameError ||
-      passwordError ||
-      repeatPasswordError ||
-      !email ||
-      !username ||
-      !password ||
-      !repeatPassword
+      formState.emailError ||
+      formState.usernameError ||
+      formState.passwordError ||
+      formState.repeatPasswordError ||
+      !formState.email.trim() ||
+      !formState.username.trim() ||
+      !formState.password.trim() ||
+      !formState.repeatPassword.trim()
     )
       return;
 
-    setIsButtonDisabled(true);
-    setPasswordStrength('');
+    setFormState((prev) => ({
+      ...prev,
+      isButtonDisabled: true,
+      passwordStrength: '',
+    }));
     setAlertBox({ message: '', type: '' });
 
     axios
       .post(`${import.meta.env.VITE_API_URL}/auth/register`, {
-        email,
-        username,
-        password,
+        email: formState.email,
+        username: formState.username,
+        password: formState.password,
       })
       .then((res) => {
-        setEmail('');
-        setUsername('');
-        setPassword('');
-        setRepeatPassword('');
+        setFormState((prev) => ({
+          ...prev,
+          email: '',
+          username: '',
+          password: '',
+          repeatPassword: '',
+        }));
 
         if (res.statusText === 'OK') {
           setAlertBox({
@@ -160,21 +196,23 @@ function Register({ setCurrentTab }) {
         if (err.response) {
           const { message, type } = err.response.data;
           if (type === 'email') {
-            setEmailError(message);
+            setFormState((prev) => ({ ...prev, emailError: message }));
           }
           if (type === 'username') {
-            setUsernameError(message);
+            setFormState((prev) => ({ ...prev, usernameError: message }));
           }
           if (type === 'password') {
-            setPasswordError(message);
+            setFormState((prev) => ({ ...prev, passwordError: message }));
           }
           if (type === 'all') {
-            setEmailError(message);
-            setUsernameError(message);
-            setPasswordError(message);
+            setFormState((prev) => ({
+              ...prev,
+              emailError: message,
+              usernameError: message,
+              passwordError: message,
+            }));
           }
         }
-
         if (err.message === 'Network Error') {
           setAlertBox({
             message: 'Network Error',
@@ -183,7 +221,7 @@ function Register({ setCurrentTab }) {
         }
       })
       .finally(() => {
-        setIsButtonDisabled(false);
+        setFormState((prev) => ({ ...prev, isButtonDisabled: false }));
       });
   }
 
@@ -195,11 +233,15 @@ function Register({ setCurrentTab }) {
           <Input
             onInput={onEmailInput}
             onBlur={checkEmail}
-            value={email}
+            value={formState.email}
             state={
-              isButtonDisabled ? 'inactive' : emailError ? 'danger' : 'active'
+              formState.isButtonDisabled
+                ? 'inactive'
+                : formState.emailError
+                ? 'danger'
+                : 'active'
             }
-            helperText={emailError}
+            helperText={formState.emailError}
             type='email'
             placeholder='Enter email'
             leftIcon={
@@ -211,15 +253,15 @@ function Register({ setCurrentTab }) {
           <Input
             onInput={onUsernameInput}
             onBlur={onUsernameBlur}
-            value={username}
+            value={formState.username}
             state={
-              isButtonDisabled
+              formState.isButtonDisabled
                 ? 'inactive'
-                : usernameError
+                : formState.usernameError
                 ? 'danger'
                 : 'active'
             }
-            helperText={usernameError}
+            helperText={formState.usernameError}
             leftIcon={
               <AlternateEmailIcon
                 style={{ color: 'var(--color-grey)', fontSize: '18px' }}
@@ -230,15 +272,15 @@ function Register({ setCurrentTab }) {
           <Input
             onInput={onPasswordInput}
             onBlur={onPasswordBlur}
-            value={password}
+            value={formState.password}
             state={
-              isButtonDisabled
+              formState.isButtonDisabled
                 ? 'inactive'
-                : passwordError
+                : formState.passwordError
                 ? 'danger'
                 : 'active'
             }
-            helperText={passwordError}
+            helperText={formState.passwordError}
             type='password'
             leftIcon={
               <VpnKeyOutlinedIcon
@@ -252,11 +294,11 @@ function Register({ setCurrentTab }) {
               <ProgressBar
                 percent={100}
                 color={
-                  passwordStrength === 'Weak'
+                  formState.passwordStrength === 'Weak'
                     ? 'var(--bg-main-red)'
-                    : passwordStrength === 'Normal'
+                    : formState.passwordStrength === 'Normal'
                     ? 'var(--color-yellow-shade-04)'
-                    : passwordStrength === 'Strong'
+                    : formState.passwordStrength === 'Strong'
                     ? 'var(--color-main-green)'
                     : ''
                 }
@@ -264,9 +306,9 @@ function Register({ setCurrentTab }) {
               <ProgressBar
                 percent={100}
                 color={
-                  passwordStrength === 'Normal'
+                  formState.passwordStrength === 'Normal'
                     ? 'var(--color-yellow-shade-04)'
-                    : passwordStrength === 'Strong'
+                    : formState.passwordStrength === 'Strong'
                     ? 'var(--color-main-green)'
                     : ''
                 }
@@ -274,24 +316,26 @@ function Register({ setCurrentTab }) {
               <ProgressBar
                 percent={100}
                 color={
-                  passwordStrength === 'Strong' ? 'var(--color-main-green)' : ''
+                  formState.passwordStrength === 'Strong'
+                    ? 'var(--color-main-green)'
+                    : ''
                 }
               />
             </div>
-            {passwordStrength && (
+            {formState.passwordStrength && (
               <div className='user-home__auth-password-strength'>
                 <span
                   style={
-                    passwordStrength === 'Weak'
+                    formState.passwordStrength === 'Weak'
                       ? { color: 'var(--bg-main-red)' }
-                      : passwordStrength === 'Normal'
+                      : formState.passwordStrength === 'Normal'
                       ? { color: 'var(--color-yellow-shade-04)' }
-                      : passwordStrength === 'Strong'
+                      : formState.passwordStrength === 'Strong'
                       ? { color: 'var(--color-main-green)' }
                       : { color: 'var(--color-grey)' }
                   }
                 >
-                  {passwordStrength}
+                  {formState.passwordStrength}
                 </span>
               </div>
             )}
@@ -299,15 +343,15 @@ function Register({ setCurrentTab }) {
           <Input
             onInput={onRepeatPasswordInput}
             onBlur={onRepeatPasswordBlur}
-            value={repeatPassword}
+            value={formState.repeatPassword}
             state={
-              isButtonDisabled
+              formState.isButtonDisabled
                 ? 'inactive'
-                : repeatPasswordError
+                : formState.repeatPasswordError
                 ? 'danger'
                 : 'active'
             }
-            helperText={repeatPasswordError}
+            helperText={formState.repeatPasswordError}
             type='password'
             leftIcon={
               <VpnKeyOutlinedIcon
@@ -320,7 +364,7 @@ function Register({ setCurrentTab }) {
             submit
             label='Sign up'
             clickHandler={onRegister}
-            state={isButtonDisabled ? 'inactive' : 'active'}
+            state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />
           <div className='user-home__auth-footer'>
             <span>Already have an account?</span>
