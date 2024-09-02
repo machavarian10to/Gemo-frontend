@@ -13,8 +13,10 @@ import { useSelector, useDispatch } from 'react-redux';
 function UserHome() {
   const dispatch = useDispatch();
   const gems = useSelector((state) => state.gems || []);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axiosInstance
       .get('/api/gems')
       .then((response) => {
@@ -26,6 +28,9 @@ function UserHome() {
           message: error.response.data,
           type: 'error',
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [dispatch]);
 
@@ -42,6 +47,12 @@ function UserHome() {
               {gems.length > 0 ? (
                 gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
               ) : (
+                <div className='user-home__no-gems'>
+                  <h3>No gems found!</h3>
+                </div>
+              )}
+
+              {loading && (
                 <div className='user-home__gems-loading-wrapper'>
                   <LoadingAnimation />
                 </div>

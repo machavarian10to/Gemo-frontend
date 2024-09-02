@@ -29,6 +29,20 @@
   padding-bottom: 20px;
 }
 
+.user-home__no-gems{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.user-home__no-gems h3{
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-main-grey);
+}
+
 .user-home__gems-loading-wrapper{
   width: 100%;
   position: relative;
