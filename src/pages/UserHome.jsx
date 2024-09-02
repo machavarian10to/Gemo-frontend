@@ -21,6 +21,7 @@ function UserHome() {
         dispatch(setGems(response.data));
       })
       .catch((error) => {
+        console.log(error);
         setAlertBox({
           message: error.response.data,
           type: 'error',
