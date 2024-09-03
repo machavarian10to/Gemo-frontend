@@ -40,6 +40,8 @@ const store = configureStore({
     }),
 });
 
+export const persistor = persistStore(store);
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -84,7 +86,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistStore(store)}>
+    <PersistGate loading={null} persistor={persistor}>
       <RouterProvider router={router}>
         <App />
       </RouterProvider>

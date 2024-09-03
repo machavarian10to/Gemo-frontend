@@ -1,5 +1,6 @@
 import axios from 'axios';
 import authService from '@/services/authService';
+import { persistor } from '@/main';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -30,9 +31,10 @@ axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
     if (error.response && error.response.status === 401) {
       authService.logout();
+      await persistor.purge();
       localStorage.removeItem('persist:root');
     }
     return Promise.reject(error);
