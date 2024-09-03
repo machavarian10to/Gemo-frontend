@@ -9,10 +9,11 @@ import LoadingAnimation from '@/components/animations/LoadingAnimation';
 import AlertBox from '@/components/UI/AlertBox';
 import { setGems } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
+import StandingChef from '@/components/animations/StandingChef';
 
 function UserHome() {
   const dispatch = useDispatch();
-  const gems = useSelector((state) => state.gems || []);
+  const gems = useSelector((state) => state.gems);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -44,17 +45,18 @@ function UserHome() {
             <SpeechBubble />
 
             <div className='user-home__post-wrapper'>
-              {gems.length > 0 ? (
+              {loading ? (
+                <div className='user-home__gems-loading-wrapper'>
+                  <LoadingAnimation />
+                </div>
+              ) : gems.length > 0 ? (
                 gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
               ) : (
                 <div className='user-home__no-gems'>
-                  <h3>No gems found!</h3>
-                </div>
-              )}
-
-              {loading && (
-                <div className='user-home__gems-loading-wrapper'>
-                  <LoadingAnimation />
+                  <p>There are no gems yet!</p>
+                  <div className='user-home__chef-animation-wrapper'>
+                    <StandingChef />
+                  </div>
                 </div>
               )}
             </div>

@@ -4,7 +4,6 @@ import authService from '@/services/authService';
 const initialState = {
   mode: 'light',
   user: null,
-  token: null,
   resetToken: null,
   gems: [],
 };
@@ -18,11 +17,9 @@ export const authSlice = createSlice({
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;
-      state.token = action.payload.token;
     },
     setLogout: (state) => {
       state.user = null;
-      state.token = null;
       authService.logout();
     },
     setResetToken: (state, action) => {
