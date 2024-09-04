@@ -1,6 +1,6 @@
 import axios from 'axios';
 import authService from '@/services/authService';
-import { persistor } from '@/main';
+import { setLogout } from '@/state/index';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -33,9 +33,8 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     if (error.response && error.response.status === 401) {
-      authService.logout();
-      await persistor.purge();
-      localStorage.removeItem('persist:root');
+      const { store } = await import('@/main');
+      store.dispatch(setLogout());
     }
     return Promise.reject(error);
   },

@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '@/App.jsx';
 import '@/index.css';
 import UserHome from '@/pages/UserHome';
-import DiscussionPage from '@/pages/DiscussionPage';
+import GroupsPage from '@/pages/GroupsPage';
 import EmailVerification from '@/components/pages/Authorization/EmailVerification';
 import GoogleCallback from '@/components/pages/Authorization/GoogleCallback';
 import ResetPassword from '@/components/pages/Authorization/ResetPassword';
@@ -29,8 +29,10 @@ const persistConfig = {
   version: 1,
   storage,
 };
+
 const persistedReducer = persistReducer(persistConfig, authReducer);
-const store = configureStore({
+
+export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -60,10 +62,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'discussion',
+        path: 'groups',
         element: (
           <AuthRoute>
-            <DiscussionPage />
+            <GroupsPage />
           </AuthRoute>
         ),
       },
