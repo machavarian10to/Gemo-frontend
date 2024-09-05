@@ -52,8 +52,8 @@
 
 .user-home__no-gems p{
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-main-grey);
+  font-weight: 700;
+  color: var(--color-grey);
   margin-top: 20px;
 }
 

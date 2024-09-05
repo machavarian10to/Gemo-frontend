@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import LoadingAnimation from '@/components/animations/LoadingAnimation';
 
 function ImagesCarousel() {
   const [images, setImages] = useState([]);
@@ -25,7 +24,7 @@ function ImagesCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -45,7 +44,12 @@ function ImagesCarousel() {
   return (
     <div className='user-home__auth-food-image-wrapper'>
       {loading ? (
-        <LoadingAnimation />
+        <div
+          className='user-home__auth-food-image'
+          style={{
+            background: 'rgba(0, 0, 0, 0.1)',
+          }}
+        ></div>
       ) : (
         <div
           className='user-home__auth-food-image'

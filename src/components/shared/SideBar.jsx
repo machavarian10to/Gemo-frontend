@@ -42,7 +42,7 @@ function SideBar() {
             </NavLink>
             <NavLink to='/notifications'>
               <NotificationsOutlinedIcon />
-              <span>Activity</span>
+              <span>Activities</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
