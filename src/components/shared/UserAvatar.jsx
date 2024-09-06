@@ -15,7 +15,7 @@ function UserAvatar({ width = 40, height = 40, src }) {
         .get(
           `${
             import.meta.env.VITE_API_URL
-          }/auth/get-user-profile-photo?url=${encodeURIComponent(
+          }/auth/user-profile-photo?url=${encodeURIComponent(
             user.profilePhoto,
           )}`,
           { responseType: 'arraybuffer' },

@@ -20,7 +20,7 @@ function GoogleCallback() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/auth/get-user/${userId}`)
+      .get(`${import.meta.env.VITE_API_URL}/auth/user/${userId}`)
       .then((res) => {
         const user = res.data;
         authService.setToken('accessToken', token);
