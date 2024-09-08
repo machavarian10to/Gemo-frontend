@@ -57,25 +57,30 @@ export default function CreateGemContainer({
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const [gemTitle, setGemTitle] = useState(gem ? gem.title : '');
-  const [charCount, setCharCount] = useState(gem ? gem.title.length : 0);
+  const [titleState, setTitleState] = useState({
+    gemTitle: gem ? gem.title : '',
+    charCount: gem ? gem.title.length : 0,
+  });
 
   const [postTabState, setPostTabState] = useState(
-    gem && gem.type === 'post' && gem.body
-      ? gem.body
+    gem && gem.type === 'post'
+      ? { content: gem.content, media: gem.media }
       : {
-          postContent: null,
-          file: null,
-          fileName: null,
-          mediaSrc: null,
-          gifSrc: null,
+          content: {
+            body: null,
+          },
+          media: {
+            file: null,
+            mediaSrc: null,
+            gifSrc: null,
+          },
         },
   );
 
   const [mediaTabState, setMediaTabState] = useState(
     gem && gem.type === 'media' && gem.body
       ? gem.body
-      : { file: null, fileName: null, mediaSrc: null },
+      : { file: null, mediaSrc: null },
   );
 
   const [pollTabState, setPollTabState] = useState(
@@ -117,7 +122,6 @@ export default function CreateGemContainer({
       ? gem.body
       : {
           file: null,
-          fileName: null,
           mediaSrc: null,
           startDate: new Date(),
           location: '',
@@ -134,9 +138,7 @@ export default function CreateGemContainer({
   async function clickHandler() {
     const formData = new FormData();
     formData.append('userId', user._id);
-    formData.append('userName', user.username);
-    formData.append('userPhoto', user.profilePicture);
-    formData.append('title', gemTitle.trim());
+    formData.append('title', titleState.gemTitle.trim());
     if (
       (activeTab === 'media' && !mediaTabState.file) ||
       (activeTab === 'gif' && !gifTabState.gif) ||
@@ -155,16 +157,14 @@ export default function CreateGemContainer({
     }
 
     if (activeTab === 'post') {
-      if (postTabState.file) formData.append('file', postTabState.file);
-      const state = {};
-      const postTabStateKeys = Object.keys(postTabState);
-      postTabStateKeys.forEach((key) => {
-        if (postTabState[key] && key !== 'file' && key !== 'mediaSrc') {
-          state[key] = postTabState[key];
-        }
-      });
-      if (Object.keys(state).length !== 0) {
-        formData.append('body', JSON.stringify(state));
+      if (postTabState.media.file) {
+        formData.append('file', postTabState.media.file);
+      }
+      if (postTabState.media.gifSrc) {
+        formData.append('gifSrc', postTabState.media.gifSrc);
+      }
+      if (postTabState.content.body) {
+        formData.append('content', JSON.stringify(postTabState.content));
       }
     } else if (activeTab === 'media') {
       if (mediaTabState.file) {
@@ -250,8 +250,10 @@ export default function CreateGemContainer({
   }
 
   function setTitle(e) {
-    setCharCount(e.target.value.length);
-    setGemTitle(e.target.value);
+    setTitleState({
+      gemTitle: e.target.value,
+      charCount: e.target.value.length,
+    });
   }
 
   return (
@@ -310,9 +312,9 @@ export default function CreateGemContainer({
             placeholder='Title'
             maxLength={200}
             onChange={(e) => setTitle(e)}
-            value={gemTitle}
+            value={titleState.gemTitle}
           />
-          <span>{charCount}/200</span>
+          <span>{titleState.charCount}/200</span>
         </div>
 
         {activeTab === 'post' ? (
@@ -346,7 +348,9 @@ export default function CreateGemContainer({
           fillContainer
           label='Post'
           state={
-            charCount === 0 || gemTitle.trim() === '' || isButtonDisabled
+            titleState.charCount === 0 ||
+            titleState.gemTitle.trim() === '' ||
+            isButtonDisabled
               ? 'inactive'
               : 'active'
           }

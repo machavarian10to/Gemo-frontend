@@ -15,6 +15,7 @@ function GifContainer({ setGif, showGifs }) {
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${
       import.meta.env.VITE_GIPHY_API_KEY
     }&q=${searchValue}&limit=50&offset=0&rating=pg-13&lang=en`;
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => setGifs(data.data));
@@ -31,9 +32,11 @@ function GifContainer({ setGif, showGifs }) {
   function onGifSelect(gif) {
     setGif((prev) => ({
       ...prev,
-      gifSrc: gif.images.fixed_height.url,
-      mediaSrc: null,
-      file: null,
+      media: {
+        gifSrc: gif.images.fixed_height.url,
+        file: null,
+        mediaSrc: null,
+      },
     }));
     showGifs((prev) => ({
       ...prev,

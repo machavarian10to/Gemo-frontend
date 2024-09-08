@@ -55,8 +55,8 @@ function PostTabContent({ postTabState, setPostTabState }) {
   });
 
   useEffect(() => {
-    if (postTabState.postContent) {
-      editorContentRef.current.innerHTML = postTabState.postContent;
+    if (postTabState.content.body) {
+      editorContentRef.current.innerHTML = postTabState.content.body;
       setState({ ...state, showPlaceholder: true });
     }
   }, []);
@@ -134,7 +134,9 @@ function PostTabContent({ postTabState, setPostTabState }) {
 
     setPostTabState((prevState) => ({
       ...prevState,
-      postContent: editorContentRef.current.innerHTML,
+      content: {
+        body: editorContentRef.current.innerHTML,
+      },
     }));
 
     if (editorContentRef.current.innerHTML.length > 0) {
@@ -185,15 +187,20 @@ function PostTabContent({ postTabState, setPostTabState }) {
     if (file) {
       setPostTabState((prevState) => ({
         ...prevState,
-        file: file,
-        fileName: file.name,
+        media: {
+          ...prevState.media,
+          file: file,
+        },
       }));
       const reader = new FileReader();
       reader.onload = (e) => {
         setPostTabState((prevState) => ({
           ...prevState,
-          mediaSrc: e.target.result,
-          gifSrc: null,
+          media: {
+            ...prevState.media,
+            mediaSrc: e.target.result,
+            gifSrc: null,
+          },
         }));
       };
       reader.readAsDataURL(file);
@@ -203,10 +210,11 @@ function PostTabContent({ postTabState, setPostTabState }) {
   function deleteMedia() {
     setPostTabState((prevState) => ({
       ...prevState,
-      mediaSrc: null,
-      file: null,
-      fileName: null,
-      gifSrc: null,
+      media: {
+        mediaSrc: null,
+        file: null,
+        gifSrc: null,
+      },
     }));
   }
 
@@ -408,7 +416,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
           )}
         </div>
 
-        {postTabState.gifSrc && (
+        {postTabState.media.gifSrc && (
           <div className='media-wrapper'>
             <button
               title='delete media'
@@ -420,7 +428,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
               />
             </button>
             <div className='selected-gif'>
-              <img src={postTabState.gifSrc} alt='selected gif' />
+              <img src={postTabState.media.gifSrc} alt='selected gif' />
             </div>
           </div>
         )}
@@ -432,7 +440,7 @@ function PostTabContent({ postTabState, setPostTabState }) {
           style={{ display: 'none' }}
           ref={fileInputRef}
         />
-        {postTabState.mediaSrc && (
+        {postTabState.media.mediaSrc && (
           <div className='media-wrapper'>
             <button
               title='delete media'
@@ -443,16 +451,16 @@ function PostTabContent({ postTabState, setPostTabState }) {
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
             </button>
-            {postTabState.file.type.includes('video') ? (
+            {postTabState.media.file.type.includes('video') ? (
               <video
                 controls
-                src={postTabState.mediaSrc}
+                src={postTabState.media.mediaSrc}
                 className='user-media-preview'
               />
             ) : (
               <img
                 alt='user media preview'
-                src={postTabState.mediaSrc}
+                src={postTabState.media.mediaSrc}
                 className='user-media-preview'
               />
             )}
