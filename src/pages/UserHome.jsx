@@ -5,11 +5,11 @@ import Fade from '@mui/material/Fade';
 import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
 import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
 import axiosInstance from '@/services/axios';
-import LoadingAnimation from '@/components/animations/LoadingAnimation';
+import AnimationLoading from '@/components/animations/AnimationLoading';
 import AlertBox from '@/components/UI/AlertBox';
 import { setGems } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
-import StandingChef from '@/components/animations/StandingChef';
+import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 
 function UserHome() {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function UserHome() {
             <div className='user-home__post-wrapper'>
               {loading ? (
                 <div className='user-home__gems-loading-wrapper'>
-                  <LoadingAnimation />
+                  <AnimationLoading />
                 </div>
               ) : gems.length > 0 ? (
                 gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
@@ -55,7 +55,7 @@ function UserHome() {
                 <div className='user-home__no-gems'>
                   <p>There are no gems yet!</p>
                   <div className='user-home__chef-animation-wrapper'>
-                    <StandingChef />
+                    <AnimationStandingChef />
                   </div>
                 </div>
               )}

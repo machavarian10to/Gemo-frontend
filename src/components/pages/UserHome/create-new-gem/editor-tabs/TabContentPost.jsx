@@ -23,7 +23,7 @@ import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import PropTypes from 'prop-types';
 import GifContainer from '@/components/UI/GifContainer';
 
-function PostTabContent({ postTabState, setPostTabState }) {
+function TabContentPost({ postTabState, setPostTabState }) {
   const initialState = {
     bold: false,
     italic: false,
@@ -471,9 +471,9 @@ function PostTabContent({ postTabState, setPostTabState }) {
   );
 }
 
-PostTabContent.propTypes = {
+TabContentPost.propTypes = {
   postTabState: PropTypes.object.isRequired,
   setPostTabState: PropTypes.func.isRequired,
 };
 
-export default PostTabContent;
+export default TabContentPost;

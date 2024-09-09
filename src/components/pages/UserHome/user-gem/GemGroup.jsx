@@ -1,6 +1,6 @@
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 
-function UserGemGroup() {
+function GemGroup() {
   return (
     <div className='user-gem__group'>
       <PeopleAltOutlinedIcon
@@ -17,4 +17,4 @@ function UserGemGroup() {
   );
 }
 
-export default UserGemGroup;
+export default GemGroup;

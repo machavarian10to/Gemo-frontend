@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Slide } from '@mui/material';
 import { useState, useEffect } from 'react';
-import MealPrepareAnimation from '@/components/animations/MealPrepareAnimation';
+import AnimationMealPrepare from '@/components/animations/AnimationMealPrepare';
 
 function AlertBox({
   type = 'success', // info, success, error, warning
@@ -26,7 +26,7 @@ function AlertBox({
         onClick={() => setShow(false)}
       >
         <div className='meal-prepare-animation-wrapper'>
-          <MealPrepareAnimation />
+          <AnimationMealPrepare />
         </div>
         <p className='notification-component_message'>{message}</p>
       </div>

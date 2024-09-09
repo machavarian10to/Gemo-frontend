@@ -10,16 +10,16 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 import NoMealsOutlinedIcon from '@mui/icons-material/NoMealsOutlined';
-import CreateGemModal from '@/components/pages/UserHome/create-new-gem/CreateGemModal';
+import NewGemModal from '@/components/pages/UserHome/create-new-gem/NewGemModal';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
 import { useSelector, useDispatch } from 'react-redux';
-import UserGemDeleteModal from '@/components/pages/UserHome/user-gem/UserGemDeleteModal';
+import GemDeleteModal from '@/components/pages/UserHome/user-gem/GemDeleteModal';
 import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
 
-function UserGemMenu({ gem }) {
+function GemMenu({ gem }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -125,7 +125,7 @@ function UserGemMenu({ gem }) {
       )}
 
       {showModal && (
-        <CreateGemModal
+        <NewGemModal
           gem={gem}
           title='Edit gem'
           closeModal={() => setShowModal(false)}
@@ -135,7 +135,7 @@ function UserGemMenu({ gem }) {
       )}
 
       {showGemDeleteModal && (
-        <UserGemDeleteModal
+        <GemDeleteModal
           closeDeleteGemModal={() => setShowGemDeleteModal(false)}
           gemId={gem._id}
         />
@@ -252,7 +252,7 @@ function UserGemMenu({ gem }) {
   );
 }
 
-UserGemMenu.propTypes = {
+GemMenu.propTypes = {
   gem: PropTypes.object.isRequired,
 };
-export default UserGemMenu;
+export default GemMenu;

@@ -3,7 +3,7 @@ import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import UserGemMenu from '@/components/pages/UserHome/user-gem/UserGemMenu';
+import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
 
 function UserGemHeader({ gem }) {
@@ -61,7 +61,7 @@ function UserGemHeader({ gem }) {
           />
         </div>
 
-        <UserGemMenu gem={gem} />
+        <GemMenu gem={gem} />
       </div>
     </div>
   );

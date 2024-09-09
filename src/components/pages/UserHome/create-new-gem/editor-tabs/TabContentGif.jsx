@@ -4,9 +4,9 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
-import LoadingAnimation from '@/components/animations/LoadingAnimation';
+import AnimationLoading from '@/components/animations/AnimationLoading';
 
-function GifTabContent({ gifTabState, setGifTabState }) {
+function TabContentGif({ gifTabState, setGifTabState }) {
   const [searchValue, setSearchValue] = useState('');
   const [gifs, setGifs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -77,7 +77,7 @@ function GifTabContent({ gifTabState, setGifTabState }) {
           <Fade in={true} timeout={400}>
             <div className='gifs-wrapper'>
               {loading ? (
-                <LoadingAnimation />
+                <AnimationLoading />
               ) : (
                 gifs.map((gif) => (
                   <div
@@ -97,9 +97,9 @@ function GifTabContent({ gifTabState, setGifTabState }) {
   );
 }
 
-GifTabContent.propTypes = {
+TabContentGif.propTypes = {
   gifTabState: PropTypes.object,
   setGifTabState: PropTypes.func,
 };
 
-export default GifTabContent;
+export default TabContentGif;

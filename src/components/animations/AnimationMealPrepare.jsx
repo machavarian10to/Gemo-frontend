@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import lottie from 'lottie-web';
 import dishPreparation from '@/assets/animations/food-stirring.json';
 
-function MealPrepareAnimation() {
+function AnimationMealPrepare() {
   const container = useRef(null);
 
   useEffect(() => {
@@ -20,4 +20,4 @@ function MealPrepareAnimation() {
   );
 }
 
-export default MealPrepareAnimation;
+export default AnimationMealPrepare;

@@ -5,11 +5,11 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import GifBoxIcon from '@mui/icons-material/GifBox';
-import PostTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/PostTabContent';
-import MediaTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/MediaTabContent';
-import PollTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/PollTabContent';
-import EventTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/EventTabContent';
-import GifTabContent from '@/components/pages/UserHome/create-new-gem/editor-tabs/GifTabContent';
+import TabContentPost from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentPost';
+import TabContentMedia from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentMedia';
+import TabContentPoll from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentPoll';
+import TabContentEvent from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentEvent';
+import TabContentGif from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentGif';
 import Button from '@/components/UI/Button';
 import axios from '@/services/axios';
 import AlertBox from '@/components/UI/AlertBox';
@@ -17,7 +17,7 @@ import { setGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import generateId from '@/helpers/generateId';
 
-export default function CreateGemContainer({
+export default function NewGemContainer({
   gem,
   closeModal,
   activeTab,
@@ -319,27 +319,27 @@ export default function CreateGemContainer({
         </div>
 
         {activeTab === 'post' ? (
-          <PostTabContent
+          <TabContentPost
             postTabState={postTabState}
             setPostTabState={setPostTabState}
           />
         ) : activeTab === 'media' ? (
-          <MediaTabContent
+          <TabContentMedia
             mediaTabState={mediaTabState}
             setMediaTabState={setMediaTabState}
           />
         ) : activeTab === 'poll' ? (
-          <PollTabContent
+          <TabContentPoll
             pollTabState={pollTabState}
             setPollTabState={setPollTabState}
           />
         ) : activeTab === 'event' ? (
-          <EventTabContent
+          <TabContentEvent
             eventTabState={eventTabState}
             setEventTabState={setEventTabState}
           />
         ) : activeTab === 'gif' ? (
-          <GifTabContent
+          <TabContentGif
             gifTabState={gifTabState}
             setGifTabState={setGifTabState}
           />
@@ -362,7 +362,7 @@ export default function CreateGemContainer({
   );
 }
 
-CreateGemContainer.propTypes = {
+NewGemContainer.propTypes = {
   gem: PropTypes.object,
   closeModal: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,

@@ -9,7 +9,7 @@ import Checkbox from '@/components/UI/Checkbox';
 import PropTypes from 'prop-types';
 import generateId from '@/helpers/generateId';
 
-function PollTabContent({ pollTabState, setPollTabState }) {
+function TabContentPoll({ pollTabState, setPollTabState }) {
   const draggedOption = useRef(null);
   const draggedOverOption = useRef(null);
 
@@ -231,9 +231,9 @@ function PollTabContent({ pollTabState, setPollTabState }) {
   );
 }
 
-PollTabContent.propTypes = {
+TabContentPoll.propTypes = {
   pollTabState: PropTypes.object.isRequired,
   setPollTabState: PropTypes.func.isRequired,
 };
 
-export default PollTabContent;
+export default TabContentPoll;

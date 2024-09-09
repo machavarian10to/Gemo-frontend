@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import VerificationDone from '@/components/animations/VerificationDone';
+import AnimationVerificationDone from '@/components/animations/AnimationVerificationDone';
 import Button from '@/components/UI/Button';
 
 function EmailVerification() {
@@ -41,7 +41,7 @@ function EmailVerification() {
                 <h4>{verified}</h4>
                 <p>Your email address was successfully verified!</p>
                 <div className='verification-dene-animation-container-wrapper'>
-                  <VerificationDone />
+                  <AnimationVerificationDone />
                 </div>
                 <div className='email-verification-redirect-button'>
                   <Button

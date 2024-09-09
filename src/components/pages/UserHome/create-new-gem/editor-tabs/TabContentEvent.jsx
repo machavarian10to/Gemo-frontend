@@ -8,7 +8,7 @@ import 'react-clock/dist/Clock.css';
 import Input from '@/components/UI/Input';
 import PropTypes from 'prop-types';
 
-function EventTabContent({ eventTabState, setEventTabState }) {
+function TabContentEvent({ eventTabState, setEventTabState }) {
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
@@ -137,9 +137,9 @@ function EventTabContent({ eventTabState, setEventTabState }) {
   );
 }
 
-EventTabContent.propTypes = {
+TabContentEvent.propTypes = {
   eventTabState: PropTypes.object.isRequired,
   setEventTabState: PropTypes.func.isRequired,
 };
 
-export default EventTabContent;
+export default TabContentEvent;

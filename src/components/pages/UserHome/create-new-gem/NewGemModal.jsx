@@ -1,14 +1,14 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import CreateGemContainer from './CreateGemContainer';
+import NewGemContainer from './NewGemContainer';
 import PublicIcon from '@mui/icons-material/Public';
 import useClickOutside from '@/hook/useClickOutside';
 import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-function CreateGemModal({
+function NewGemModal({
   title,
   closeModal,
   activeTab,
@@ -45,7 +45,7 @@ function CreateGemModal({
             </div>
           </div>
           <div className='modal-footer'>
-            <CreateGemContainer
+            <NewGemContainer
               closeModal={closeModal}
               activeTab={activeTab}
               handleActiveTab={handleActiveTab}
@@ -58,7 +58,7 @@ function CreateGemModal({
   );
 }
 
-CreateGemModal.propTypes = {
+NewGemModal.propTypes = {
   title: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
@@ -66,4 +66,4 @@ CreateGemModal.propTypes = {
   gem: PropTypes.object,
 };
 
-export default CreateGemModal;
+export default NewGemModal;

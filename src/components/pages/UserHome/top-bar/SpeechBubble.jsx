@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CreateGemModal from '../create-new-gem/CreateGemModal';
+import NewGemModal from '../create-new-gem/NewGemModal';
 import UserAvatar from '@/components/shared/UserAvatar';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
@@ -42,7 +42,7 @@ function SpeechBubble() {
         </div>
       </div>
       {showModal && (
-        <CreateGemModal
+        <NewGemModal
           title='Create a gem'
           closeModal={() => setShowModal(false)}
           activeTab={activeTab}

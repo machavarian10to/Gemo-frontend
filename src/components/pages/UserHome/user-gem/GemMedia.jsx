@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function UserGemMedia({ gem }) {
+function GemMedia({ gem }) {
   return (
     <>
       {gem.body?.fileName && gem.type !== 'event' ? (
@@ -32,8 +32,8 @@ function UserGemMedia({ gem }) {
   );
 }
 
-UserGemMedia.propTypes = {
+GemMedia.propTypes = {
   gem: PropTypes.object.isRequired,
 };
 
-export default UserGemMedia;
+export default GemMedia;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function StandingChef() {
+function AnimationStandingChef() {
   return (
     <div className='standing-chef-container'>
       <svg
@@ -436,4 +436,4 @@ function StandingChef() {
   );
 }
 
-export default StandingChef;
+export default AnimationStandingChef;

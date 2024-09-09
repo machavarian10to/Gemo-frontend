@@ -7,7 +7,7 @@ import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
 import AlertBox from '@/components/UI/AlertBox';
 
-function UserGemDeleteModal({ closeDeleteGemModal, gemId }) {
+function GemDeleteModal({ closeDeleteGemModal, gemId }) {
   const dispatch = useDispatch();
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -79,9 +79,9 @@ function UserGemDeleteModal({ closeDeleteGemModal, gemId }) {
   );
 }
 
-UserGemDeleteModal.propTypes = {
+GemDeleteModal.propTypes = {
   closeDeleteGemModal: PropTypes.func.isRequired,
   gemId: PropTypes.string.isRequired,
 };
 
-export default UserGemDeleteModal;
+export default GemDeleteModal;

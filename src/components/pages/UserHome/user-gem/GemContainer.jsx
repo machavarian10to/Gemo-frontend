@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 import EventContainer from '@/components/pages/UserHome/user-gem/EventContainer';
 import UserGemHeader from '@/components/pages/UserHome/user-gem/layout/UserGemHeader';
-import UserGemMedia from '@/components/pages/UserHome/user-gem/UserGemMedia';
-import UserGemPoll from './poll/UserGemPoll';
+import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
+import GemPoll from './poll/GemPoll';
 import UserGemFooter from '@/components/pages/UserHome/user-gem/layout/UserGemFooter';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -49,12 +49,12 @@ function GemContainer({ gem }) {
           )}
         </div>
 
-        <UserGemMedia gem={gem} />
+        <GemMedia gem={gem} />
 
         {gem.type === 'event' ? (
           <EventContainer gem={gem} />
         ) : (
-          gem.type === 'poll' && <UserGemPoll gem={gem} />
+          gem.type === 'poll' && <GemPoll gem={gem} />
         )}
 
         <UserGemFooter gem={gem} />

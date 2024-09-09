@@ -11,7 +11,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import AlertBox from '@/components/UI/AlertBox';
 import generateId from '@/helpers/generateId';
 
-function UserGemPoll({ gem }) {
+function GemPoll({ gem }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -311,8 +311,8 @@ function UserGemPoll({ gem }) {
   );
 }
 
-UserGemPoll.propTypes = {
+GemPoll.propTypes = {
   gem: PropTypes.object.isRequired,
 };
 
-export default UserGemPoll;
+export default GemPoll;

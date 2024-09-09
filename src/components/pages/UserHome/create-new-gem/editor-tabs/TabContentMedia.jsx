@@ -4,7 +4,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 
-function MediaTabContent({ mediaTabState, setMediaTabState }) {
+function TabContentMedia({ mediaTabState, setMediaTabState }) {
   const [isDragOver, setDragOver] = useState(false);
 
   function handleFileChange(e) {
@@ -128,9 +128,9 @@ function MediaTabContent({ mediaTabState, setMediaTabState }) {
   );
 }
 
-MediaTabContent.propTypes = {
+TabContentMedia.propTypes = {
   mediaTabState: PropTypes.object.isRequired,
   setMediaTabState: PropTypes.func.isRequired,
 };
 
-export default MediaTabContent;
+export default TabContentMedia;
