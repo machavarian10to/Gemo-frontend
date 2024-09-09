@@ -15,7 +15,7 @@ import axios from '@/services/axios';
 import AlertBox from '@/components/UI/AlertBox';
 import { setGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
-import getId from '@/helpers/getId';
+import generateId from '@/helpers/generateId';
 
 export default function CreateGemContainer({
   gem,
@@ -25,24 +25,24 @@ export default function CreateGemContainer({
 }) {
   const pollDurationOptions = [
     {
-      id: getId(),
+      id: generateId(),
       name: '1 Day',
     },
     {
-      id: getId(),
+      id: generateId(),
       name: '2 Days',
     },
     {
-      id: getId(),
+      id: generateId(),
       name: '3 Days',
       selected: true,
     },
     {
-      id: getId(),
+      id: generateId(),
       name: '7 Days',
     },
     {
-      id: getId(),
+      id: generateId(),
       name: '- None -',
     },
   ];
@@ -103,7 +103,7 @@ export default function CreateGemContainer({
           usersCanAddOptions: false,
           pollOptions: [
             {
-              id: getId(),
+              id: generateId(),
               value: '',
               placeholder: 'Option 1',
               deleteIcon: false,
@@ -139,6 +139,7 @@ export default function CreateGemContainer({
     const formData = new FormData();
     formData.append('userId', user._id);
     formData.append('title', titleState.gemTitle.trim());
+
     if (
       (activeTab === 'media' && !mediaTabState.file) ||
       (activeTab === 'gif' && !gifTabState.gif) ||

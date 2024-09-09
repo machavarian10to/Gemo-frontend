@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Input from '@/components/UI/Input';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import AlertBox from '@/components/UI/AlertBox';
-import getId from '@/helpers/getId';
+import generateId from '@/helpers/generateId';
 
 function UserGemPoll({ gem }) {
   const dispatch = useDispatch();
@@ -185,7 +185,7 @@ function UserGemPoll({ gem }) {
       const updatedPollOptions = [
         ...pollOptions,
         {
-          id: getId(),
+          id: generateId(),
           value: inputValue,
           users: [],
         },
