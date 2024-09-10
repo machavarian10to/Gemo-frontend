@@ -87,16 +87,16 @@ export default function NewGemContainer({
   );
 
   const [pollTabState, setPollTabState] = useState(
-    gem && gem.type === 'poll' && gem.body
+    gem && gem.type === 'poll'
       ? {
-          ...gem.body,
-          pollOptions: gem.body.pollOptions.map((option, index) => ({
+          ...gem.content,
+          pollOptions: gem.content.pollOptions.map((option, index) => ({
             ...option,
             deleteIcon: index > 0 ? true : false,
           })),
           pollDurations: {
             showDurations: false,
-            selectedDuration: gem.body.pollDuration,
+            selectedDuration: gem.content.pollDuration,
             options: pollDurationOptions,
           },
         }
@@ -175,25 +175,31 @@ export default function NewGemContainer({
         formData.append('file', mediaTabState.file);
       }
     } else if (activeTab === 'poll') {
-      const state = {
-        pollOptions: [],
-        pollDuration: pollTabState.pollDurations.selectedDuration,
-        multipleSelection: pollTabState.multipleSelection,
-        hidePeoplesVotes: pollTabState.hidePeoplesVotes,
-        usersCanAddOptions: pollTabState.usersCanAddOptions,
-      };
+      let options = [];
       pollTabState.pollOptions.forEach((option) => {
         if (option.value) {
-          state.pollOptions.push({
+          options.push({
             id: option.id,
             value: option.value,
-            users: [],
           });
         }
       });
-      if (state.pollOptions.length !== 0) {
-        formData.append('body', JSON.stringify(state));
+      if (options.length === 0) {
+        setAlertBox({
+          message: 'Please fill all the fields!',
+          type: 'error',
+        });
+        return;
       }
+      const content = {
+        pollOptions: options,
+        pollDuration: pollTabState.pollDurations.selectedDuration,
+      };
+      if (pollTabState.multipleSelection) content.multipleSelection = true;
+      if (pollTabState.hidePeoplesVotes) content.hidePeoplesVotes = true;
+      if (pollTabState.usersCanAddOptions) content.usersCanAddOptions = true;
+
+      formData.append('content', JSON.stringify(content));
     } else if (activeTab === 'event') {
       setAlertBox({ message: '', type: '' });
       if (
