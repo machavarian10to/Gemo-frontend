@@ -13,7 +13,6 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
       setMediaTabState((prevState) => ({
         ...prevState,
         file: file,
-        fileName: file.name,
       }));
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -50,9 +49,7 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
 
   function deleteMedia() {
     setMediaTabState({
-      ...mediaTabState,
       file: null,
-      fileName: null,
       mediaSrc: null,
     });
   }
@@ -69,7 +66,7 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
 
   return (
     <>
-      {mediaTabState.mediaSrc || mediaTabState.fileName ? (
+      {mediaTabState.mediaSrc || mediaTabState.fileSrc ? (
         <div className='media-wrapper'>
           <button
             title='delete media'
@@ -92,7 +89,7 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
               src={
                 mediaTabState.mediaSrc ||
                 `${import.meta.env.VITE_API_URL}/assets/${
-                  mediaTabState.fileName
+                  mediaTabState.fileSrc
                 }`
               }
               className='user-media-preview'

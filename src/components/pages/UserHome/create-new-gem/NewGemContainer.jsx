@@ -78,9 +78,12 @@ export default function NewGemContainer({
   );
 
   const [mediaTabState, setMediaTabState] = useState(
-    gem && gem.type === 'media' && gem.body
-      ? gem.body
-      : { file: null, mediaSrc: null },
+    gem && gem.type === 'media'
+      ? gem.media
+      : {
+          file: null,
+          mediaSrc: null,
+        },
   );
 
   const [pollTabState, setPollTabState] = useState(
@@ -170,10 +173,6 @@ export default function NewGemContainer({
     } else if (activeTab === 'media') {
       if (mediaTabState.file) {
         formData.append('file', mediaTabState.file);
-        formData.append(
-          'body',
-          JSON.stringify({ fileName: mediaTabState.fileName }),
-        );
       }
     } else if (activeTab === 'poll') {
       const state = {
