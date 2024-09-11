@@ -14,14 +14,19 @@ function TabContentEvent({ eventTabState, setEventTabState }) {
     if (file) {
       setEventTabState((prevState) => ({
         ...prevState,
-        file: file,
-        fileName: file.name,
+        media: {
+          ...prevState.media,
+          file: file,
+        },
       }));
       const reader = new FileReader();
       reader.onload = (e) => {
         setEventTabState((prevState) => ({
           ...prevState,
-          mediaSrc: e.target.result,
+          media: {
+            ...prevState.media,
+            mediaSrc: e.target.result,
+          },
         }));
       };
       reader.readAsDataURL(file);
@@ -31,16 +36,17 @@ function TabContentEvent({ eventTabState, setEventTabState }) {
   function deleteMedia() {
     setEventTabState({
       ...eventTabState,
-      file: null,
-      fileName: null,
-      mediaSrc: null,
+      media: {
+        file: null,
+        mediaSrc: null,
+      },
     });
   }
 
   return (
     <Fade in={true} timeout={400}>
       <div className='event-tab-container'>
-        {eventTabState.mediaSrc || eventTabState.fileName ? (
+        {eventTabState.media.mediaSrc || eventTabState.media.fileSrc ? (
           <div className='media-wrapper'>
             <button
               title='delete media'
@@ -51,19 +57,19 @@ function TabContentEvent({ eventTabState, setEventTabState }) {
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />
             </button>
-            {eventTabState.file?.type.includes('video') ? (
+            {eventTabState.media.file?.type.includes('video') ? (
               <video
                 controls
-                src={eventTabState.mediaSrc}
+                src={eventTabState.media.mediaSrc}
                 className='user-media-preview'
               />
             ) : (
               <img
                 alt='user media preview'
                 src={
-                  eventTabState.mediaSrc ||
+                  eventTabState.media.mediaSrc ||
                   `${import.meta.env.VITE_API_URL}/assets/${
-                    eventTabState.fileName
+                    eventTabState.media.fileSrc
                   }`
                 }
                 className='user-media-preview'

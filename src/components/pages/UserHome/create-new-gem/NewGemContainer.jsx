@@ -121,11 +121,13 @@ export default function NewGemContainer({
   );
 
   const [eventTabState, setEventTabState] = useState(
-    gem && gem.type === 'event' && gem.body
-      ? gem.body
+    gem && gem.type === 'event'
+      ? { content: gem.content, media: gem.media }
       : {
-          file: null,
-          mediaSrc: null,
+          media: {
+            file: null,
+            mediaSrc: null,
+          },
           startDate: new Date(),
           location: '',
           description: '',
@@ -201,9 +203,8 @@ export default function NewGemContainer({
 
       formData.append('content', JSON.stringify(content));
     } else if (activeTab === 'event') {
-      setAlertBox({ message: '', type: '' });
       if (
-        !eventTabState.file ||
+        !eventTabState.media.file ||
         !eventTabState.startDate ||
         !eventTabState.location ||
         !eventTabState.description
@@ -214,17 +215,15 @@ export default function NewGemContainer({
         });
         return;
       }
-      if (eventTabState.file) formData.append('file', eventTabState.file);
-      const state = {};
-      const eventTabStateKeys = Object.keys(eventTabState);
-      eventTabStateKeys.forEach((key) => {
-        if (eventTabState[key] && key !== 'file' && key !== 'mediaSrc') {
-          state[key] = eventTabState[key];
-        }
-      });
-      if (Object.keys(state).length !== 0) {
-        formData.append('body', JSON.stringify(state));
-      }
+      const content = {
+        startDate: eventTabState.startDate,
+        location: eventTabState.location,
+        description: eventTabState.description,
+        interested: eventTabState.interested,
+        going: eventTabState.going,
+      };
+      formData.append('file', eventTabState.media.file);
+      formData.append('content', JSON.stringify(content));
     } else if (activeTab === 'gif') {
       if (gifTabState.gif) {
         formData.append('body', JSON.stringify(gifTabState));
