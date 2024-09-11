@@ -131,13 +131,11 @@ export default function NewGemContainer({
           startDate: new Date(),
           location: '',
           description: '',
-          interested: [],
-          going: [],
         },
   );
 
   const [gifTabState, setGifTabState] = useState(
-    gem && gem.type === 'gif' && gem.body ? gem.body : { gif: '', title: '' },
+    gem && gem.type === 'gif' ? gem.content : { gifSrc: '', title: '' },
   );
 
   async function clickHandler() {
@@ -147,7 +145,7 @@ export default function NewGemContainer({
 
     if (
       (activeTab === 'media' && !mediaTabState.file) ||
-      (activeTab === 'gif' && !gifTabState.gif) ||
+      (activeTab === 'gif' && !gifTabState.gifSrc) ||
       (activeTab === 'poll' &&
         pollTabState.pollOptions.filter((option) => option.value).length ===
           0) ||
@@ -219,14 +217,12 @@ export default function NewGemContainer({
         startDate: eventTabState.startDate,
         location: eventTabState.location,
         description: eventTabState.description,
-        interested: eventTabState.interested,
-        going: eventTabState.going,
       };
       formData.append('file', eventTabState.media.file);
       formData.append('content', JSON.stringify(content));
     } else if (activeTab === 'gif') {
-      if (gifTabState.gif) {
-        formData.append('body', JSON.stringify(gifTabState));
+      if (gifTabState.gifSrc) {
+        formData.append('content', JSON.stringify(gifTabState));
       }
     }
 

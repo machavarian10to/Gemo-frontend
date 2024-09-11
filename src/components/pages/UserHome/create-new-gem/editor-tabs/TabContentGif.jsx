@@ -34,13 +34,13 @@ function TabContentGif({ gifTabState, setGifTabState }) {
     if (e.code === 'Enter') {
       if (searchValue === '') fetchGifs('cooking');
       fetchGifs(searchValue);
-      setGifTabState({ gif: '', title: '' });
+      setGifTabState({ gifSrc: '', title: '' });
     }
     return;
   }
 
   function onGifSelect(gif) {
-    setGifTabState({ gif: gif.images.fixed_height.url, title: gif.title });
+    setGifTabState({ gifSrc: gif.images.fixed_height.url, title: gif.title });
     gifContainerRef.current.scrollTop = 0;
   }
 
@@ -58,10 +58,10 @@ function TabContentGif({ gifTabState, setGifTabState }) {
           placeholder='Search most delicious gifs...'
           onInput={(e) => setSearchValue(e.target.value)}
         />
-        {gifTabState.gif ? (
+        {gifTabState.gifSrc ? (
           <div className='selected-gif-wrapper'>
             <div className='selected-gif'>
-              <img src={gifTabState.gif} alt={gifTabState.title} />
+              <img src={gifTabState.gifSrc} alt={gifTabState.title} />
             </div>
             <button
               title='delete media'
