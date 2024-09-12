@@ -30,7 +30,7 @@ function SpeechBubble() {
   return (
     <>
       <div className='speech-bubble-wrapper'>
-        <UserAvatar width={44} height={31} />
+        <UserAvatar width={42} height={30} />
         <div onClick={() => iconClickHandler('post')} className='speech-bubble'>
           What should I eat?
         </div>

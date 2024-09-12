@@ -53,10 +53,10 @@ function UserHome() {
                 gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
               ) : (
                 <div className='user-home__no-gems'>
-                  <p>There are no gems yet!</p>
                   <div className='user-home__chef-animation-wrapper'>
                     <AnimationStandingChef />
                   </div>
+                  <p>No gems yet, Click on the speech bubble to create one!</p>
                 </div>
               )}
             </div>
