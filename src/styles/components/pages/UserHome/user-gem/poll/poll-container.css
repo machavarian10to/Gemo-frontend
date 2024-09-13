@@ -4,7 +4,7 @@
 }
 
 .user-gem__poll-option-wrapper:hover {
-  outline: 1.5px solid var(--color-main-yellow);
+  outline: 2px solid var(--color-main-yellow);
   border-radius: var(--border-radius-rect);
 }
 

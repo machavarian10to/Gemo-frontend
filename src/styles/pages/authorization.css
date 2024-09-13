@@ -35,7 +35,7 @@
 }
 
 .user-home__auth-left-body {
-  border: 1.5px solid var(--color-grey);
+  border: 2px solid var(--color-grey);
   padding: 20px;
   border-radius: 10px;
   display: flex;

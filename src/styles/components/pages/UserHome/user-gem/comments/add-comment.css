@@ -66,7 +66,7 @@
   }
 
   &:focus {
-    outline: 1.5px solid var(--color-main-yellow);
+    outline: 2px solid var(--color-main-yellow);
   }
 }
 

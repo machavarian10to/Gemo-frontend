@@ -50,7 +50,9 @@ function UserHome() {
                   <AnimationLoading />
                 </div>
               ) : gems.length > 0 ? (
-                gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
+                gems.map((gem) => (
+                  <GemContainer key={gem._id} gemId={gem._id} />
+                ))
               ) : (
                 <div className='user-home__no-gems'>
                   <div className='user-home__chef-animation-wrapper'>

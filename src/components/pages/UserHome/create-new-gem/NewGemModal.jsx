@@ -8,13 +8,7 @@ import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-function NewGemModal({
-  title,
-  closeModal,
-  activeTab,
-  handleActiveTab,
-  gem,
-}) {
+function NewGemModal({ title, closeModal, activeTab, handleActiveTab, gem }) {
   const modalContentRef = useRef();
   const user = useSelector((state) => state.user);
 
