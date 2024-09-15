@@ -416,7 +416,7 @@ function TabContentPost({ postTabState, setPostTabState }) {
           )}
         </div>
 
-        {postTabState.media.gifSrc && (
+        {postTabState?.media?.gifSrc && (
           <div className='media-wrapper'>
             <button
               title='delete media'
@@ -440,7 +440,7 @@ function TabContentPost({ postTabState, setPostTabState }) {
           style={{ display: 'none' }}
           ref={fileInputRef}
         />
-        {postTabState.media.mediaSrc && (
+        {postTabState?.media?.mediaSrc && (
           <div className='media-wrapper'>
             <button
               title='delete media'

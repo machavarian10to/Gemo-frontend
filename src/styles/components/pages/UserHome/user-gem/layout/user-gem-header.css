@@ -3,6 +3,10 @@
   justify-content: space-between;
   align-items: center;
 }
+.user-gem__header-skeleton{
+  display: flex;
+  gap: 10px;
+}
 .user-gem__user-info {
   display: flex;
   gap: 5px;

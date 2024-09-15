@@ -19,43 +19,52 @@ import GemDeleteModal from '@/components/pages/UserHome/user-gem/GemDeleteModal'
 import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
 
-function GemMenu({ gem }) {
+function GemMenu({ gem, gemAuthor }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const [showGemAuthEdit, setShowGemAuthEdit] = useState(false);
-  const [showGemEdit, setShowGemEdit] = useState(false);
-
-  const [showModal, setShowModal] = useState(false);
   const [activeTab, setActiveTab] = useState(gem.type);
-
-  const [showGemDeleteModal, setShowGemDeleteModal] = useState(false);
-
   const postEditRef = useRef(null);
 
-  useEffect(() => {
-    if (showModal || showGemDeleteModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [showModal, showGemDeleteModal]);
+  const [modalStates, setModalStates] = useState({
+    showGemEdit: false,
+    showGemAuthEdit: false,
+    showModal: false,
+    showGemDeleteModal: false,
+  });
 
   const [alertBox, setAlertBox] = useState({
     type: '',
     message: '',
   });
 
+  useEffect(() => {
+    if (modalStates.showModal || modalStates.showGemDeleteModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [modalStates.showGemDeleteModal, modalStates.showModal]);
+
   useClickOutside(postEditRef, () => {
-    setShowGemAuthEdit(false);
-    setShowGemEdit(false);
+    setModalStates({
+      ...modalStates,
+      showGemAuthEdit: false,
+      showGemEdit: false,
+    });
   });
 
   function showGemEditWrapper() {
-    if (gem.userId === user._id) {
-      setShowGemAuthEdit(!showGemAuthEdit);
+    if (gemAuthor._id === user._id) {
+      setModalStates({
+        ...modalStates,
+        showGemAuthEdit: !modalStates.showGemAuthEdit,
+      });
     } else {
-      setShowGemEdit(!showGemEdit);
+      setModalStates({
+        ...modalStates,
+        showGemEdit: !modalStates.showGemEdit,
+      });
     }
   }
 
@@ -80,12 +89,7 @@ function GemMenu({ gem }) {
       }, 2000);
       return;
     }
-    setShowModal(true);
-    if (gem.userId === user._id) {
-      setShowGemAuthEdit(false);
-    } else {
-      setShowGemEdit(false);
-    }
+    setModalStates({ ...modalStates, showModal: true });
   }
 
   function handleActiveTab(tabName) {
@@ -93,7 +97,7 @@ function GemMenu({ gem }) {
   }
 
   function gemDeleteHandler() {
-    setShowGemAuthEdit(false);
+    setModalStates({ ...modalStates, showGemAuthEdit: false });
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
       .then(() => {
@@ -124,26 +128,32 @@ function GemMenu({ gem }) {
         <AlertBox type={alertBox.type} message={alertBox.message} />
       )}
 
-      {showModal && (
+      {modalStates.showModal && (
         <NewGemModal
           gem={gem}
           title='Edit gem'
-          closeModal={() => setShowModal(false)}
+          closeModal={() =>
+            setModalStates({ ...modalStates, showModal: false })
+          }
           activeTab={activeTab}
           handleActiveTab={handleActiveTab}
         />
       )}
 
-      {showGemDeleteModal && (
+      {modalStates.showGemDeleteModal && (
         <GemDeleteModal
-          closeDeleteGemModal={() => setShowGemDeleteModal(false)}
+          closeDeleteGemModal={() =>
+            setModalStates({ ...modalStates, showGemDeleteModal: false })
+          }
           gemId={gem._id}
         />
       )}
 
       <div
         className={`user-gem__menu ${
-          showGemAuthEdit || showGemEdit ? 'user-gem__menu-active' : ''
+          modalStates.showGemAuthEdit || modalStates.showGemEdit
+            ? 'user-gem__menu-active'
+            : ''
         }`}
       >
         <MoreVertOutlinedIcon
@@ -151,8 +161,8 @@ function GemMenu({ gem }) {
           onClick={() => showGemEditWrapper()}
         />
 
-        {showGemAuthEdit && (
-          <Fade in={showGemAuthEdit} timeout={500}>
+        {modalStates.showGemAuthEdit && (
+          <Fade in={modalStates.showGemAuthEdit} timeout={500}>
             <div className='user-gem__edit-wrapper' ref={postEditRef}>
               <div className='user-gem__edit-item' onClick={onGemEdit}>
                 <EditOutlinedIcon
@@ -194,7 +204,7 @@ function GemMenu({ gem }) {
           </Fade>
         )}
 
-        {showGemEdit && (
+        {modalStates.showGemEdit && (
           <div className='user-gem__edit-wrapper' ref={postEditRef}>
             <div className='user-gem__edit-item'>
               <NoMealsOutlinedIcon
@@ -233,7 +243,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{gem.userName}</span>
+              <span>Block @{gemAuthor.username}</span>
             </div>
 
             <div className='user-gem__edit-item'>
@@ -254,5 +264,6 @@ function GemMenu({ gem }) {
 
 GemMenu.propTypes = {
   gem: PropTypes.object.isRequired,
+  gemAuthor: PropTypes.object.isRequired,
 };
 export default GemMenu;

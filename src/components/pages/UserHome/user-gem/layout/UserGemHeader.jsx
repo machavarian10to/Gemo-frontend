@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import axiosInstance from '@/services/axios';
+import Skeleton from 'react-loading-skeleton';
 
 function UserGemHeader({ gem }) {
   const [gemAuthor, setGemAuthor] = useState(null);
@@ -76,11 +77,17 @@ function UserGemHeader({ gem }) {
               />
             </div>
 
-            <GemMenu gem={gem} />
+            <GemMenu gem={gem} gemAuthor={gemAuthor} />
           </div>
         </div>
       ) : (
-        <div>loading</div>
+        <div className='user-gem__header-skeleton'>
+          <Skeleton circle={true} height={32} width={32} />
+          <div>
+            <Skeleton width={280} height={10} />
+            <Skeleton width={80} height={7} />
+          </div>
+        </div>
       )}
     </>
   );
