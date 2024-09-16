@@ -38,25 +38,25 @@ function GemContainer({ gemId }) {
 
           <div className='user-gem__texts'>
             <h3>{gem.title}</h3>
-            {gem.body?.postContent && (
+            {gem?.content?.body && (
               <div
                 className='user-gem__body'
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(
                     showMore
-                      ? gem.body.postContent
-                      : gem.body.postContent.slice(0, 200),
+                      ? gem?.content?.body
+                      : gem?.content?.body.slice(0, 200),
                   ),
                 }}
               ></div>
             )}
-            {!showMore && gem.body?.postContent?.length > 200 && (
+            {!showMore && gem?.content?.body.length > 200 && (
               <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
                 <RemoveRedEyeOutlinedIcon style={{ fontSize: '16px' }} />
                 <span>See full gem</span>
               </div>
             )}
-            {gem.body?.postContent?.length > 200 && showMore && (
+            {gem?.content?.body.length > 200 && showMore && (
               <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
                 <VisibilityOffOutlinedIcon style={{ fontSize: '16px' }} />
                 <span>See less</span>

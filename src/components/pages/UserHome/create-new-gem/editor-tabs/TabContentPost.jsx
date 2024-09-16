@@ -55,8 +55,8 @@ function TabContentPost({ postTabState, setPostTabState }) {
   });
 
   useEffect(() => {
-    if (postTabState.content.body) {
-      editorContentRef.current.innerHTML = postTabState.content.body;
+    if (postTabState?.content?.body) {
+      editorContentRef.current.innerHTML = postTabState?.content?.body;
       setState({ ...state, showPlaceholder: true });
     }
   }, []);
