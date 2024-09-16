@@ -84,7 +84,7 @@ function UserGemHeader({ gem }) {
         <div className='user-gem__header-skeleton'>
           <Skeleton circle={true} height={32} width={32} />
           <div>
-            <Skeleton width={280} height={10} />
+            <Skeleton width={200} height={10} />
             <Skeleton width={80} height={7} />
           </div>
         </div>

@@ -9,6 +9,7 @@ import UserGemFooter from '@/components/pages/UserHome/user-gem/layout/UserGemFo
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import axiosInstance from '@/services/axios';
+import Skeleton from 'react-loading-skeleton';
 
 function GemContainer({ gemId }) {
   const [showMore, setShowMore] = useState(false);
@@ -32,7 +33,7 @@ function GemContainer({ gemId }) {
 
   return (
     <>
-      {gem && (
+      {gem ? (
         <div className='user-gem'>
           <UserGemHeader gem={gem} />
 
@@ -50,13 +51,13 @@ function GemContainer({ gemId }) {
                 }}
               ></div>
             )}
-            {!showMore && gem?.content?.body.length > 200 && (
+            {!showMore && gem?.content?.body?.length > 200 && (
               <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
                 <RemoveRedEyeOutlinedIcon style={{ fontSize: '16px' }} />
                 <span>See full gem</span>
               </div>
             )}
-            {gem?.content?.body.length > 200 && showMore && (
+            {gem?.content?.body?.length > 200 && showMore && (
               <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
                 <VisibilityOffOutlinedIcon style={{ fontSize: '16px' }} />
                 <span>See less</span>
@@ -73,6 +74,23 @@ function GemContainer({ gemId }) {
           )}
 
           <UserGemFooter gem={gem} />
+        </div>
+      ) : (
+        <div className='user-gem'>
+          <div className='user-gem__header-skeleton'>
+            <Skeleton circle={true} height={32} width={32} />
+            <div>
+              <Skeleton width={200} height={10} />
+              <Skeleton width={80} height={7} />
+            </div>
+          </div>
+
+          <div className='user-gem__texts'>
+            <div>
+              <Skeleton height={30} style={{ marginTop: '10px' }} />
+              <Skeleton height={15} style={{ marginTop: '15px' }} />
+            </div>
+          </div>
         </div>
       )}
     </>

@@ -3,27 +3,19 @@ import PropTypes from 'prop-types';
 function GemMedia({ gem }) {
   return (
     <>
-      {gem.body?.fileName && gem.type !== 'event' ? (
+      {gem?.media?.fileSrc && gem.type !== 'event' ? (
         <div className='user-gem__image'>
           <img
-            src={`${import.meta.env.VITE_API_URL}/assets/${gem.body.fileName}`}
+            src={`${import.meta.env.VITE_API_URL}/assets/${gem.media.fileSrc}`}
             alt={gem.title + "'s image"}
             className='user-media-preview'
           />
         </div>
-      ) : gem.body?.gifSrc ? (
+      ) : gem?.content?.gifSrc ? (
         <div className='user-gem__image'>
           <img
-            src={gem.body.gifSrc}
-            alt={gem.body.title}
-            className='user-media-preview'
-          />
-        </div>
-      ) : gem.body?.gif ? (
-        <div className='user-gem__image'>
-          <img
-            src={gem.body.gif}
-            alt={gem.body.title}
+            src={gem.content.gifSrc}
+            alt={gem.title}
             className='user-media-preview'
           />
         </div>

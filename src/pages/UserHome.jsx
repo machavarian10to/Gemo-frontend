@@ -5,7 +5,6 @@ import Fade from '@mui/material/Fade';
 import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodRecommendation';
 import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
 import axiosInstance from '@/services/axios';
-import AnimationLoading from '@/components/animations/AnimationLoading';
 import AlertBox from '@/components/UI/AlertBox';
 import { setGems } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,10 +13,8 @@ import AnimationStandingChef from '@/components/animations/AnimationStandingChef
 function UserHome() {
   const dispatch = useDispatch();
   const gems = useSelector((state) => state.gems);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     axiosInstance
       .get('/api/gems')
       .then((response) => {
@@ -29,9 +26,6 @@ function UserHome() {
           message: error.response.data,
           type: 'error',
         });
-      })
-      .finally(() => {
-        setLoading(false);
       });
   }, [dispatch]);
 
@@ -45,11 +39,7 @@ function UserHome() {
             <SpeechBubble />
 
             <div className='user-home__post-wrapper'>
-              {loading ? (
-                <div className='user-home__gems-loading-wrapper'>
-                  <AnimationLoading />
-                </div>
-              ) : gems.length > 0 ? (
+              {gems.length > 0 ? (
                 gems.map((gem) => (
                   <GemContainer key={gem._id} gemId={gem._id} />
                 ))
