@@ -15,10 +15,10 @@ function EventContainer({ gem }) {
   const user = useSelector((state) => state.user);
   const [event, setEvent] = useState(gem);
   const [isGoing, setIsGoing] = useState(
-    gem.body.going.some((goingUser) => goingUser.userId === user._id),
+    gem.content.going.some((goingUser) => goingUser.userId === user._id),
   );
   const [isInterested, setIsInterested] = useState(
-    gem.body.interested.some(
+    gem.content.interested.some(
       (interestedUser) => interestedUser.userId === user._id,
     ),
   );
@@ -26,9 +26,9 @@ function EventContainer({ gem }) {
     setIsGoing(true);
     const updatedEvent = {
       ...event,
-      body: {
-        ...event.body,
-        going: [...event.body.going, { userId: user._id }],
+      content: {
+        ...event.content,
+        going: [...event.content.going, { userId: user._id }],
       },
     };
     setEvent(updatedEvent);
@@ -41,9 +41,9 @@ function EventContainer({ gem }) {
     setIsInterested(true);
     const updatedEvent = {
       ...event,
-      body: {
-        ...event.body,
-        interested: [...event.body.interested, { userId: user._id }],
+      content: {
+        ...event.content,
+        interested: [...event.content.interested, { userId: user._id }],
       },
     };
     setEvent(updatedEvent);
@@ -56,9 +56,9 @@ function EventContainer({ gem }) {
     setIsGoing(false);
     const updatedEvent = {
       ...event,
-      body: {
-        ...event.body,
-        going: event.body.going.filter(
+      content: {
+        ...event.content,
+        going: event.content.going.filter(
           (goingUser) => goingUser.userId !== user._id,
         ),
       },
@@ -73,9 +73,9 @@ function EventContainer({ gem }) {
     setIsInterested(false);
     const updatedEvent = {
       ...event,
-      body: {
-        ...event.body,
-        interested: event.body.interested.filter(
+      content: {
+        ...event.content,
+        interested: event.content.interested.filter(
           (interestedUser) => interestedUser.userId !== user._id,
         ),
       },
@@ -89,10 +89,10 @@ function EventContainer({ gem }) {
   return (
     <div className='user-gem__event-wrapper'>
       <div className='user-gem__event-image'>
-        {event.body?.fileName && (
+        {event?.media?.fileSrc && (
           <img
             src={`${import.meta.env.VITE_API_URL}/assets/${
-              event.body.fileName
+              event.media.fileSrc
             }`}
             alt='post'
           />
@@ -107,13 +107,13 @@ function EventContainer({ gem }) {
           <div className='user-gem__event'>
             <div className='user-gem__event-date'>
               <AccessTimeIcon style={{ fontSize: '15px' }} />
-              <div>{new Date(event.body.startDate).toLocaleString()}</div>
+              <div>{new Date(event.content.startDate).toLocaleString()}</div>
             </div>
 
             <div className='user-gem__event-details'>
               <div className='user-gem__event-details-location'>
                 <LocationOnIcon style={{ fontSize: '15px' }} />
-                <span>{event.body.location}</span>
+                <span>{event.content.location}</span>
               </div>
             </div>
           </div>
@@ -121,17 +121,17 @@ function EventContainer({ gem }) {
           <div className='user-gem__event-attendance'>
             <div>
               <DirectionsWalkIcon style={{ fontSize: '20px' }} />
-              <span>{event.body.going.length}</span>
+              <span>{event.content.going.length}</span>
             </div>
             <div>
               <RemoveRedEyeOutlinedIcon style={{ fontSize: '18px' }} />
-              <span>{event.body.interested.length}</span>
+              <span>{event.content.interested.length}</span>
             </div>
           </div>
         </div>
 
         <div className='user-gem__event-description'>
-          <p>{event.body.description}</p>
+          <p>{event.content.description}</p>
         </div>
 
         {!isGoing && !isInterested && (

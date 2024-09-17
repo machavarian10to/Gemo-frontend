@@ -15,31 +15,36 @@ function GemPoll({ gem }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const [pollOptions, setPollOptions] = useState(gem.body.pollOptions);
-  const [pollVotesAmount, setPollVotesAmount] = useState(0);
-  const [pollIsEnded, setPollIsEnded] = useState(false);
-  const [pollEndTime, setPollEndTime] = useState('');
-  const [showPollResultsModal, setShowPollResultsModal] = useState(false);
-  const [showAllOptions, setShowAllOptions] = useState(false);
+  const [pollState, setPollState] = useState({
+    pollOptions: gem.content.pollOptions,
+    pollVotesAmount: 0,
+    pollIsEnded: false,
+    pollEndTime: '',
+    showPollResultsModal: false,
+    showAllOptions: false,
+    inputValue: '',
+  });
 
-  const [inputValue, setInputValue] = useState('');
   const [alert, setAlert] = useState({
     type: '',
     message: '',
   });
 
   useEffect(() => {
-    const count = pollOptions.reduce((acc, option) => {
+    const count = pollState.pollOptions.reduce((acc, option) => {
       return acc + option.users.length;
     }, 0);
-    setPollVotesAmount(count);
-    setPollEndTime(calculatePollEndTime());
+    setPollState({
+      ...pollState,
+      pollVotesAmount: count,
+      pollEndTime: calculatePollEndTime(),
+    });
 
     function calculatePollEndTime() {
-      if (gem.body.pollDuration === '- None -') return;
+      if (gem.content.pollDuration === '- None -') return;
 
       const gemCreatedAt = new Date(gem.createdAt);
-      const pollDurationInDays = gem.body.pollDuration[0];
+      const pollDurationInDays = gem.content.pollDuration[0];
       const pollEndTime = new Date(
         gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
       );
@@ -63,22 +68,22 @@ function GemPoll({ gem }) {
           minutesDifference !== 1 ? 's' : ''
         }`;
       } else {
-        setPollIsEnded(true);
+        setPollState({ ...pollState, pollIsEnded: true });
         return `Poll ended`;
       }
     }
-  }, [pollOptions, gem]);
+  }, [gem.content.pollDuration, gem.createdAt, pollState]);
 
   useEffect(() => {
-    if (showPollResultsModal) {
+    if (pollState.showPollResultsModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [showPollResultsModal]);
+  }, [pollState.showPollResultsModal]);
 
   function onOptionChange(optionId) {
-    const updatedPollOptions = [...pollOptions];
+    const updatedPollOptions = [...pollState.pollOptions];
     const optionIndex = updatedPollOptions.findIndex(
       (option) => option.id === optionId,
     );
@@ -86,7 +91,7 @@ function GemPoll({ gem }) {
       (u) => u.username === user.username,
     );
 
-    if (gem.body.multipleSelection) {
+    if (gem.content.multipleSelection) {
       if (userVoted) {
         updatedPollOptions[optionIndex] = {
           ...updatedPollOptions[optionIndex],
@@ -101,8 +106,6 @@ function GemPoll({ gem }) {
             ...updatedPollOptions[optionIndex].users,
             {
               id: user._id,
-              username: user.username,
-              userPhoto: user.profilePicture,
             },
           ],
         };
@@ -116,8 +119,6 @@ function GemPoll({ gem }) {
               ...option.users.filter((u) => u.username !== user.username),
               {
                 id: user._id,
-                username: user.username,
-                userPhoto: user.profilePicture,
               },
             ],
           };
@@ -130,9 +131,9 @@ function GemPoll({ gem }) {
       });
     }
 
-    setPollOptions(updatedPollOptions);
+    setPollState({ ...pollState, pollOptions: updatedPollOptions });
     const data = {
-      body: { ...gem.body, pollOptions: updatedPollOptions },
+      content: { ...gem.content, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
@@ -140,7 +141,7 @@ function GemPoll({ gem }) {
         dispatch(
           updateGem({
             ...gem,
-            body: { ...gem.body, pollOptions: updatedPollOptions },
+            content: { ...gem.content, pollOptions: updatedPollOptions },
           }),
         );
       })
@@ -148,15 +149,15 @@ function GemPoll({ gem }) {
   }
 
   function removeUserVote() {
-    const updatedPollOptions = pollOptions.map((option) => {
+    const updatedPollOptions = pollState.pollOptions.map((option) => {
       return {
         ...option,
         users: option.users.filter((u) => u.username !== user.username),
       };
     });
-    setPollOptions(updatedPollOptions);
+    setPollState({ ...pollState, pollOptions: updatedPollOptions });
     const data = {
-      body: { ...gem.body, pollOptions: updatedPollOptions },
+      content: { ...gem.content, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
@@ -164,7 +165,7 @@ function GemPoll({ gem }) {
         dispatch(
           updateGem({
             ...gem,
-            body: { ...gem.body, pollOptions: updatedPollOptions },
+            content: { ...gem.content, pollOptions: updatedPollOptions },
           }),
         );
       })
@@ -172,27 +173,27 @@ function GemPoll({ gem }) {
   }
 
   function showTotalVotesModal() {
-    if (gem.body.hidePeoplesVotes) return;
-    setShowPollResultsModal(true);
+    if (gem.content.hidePeoplesVotes) return;
+    setPollState({ ...pollState, showPollResultsModal: true });
   }
 
   function toggleShowAllOptions() {
-    setShowAllOptions(!showAllOptions);
+    setPollState({ ...pollState, showAllOptions: !pollState.showAllOptions });
   }
 
   function handleKeyDown(e) {
-    if (e.key === 'Enter' && inputValue.trim() !== '') {
+    if (e.key === 'Enter' && pollState.inputValue.trim() !== '') {
       const updatedPollOptions = [
-        ...pollOptions,
+        ...pollState.pollOptions,
         {
           id: generateId(),
-          value: inputValue,
+          value: pollState.inputValue,
           users: [],
         },
       ];
-      setPollOptions(updatedPollOptions);
+      setPollState({ ...pollState, pollOptions: updatedPollOptions });
       const data = {
-        body: { ...gem.body, pollOptions: updatedPollOptions },
+        content: { ...gem.content, pollOptions: updatedPollOptions },
       };
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
@@ -200,7 +201,7 @@ function GemPoll({ gem }) {
           dispatch(
             updateGem({
               ...gem,
-              body: { ...gem.body, pollOptions: updatedPollOptions },
+              content: { ...gem.content, pollOptions: updatedPollOptions },
             }),
           );
           setAlert({
@@ -209,7 +210,7 @@ function GemPoll({ gem }) {
           });
         })
         .catch((err) => console.error(err));
-      setInputValue('');
+      setPollState({ ...pollState, inputValue: '' });
       setTimeout(() => {
         setAlert({
           type: '',
@@ -224,37 +225,39 @@ function GemPoll({ gem }) {
       {alert.message && <AlertBox type={alert.type} message={alert.message} />}
 
       <div className='user-gem__poll'>
-        {pollOptions
-          .slice(0, showAllOptions ? pollOptions.length : 5)
+        {pollState.pollOptions
+          .slice(0, pollState.showAllOptions ? pollState.pollOptions.length : 5)
           .map((option) => (
             <PollContainer
               key={option.id}
               option={option}
-              totalVotes={pollVotesAmount}
+              totalVotes={pollState.pollVotesAmount}
               onChange={() => onOptionChange(option.id)}
               groupName={`pollOption_${option.value}`}
-              pollIsEnded={pollIsEnded}
-              multipleSelection={gem.body.multipleSelection}
+              pollIsEnded={pollState.pollIsEnded}
+              multipleSelection={gem.content.multipleSelection}
             />
           ))}
-        {gem.body.usersCanAddOptions && !pollIsEnded && (
+        {gem.content.usersCanAddOptions && !pollState.pollIsEnded && (
           <div className='user-gem__users-can-add-options'>
             <Input
               size='large'
               type='text'
-              value={inputValue}
+              value={pollState.inputValue}
               placeholder='Add new option...'
               leftIcon={
                 <AddCircleOutlineOutlinedIcon style={{ fontSize: '21px' }} />
               }
-              onInput={(e) => setInputValue(e.target.value)}
+              onInput={(e) =>
+                setPollState({ ...pollState, inputValue: e.target.value })
+              }
               onKeyDown={(e) => handleKeyDown(e)}
             />
           </div>
         )}
-        {pollOptions.length > 5 && (
+        {pollState.pollOptions.length > 5 && (
           <Button
-            label={showAllOptions ? 'Show less' : 'Show all options'}
+            label={pollState.showAllOptions ? 'Show less' : 'Show all options'}
             type='base'
             size='extra-small'
             clickHandler={toggleShowAllOptions}
@@ -262,8 +265,8 @@ function GemPoll({ gem }) {
         )}
         <div className='user-gem__poll-total-votes'>
           <div className='user-gem__footer-button'>
-            {!pollIsEnded &&
-            gem.body.pollOptions.some((option) =>
+            {!pollState.pollIsEnded &&
+            gem.content.pollOptions.some((option) =>
               option.users.find((u) => u.username === user.username),
             ) ? (
               <>
@@ -280,10 +283,10 @@ function GemPoll({ gem }) {
           </div>
           <div className='user-gem__poll-time'>
             <div>
-              {!pollIsEnded ? (
+              {!pollState.pollIsEnded ? (
                 <div>
-                  {pollEndTime && 'Poll ends in: '}
-                  <span>{pollEndTime}</span>
+                  {pollState.pollEndTime && 'Poll ends in: '}
+                  <span>{pollState.pollEndTime}</span>
                 </div>
               ) : (
                 <span>Poll is ended!</span>
@@ -292,19 +295,21 @@ function GemPoll({ gem }) {
           </div>
           <div
             className={`user-gem__total-votes ${
-              gem.body.hidePeoplesVotes ? 'hide-votes' : ''
+              gem.content.hidePeoplesVotes ? 'hide-votes' : ''
             }`}
             onClick={showTotalVotesModal}
           >
-            total votes: <span>{pollVotesAmount}</span>
+            total votes: <span>{pollState.pollVotesAmount}</span>
           </div>
         </div>
       </div>
 
-      {showPollResultsModal && (
+      {pollState.showPollResultsModal && (
         <PollResultsModal
-          pollOptions={pollOptions}
-          closeModal={() => setShowPollResultsModal(false)}
+          pollOptions={pollState.pollOptions}
+          closeModal={() =>
+            setPollState({ ...pollState, showPollResultsModal: false })
+          }
         />
       )}
     </>

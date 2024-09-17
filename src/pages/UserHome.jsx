@@ -6,7 +6,7 @@ import FoodRecommendation from '@/components/pages/UserHome/recommend-food/FoodR
 import FeaturedGem from '@/components/pages/UserHome/FeaturedGem';
 import axiosInstance from '@/services/axios';
 import AlertBox from '@/components/UI/AlertBox';
-import { setGems } from '@/state/index';
+import { setAllGems } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 
@@ -18,7 +18,7 @@ function UserHome() {
     axiosInstance
       .get('/api/gems')
       .then((response) => {
-        dispatch(setGems(response.data));
+        dispatch(setAllGems(response.data));
       })
       .catch((error) => {
         console.log(error);
@@ -40,9 +40,7 @@ function UserHome() {
 
             <div className='user-home__post-wrapper'>
               {gems.length > 0 ? (
-                gems.map((gem) => (
-                  <GemContainer key={gem._id} gemId={gem._id} />
-                ))
+                gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
               ) : (
                 <div className='user-home__no-gems'>
                   <div className='user-home__chef-animation-wrapper'>

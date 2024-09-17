@@ -13,7 +13,7 @@ import TabContentGif from '@/components/pages/UserHome/create-new-gem/editor-tab
 import Button from '@/components/UI/Button';
 import axios from '@/services/axios';
 import AlertBox from '@/components/UI/AlertBox';
-import { setGem } from '@/state/index';
+import { setGem, updateGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import generateId from '@/helpers/generateId';
 
@@ -181,6 +181,7 @@ export default function NewGemContainer({
           options.push({
             id: option.id,
             value: option.value,
+            users: [],
           });
         }
       });
@@ -217,6 +218,8 @@ export default function NewGemContainer({
         startDate: eventTabState.startDate,
         location: eventTabState.location,
         description: eventTabState.description,
+        going: [],
+        interested: [],
       };
       formData.append('file', eventTabState.media.file);
       formData.append('content', JSON.stringify(content));
@@ -227,12 +230,21 @@ export default function NewGemContainer({
     }
 
     try {
-      const newGem = await axios.post('/api/gems', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      dispatch(setGem(newGem.data));
+      if (!gem) {
+        const newGem = await axios.post('/api/gems', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        dispatch(setGem(newGem.data));
+      } else {
+        const updatedGem = await axios.put(`/api/gems/${gem._id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        dispatch(updateGem(updatedGem.data));
+      }
       setIsButtonDisabled(true);
       setAlertBox({
         message: gem ? 'Gem edited successfully' : 'Gem created successfully!',
@@ -243,7 +255,7 @@ export default function NewGemContainer({
       }, 1500);
     } catch (error) {
       setAlertBox({
-        message: error.response.data.message,
+        message: error.response,
         type: 'error',
       });
       setIsButtonDisabled(false);

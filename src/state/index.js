@@ -12,8 +12,8 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setMode: (state) => {
-      state.mode = state.mode === 'light' ? 'dark' : 'light';
+    setMode: (state, payload) => {
+      state.mode = payload;
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;
@@ -25,7 +25,7 @@ export const authSlice = createSlice({
     setResetToken: (state, action) => {
       state.resetToken = action.payload;
     },
-    setGems: (state, action) => {
+    setAllGems: (state, action) => {
       state.gems = action.payload;
     },
     setGem: (state, action) => {
@@ -78,7 +78,7 @@ export const {
   setLogin,
   setLogout,
   setResetToken,
-  setGems,
+  setAllGems,
   setGem,
   updateGem,
   deleteGem,
