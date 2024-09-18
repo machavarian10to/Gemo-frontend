@@ -161,13 +161,13 @@ export default function NewGemContainer({
     }
 
     if (activeTab === 'post') {
-      if (postTabState.media.file) {
+      if (postTabState.media?.file) {
         formData.append('file', postTabState.media.file);
       }
-      if (postTabState.media.gifSrc) {
+      if (postTabState.media?.gifSrc) {
         formData.append('gifSrc', postTabState.media.gifSrc);
       }
-      if (postTabState.content.body) {
+      if (postTabState.content?.body) {
         formData.append('content', JSON.stringify(postTabState.content));
       }
     } else if (activeTab === 'media') {
@@ -254,8 +254,9 @@ export default function NewGemContainer({
         closeModal();
       }, 1500);
     } catch (error) {
+      console.log(error);
       setAlertBox({
-        message: error.response,
+        message: error.response.data,
         type: 'error',
       });
       setIsButtonDisabled(false);
