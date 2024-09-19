@@ -39,14 +39,12 @@ function GemContainer({ gem }) {
             )}
             {!showMore && gem?.content?.body?.length > 200 && (
               <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
-                <RemoveRedEyeOutlinedIcon style={{ fontSize: '16px' }} />
-                <span>See full gem</span>
+                <span>show more</span>
               </div>
             )}
             {gem?.content?.body?.length > 200 && showMore && (
               <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
-                <VisibilityOffOutlinedIcon style={{ fontSize: '16px' }} />
-                <span>See less</span>
+                <span>show less</span>
               </div>
             )}
           </div>

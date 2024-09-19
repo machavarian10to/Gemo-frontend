@@ -60,6 +60,7 @@
   align-items: center;
   gap: 5px;
   transition: all 0.3s;
+  text-decoration: underline;
 }
 
 .user-gem__show-full-gem:hover {

@@ -17,9 +17,11 @@ function GemPoll({ gem }) {
 
   const [pollState, setPollState] = useState({
     pollOptions: gem.content.pollOptions,
-    pollVotesAmount: 0,
+    pollVotesAmount: gem.content.pollOptions.reduce((acc, option) => {
+      return acc + option.users.length;
+    }, 0),
     pollIsEnded: false,
-    pollEndTime: '',
+    pollEndTime: calculatePollEndTime(),
     showPollResultsModal: false,
     showAllOptions: false,
     inputValue: '',
@@ -30,49 +32,36 @@ function GemPoll({ gem }) {
     message: '',
   });
 
-  useEffect(() => {
-    const count = pollState.pollOptions.reduce((acc, option) => {
-      return acc + option.users.length;
-    }, 0);
-    setPollState({
-      ...pollState,
-      pollVotesAmount: count,
-      pollEndTime: calculatePollEndTime(),
-    });
+  function calculatePollEndTime() {
+    if (gem.content.pollDuration === '- None -') return;
 
-    function calculatePollEndTime() {
-      if (gem.content.pollDuration === '- None -') return;
+    const gemCreatedAt = new Date(gem.createdAt);
+    const pollDurationInDays = gem.content.pollDuration[0];
+    const pollEndTime = new Date(
+      gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
+    );
 
-      const gemCreatedAt = new Date(gem.createdAt);
-      const pollDurationInDays = gem.content.pollDuration[0];
-      const pollEndTime = new Date(
-        gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
-      );
+    const daysDifference = Math.round(
+      (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
+    );
+    const hoursDifference = Math.round(
+      (pollEndTime - new Date()) / (1000 * 60 * 60),
+    );
+    const minutesDifference = Math.round(
+      (pollEndTime - new Date()) / (1000 * 60),
+    );
 
-      const daysDifference = Math.round(
-        (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
-      );
-      const hoursDifference = Math.round(
-        (pollEndTime - new Date()) / (1000 * 60 * 60),
-      );
-      const minutesDifference = Math.round(
-        (pollEndTime - new Date()) / (1000 * 60),
-      );
-
-      if (daysDifference > 0) {
-        return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
-      } else if (hoursDifference > 0) {
-        return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
-      } else if (minutesDifference > 0) {
-        return `${minutesDifference} minute${
-          minutesDifference !== 1 ? 's' : ''
-        }`;
-      } else {
-        setPollState({ ...pollState, pollIsEnded: true });
-        return `Poll ended`;
-      }
+    if (daysDifference > 0) {
+      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
+    } else {
+      setPollState({ ...pollState, pollIsEnded: true });
+      return `Poll ended`;
     }
-  }, [gem.content.pollDuration, gem.createdAt, pollState]);
+  }
 
   useEffect(() => {
     if (pollState.showPollResultsModal) {

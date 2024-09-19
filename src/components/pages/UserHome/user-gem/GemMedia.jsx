@@ -11,10 +11,10 @@ function GemMedia({ gem }) {
             className='user-media-preview'
           />
         </div>
-      ) : gem?.content?.gifSrc ? (
+      ) : gem?.media?.gifSrc ? (
         <div className='user-gem__image'>
           <img
-            src={gem.content.gifSrc}
+            src={gem.media.gifSrc}
             alt={gem.title}
             className='user-media-preview'
           />
