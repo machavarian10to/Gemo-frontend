@@ -77,7 +77,7 @@ function GemPoll({ gem }) {
       (option) => option.id === optionId,
     );
     const userVoted = updatedPollOptions[optionIndex].users.find(
-      (u) => u.username === user.username,
+      (u) => u.id === user._id,
     );
 
     if (gem.content.multipleSelection) {
@@ -85,7 +85,7 @@ function GemPoll({ gem }) {
         updatedPollOptions[optionIndex] = {
           ...updatedPollOptions[optionIndex],
           users: updatedPollOptions[optionIndex].users.filter(
-            (u) => u.username !== user.username,
+            (u) => u.id !== user._id,
           ),
         };
       } else {
@@ -105,7 +105,7 @@ function GemPoll({ gem }) {
           updatedPollOptions[index] = {
             ...option,
             users: [
-              ...option.users.filter((u) => u.username !== user.username),
+              ...option.users.filter((u) => u.id !== user._id),
               {
                 id: user._id,
               },
@@ -114,7 +114,7 @@ function GemPoll({ gem }) {
         } else {
           updatedPollOptions[index] = {
             ...option,
-            users: option.users.filter((u) => u.username !== user.username),
+            users: option.users.filter((u) => u.id !== user._id),
           };
         }
       });
@@ -122,17 +122,14 @@ function GemPoll({ gem }) {
 
     setPollState({ ...pollState, pollOptions: updatedPollOptions });
     const data = {
+      type: gem.type,
+      title: gem.title,
       content: { ...gem.content, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then(() => {
-        dispatch(
-          updateGem({
-            ...gem,
-            content: { ...gem.content, pollOptions: updatedPollOptions },
-          }),
-        );
+      .then((res) => {
+        dispatch(updateGem(res.data));
       })
       .catch((err) => console.error(err));
   }
@@ -141,22 +138,19 @@ function GemPoll({ gem }) {
     const updatedPollOptions = pollState.pollOptions.map((option) => {
       return {
         ...option,
-        users: option.users.filter((u) => u.username !== user.username),
+        users: option.users.filter((u) => u.id !== user._id),
       };
     });
     setPollState({ ...pollState, pollOptions: updatedPollOptions });
     const data = {
+      type: gem.type,
+      title: gem.title,
       content: { ...gem.content, pollOptions: updatedPollOptions },
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then(() => {
-        dispatch(
-          updateGem({
-            ...gem,
-            content: { ...gem.content, pollOptions: updatedPollOptions },
-          }),
-        );
+      .then((res) => {
+        dispatch(updateGem(res.data));
       })
       .catch((err) => console.error(err));
   }
@@ -176,23 +170,20 @@ function GemPoll({ gem }) {
         ...pollState.pollOptions,
         {
           id: generateId(),
-          value: pollState.inputValue,
+          value: pollState.inputValue.trim(),
           users: [],
         },
       ];
       setPollState({ ...pollState, pollOptions: updatedPollOptions });
       const data = {
+        type: gem.type,
+        title: gem.title,
         content: { ...gem.content, pollOptions: updatedPollOptions },
       };
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
-        .then(() => {
-          dispatch(
-            updateGem({
-              ...gem,
-              content: { ...gem.content, pollOptions: updatedPollOptions },
-            }),
-          );
+        .then((res) => {
+          dispatch(updateGem(res.data));
           setAlert({
             type: 'success',
             message: 'Option added!',
@@ -227,6 +218,7 @@ function GemPoll({ gem }) {
               multipleSelection={gem.content.multipleSelection}
             />
           ))}
+
         {gem.content.usersCanAddOptions && !pollState.pollIsEnded && (
           <div className='user-gem__users-can-add-options'>
             <Input
@@ -244,14 +236,16 @@ function GemPoll({ gem }) {
             />
           </div>
         )}
+
         {pollState.pollOptions.length > 5 && (
           <Button
-            label={pollState.showAllOptions ? 'Show less' : 'Show all options'}
+            label={pollState.showAllOptions ? 'show less' : 'show all'}
             type='base'
             size='extra-small'
             clickHandler={toggleShowAllOptions}
           />
         )}
+
         <div className='user-gem__poll-total-votes'>
           <div className='user-gem__footer-button'>
             {!pollState.pollIsEnded &&

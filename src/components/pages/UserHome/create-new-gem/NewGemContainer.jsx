@@ -231,19 +231,19 @@ export default function NewGemContainer({
 
     try {
       if (!gem) {
-        const newGem = await axios.post('/api/gems', formData, {
+        const res = await axios.post('/api/gems', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        dispatch(setGem(newGem.data));
+        dispatch(setGem(res.data));
       } else {
-        const updatedGem = await axios.put(`/api/gems/${gem._id}`, formData, {
+        const res = await axios.put(`/api/gems/${gem._id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        dispatch(updateGem(updatedGem.data));
+        dispatch(updateGem(res.data));
       }
       setIsButtonDisabled(true);
       setAlertBox({

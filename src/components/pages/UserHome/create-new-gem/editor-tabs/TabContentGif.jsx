@@ -4,7 +4,6 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
-import AnimationLoading from '@/components/animations/AnimationLoading';
 import Skeleton from 'react-loading-skeleton';
 
 function TabContentGif({ gifTabState, setGifTabState }) {

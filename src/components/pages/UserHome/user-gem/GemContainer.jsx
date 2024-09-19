@@ -6,8 +6,6 @@ import UserGemHeader from '@/components/pages/UserHome/user-gem/layout/UserGemHe
 import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
 import GemPoll from './poll/GemPoll';
 import UserGemFooter from '@/components/pages/UserHome/user-gem/layout/UserGemFooter';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import Skeleton from 'react-loading-skeleton';
 
 function GemContainer({ gem }) {

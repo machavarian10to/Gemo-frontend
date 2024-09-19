@@ -69,9 +69,9 @@ function GemMenu({ gem, gemAuthor }) {
   }
 
   function isPollEnded() {
-    if (gem.body.pollDuration === '- None -') return false;
+    if (gem.content.pollDuration === '- None -') return false;
     const gemCreatedAt = new Date(gem.createdAt);
-    const pollDurationInDays = gem.body.pollDuration[0];
+    const pollDurationInDays = gem.content.pollDuration[0];
     const pollEndTime = new Date(
       gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
     );
