@@ -11,9 +11,10 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import AlertBox from '@/components/UI/AlertBox';
 import generateId from '@/helpers/generateId';
 
-function GemPoll({ gem }) {
+function GemPoll({ gemId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
 
   const [pollState, setPollState] = useState({
     pollOptions: gem.content.pollOptions,
@@ -33,34 +34,31 @@ function GemPoll({ gem }) {
   });
 
   function calculatePollEndTime() {
-    if (gem.content.pollDuration === '- None -') return;
-
-    const gemCreatedAt = new Date(gem.createdAt);
-    const pollDurationInDays = gem.content.pollDuration[0];
-    const pollEndTime = new Date(
-      gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
-    );
-
-    const daysDifference = Math.round(
-      (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
-    );
-    const hoursDifference = Math.round(
-      (pollEndTime - new Date()) / (1000 * 60 * 60),
-    );
-    const minutesDifference = Math.round(
-      (pollEndTime - new Date()) / (1000 * 60),
-    );
-
-    if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
-    } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
-    } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
-    } else {
-      setPollState({ ...pollState, pollIsEnded: true });
-      return `Poll ended`;
-    }
+    // if (gem.content.pollDuration === '- None -') return;
+    // const gemCreatedAt = new Date(gem.createdAt);
+    // const pollDurationInDays = gem.content.pollDuration[0];
+    // const pollEndTime = new Date(
+    //   gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
+    // );
+    // const daysDifference = Math.round(
+    //   (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
+    // );
+    // const hoursDifference = Math.round(
+    //   (pollEndTime - new Date()) / (1000 * 60 * 60),
+    // );
+    // const minutesDifference = Math.round(
+    //   (pollEndTime - new Date()) / (1000 * 60),
+    // );
+    // if (daysDifference > 0) {
+    //   return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
+    // } else if (hoursDifference > 0) {
+    //   return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
+    // } else if (minutesDifference > 0) {
+    //   return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
+    // } else {
+    //   setPollState({ ...pollState, pollIsEnded: true });
+    //   return `Poll ended`;
+    // }
   }
 
   useEffect(() => {
@@ -101,7 +99,7 @@ function GemPoll({ gem }) {
       }
     } else {
       updatedPollOptions.forEach((option, index) => {
-        if (index === optionIndex) {
+        if (index === optionIndex) {qwqwq
           updatedPollOptions[index] = {
             ...option,
             users: [
@@ -183,7 +181,7 @@ function GemPoll({ gem }) {
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
         .then((res) => {
-          dispatch(updateGem(res.data));
+          // dispatch(updateGem(res.data));
           setAlert({
             type: 'success',
             message: 'Option added!',
@@ -250,7 +248,7 @@ function GemPoll({ gem }) {
           <div className='user-gem__footer-button'>
             {!pollState.pollIsEnded &&
             gem.content.pollOptions.some((option) =>
-              option.users.find((u) => u.username === user.username),
+              option.users.find((u) => u.id === user._id),
             ) ? (
               <>
                 <Button
@@ -300,7 +298,7 @@ function GemPoll({ gem }) {
 }
 
 GemPoll.propTypes = {
-  gem: PropTypes.object.isRequired,
+  gemId: PropTypes.string.isRequired,
 };
 
 export default GemPoll;

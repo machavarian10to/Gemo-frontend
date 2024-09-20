@@ -174,7 +174,7 @@ function UserGemFooter({ gem }) {
                   marginTop: '2px',
                 }}
               />
-              <div>view flavors</div>
+              <div>view reacts</div>
             </div>
           </div>
         </>
@@ -195,7 +195,7 @@ function UserGemFooter({ gem }) {
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Flavor</span>
+          <span>React</span>
           <span>
             {gem.reacts
               .map((react) => react.users.length)

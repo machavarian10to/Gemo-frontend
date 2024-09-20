@@ -252,7 +252,7 @@ function Comment({ comment, onUpdateComment }) {
                       marginTop: '2px',
                     }}
                   />
-                  <div>view flavors</div>
+                  <div>view reacts</div>
                 </div>
               </div>
             </>
@@ -278,7 +278,7 @@ function Comment({ comment, onUpdateComment }) {
                   fontSize: '15px',
                 }}
               />
-              <div>Flavor</div>
+              <div>React</div>
               <span>
                 {comment.reacts
                   .map((react) => react.users.length)

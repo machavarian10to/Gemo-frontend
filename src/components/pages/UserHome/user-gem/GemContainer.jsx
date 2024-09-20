@@ -7,13 +7,12 @@ import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
 import GemPoll from './poll/GemPoll';
 import UserGemFooter from '@/components/pages/UserHome/user-gem/layout/UserGemFooter';
 import Skeleton from 'react-loading-skeleton';
+import { useSelector } from 'react-redux';
 
-function GemContainer({ gem }) {
+function GemContainer({ gemId }) {
   const [showMore, setShowMore] = useState(false);
 
-  const toggleShowMore = () => {
-    setShowMore(!showMore);
-  };
+  const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
 
   return (
     <>
@@ -36,12 +35,18 @@ function GemContainer({ gem }) {
               ></div>
             )}
             {!showMore && gem?.content?.body?.length > 200 && (
-              <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
+              <div
+                className='user-gem__show-full-gem'
+                onClick={() => setShowMore((prev) => !prev)}
+              >
                 <span>show more</span>
               </div>
             )}
             {gem?.content?.body?.length > 200 && showMore && (
-              <div className='user-gem__show-full-gem' onClick={toggleShowMore}>
+              <div
+                className='user-gem__show-full-gem'
+                onClick={() => setShowMore((prev) => !prev)}
+              >
                 <span>show less</span>
               </div>
             )}
@@ -52,7 +57,7 @@ function GemContainer({ gem }) {
           {gem.type === 'event' ? (
             <EventContainer gem={gem} />
           ) : (
-            gem.type === 'poll' && <GemPoll gem={gem} />
+            gem.type === 'poll' && <GemPoll gemId={gem._id} />
           )}
 
           <UserGemFooter gem={gem} />
@@ -80,7 +85,7 @@ function GemContainer({ gem }) {
 }
 
 GemContainer.propTypes = {
-  gem: PropTypes.object,
+  gemId: PropTypes.string.isRequired,
 };
 
 export default GemContainer;

@@ -40,7 +40,7 @@ function ViewReactsModal({ modalReacts, closeModal }) {
       <div className='modal'>
         <div className='modal-content' ref={modalContentRef}>
           <div className='modal-header'>
-            <h4>View Flavors</h4>
+            <h4>View Reacts</h4>
             <button onClick={closeModal}>
               <HighlightOffIcon
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
