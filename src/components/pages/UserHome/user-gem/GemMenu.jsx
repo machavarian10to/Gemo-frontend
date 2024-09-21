@@ -15,7 +15,6 @@ import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AlertBox from '@/components/UI/AlertBox';
 import { useSelector, useDispatch } from 'react-redux';
-import GemDeleteModal from '@/components/pages/UserHome/user-gem/GemDeleteModal';
 import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
 
@@ -30,7 +29,6 @@ function GemMenu({ gem, gemAuthor }) {
     showGemEdit: false,
     showGemAuthEdit: false,
     showModal: false,
-    showGemDeleteModal: false,
   });
 
   const [alertBox, setAlertBox] = useState({
@@ -39,12 +37,12 @@ function GemMenu({ gem, gemAuthor }) {
   });
 
   useEffect(() => {
-    if (modalStates.showModal || modalStates.showGemDeleteModal) {
+    if (modalStates.showModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [modalStates.showGemDeleteModal, modalStates.showModal]);
+  }, [modalStates.showModal]);
 
   useClickOutside(postEditRef, () => {
     setModalStates({
@@ -101,15 +99,7 @@ function GemMenu({ gem, gemAuthor }) {
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
       .then(() => {
-        setAlertBox({
-          type: 'success',
-          message: 'Gem deleted successfully!',
-        });
-
-        setTimeout(() => {
-          dispatch(deleteGem(gem._id));
-          setAlertBox({ type: '', message: '' });
-        }, 1000);
+        dispatch(deleteGem(gem._id));
       })
       .catch((err) => {
         setAlertBox({
@@ -137,15 +127,6 @@ function GemMenu({ gem, gemAuthor }) {
           }
           activeTab={activeTab}
           handleActiveTab={handleActiveTab}
-        />
-      )}
-
-      {modalStates.showGemDeleteModal && (
-        <GemDeleteModal
-          closeDeleteGemModal={() =>
-            setModalStates({ ...modalStates, showGemDeleteModal: false })
-          }
-          gemId={gem._id}
         />
       )}
 

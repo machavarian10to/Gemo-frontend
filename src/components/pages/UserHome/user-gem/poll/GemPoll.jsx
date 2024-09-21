@@ -8,7 +8,6 @@ import { updateGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import Input from '@/components/UI/Input';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import AlertBox from '@/components/UI/AlertBox';
 import generateId from '@/helpers/generateId';
 
 function GemPoll({ gemId }) {
@@ -26,11 +25,6 @@ function GemPoll({ gemId }) {
     showPollResultsModal: false,
     showAllOptions: false,
     inputValue: '',
-  });
-
-  const [alert, setAlert] = useState({
-    type: '',
-    message: '',
   });
 
   function calculatePollEndTime() {
@@ -99,7 +93,7 @@ function GemPoll({ gemId }) {
       }
     } else {
       updatedPollOptions.forEach((option, index) => {
-        if (index === optionIndex) {qwqwq
+        if (index === optionIndex) {
           updatedPollOptions[index] = {
             ...option,
             users: [
@@ -118,7 +112,6 @@ function GemPoll({ gemId }) {
       });
     }
 
-    setPollState({ ...pollState, pollOptions: updatedPollOptions });
     const data = {
       type: gem.type,
       title: gem.title,
@@ -127,7 +120,7 @@ function GemPoll({ gemId }) {
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
       .then((res) => {
-        dispatch(updateGem(res.data));
+        setPollState({ ...pollState, pollOptions: updatedPollOptions });
       })
       .catch((err) => console.error(err));
   }
@@ -139,7 +132,6 @@ function GemPoll({ gemId }) {
         users: option.users.filter((u) => u.id !== user._id),
       };
     });
-    setPollState({ ...pollState, pollOptions: updatedPollOptions });
     const data = {
       type: gem.type,
       title: gem.title,
@@ -148,7 +140,7 @@ function GemPoll({ gemId }) {
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
       .then((res) => {
-        dispatch(updateGem(res.data));
+        setPollState({ ...pollState, pollOptions: updatedPollOptions });
       })
       .catch((err) => console.error(err));
   }
@@ -172,7 +164,6 @@ function GemPoll({ gemId }) {
           users: [],
         },
       ];
-      setPollState({ ...pollState, pollOptions: updatedPollOptions });
       const data = {
         type: gem.type,
         title: gem.title,
@@ -181,27 +172,18 @@ function GemPoll({ gemId }) {
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
         .then((res) => {
-          // dispatch(updateGem(res.data));
-          setAlert({
-            type: 'success',
-            message: 'Option added!',
+          setPollState({
+            ...pollState,
+            pollOptions: updatedPollOptions,
+            inputValue: '',
           });
         })
         .catch((err) => console.error(err));
-      setPollState({ ...pollState, inputValue: '' });
-      setTimeout(() => {
-        setAlert({
-          type: '',
-          message: '',
-        });
-      }, 2000);
     }
   }
 
   return (
     <>
-      {alert.message && <AlertBox type={alert.type} message={alert.message} />}
-
       <div className='user-gem__poll'>
         {pollState.pollOptions
           .slice(0, pollState.showAllOptions ? pollState.pollOptions.length : 5)
