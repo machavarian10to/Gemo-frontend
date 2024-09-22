@@ -4,14 +4,12 @@ import PollContainer from '@/components/pages/UserHome/user-gem/poll/PollContain
 import Button from '@/components/UI/Button';
 import PollResultsModal from '@/components/pages/UserHome/user-gem/poll/PollResultsModal';
 import PropTypes from 'prop-types';
-import { updateGem } from '@/state/index';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Input from '@/components/UI/Input';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import generateId from '@/helpers/generateId';
 
 function GemPoll({ gemId }) {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
 
@@ -28,31 +26,31 @@ function GemPoll({ gemId }) {
   });
 
   function calculatePollEndTime() {
-    // if (gem.content.pollDuration === '- None -') return;
-    // const gemCreatedAt = new Date(gem.createdAt);
-    // const pollDurationInDays = gem.content.pollDuration[0];
-    // const pollEndTime = new Date(
-    //   gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
-    // );
-    // const daysDifference = Math.round(
-    //   (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
-    // );
-    // const hoursDifference = Math.round(
-    //   (pollEndTime - new Date()) / (1000 * 60 * 60),
-    // );
-    // const minutesDifference = Math.round(
-    //   (pollEndTime - new Date()) / (1000 * 60),
-    // );
-    // if (daysDifference > 0) {
-    //   return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
-    // } else if (hoursDifference > 0) {
-    //   return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
-    // } else if (minutesDifference > 0) {
-    //   return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
-    // } else {
-    //   setPollState({ ...pollState, pollIsEnded: true });
-    //   return `Poll ended`;
-    // }
+    if (gem.content.pollDuration === '- None -') return;
+    const gemCreatedAt = new Date(gem.createdAt);
+    const pollDurationInDays = gem.content.pollDuration[0];
+    const pollEndTime = new Date(
+      gemCreatedAt.getTime() + pollDurationInDays * 24 * 60 * 60 * 1000,
+    );
+    const daysDifference = Math.round(
+      (pollEndTime - new Date()) / (1000 * 60 * 60 * 24),
+    );
+    const hoursDifference = Math.round(
+      (pollEndTime - new Date()) / (1000 * 60 * 60),
+    );
+    const minutesDifference = Math.round(
+      (pollEndTime - new Date()) / (1000 * 60),
+    );
+    if (daysDifference > 0) {
+      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
+    } else {
+      setPollState({ ...pollState, pollIsEnded: true });
+      return `Poll ended`;
+    }
   }
 
   useEffect(() => {
@@ -87,6 +85,7 @@ function GemPoll({ gemId }) {
             ...updatedPollOptions[optionIndex].users,
             {
               id: user._id,
+              timestamp: new Date(),
             },
           ],
         };
@@ -100,6 +99,7 @@ function GemPoll({ gemId }) {
               ...option.users.filter((u) => u.id !== user._id),
               {
                 id: user._id,
+                timestamp: new Date(),
               },
             ],
           };
@@ -112,6 +112,10 @@ function GemPoll({ gemId }) {
       });
     }
 
+    const newPollVotesAmount = updatedPollOptions.reduce((acc, option) => {
+      return acc + option.users.length;
+    }, 0);
+
     const data = {
       type: gem.type,
       title: gem.title,
@@ -120,7 +124,11 @@ function GemPoll({ gemId }) {
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
       .then((res) => {
-        setPollState({ ...pollState, pollOptions: updatedPollOptions });
+        setPollState({
+          ...pollState,
+          pollOptions: updatedPollOptions,
+          pollVotesAmount: newPollVotesAmount,
+        });
       })
       .catch((err) => console.error(err));
   }
@@ -132,6 +140,11 @@ function GemPoll({ gemId }) {
         users: option.users.filter((u) => u.id !== user._id),
       };
     });
+
+    const newPollVotesAmount = updatedPollOptions.reduce((acc, option) => {
+      return acc + option.users.length;
+    }, 0);
+
     const data = {
       type: gem.type,
       title: gem.title,
@@ -140,7 +153,11 @@ function GemPoll({ gemId }) {
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
       .then((res) => {
-        setPollState({ ...pollState, pollOptions: updatedPollOptions });
+        setPollState({
+          ...pollState,
+          pollOptions: updatedPollOptions,
+          pollVotesAmount: newPollVotesAmount,
+        });
       })
       .catch((err) => console.error(err));
   }
@@ -219,7 +236,7 @@ function GemPoll({ gemId }) {
 
         {pollState.pollOptions.length > 5 && (
           <Button
-            label={pollState.showAllOptions ? 'show less' : 'show all'}
+            label={pollState.showAllOptions ? 'Show less' : 'Show all'}
             type='base'
             size='extra-small'
             clickHandler={toggleShowAllOptions}
@@ -229,7 +246,7 @@ function GemPoll({ gemId }) {
         <div className='user-gem__poll-total-votes'>
           <div className='user-gem__footer-button'>
             {!pollState.pollIsEnded &&
-            gem.content.pollOptions.some((option) =>
+            pollState.pollOptions.some((option) =>
               option.users.find((u) => u.id === user._id),
             ) ? (
               <>
