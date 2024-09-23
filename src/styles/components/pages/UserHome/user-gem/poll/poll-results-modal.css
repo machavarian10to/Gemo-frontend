@@ -79,7 +79,7 @@
   overflow: hidden;
 }
 
-.poll-results__votes:hover{
+.poll-results__votes:hover {
   overflow: auto;
 }
 
@@ -99,4 +99,14 @@
   font-size: 1rem;
   font-weight: 500;
   border-bottom: 1px solid var(--color-grey);
+}
+
+.user-gem__user-vote-timestamp {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-grey);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

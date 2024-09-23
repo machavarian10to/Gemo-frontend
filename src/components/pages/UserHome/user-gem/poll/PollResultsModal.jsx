@@ -2,15 +2,41 @@ import PropTypes from 'prop-types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Fade } from '@mui/material';
 import useClickOutside from '@/hook/useClickOutside';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import UserAvatar from '@/components/shared/UserAvatar';
+import axiosInstance from '@/services/axios';
+import getTimeDifference from '@/helpers/getTimeDifference';
 
 function PollResultsModal({ pollOptions, closeModal }) {
   const modalContentRef = useRef();
-
   const [activeOption, setActiveOption] = useState(pollOptions[0].id);
+  const [usersDetails, setUsersDetails] = useState([]);
 
   useClickOutside(modalContentRef, () => closeModal());
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const selectedOption = pollOptions.find(
+        (option) => option.id === activeOption,
+      );
+      const userIds = selectedOption.users.map((user) => user.id);
+
+      if (userIds.length > 0) {
+        try {
+          const response = await axiosInstance.get('/api/users', {
+            params: { userIds },
+          });
+          setUsersDetails(response.data);
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      } else {
+        setUsersDetails([]);
+      }
+    };
+
+    fetchUserDetails();
+  }, [activeOption, pollOptions]);
 
   return (
     <Fade in={true} timeout={600}>
@@ -53,24 +79,39 @@ function PollResultsModal({ pollOptions, closeModal }) {
                 .length === 0 ? (
                 <div className='poll-results__no-votes'>No votes yet.</div>
               ) : (
-                pollOptions
-                  .find((option) => option.id === activeOption)
-                  .users.map((user) => (
-                    <div key={user.id} className='poll-results__user-wrapper'>
-                      <UserAvatar width={30} height={30} src={user.userPhoto} />
-                      <div className='user-gem__username'>
-                        @
-                        <a
-                          href={`/user/@${user.username}`}
-                          target='_blank'
-                          rel='noreferrer'
-                          className='user-gem__username-link'
-                        >
-                          {user.username}
-                        </a>
-                      </div>
+                usersDetails.map((user) => (
+                  <div key={user._id} className='poll-results__user-wrapper'>
+                    <div>
+                      <UserAvatar
+                        width={30}
+                        height={30}
+                        src={user.profilePhoto}
+                      />
                     </div>
-                  ))
+                    <div className='user-gem__username'>
+                      @
+                      <a
+                        href={`/user/@${user.username}`}
+                        target='_blank'
+                        rel='noreferrer'
+                        className='user-gem__username-link'
+                      >
+                        {user.username}
+                      </a>
+                    </div>
+
+                    <div className='user-gem__user-vote-timestamp'>
+                      <span>&#8226;</span>
+                      {getTimeDifference(
+                        new Date(
+                          pollOptions
+                            .find((option) => option.id === activeOption)
+                            .users.find((u) => u.id === user._id)?.timestamp,
+                        ),
+                      )}
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           </div>

@@ -18,7 +18,7 @@ function GemPoll({ gemId }) {
     pollVotesAmount: gem.content.pollOptions.reduce((acc, option) => {
       return acc + option.users.length;
     }, 0),
-    pollIsEnded: false,
+    pollIsEnded: calculatePollEndTime() === 'Poll ended',
     pollEndTime: calculatePollEndTime(),
     showPollResultsModal: false,
     showAllOptions: false,
@@ -48,7 +48,6 @@ function GemPoll({ gemId }) {
     } else if (minutesDifference > 0) {
       return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
     } else {
-      setPollState({ ...pollState, pollIsEnded: true });
       return `Poll ended`;
     }
   }
