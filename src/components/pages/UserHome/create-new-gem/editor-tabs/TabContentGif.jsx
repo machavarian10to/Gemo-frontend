@@ -54,7 +54,7 @@ function TabContentGif({ gifTabState, setGifTabState }) {
               style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '18px' }}
             />
           }
-          size='extra-small'
+          size='small'
           placeholder='Search most delicious gifs...'
           onInput={(e) => setSearchValue(e.target.value)}
         />

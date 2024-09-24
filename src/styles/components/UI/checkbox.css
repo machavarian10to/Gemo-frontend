@@ -49,10 +49,10 @@
 }
 
 .checkbox-component-label .checkbox-component-checkmark:after {
-  left: 4px;
-  top: 2.5px;
+  left: 4.5px;
+  top: 1.5px;
   width: 3px;
-  height: 5px;
+  height: 6px;
   border: solid white;
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);

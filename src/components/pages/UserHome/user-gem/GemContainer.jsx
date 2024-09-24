@@ -52,7 +52,7 @@ function GemContainer({ gemId }) {
             )}
           </div>
 
-          <GemMedia gem={gem} />
+          {gem.media || (gem?.content?.gifSrc && <GemMedia gem={gem} />)}
 
           {gem.type === 'event' ? (
             <EventContainer gem={gem} />
