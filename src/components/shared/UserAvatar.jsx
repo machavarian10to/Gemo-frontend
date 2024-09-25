@@ -9,38 +9,42 @@ function UserAvatar({ width = 40, height = 40, src }) {
   const [imageSrc, setImageSrc] = useState('');
 
   useEffect(() => {
-    if (src) {
-      setImageSrc(src);
-    } else if (user.googleId) {
-      axios
-        .get(
+    const fetchUserPhoto = async (photoSrc) => {
+      try {
+        const response = await axios.get(
           `${
             import.meta.env.VITE_API_URL
-          }/auth/user-profile-photo?url=${encodeURIComponent(
-            user.profilePhoto,
-          )}`,
+          }/auth/user-profile-photo?url=${encodeURIComponent(photoSrc)}`,
           { responseType: 'arraybuffer' },
-        )
-        .then((res) => {
-          const base64String = btoa(
-            new Uint8Array(res.data).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
-              '',
-            ),
-          );
-          const contentType = res.headers['content-type'];
-          const dataUrl = `data:${contentType};base64,${base64String}`;
-          setImageSrc(dataUrl);
-        })
-        .catch((err) => {
-          console.error('Error fetching the profile image:', err);
-        });
+        );
+        const base64String = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            '',
+          ),
+        );
+        const contentType = response.headers['content-type'];
+        setImageSrc(`data:${contentType};base64,${base64String}`);
+      } catch (error) {
+        console.error('Error fetching the profile image:', error);
+        setImageSrc('assets/default-avatar.png');
+      }
+    };
+
+    if (src) {
+      if (src.includes('googleusercontent.com')) {
+        fetchUserPhoto(src);
+      } else {
+        setImageSrc(src);
+      }
+    } else if (user.googleId) {
+      fetchUserPhoto(user.profilePhoto);
     } else {
-      const image =
+      const defaultImage =
         user.profilePhoto === 'assets/default-avatar.png'
           ? `${import.meta.env.VITE_API_URL}/${user.profilePhoto}`
           : user.profilePhoto;
-      setImageSrc(image);
+      setImageSrc(defaultImage);
     }
   }, [src, user.googleId, user.profilePhoto]);
 

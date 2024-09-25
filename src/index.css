@@ -3,11 +3,32 @@
 /* rubik font */
 
 :root {
+  /* spring */
+  --spring-color-1: #ffcdb2;
+  --spring-color-2: #ffb4a2;
+  --spring-color-3: #e5989b;
+  --spring-color-4: #b5838d;
+
+  /* wood */
+  --wood-color-1: #fdfefe;
+  --wood-color-2: #fc9101;
+  --wood-color-3: #dd5c00;
+  --wood-color-4: #d14b3d;
+  --wood-color-5: #4c2e26;
+  --wood-color-6: #272526;
+
+  /* summer */
+  --summer-color-1: #f5f3ea;
+  --summer-color-2: #d6e6db;
+  --summer-color-3: #6499a7;
+  --summer-color-4: #fecb92;
+  --summer-color-5: #d4824c;
+  --summer-color-6: #270601;
+
   --bg-main-white: #ebedf0;
   --bg-main-yellow: #fff0de;
   --bg-main-brown: #80485b;
   --bg-main-red: #ff5252;
-  /* --color-main-yellow: #f9a109; */
   --color-grey: rgba(128, 128, 128, 0.5);
   --color-main-yellow: #ffa500;
   --color-main-yellow-light: rgba(255, 165, 0, 0.8);
