@@ -192,18 +192,18 @@ function TabContentPoll({ pollTabState, setPollTabState }) {
               <div className='poll-tab-content-multi-select'>
                 <Checkbox
                   checked={pollTabState.multipleSelection}
-                  label='multiple option selection'
+                  label='Multiple selection'
                   onChange={onMultipleOptionCheck}
                 />
                 <Checkbox
-                  checked={pollTabState.hidePeoplesVotes}
-                  label='hide peoples votes'
-                  onChange={onHidePeopleVotes}
+                  checked={pollTabState.usersCanAddOptions}
+                  label='Add options by users'
+                  onChange={onUsersCanAddOptions}
                 />
                 <Checkbox
-                  checked={pollTabState.usersCanAddOptions}
-                  label='users can add options'
-                  onChange={onUsersCanAddOptions}
+                  checked={pollTabState.hidePeoplesVotes}
+                  label='Hide people votes'
+                  onChange={onHidePeopleVotes}
                 />
               </div>
 
