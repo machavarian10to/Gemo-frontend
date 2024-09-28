@@ -15,6 +15,24 @@
   color: var(--color-main-yellow);
 }
 
+.user-gem__footer-skeleton-wrapper {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.user-gem__footer-skeleton {
+  flex: 1;
+}
+
+.last-skeleton {
+  position: absolute;
+  right: 0;
+}
+
 .user-gem__body hr {
   border: none;
   height: 1px;
@@ -66,4 +84,3 @@
 .user-gem__show-full-gem:hover {
   color: var(--color-main-yellow);
 }
-

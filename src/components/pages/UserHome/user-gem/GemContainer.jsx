@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 import EventContainer from '@/components/pages/UserHome/user-gem/EventContainer';
@@ -8,17 +8,31 @@ import GemPoll from './poll/GemPoll';
 import UserGemFooter from '@/components/pages/UserHome/user-gem/layout/UserGemFooter';
 import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
+import axiosInstance from '@/services/axios';
 
 function GemContainer({ gemId }) {
   const [showMore, setShowMore] = useState(false);
+  const [gemAuthor, setGemAuthor] = useState(null);
 
   const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
 
+  useEffect(() => {
+    async function fetchGemAuthor() {
+      try {
+        const { data } = await axiosInstance.get(`/api/users/${gem.userId}`);
+        setGemAuthor(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchGemAuthor();
+  }, [gem.userId]);
+
   return (
     <>
-      {gem ? (
+      {gem && gemAuthor ? (
         <div className='user-gem'>
-          <UserGemHeader gem={gem} />
+          <UserGemHeader gem={gem} gemAuthor={gemAuthor} />
 
           <div className='user-gem__texts'>
             <h3>{gem.title}</h3>
@@ -73,9 +87,21 @@ function GemContainer({ gemId }) {
           </div>
 
           <div className='user-gem__texts'>
-            <div>
-              <Skeleton height={30} style={{ marginTop: '10px' }} />
-              <Skeleton height={15} style={{ marginTop: '15px' }} />
+            <Skeleton height={100} style={{ marginTop: '10px' }} />
+            <div className='user-gem__footer-skeleton-wrapper'>
+              <Skeleton containerClassName='user-gem__footer-skeleton' />
+              <Skeleton containerClassName='user-gem__footer-skeleton' />
+              <Skeleton containerClassName='user-gem__footer-skeleton' />
+              <Skeleton containerClassName='user-gem__footer-skeleton' />
+              <Skeleton
+                width={100}
+                baseColor='transparent'
+                enableAnimation={false}
+              />
+              <Skeleton
+                containerClassName='user-gem__footer-skeleton last-skeleton'
+                width={20}
+              />
             </div>
           </div>
         </div>
