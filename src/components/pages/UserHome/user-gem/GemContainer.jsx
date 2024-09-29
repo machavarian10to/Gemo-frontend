@@ -74,7 +74,7 @@ function GemContainer({ gemId }) {
             gem.type === 'poll' && <GemPoll gemId={gem._id} />
           )}
 
-          <UserGemFooter gem={gem} />
+          <UserGemFooter gemInfo={gem} />
         </div>
       ) : (
         <div className='user-gem'>

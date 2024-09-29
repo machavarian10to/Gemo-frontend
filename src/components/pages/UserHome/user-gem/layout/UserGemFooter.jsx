@@ -7,20 +7,19 @@ import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateGem } from '@/state/index';
+import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
 
-function UserGemFooter({ gem }) {
+function UserGemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   const emojiPickerRef = useRef(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
+  const [gem, setGem] = useState(gemInfo);
 
   const [showCommentSection, setShowCommentSection] = useState(false);
 
@@ -36,102 +35,14 @@ function UserGemFooter({ gem }) {
     }
   }, [showReactionsModal]);
 
-  function addEmoji(gemEmoji) {
-    const newReaction = {
-      emoji: gemEmoji.emoji,
-      users: [
-        {
-          userId: user._id,
-          userName: user.username,
-          userPhoto: user.profilePicture,
-        },
-      ],
-    };
-
-    let updatedReactions = gem.reacts
-      .map((react) => {
-        if (react.emoji === gemEmoji.emoji) {
-          const updatedUsers = react.users.filter(
-            (reactingUser) => reactingUser.userId !== user._id,
-          );
-          return {
-            ...react,
-            users: [...updatedUsers, newReaction.users[0]],
-          };
-        } else {
-          return {
-            ...react,
-            users: react.users.filter(
-              (reactingUser) => reactingUser.userId !== user._id,
-            ),
-          };
-        }
-      })
-      .filter((react) => react.users.length > 0);
-
-    if (!updatedReactions.some((react) => react.emoji === gemEmoji.emoji)) {
-      updatedReactions.push(newReaction);
-    }
-
+  function onEmojiClick(emoji) {
     axiosInstance
-      .put(`/api/gems/${gem._id}/update-gem-reacts`, {
-        reacts: updatedReactions,
+      .put(`/api/gems/${gem._id}/reacts`, {
+        emoji,
+        userId: user._id,
       })
-      .then((res) => {
-        dispatch(updateGem({ _id: gem._id, ...res.data }));
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        setShowEmojis(false);
-      });
-  }
-
-  function updateGemReacts(emoji) {
-    const updatedReactions = gem.reacts
-      .map((react) => {
-        if (react.emoji === emoji) {
-          const userIndex = react.users.findIndex(
-            (reactingUser) => reactingUser.userId === user._id,
-          );
-
-          if (userIndex !== -1) {
-            return {
-              ...react,
-              users: [
-                ...react.users.slice(0, userIndex),
-                ...react.users.slice(userIndex + 1),
-              ],
-            };
-          } else {
-            return {
-              ...react,
-              users: [
-                ...react.users,
-                {
-                  userId: user._id,
-                  userName: user.username,
-                  userPhoto: user.profilePicture,
-                },
-              ],
-            };
-          }
-        } else {
-          return {
-            ...react,
-            users: react.users.filter(
-              (reactingUser) => reactingUser.userId !== user._id,
-            ),
-          };
-        }
-      })
-      .filter((react) => react.users.length > 0);
-
-    axiosInstance
-      .put(`/api/gems/${gem._id}/update-gem-reacts`, {
-        reacts: updatedReactions,
-      })
-      .then((res) => {
-        dispatch(updateGem({ _id: gem._id, ...res.data }));
+      .then(({ data }) => {
+        setGem(data);
       })
       .catch((err) => console.error(err))
       .finally(() => {
@@ -154,7 +65,7 @@ function UserGemFooter({ gem }) {
                     ? 'active-emoji'
                     : ''
                 }`}
-                onClick={() => updateGemReacts(react.emoji)}
+                onClick={() => onEmojiClick(react.emoji)}
               >
                 <div className='user-gem__emoji'>{react.emoji}</div>
                 <div className='user-gem__emoji-count'>
@@ -174,7 +85,7 @@ function UserGemFooter({ gem }) {
                   marginTop: '2px',
                 }}
               />
-              <div>view reacts</div>
+              <div>view all</div>
             </div>
           </div>
         </>
@@ -229,7 +140,7 @@ function UserGemFooter({ gem }) {
         {showEmojis && (
           <div className='user-gem__emoji-picker-wrapper' ref={emojiPickerRef}>
             <EmojiPicker
-              onEmojiClick={(emoji) => addEmoji(emoji)}
+              onEmojiClick={(react) => onEmojiClick(react.emoji)}
               previewConfig={{ showPreview: false }}
               autoFocusSearch={false}
               emojiStyle='native'
@@ -245,7 +156,7 @@ function UserGemFooter({ gem }) {
 }
 
 UserGemFooter.propTypes = {
-  gem: PropTypes.object.isRequired,
+  gemInfo: PropTypes.object.isRequired,
 };
 
 export default UserGemFooter;
