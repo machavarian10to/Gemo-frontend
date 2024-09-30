@@ -79,13 +79,12 @@ function UserGemFooter({ gemInfo }) {
             >
               <EmojiEmotionsOutlinedIcon
                 style={{
-                  fontSize: '13px',
+                  fontSize: '16px',
                   fontWeight: '800',
                   color: 'var(--color-grey)',
-                  marginTop: '2px',
                 }}
               />
-              <div>view all</div>
+              <div>See all</div>
             </div>
           </div>
         </>
@@ -93,7 +92,7 @@ function UserGemFooter({ gemInfo }) {
 
       {showReactionsModal && (
         <ViewReactsModal
-          modalReacts={gem.reacts}
+          gemId={gem._id}
           closeModal={() => setShowReactionsModal(false)}
         />
       )}
