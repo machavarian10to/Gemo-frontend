@@ -198,12 +198,15 @@ function ViewReactsModal({ gemId, closeModal }) {
             <div className='modal-no-reactions-skeleton'>
               <div className='modal-reactions'>
                 <div className='modal-reactions-header'>
-                  <Skeleton width={80} height={30} />
-                  <Skeleton width={50} height={30} />
-                  <Skeleton width={50} height={30} />
-                  <Skeleton width={50} height={30} />
-                  <Skeleton width={50} height={30} />
+                  <Skeleton width={60} height={50} />
+                  <Skeleton width={60} height={50} />
+                  <Skeleton width={60} height={50} />
+                  <Skeleton width={60} height={50} />
+                  <Skeleton width={60} height={50} />
+                  <Skeleton width={60} height={50} />
+                  <Skeleton width={60} height={50} />
                 </div>
+                <div className='modal-reactions-list'></div>
               </div>
             </div>
           )}
