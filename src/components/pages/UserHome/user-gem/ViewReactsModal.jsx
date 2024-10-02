@@ -17,18 +17,33 @@ function ViewReactsModal({ gemId, closeModal }) {
   const [activeTab, setActiveTab] = useState('all');
   const [searchValue, setSearchValue] = useState('');
   const [reacts, setReacts] = useState([]);
+  const [filteredReacts, setFilteredReacts] = useState([]);
 
   useEffect(() => {
     axiosInstance
       .get(`/api/gems/${gemId}/reacts`)
       .then(({ data }) => {
         setReacts(data);
+        setFilteredReacts(data);
       })
       .catch((err) => console.error(err));
   }, [gemId]);
 
   function onSearchUsernames(e) {
-    setSearchValue(e.target.value);
+    const searchInput = e.target.value.toLowerCase();
+    setSearchValue(e.target.value.toLowerCase());
+
+    if (searchInput === '') {
+      setFilteredReacts(reacts);
+    } else {
+      const updatedReacts = reacts.map((react) => ({
+        ...react,
+        users: react.users.filter((user) =>
+          user.username.toLowerCase().includes(searchInput),
+        ),
+      }));
+      setFilteredReacts(updatedReacts);
+    }
   }
 
   return (
@@ -43,7 +58,7 @@ function ViewReactsModal({ gemId, closeModal }) {
               />
             </button>
           </div>
-          {reacts.length > 0 ? (
+          {filteredReacts.length > 0 ? (
             <>
               <div className='modal-reactions'>
                 <div
@@ -54,12 +69,12 @@ function ViewReactsModal({ gemId, closeModal }) {
                 >
                   <div>All</div>
                   <div className='modal-reactions-react-amount'>
-                    {reacts
+                    {filteredReacts
                       .map((react) => react.users.length)
                       .reduce((a, b) => a + b, 0)}
                   </div>
                 </div>
-                {reacts.map((react) => (
+                {filteredReacts.map((react) => (
                   <div
                     key={react._id}
                     className={`modal-reactions-header ${
@@ -95,71 +110,17 @@ function ViewReactsModal({ gemId, closeModal }) {
                 <div className='modal-reactions-container'>
                   {activeTab === 'all' ? (
                     <div className='modal-reactions-user-reacts-list'>
-                      {reacts.map((react) => (
+                      {filteredReacts.map((react) => (
                         <div key={react._id}>
                           {react.users.map((user) => (
-                            <>
-                              <div
-                                key={user._id}
-                                className='modal-reactions-user-react'
-                              >
-                                <div className='modal-reactions-user-wrapper'>
-                                  <div className='modal-reactions-user-with-emoji'>
-                                    <div className='modal-reactions-emoji'>
-                                      {react.emoji}
-                                    </div>
-                                    <UserAvatar
-                                      key={user._id}
-                                      src={user.profilePhoto}
-                                      width={40}
-                                      height={40}
-                                    />
-                                  </div>
-                                  <div className='user-gem__username'>
-                                    @
-                                    <a
-                                      href={`/user/@${user.username}`}
-                                      target='_blank'
-                                      rel='noreferrer'
-                                      className='user-gem__username-link'
-                                    >
-                                      {user.username}
-                                    </a>
-                                  </div>
-                                </div>
-
-                                <div className='user-view-reacts-timestamp'>
-                                  <span>&#8226;</span>
-                                  <span>
-                                    {getTimeDifference(
-                                      new Date(user.timestamp),
-                                    )}
-                                  </span>
-                                </div>
-                              </div>
-                            </>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className='modal-reactions-list-all'>
-                      {reacts
-                        .find((react) => react._id === activeTab)
-                        .users.map((user) => (
-                          <>
                             <div
-                              className='modal-reactions-user-react'
                               key={user._id}
+                              className='modal-reactions-user-react'
                             >
                               <div className='modal-reactions-user-wrapper'>
                                 <div className='modal-reactions-user-with-emoji'>
                                   <div className='modal-reactions-emoji'>
-                                    {
-                                      reacts.find(
-                                        (react) => react._id === activeTab,
-                                      ).emoji
-                                    }
+                                    {react.emoji}
                                   </div>
                                   <UserAvatar
                                     key={user._id}
@@ -180,6 +141,7 @@ function ViewReactsModal({ gemId, closeModal }) {
                                   </a>
                                 </div>
                               </div>
+
                               <div className='user-view-reacts-timestamp'>
                                 <span>&#8226;</span>
                                 <span>
@@ -187,7 +149,54 @@ function ViewReactsModal({ gemId, closeModal }) {
                                 </span>
                               </div>
                             </div>
-                          </>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className='modal-reactions-list-all'>
+                      {filteredReacts
+                        .find((react) => react._id === activeTab)
+                        .users.map((user) => (
+                          <div
+                            className='modal-reactions-user-react'
+                            key={user._id}
+                          >
+                            <div className='modal-reactions-user-wrapper'>
+                              <div className='modal-reactions-user-with-emoji'>
+                                <div className='modal-reactions-emoji'>
+                                  {
+                                    filteredReacts.find(
+                                      (react) => react._id === activeTab,
+                                    ).emoji
+                                  }
+                                </div>
+                                <UserAvatar
+                                  key={user._id}
+                                  src={user.profilePhoto}
+                                  width={40}
+                                  height={40}
+                                />
+                              </div>
+                              <div className='user-gem__username'>
+                                @
+                                <a
+                                  href={`/user/@${user.username}`}
+                                  target='_blank'
+                                  rel='noreferrer'
+                                  className='user-gem__username-link'
+                                >
+                                  {user.username}
+                                </a>
+                              </div>
+                            </div>
+                            <div className='user-view-reacts-timestamp'>
+                              <span>&#8226;</span>
+                              <span>
+                                {getTimeDifference(new Date(user.timestamp))}
+                              </span>
+                            </div>
+                          </div>
                         ))}
                     </div>
                   )}
