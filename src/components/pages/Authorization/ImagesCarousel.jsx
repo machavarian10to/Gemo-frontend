@@ -1,64 +1,54 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import Skeleton from 'react-loading-skeleton';
 
 function ImagesCarousel() {
-  const [images, setImages] = useState([]);
-  const [currentImage, setCurrentImage] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [gifs, setGifs] = useState([]);
+  const [currentGif, setCurrentGif] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://pixabay.com/api/?key=${
-          import.meta.env.VITE_PIXABAY_API_KEY
-        }&q=delicious+food&image_type=photo&per_page=20&orientation=vertical&category=food&safesearch=true&editors_choice=true`,
-      )
-      .then((res) => {
-        const shuffledImages = res.data.hits.sort(() => Math.random() - 0.5);
-        setImages(shuffledImages);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    function fetchGifs(searchValue) {
+      const url = `https://api.giphy.com/v1/gifs/search?api_key=${
+        import.meta.env.VITE_GIPHY_API_KEY
+      }&q=${searchValue}&rating=pg-13`;
+
+      fetch(url)
+        .then((res) => res.json())
+        .then(({ data }) => shuffleGifs(data));
+    }
+
+    function shuffleGifs(gifs) {
+      const shuffledGifs = gifs.sort(() => Math.random() - 0.5);
+      setGifs(shuffledGifs);
+    }
+
+    fetchGifs('cooking');
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 10000);
+      setCurrentGif((prev) => (prev === gifs.length - 1 ? 0 : prev + 1));
+    }, 7000);
 
     return () => clearInterval(interval);
-  }, [images.length]);
-
-  useEffect(() => {
-    if (images.length > 0) {
-      const imgCurrent = new Image();
-      imgCurrent.src = images[currentImage]?.webformatURL;
-
-      const nextImage =
-        currentImage === images.length - 1 ? 0 : currentImage + 1;
-      const imgNext = new Image();
-      imgNext.src = images[nextImage]?.webformatURL;
-    }
-  }, [images, currentImage]);
+  }, [gifs.length]);
 
   return (
-    <div className='user-home__auth-food-image-wrapper'>
-      {loading ? (
-        <div
-          className='user-home__auth-food-image'
-          style={{
-            background: 'rgba(0, 0, 0, 0.1)',
-          }}
-        ></div>
+    <>
+      {gifs.length > 0 ? (
+        <div className='user-home__auth-food-image-wrapper'>
+          <div
+            className='user-home__auth-food-image'
+            style={{
+              backgroundImage: `url(${gifs[currentGif].images.original.webp})`,
+            }}
+          ></div>
+        </div>
       ) : (
-        <div
-          className='user-home__auth-food-image'
-          style={{
-            backgroundImage: `url(${images[currentImage]?.webformatURL})`,
-          }}
-        ></div>
+        <div className='user-home__auth-food-image-wrapper'>
+          <Skeleton height={'100%'} />
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

@@ -75,3 +75,22 @@
   right: -8px;
   font-size: 14px;
 }
+
+.modal-reactions-header-skeleton{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-reactions-wrapper-skeleton{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-reaction-skeleton{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

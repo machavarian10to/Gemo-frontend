@@ -68,7 +68,6 @@ function ForgetPassword({ setCurrentTab }) {
   return (
     <Fade in={true} timeout={1000}>
       <form onSubmit={onSendInstructions}>
-        <h6>Forgot password?</h6>
         <h5>
           Enter the email and we’ll send an email with instructions to reset
           your password
