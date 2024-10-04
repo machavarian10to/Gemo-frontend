@@ -24,7 +24,11 @@ function Input({
   }, [focused]);
 
   return (
-    <div className='input-component-wrapper'>
+    <div
+      className={`input-component-wrapper ${
+        state === 'danger' ? 'danger' : ''
+      }`}
+    >
       {leftIcon && <div className='input-component-left-icon'>{leftIcon}</div>}
       <input
         ref={inputRef}

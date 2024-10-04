@@ -6,6 +6,10 @@
   flex-direction: column;
 }
 
+.input-component-wrapper.danger .input-component-left-icon {
+  top: 12px;
+}
+
 .input-component {
   border: none;
   width: 100%;
