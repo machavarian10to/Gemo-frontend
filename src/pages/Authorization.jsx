@@ -3,7 +3,7 @@ import LoginPage from '@/components/pages/Authorization/LoginPage';
 import RegisterPage from '@/components/pages/Authorization/RegisterPage';
 import ForgetPassword from '@/components/pages/Authorization/ForgetPassword';
 import NewPassword from '@/components/pages/Authorization/NewPassword';
-import ImagesCarousel from '@/components/pages/Authorization/ImagesCarousel';
+import image from '@/assets/images/auth-food-image.jpg';
 
 function Authorization() {
   const [currentTab, setCurrentTab] = useState('login');
@@ -34,7 +34,13 @@ function Authorization() {
       </div>
 
       <div className='user-home__auth-right'>
-        <ImagesCarousel />
+        <div className='user-home__auth-food-image-wrapper'>
+          <img
+            src={image}
+            alt='food'
+            className='user-home__auth-food-image'
+          ></img>
+        </div>
       </div>
     </div>
   );
