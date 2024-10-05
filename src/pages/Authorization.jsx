@@ -13,7 +13,7 @@ function Authorization() {
       <div className='user-home__auth-left'>
         <div className='user-home__auth-left-header'>
           <div className='user-home__auth-left-logo'>
-            <img src='src/assets/images/logo.png' alt='logo' />
+            <img src='src/assets/images/gemo-logo.png' alt='logo' />
           </div>
         </div>
 

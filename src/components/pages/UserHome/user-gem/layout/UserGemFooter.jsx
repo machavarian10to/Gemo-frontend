@@ -79,12 +79,13 @@ function UserGemFooter({ gemInfo }) {
             >
               <EmojiEmotionsOutlinedIcon
                 style={{
-                  fontSize: '16px',
+                  fontSize: '18px',
                   fontWeight: '800',
                   color: 'var(--color-grey)',
+                  marginTop: '2px',
                 }}
               />
-              <div>See all</div>
+              <div>see all</div>
             </div>
           </div>
         </>
