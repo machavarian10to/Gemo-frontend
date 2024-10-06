@@ -61,3 +61,36 @@
 .user-info > div svg:hover {
   color: var(--color-main-yellow);
 }
+
+.header-options-wrapper {
+  position: relative;
+}
+
+.header-options {
+  position: absolute;
+  top: 125%;
+  right: 0;
+  padding: 3px;
+  background-color: #fff;
+  z-index: 200;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: var(--border-radius-rect);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.header-options-item {
+  color: var(--color-main-grey);
+  padding: 10px;
+  border-radius: var(--border-radius-rect);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.header-options-item:hover {
+  background-color: #f2f2f2;
+  color: var(--color-main-black);
+}

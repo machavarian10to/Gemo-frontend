@@ -39,6 +39,7 @@ function Authorization() {
             src={image}
             alt='food'
             className='user-home__auth-food-image'
+            loading='lazy'
           ></img>
         </div>
       </div>
