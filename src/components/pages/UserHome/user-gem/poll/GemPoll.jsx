@@ -223,7 +223,9 @@ function GemPoll({ gemId }) {
               value={pollState.inputValue}
               placeholder='Add new option...'
               leftIcon={
-                <AddCircleOutlineOutlinedIcon style={{ fontSize: '21px' }} />
+                <AddCircleOutlineOutlinedIcon
+                  style={{ color: 'var(--color-main-grey)', fontSize: '21px' }}
+                />
               }
               onInput={(e) =>
                 setPollState({ ...pollState, inputValue: e.target.value })

@@ -84,7 +84,7 @@ function ForgetPassword({ setCurrentTab }) {
             placeholder='Enter email'
             leftIcon={
               <EmailOutlinedIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
           />

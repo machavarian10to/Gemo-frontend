@@ -246,7 +246,7 @@ function Register({ setCurrentTab }) {
             placeholder='Enter email'
             leftIcon={
               <EmailOutlinedIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
           />
@@ -264,7 +264,7 @@ function Register({ setCurrentTab }) {
             helperText={formState.usernameError}
             leftIcon={
               <AlternateEmailIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
             placeholder='Enter username'
@@ -284,7 +284,7 @@ function Register({ setCurrentTab }) {
             type='password'
             leftIcon={
               <VpnKeyOutlinedIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
             placeholder='Enter password'
@@ -332,7 +332,7 @@ function Register({ setCurrentTab }) {
                       ? { color: 'var(--color-yellow-shade-04)' }
                       : formState.passwordStrength === 'Strong'
                       ? { color: 'var(--color-main-green)' }
-                      : { color: 'var(--color-grey)' }
+                      : { color: 'var(--color-main-grey)' }
                   }
                 >
                   {formState.passwordStrength}
@@ -355,7 +355,7 @@ function Register({ setCurrentTab }) {
             type='password'
             leftIcon={
               <VpnKeyOutlinedIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
             placeholder='Repeat password'

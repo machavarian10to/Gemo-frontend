@@ -39,7 +39,7 @@ function Header() {
           <Input
             leftIcon={
               <SearchIcon
-                style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '22px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '22px' }}
               />
             }
             name='search'

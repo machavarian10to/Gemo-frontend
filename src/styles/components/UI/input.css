@@ -18,7 +18,7 @@
   color: #333;
   white-space: nowrap;
   line-height: 20px;
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+  outline: 1.5px solid var(--color-main-grey);
   border-radius: var(--border-radius-rect);
 
   &.extra-small {
@@ -66,10 +66,10 @@
   padding: 6px 12px 6px 30px;
 }
 .input-component.medium-left-icon {
-  padding: 10px 20px 10px 34px;
+  padding: 10px 20px 10px 32px;
 }
 .input-component.large-left-icon {
-  padding: 12px 24px 10px 34px;
+  padding: 12px 24px 12px 32px;
 }
 
 .input-component-left-icon {

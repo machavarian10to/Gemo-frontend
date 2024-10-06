@@ -139,7 +139,7 @@ function Login({ setCurrentTab }) {
             onBlur={onUsernameBlur}
             leftIcon={
               <AlternateEmailIcon
-                style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
             placeholder='Enter username'
@@ -157,7 +157,7 @@ function Login({ setCurrentTab }) {
               leftIcon={
                 <VpnKeyOutlinedIcon
                   style={{
-                    color: 'var(--color-grey)',
+                    color: 'var(--color-main-grey)',
                     fontSize: '18px',
                   }}
                 />
@@ -178,7 +178,7 @@ function Login({ setCurrentTab }) {
                       showPassword: !prev.showPassword,
                     }))
                   }
-                  style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                  style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
                 />
               ) : (
                 <VisibilityOffOutlinedIcon
@@ -188,7 +188,7 @@ function Login({ setCurrentTab }) {
                       showPassword: !prev.showPassword,
                     }))
                   }
-                  style={{ color: 'var(--color-grey)', fontSize: '18px' }}
+                  style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
                 />
               )}
             </div>
