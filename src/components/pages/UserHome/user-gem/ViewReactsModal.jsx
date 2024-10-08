@@ -95,7 +95,10 @@ function ViewReactsModal({ gemId, closeModal }) {
                   <Input
                     leftIcon={
                       <AlternateEmailIcon
-                        style={{ color: 'var(--color-grey)', fontSize: '15px' }}
+                        style={{
+                          color: 'var(--color-main-grey)',
+                          fontSize: '15px',
+                        }}
                       />
                     }
                     placeholder='Search by username...'

@@ -51,11 +51,11 @@ function TabContentGif({ gifTabState, setGifTabState }) {
           value={searchValue}
           leftIcon={
             <SearchIcon
-              style={{ color: 'rgba(130, 130, 130, 0.6)', fontSize: '18px' }}
+              style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
             />
           }
           size='small'
-          placeholder='Search most delicious gifs...'
+          placeholder='Search the most delicious gifs...'
           onInput={(e) => setSearchValue(e.target.value)}
         />
         {gifTabState.gifSrc ? (
