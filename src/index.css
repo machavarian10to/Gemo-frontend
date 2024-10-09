@@ -197,8 +197,8 @@ body,
   height: calc(100% - 58px);
 }
 
-.bold {
-  font-weight: 800;
+.flex-1 {
+  flex: 1;
 }
 
 [data-title] {

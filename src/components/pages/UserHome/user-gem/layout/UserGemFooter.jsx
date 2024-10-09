@@ -150,7 +150,7 @@ function UserGemFooter({ gemInfo }) {
         )}
       </div>
 
-      {showCommentSection && <CommentSection gem={gem} />}
+      {showCommentSection && <CommentSection gemId={gem._id} />}
     </>
   );
 }

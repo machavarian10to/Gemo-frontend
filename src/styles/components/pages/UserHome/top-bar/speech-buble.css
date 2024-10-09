@@ -13,8 +13,8 @@
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  color: var(--color-main-yellow);
-  font-weight: 600;
+  color: var(--color-grey);
+  font-weight: 700;
   width: 80%;
   position: relative;
   border-radius: var(--border-radius-rect);

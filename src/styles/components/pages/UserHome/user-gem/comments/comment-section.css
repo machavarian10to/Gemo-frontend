@@ -8,3 +8,26 @@
   gap: 15px;
   margin-top: 15px;
 }
+
+.user-gem-comment-skeleton-wrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-gem-comment-skeleton {
+  display: flex;
+  gap: 10px;
+}
+
+#user-gem__no-comment-animation {
+  width: 200px;
+  margin-top: 20px;
+}
+
+#user-gem__no-comments-text {
+  font-weight: 700;
+  color: var(--color-main-yellow);
+  margin-block: 20px 10px;
+}

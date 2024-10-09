@@ -89,19 +89,16 @@ function GemContainer({ gemId }) {
           <div className='user-gem__texts'>
             <Skeleton height={100} style={{ marginTop: '10px' }} />
             <div className='user-gem__footer-skeleton-wrapper'>
-              <Skeleton containerClassName='user-gem__footer-skeleton' />
-              <Skeleton containerClassName='user-gem__footer-skeleton' />
-              <Skeleton containerClassName='user-gem__footer-skeleton' />
-              <Skeleton containerClassName='user-gem__footer-skeleton' />
+              <Skeleton containerClassName='flex-1' />
+              <Skeleton containerClassName='flex-1' />
+              <Skeleton containerClassName='flex-1' />
+              <Skeleton containerClassName='flex-1' />
               <Skeleton
                 width={100}
                 baseColor='transparent'
                 enableAnimation={false}
               />
-              <Skeleton
-                containerClassName='user-gem__footer-skeleton last-skeleton'
-                width={20}
-              />
+              <Skeleton containerClassName='flex-1 last-skeleton' width={20} />
             </div>
           </div>
         </div>

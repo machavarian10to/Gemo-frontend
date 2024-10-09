@@ -224,7 +224,9 @@ const AddComment = ({
       )}
 
       <div className='user-gem__comment-section-user-comment'>
-        <UserAvatar width={40} height={35} />
+        <div>
+          <UserAvatar width={35} height={35} />
+        </div>
         <div className='user-gem__comment-section-input'>
           <div className='user-gem__comment-input-wrapper'>
             <textarea
