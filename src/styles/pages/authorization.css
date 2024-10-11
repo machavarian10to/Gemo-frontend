@@ -41,7 +41,6 @@
   justify-content: center;
   gap: 20px;
   background-color: #fff;
-  border: 2px solid var(--color-main-grey);
 }
 
 .user-home__auth-left-body h6 {

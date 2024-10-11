@@ -1,7 +1,7 @@
 .progress-bar {
   width: 100%;
   height: 6px;
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   background: #e0e0e0;
 }
 
@@ -11,23 +11,29 @@
 }
 
 .novice {
-  background: #62baac;
+  background: #32cd32;
 }
+
 .home {
-  background: #56ccf2;
+  background: #ffd700;
 }
+
 .enthusiast {
-  background: #f8ad9d;
+  background: #ff7f50;
 }
+
 .gourmet {
-  background: #a52a2a;
+  background: #4682b4;
 }
+
 .explorer {
-  background: #92bdd9;
+  background: #6a5acd;
 }
+
 .professional {
-  background: #6c6377;
+  background: #808080;
 }
+
 .master {
-  background: #f9a109;
+  background: #ffa500;
 }

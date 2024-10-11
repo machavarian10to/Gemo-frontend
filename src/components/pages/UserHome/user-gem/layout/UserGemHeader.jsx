@@ -8,13 +8,13 @@ import getTimeDifference from '@/helpers/getTimeDifference';
 function UserGemHeader({ gem, gemAuthor }) {
   function getUserLevel() {
     const userLevelMap = {
-      novice: '#62baac',
-      home: '#56ccf2',
-      enthusiast: '#f8ad9d',
-      gourmet: '#a52a2a',
-      explorer: '#92bdd9',
-      professional: '#6c6377',
-      master: '#f9a109',
+      novice: '#32cd32',
+      home: '#ffd700',
+      enthusiast: '#ff7f50',
+      gourmet: '#4682b4',
+      explorer: '#6a5acd',
+      professional: '#808080',
+      master: '#ffa500',
     };
     return userLevelMap[gemAuthor.levelType];
   }

@@ -18,7 +18,7 @@
   color: #333;
   white-space: nowrap;
   line-height: 20px;
-  outline: 1.5px solid var(--color-main-grey);
+  outline: 1.5px solid var(--color-grey);
   border-radius: var(--border-radius-rect);
 
   &.extra-small {
