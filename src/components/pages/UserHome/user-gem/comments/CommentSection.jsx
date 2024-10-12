@@ -16,7 +16,6 @@ function CommentSection({ gemId }) {
       try {
         const { data } = await axiosInstance.get(`/api/gems/${gemId}`);
         setComments(data.comments);
-        // setComments([{ _id: '1', body: 'test comment', reacts: [] }]);
       } catch (err) {
         console.error(err);
       } finally {
@@ -48,6 +47,7 @@ function CommentSection({ gemId }) {
       <Fade in={true} timeout={600}>
         <div className='user-gem__comment-section'>
           <AddComment
+            gemId={gemId}
             placeholder='Write a tasty comment...'
             onAddComment={handleAddComment}
           />

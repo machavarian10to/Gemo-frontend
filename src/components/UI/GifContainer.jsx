@@ -53,7 +53,7 @@ function GifContainer({ setGif, showGifs }) {
             leftIcon={
               <SearchIcon
                 style={{
-                  color: 'rgba(130, 130, 130, 0.6)',
+                  color: 'var(--color-main-grey)',
                   fontSize: '18px',
                 }}
               />

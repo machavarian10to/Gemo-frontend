@@ -30,40 +30,42 @@ const AddComment = ({
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [userComment, setUserComment] = useState(value);
-
-  const [showEmojis, setShowEmojis] = useState(false);
-  const emojiPickerRef = useRef(null);
-
-  const [media, setMedia] = useState({
-    file: null,
-    fileName: fileName || null,
-    mediaSrc: null,
-    gifSrc: gif || null,
+  const [state, setState] = useState({
+    userComment: value,
+    showEmojis: false,
+    gifs: false,
+    isButtonDisabled: true,
+    media: {
+      file: null,
+      fileName: fileName || null,
+      mediaSrc: null,
+      gifSrc: gif || null,
+    },
   });
 
-  const [showGifs, setShowGifs] = useState({ gifs: null });
-
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
+  const emojiPickerRef = useRef(null);
   const gifTabRef = useRef(null);
   const textAreaRef = useRef(null);
 
   useClickOutside(emojiPickerRef, () => {
-    setShowEmojis(false);
+    setState((prev) => ({ ...prev, showEmojis: false }));
   });
 
   useClickOutside(gifTabRef, () => {
-    setShowGifs(false);
+    setState((prev) => ({ ...prev, gifs: false }));
   });
 
   useEffect(() => {
-    if (userComment.trim().length > 0 || media.fileName || media.gifSrc) {
-      setIsButtonDisabled(false);
+    if (
+      state.userComment.trim().length > 0 ||
+      state.media.fileName ||
+      state.media.gifSrc
+    ) {
+      setState((prev) => ({ ...prev, isButtonDisabled: false }));
     } else {
-      setIsButtonDisabled(true);
+      setState((prev) => ({ ...prev, isButtonDisabled: true }));
     }
-  }, [userComment, media]);
+  }, [state.media.fileName, state.media.gifSrc, state.userComment]);
 
   useEffect(() => {
     if (focus) {
@@ -71,122 +73,80 @@ const AddComment = ({
     }
   }, [focus]);
 
-  function addComment(commentData) {
-    axiosInstance
-      .post(`/api/comments/${gem._id}`, commentData)
-      .then((res) => {
-        onAddComment(res.data);
-        dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
-      })
-      .catch((err) => console.error(err));
-    setUserComment('');
-    setMedia({
-      file: null,
-      mediaSrc: null,
-      gifSrc: null,
-    });
-    setIsButtonDisabled(true);
-  }
-
-  function updateComment(commentData) {
-    commentData.commentId = commentId;
-
-    axiosInstance
-      .put(`/api/comments/${gemId}`, commentData)
-      .then((res) => {
-        hideEditComment();
-        dispatch(updateGemComment({ ...res.data }));
-      })
-      .catch((err) => console.error(err));
-  }
-
-  function replyComment(commentData) {
-    axiosInstance
-      .post(`/api/comments/${comment.gemId}/${comment._id}/reply`, commentData)
-      .then((res) => {
-        console.log(res.data);
-        // onAddComment(res.data);
-        // dispatch(updateGem({ ...gem, comments: [res.data, ...gem.comments] }));
-      })
-      .catch((err) => console.error(err));
-    setUserComment('');
-    setMedia({
-      file: null,
-      mediaSrc: null,
-      gifSrc: null,
-    });
-    setIsButtonDisabled(true);
-  }
-
   function onClickHandler() {
-    if (isButtonDisabled) return;
+    if (state.isButtonDisabled) return;
 
-    const commentData = {
-      userId: user._id,
-      userName: user.username,
-      userPhoto: user.profilePicture,
-    };
+    const commentData = { userId: user._id };
 
-    if (userComment.trim().length > 0) commentData.body = userComment;
+    if (state.userComment.trim().length > 0)
+      commentData.content = state.userComment;
 
-    if (media.gifSrc) commentData.gif = media.gifSrc;
+    if (state.media.gifSrc) commentData.media = { gifSrc: state.media.gifSrc };
 
-    if (media.file) {
-      const formData = new FormData();
-      commentData.fileName = media.fileName;
-      formData.append('comment', JSON.stringify(commentData));
-      formData.append('file', media.file);
+    const formData = new FormData();
+    formData.append('comment', JSON.stringify(commentData));
+
+    if (state.media.file) {
+      formData.append('file', state.media.file);
     }
 
-    if (commentId) {
-      updateComment(commentData);
-    } else if (comment) {
-      replyComment(commentData);
-    } else {
-      addComment(commentData);
-    }
-  }
-
-  function handleCommentChange(e) {
-    setUserComment(e.target.value);
-    if (e.target.value.trim().length > 0) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  }
-
-  function addEmoji(postEmoji) {
-    setUserComment((prev) => prev + postEmoji.emoji);
+    axiosInstance
+      .post(`/api/gems/${gemId}/comments`, commentData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setState((prev) => ({
+          ...prev,
+          userComment: '',
+          media: {
+            file: null,
+            mediaSrc: null,
+            gifSrc: null,
+          },
+          isButtonDisabled: true,
+        }));
+      })
+      .catch((err) => console.error(err));
   }
 
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
-      setMedia((prev) => ({
+      setState((prev) => ({
         ...prev,
-        file,
-        fileName: file.name,
+        media: {
+          file,
+          fileName: file.name,
+        },
       }));
       const reader = new FileReader();
       reader.onload = (e) => {
-        setMedia((prev) => ({
+        setState((prev) => ({
           ...prev,
-          mediaSrc: e.target.result,
+          media: {
+            ...prev.media,
+            mediaSrc: e.target.result,
+          },
         }));
       };
       reader.readAsDataURL(file);
-      setIsButtonDisabled(false);
+      setState((prev) => ({ ...prev, isButtonDisabled: false }));
     }
   }
 
   function deleteMedia() {
-    setMedia({
-      file: null,
-      mediaSrc: null,
-      gif: null,
-    });
-    setIsButtonDisabled(true);
+    setState((prev) => ({
+      ...prev,
+      media: {
+        file: null,
+        mediaSrc: null,
+        gifSrc: null,
+      },
+      isButtonDisabled: true,
+    }));
   }
 
   return (
@@ -233,19 +193,26 @@ const AddComment = ({
               ref={textAreaRef}
               className='user-gem__comment-input'
               placeholder={placeholder}
-              value={userComment}
-              onChange={(e) => handleCommentChange(e)}
+              value={state.userComment}
+              onChange={(e) =>
+                setState((prev) => ({ ...prev, userComment: e.target.value }))
+              }
             />
 
             <div className='user-gem__comment-icons'>
               <TagFacesOutlinedIcon
                 style={{
-                  color: showEmojis
+                  color: state.showEmojis
                     ? 'var(--color-main-yellow)'
                     : 'var(--color-light-grey)',
                   fontSize: '22px',
                 }}
-                onClick={() => setShowEmojis((prev) => !prev)}
+                onClick={() =>
+                  setState((prev) => ({
+                    ...prev,
+                    showEmojis: !prev.showEmojis,
+                  }))
+                }
               />
               <label className='user-gem__comment-input-label'>
                 <input
@@ -260,27 +227,27 @@ const AddComment = ({
               </label>
               <GifBoxOutlinedIcon
                 style={{
-                  color: showGifs.gifs
+                  color: state.gifs
                     ? 'var(--color-main-yellow)'
                     : 'var(--color-light-grey)',
                   fontSize: '22px',
                 }}
-                onClick={() =>
-                  setShowGifs((prev) => {
-                    setIsButtonDisabled(false);
-                    return { gifs: !prev.gifs };
-                  })
-                }
+                onClick={() => setState((prev) => ({ ...prev, gifs: true }))}
               />
             </div>
 
-            {showEmojis && (
+            {state.showEmojis && (
               <div
                 className='user-gem__comment-input-emoji-picker-wrapper'
                 ref={emojiPickerRef}
               >
                 <EmojiPicker
-                  onEmojiClick={(emoji) => addEmoji(emoji)}
+                  onEmojiClick={(emoji) =>
+                    setState((prev) => ({
+                      ...prev,
+                      userComment: prev.userComment + emoji.emoji,
+                    }))
+                  }
                   previewConfig={{ showPreview: false }}
                   autoFocusSearch={false}
                   emojiStyle='native'
@@ -289,12 +256,12 @@ const AddComment = ({
               </div>
             )}
 
-            {showGifs.gifs && (
+            {state.gifs && (
               <div
                 className='add-comment__gif-container-wrapper'
                 ref={gifTabRef}
               >
-                <GifContainer setGif={setMedia} showGifs={setShowGifs} />
+                <GifContainer setGif={setState} showGifs={setState} />
               </div>
             )}
           </div>
@@ -303,7 +270,7 @@ const AddComment = ({
         <div className='user-gem__add-comment-btn' onClick={onClickHandler}>
           <SendOutlinedIcon
             style={{
-              color: !isButtonDisabled
+              color: !state.isButtonDisabled
                 ? 'var(--color-main-yellow)'
                 : 'var(--color-light-grey)',
               fontSize: '23px',
@@ -313,7 +280,7 @@ const AddComment = ({
         </div>
       </div>
 
-      {(media.fileName || media.gifSrc) && (
+      {(state.media.fileName || state.media.gifSrc) && (
         <div className='user-gem__comment-image-preview'>
           <button
             title='delete media'
@@ -324,18 +291,18 @@ const AddComment = ({
               style={{ color: 'var(--color-main-yellow)', fontSize: '18px' }}
             />
           </button>
-          {media.file?.type.includes('video') ? (
+          {state.media.file?.type.includes('video') ? (
             <video
               controls
-              src={media.mediaSrc}
+              src={state.media.mediaSrc}
               className='user-media-preview'
             />
           ) : (
             <img
               src={
-                media.mediaSrc ||
-                media.gifSrc ||
-                `${import.meta.env.VITE_API_URL}/assets/${media.fileName}`
+                state.media.mediaSrc ||
+                state.media.gifSrc ||
+                `${import.meta.env.VITE_API_URL}/assets/${state.media.fileName}`
               }
               alt='user-gem__comment-preview'
             />
