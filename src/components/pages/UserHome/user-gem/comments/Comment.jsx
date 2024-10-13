@@ -15,16 +15,15 @@ import axiosInstance from '@/services/axios';
 import { updateGemComment } from '@/state/index.js';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ comment, onUpdateComment }) {
+function Comment({ comment }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const emojiPickerRef = useRef(null);
+
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
-
   const [showCommentReply, setShowCommentReply] = useState(false);
-
   const [showEditComment, setShowEditComment] = useState(false);
 
   useEffect(() => {
@@ -178,9 +177,13 @@ function Comment({ comment, onUpdateComment }) {
       ) : (
         <div className='user-gem__comment-wrapper'>
           <div className='user-gem__comment'>
-            <UserAvatar width={32} height={30} src={comment.userPhoto} />
+            <UserAvatar
+              width={32}
+              height={30}
+              src={comment.commentAuthor.profilePhoto}
+            />
 
-            {!comment.body ? (
+            {!comment.content ? (
               <div className='user-gem__comment-details-only-media'>
                 <CommentHeader
                   comment={comment}
@@ -193,27 +196,28 @@ function Comment({ comment, onUpdateComment }) {
                   comment={comment}
                   onEditComment={onEditComment}
                 />
-                <div className='user-gem__comment-text'>{comment.body}</div>
+                <div className='user-gem__comment-text'>{comment.content}</div>
               </div>
             )}
           </div>
 
-          {comment.gif && (
+          {comment.media.gifSrc && (
             <div
               className='user-gem__comment-media'
-              style={{ marginTop: comment.body && '8px' }}
+              style={{ marginTop: comment.content && '8px' }}
             >
-              <img src={comment.gif} alt='user-gem-comment-media' />
+              <img src={comment.media.gifSrc} alt='user-gem-comment-media' />
             </div>
           )}
-          {comment.fileName && (
+
+          {comment.media.fileName && (
             <div
               className='user-gem__comment-media'
-              style={{ marginTop: comment.body && '8px' }}
+              style={{ marginTop: comment.content && '8px' }}
             >
               <img
                 src={`${import.meta.env.VITE_API_URL}/assets/${
-                  comment.fileName
+                  comment.media.fileName
                 }`}
                 alt='user-gem-comment-media'
               />
@@ -346,7 +350,6 @@ function Comment({ comment, onUpdateComment }) {
 
 Comment.propTypes = {
   comment: PropTypes.object.isRequired,
-  onUpdateComment: PropTypes.func.isRequired,
 };
 
 export default Comment;

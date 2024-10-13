@@ -14,8 +14,8 @@ function CommentSection({ gemId }) {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const { data } = await axiosInstance.get(`/api/gems/${gemId}`);
-        setComments(data.comments);
+        const { data } = await axiosInstance.get(`/api/gems/${gemId}/comments`);
+        setComments(data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -28,10 +28,6 @@ function CommentSection({ gemId }) {
 
   function onClickShowMoreComments() {
     // setComments(gem.comments);
-  }
-
-  function handleAddComment(newComment) {
-    // setComments((prevComments) => [newComment, ...prevComments]);
   }
 
   function handleUpdateComment(updatedComment) {
@@ -49,7 +45,7 @@ function CommentSection({ gemId }) {
           <AddComment
             gemId={gemId}
             placeholder='Write a tasty comment...'
-            onAddComment={handleAddComment}
+            setComments={setComments}
           />
 
           {loading ? (
@@ -67,11 +63,7 @@ function CommentSection({ gemId }) {
             <>
               <div className='user-gem__comment-list'>
                 {comments.map((comment) => (
-                  <Comment
-                    key={comment._id}
-                    comment={comment}
-                    onUpdateComment={handleUpdateComment}
-                  />
+                  <Comment key={comment._id} comment={comment} />
                 ))}
               </div>
 

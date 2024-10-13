@@ -23,7 +23,7 @@ const AddComment = ({
   commentId,
   gemId,
   hideEditComment,
-  onAddComment,
+  setComments,
   focus,
   comment,
 }) => {
@@ -97,7 +97,7 @@ const AddComment = ({
         },
       })
       .then((res) => {
-        console.log(res);
+        setComments((prev) => [...prev, res.data]);
         setState((prev) => ({
           ...prev,
           userComment: '',
@@ -322,7 +322,7 @@ AddComment.propTypes = {
   commentId: PropTypes.string,
   gemId: PropTypes.string,
   hideEditComment: PropTypes.func,
-  onAddComment: PropTypes.func,
+  setComments: PropTypes.func,
   focus: PropTypes.bool,
   comment: PropTypes.object,
 };

@@ -4,21 +4,9 @@ import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import PropTypes from 'prop-types';
 import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
+import getUserLevel from '@/helpers/getUserLevel';
 
 function UserGemHeader({ gem, gemAuthor }) {
-  function getUserLevel() {
-    const userLevelMap = {
-      novice: '#32cd32',
-      home: '#ffd700',
-      enthusiast: '#ff7f50',
-      gourmet: '#4682b4',
-      explorer: '#6a5acd',
-      professional: '#808080',
-      master: '#ffa500',
-    };
-    return userLevelMap[gemAuthor.levelType];
-  }
-
   return (
     <div className='user-gem__header'>
       <div className='user-gem__user-info'>
@@ -46,7 +34,7 @@ function UserGemHeader({ gem, gemAuthor }) {
         <div className='user-gem__date'>
           <LocalPoliceOutlinedIcon
             style={{
-              color: getUserLevel(),
+              color: getUserLevel(gemAuthor.levelType),
               fontSize: '9px',
             }}
           />

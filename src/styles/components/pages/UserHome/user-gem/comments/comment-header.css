@@ -1,7 +1,7 @@
 .user-gem__comment-details-header-wrapper {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 .user-gem__comment-details-header-wrapper .user-gem__date {
   font-size: 11px;

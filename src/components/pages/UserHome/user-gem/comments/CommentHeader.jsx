@@ -11,7 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
+import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import getTimeDifference from '@/helpers/getTimeDifference';
+import getUserLevel from '@/helpers/getUserLevel';
 
 function CommentHeader({ comment, onEditComment }) {
   const dispatch = useDispatch();
@@ -54,13 +56,21 @@ function CommentHeader({ comment, onEditComment }) {
         <div className='user-gem__username user-gem__username-comment'>
           @
           <a
-            href={`/user/@${comment.userName}`}
+            href={`/user/@${comment.commentAuthor.username}`}
             target='_blank'
             rel='noreferrer'
             className='user-gem__username-link'
           >
-            {comment.userName}
+            {comment.commentAuthor.username}
           </a>
+        </div>
+        <div className='user-comment__date'>
+          <LocalPoliceOutlinedIcon
+            style={{
+              color: getUserLevel(comment.commentAuthor.levelType),
+              fontSize: '9px',
+            }}
+          />
         </div>
         <div className='user-gem__date'>
           <span>•</span>
