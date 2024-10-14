@@ -15,7 +15,7 @@ import axiosInstance from '@/services/axios';
 import { updateGemComment } from '@/state/index.js';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ comment }) {
+function Comment({ comment, setComments }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -158,9 +158,9 @@ function Comment({ comment }) {
         <div className='user-gem__comment-edit'>
           <AddComment
             placeholder='Edit comment...'
-            value={comment.body}
-            gif={comment.gif}
-            fileName={comment.fileName}
+            value={comment.content}
+            gif={comment.media.gifSrc}
+            fileSrc={comment.media.fileName}
             commentId={comment._id}
             gemId={comment.gemId}
             hideEditComment={() => setShowEditComment(false)}
@@ -187,6 +187,7 @@ function Comment({ comment }) {
               <div className='user-gem__comment-details-only-media'>
                 <CommentHeader
                   comment={comment}
+                  setComments={setComments}
                   onEditComment={onEditComment}
                 />
               </div>
@@ -194,6 +195,7 @@ function Comment({ comment }) {
               <div className='user-gem__comment-details'>
                 <CommentHeader
                   comment={comment}
+                  setComments={setComments}
                   onEditComment={onEditComment}
                 />
                 <div className='user-gem__comment-text'>{comment.content}</div>
@@ -350,6 +352,7 @@ function Comment({ comment }) {
 
 Comment.propTypes = {
   comment: PropTypes.object.isRequired,
+  setComments: PropTypes.func,
 };
 
 export default Comment;

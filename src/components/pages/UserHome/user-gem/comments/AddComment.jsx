@@ -9,26 +9,19 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import GifContainer from '@/components/UI/GifContainer';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateGem, updateGemComment } from '@/state/index.js';
+import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 
 const AddComment = ({
-  gem,
   placeholder,
   value = '',
-  gif,
-  fileName,
-  commentId,
   gemId,
-  hideEditComment,
   setComments,
   focus,
   comment,
 }) => {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   const [state, setState] = useState({
     userComment: value,
@@ -37,9 +30,8 @@ const AddComment = ({
     isButtonDisabled: true,
     media: {
       file: null,
-      fileName: fileName || null,
       mediaSrc: null,
-      gifSrc: gif || null,
+      gifSrc: null,
     },
   });
 
@@ -58,14 +50,14 @@ const AddComment = ({
   useEffect(() => {
     if (
       state.userComment.trim().length > 0 ||
-      state.media.fileName ||
+      state.media.file ||
       state.media.gifSrc
     ) {
       setState((prev) => ({ ...prev, isButtonDisabled: false }));
     } else {
       setState((prev) => ({ ...prev, isButtonDisabled: true }));
     }
-  }, [state.media.fileName, state.media.gifSrc, state.userComment]);
+  }, [state.media.file, state.media.gifSrc, state.userComment]);
 
   useEffect(() => {
     if (focus) {
@@ -81,7 +73,7 @@ const AddComment = ({
     if (state.userComment.trim().length > 0)
       commentData.content = state.userComment;
 
-    if (state.media.gifSrc) commentData.media = { gifSrc: state.media.gifSrc };
+    if (state.media.gifSrc) commentData.gifSrc = state.media.gifSrc;
 
     const formData = new FormData();
     formData.append('comment', JSON.stringify(commentData));
@@ -91,7 +83,7 @@ const AddComment = ({
     }
 
     axiosInstance
-      .post(`/api/gems/${gemId}/comments`, commentData, {
+      .post(`/api/gems/${gemId}/comments`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -106,7 +98,6 @@ const AddComment = ({
             mediaSrc: null,
             gifSrc: null,
           },
-          isButtonDisabled: true,
         }));
       })
       .catch((err) => console.error(err));
@@ -115,25 +106,18 @@ const AddComment = ({
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
-      setState((prev) => ({
-        ...prev,
-        media: {
-          file,
-          fileName: file.name,
-        },
-      }));
       const reader = new FileReader();
       reader.onload = (e) => {
         setState((prev) => ({
           ...prev,
           media: {
             ...prev.media,
+            file,
             mediaSrc: e.target.result,
           },
         }));
       };
       reader.readAsDataURL(file);
-      setState((prev) => ({ ...prev, isButtonDisabled: false }));
     }
   }
 
@@ -145,7 +129,6 @@ const AddComment = ({
         mediaSrc: null,
         gifSrc: null,
       },
-      isButtonDisabled: true,
     }));
   }
 
@@ -280,7 +263,7 @@ const AddComment = ({
         </div>
       </div>
 
-      {(state.media.fileName || state.media.gifSrc) && (
+      {(state.media.file || state.media.gifSrc) && (
         <div className='user-gem__comment-image-preview'>
           <button
             title='delete media'

@@ -63,7 +63,11 @@ function CommentSection({ gemId }) {
             <>
               <div className='user-gem__comment-list'>
                 {comments.map((comment) => (
-                  <Comment key={comment._id} comment={comment} />
+                  <Comment
+                    key={comment._id}
+                    comment={comment}
+                    setComments={setComments}
+                  />
                 ))}
               </div>
 

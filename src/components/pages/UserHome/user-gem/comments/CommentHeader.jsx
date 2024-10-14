@@ -6,8 +6,7 @@ import { useState, useRef } from 'react';
 import useClickOutside from '@/hook/useClickOutside';
 import { Fade } from '@mui/material';
 import axiosInstance from '@/services/axios';
-import { deleteComment } from '@/state/index';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
@@ -15,8 +14,7 @@ import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
-function CommentHeader({ comment, onEditComment }) {
-  const dispatch = useDispatch();
+function CommentHeader({ comment, setComments, onEditComment }) {
   const user = useSelector((state) => state.user);
 
   const [showEditComment, setShowEditComment] = useState(false);
@@ -31,10 +29,10 @@ function CommentHeader({ comment, onEditComment }) {
 
   function onDeleteComment() {
     axiosInstance
-      .delete(`/api/comments/${comment._id}/gems/${comment.gemId}`)
-      .then(() => {
-        dispatch(
-          deleteComment({ gemId: comment.gemId, commentId: comment._id }),
+      .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
+      .then((res) => {
+        setComments((prevComments) =>
+          prevComments.filter((prevComment) => prevComment._id !== comment._id),
         );
       })
       .catch((err) => {
@@ -160,6 +158,7 @@ function CommentHeader({ comment, onEditComment }) {
 
 CommentHeader.propTypes = {
   comment: PropTypes.object.isRequired,
+  setComments: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,
 };
 
