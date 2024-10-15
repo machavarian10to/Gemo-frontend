@@ -212,14 +212,14 @@ function Comment({ comment, setComments }) {
             </div>
           )}
 
-          {comment.media.fileName && (
+          {comment.media.fileSrc && (
             <div
               className='user-gem__comment-media'
               style={{ marginTop: comment.content && '8px' }}
             >
               <img
                 src={`${import.meta.env.VITE_API_URL}/assets/${
-                  comment.media.fileName
+                  comment.media.fileSrc
                 }`}
                 alt='user-gem-comment-media'
               />

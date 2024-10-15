@@ -35,6 +35,9 @@ function UserAvatar({ width = 40, height = 40, src }) {
       if (src.includes('googleusercontent.com')) {
         fetchUserPhoto(src);
       } else {
+        if (src === 'assets/default-avatar.png') {
+          return setImageSrc(`${import.meta.env.VITE_API_URL}/${src}`);
+        }
         setImageSrc(src);
       }
     } else if (user.googleId) {

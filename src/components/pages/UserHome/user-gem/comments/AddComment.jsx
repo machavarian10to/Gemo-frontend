@@ -138,26 +138,27 @@ const AddComment = ({
         <div className='user-gem_comment-reply-wrapper'>
           <div className='user-gem__comment-replying-to'>
             <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
-            reply to <span>@{comment.userName}</span>
+            reply to <span>@{comment.commentAuthor.username}</span>
           </div>
           <div className='user-gem__comment-reply-highlight'>
             <div
               style={{
-                marginBottom: comment.gif || comment.fileName ? '5px' : '0',
+                marginBottom:
+                  comment.media?.gifSrc || comment.media?.fileSrc ? '5px' : '0',
               }}
             >
-              {comment.body}
+              {comment.content}
             </div>
-            {comment.gif && (
+            {comment.media?.gifSrc && (
               <div className='user-gem__comment-media'>
-                <img src={comment.gif} alt='gif' />
+                <img src={comment.media.gifSrc} alt='gif' />
               </div>
             )}
 
-            {comment.fileName && (
+            {comment.media?.fileSrc && (
               <img
                 src={`${import.meta.env.VITE_API_URL}/assets/${
-                  comment.fileName
+                  comment.media.fileSrc
                 }`}
                 alt='comment-media'
               />

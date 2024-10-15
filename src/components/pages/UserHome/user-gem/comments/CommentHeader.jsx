@@ -65,15 +65,26 @@ function CommentHeader({ comment, setComments, onEditComment }) {
           >
             {comment.commentAuthor.username}
           </a>
+          {comment.isGemAuthor && (
+            <LocalPoliceOutlinedIcon
+              style={{
+                color: getUserLevel(comment.commentAuthor.levelType),
+                fontSize: '9px',
+                marginLeft: '5px',
+              }}
+            />
+          )}
         </div>
-        <div className='user-comment__date'>
-          <LocalPoliceOutlinedIcon
-            style={{
-              color: getUserLevel(comment.commentAuthor.levelType),
-              fontSize: '9px',
-            }}
-          />
-        </div>
+        {!comment.isGemAuthor && (
+          <div className='user-comment__date'>
+            <LocalPoliceOutlinedIcon
+              style={{
+                color: getUserLevel(comment.commentAuthor.levelType),
+                fontSize: '9px',
+              }}
+            />
+          </div>
+        )}
         <div className='user-gem__date'>
           <span>•</span>
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>

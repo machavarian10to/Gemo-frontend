@@ -135,13 +135,13 @@
 }
 
 .user-gem__comment-details {
-  border: 1px solid var(--color-main-grey);
+  /* border: 1px solid var(--color-main-grey); */
   background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 3px;
   width: 100%;
-  padding: 5px 10px 10px 10px;
+  /* padding: 5px 10px 10px 10px; */
   border-radius: var(--border-radius-rect);
   font-weight: 600;
 }
@@ -159,7 +159,7 @@
 }
 
 .user-gem__comment-actions {
-  margin: 5px 0 0 40px;
+  margin: 8px 0 0 36px;
   display: flex;
   align-items: center;
   gap: 20px;
