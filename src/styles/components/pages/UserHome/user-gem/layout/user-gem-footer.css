@@ -152,8 +152,8 @@
 }
 
 .user-gem__comment-text {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   word-break: break-all;
   color: var(--color-main-grey);
 }

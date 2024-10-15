@@ -30,7 +30,7 @@ function CommentHeader({ comment, setComments, onEditComment }) {
   function onDeleteComment() {
     axiosInstance
       .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
-      .then((res) => {
+      .then(() => {
         setComments((prevComments) =>
           prevComments.filter((prevComment) => prevComment._id !== comment._id),
         );
@@ -51,7 +51,11 @@ function CommentHeader({ comment, setComments, onEditComment }) {
   return (
     <div className='user-gem__comment-details-header'>
       <div className='user-gem__comment-details-header-wrapper'>
-        <div className='user-gem__username user-gem__username-comment'>
+        <div
+          className={`user-gem__username user-gem__username-comment ${
+            comment.isGemAuthor && 'gem-author'
+          }`}
+        >
           @
           <a
             href={`/user/@${comment.commentAuthor.username}`}
@@ -137,7 +141,7 @@ function CommentHeader({ comment, setComments, onEditComment }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{comment.userName}</span>
+              <span>Block @{comment.commentAuthor.username}</span>
             </div>
 
             <div className='user-gem__comment-edit-item'>
