@@ -11,6 +11,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
@@ -75,6 +76,7 @@ function CommentHeader({ comment, setComments, onEditComment }) {
             />
           )}
         </div>
+
         {!comment.isGemAuthor && (
           <div className='user-comment__date'>
             <LocalPoliceOutlinedIcon
@@ -85,6 +87,7 @@ function CommentHeader({ comment, setComments, onEditComment }) {
             />
           </div>
         )}
+
         <div className='user-gem__date'>
           <span>•</span>
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>
@@ -104,6 +107,16 @@ function CommentHeader({ comment, setComments, onEditComment }) {
       {showAuthEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
+            <div className='user-gem__comment-edit-item'>
+              <PushPinOutlinedIcon
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Pin comment</span>
+            </div>
+
             <div
               className='user-gem__comment-edit-item'
               onClick={onEditComment}
@@ -116,6 +129,7 @@ function CommentHeader({ comment, setComments, onEditComment }) {
               />
               <span>Edit comment</span>
             </div>
+
             <div
               className='user-gem__comment-edit-item'
               onClick={onDeleteComment}
@@ -135,6 +149,16 @@ function CommentHeader({ comment, setComments, onEditComment }) {
       {showEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
+            <div className='user-gem__comment-edit-item'>
+              <PushPinOutlinedIcon
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span>Pin comment</span>
+            </div>
+
             <div className='user-gem__comment-edit-item'>
               <VisibilityOffOutlinedIcon
                 style={{

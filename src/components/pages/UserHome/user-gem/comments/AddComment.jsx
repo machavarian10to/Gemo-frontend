@@ -14,24 +14,27 @@ import axiosInstance from '@/services/axios';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 
 const AddComment = ({
-  placeholder,
-  value = '',
   gemId,
-  setComments,
-  focus,
   comment,
+  setComments,
+  setShowEditComment,
+  isReply,
+  placeholder,
+  focus,
 }) => {
   const user = useSelector((state) => state.user);
 
   const [state, setState] = useState({
-    userComment: value,
+    userComment: !isReply && comment?.content ? comment.content : '',
     showEmojis: false,
     gifs: false,
     isButtonDisabled: true,
     media: {
       file: null,
       mediaSrc: null,
-      gifSrc: null,
+      fileSrc:
+        !isReply && comment?.media?.fileSrc ? comment.media.fileSrc : null,
+      gifSrc: !isReply && comment?.media?.gifSrc ? comment.media.gifSrc : null,
     },
   });
 
@@ -51,13 +54,19 @@ const AddComment = ({
     if (
       state.userComment.trim().length > 0 ||
       state.media.file ||
+      state.media.fileSrc ||
       state.media.gifSrc
     ) {
       setState((prev) => ({ ...prev, isButtonDisabled: false }));
     } else {
       setState((prev) => ({ ...prev, isButtonDisabled: true }));
     }
-  }, [state.media.file, state.media.gifSrc, state.userComment]);
+  }, [
+    state.userComment,
+    state.media.file,
+    state.media.fileSrc,
+    state.media.gifSrc,
+  ]);
 
   useEffect(() => {
     if (focus) {
@@ -82,25 +91,46 @@ const AddComment = ({
       formData.append('file', state.media.file);
     }
 
-    axiosInstance
-      .post(`/api/gems/${gemId}/comments`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+    let apiMethod = 'post';
+    let apiUrl = `/api/gems/${gemId}/comments`;
+
+    if (isReply) {
+      apiUrl = `/api/gems/${gemId}/comments/${comment._id}/reply`;
+    } else if (!isReply && comment) {
+      apiMethod = 'put';
+      apiUrl = `/api/gems/${gemId}/comments/${comment._id}`;
+    }
+
+    axiosInstance[apiMethod](apiUrl, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
       .then((res) => {
-        setComments((prev) => [...prev, res.data]);
-        setState((prev) => ({
-          ...prev,
-          userComment: '',
-          media: {
-            file: null,
-            mediaSrc: null,
-            gifSrc: null,
-          },
-        }));
+        if (apiMethod === 'put') {
+          setComments((prev) =>
+            prev.map((c) => (c._id === comment._id ? res.data : c)),
+          );
+          setShowEditComment(false);
+        } else {
+          setComments((prev) => [...prev, res.data]);
+        }
+        resetState();
       })
       .catch((err) => console.error(err));
+  }
+
+  function resetState() {
+    setState((prev) => ({
+      ...prev,
+      userComment: '',
+      media: {
+        file: null,
+        fileSrc: null,
+        mediaSrc: null,
+        gifSrc: null,
+      },
+    }));
   }
 
   function handleFileChange(e) {
@@ -134,7 +164,7 @@ const AddComment = ({
 
   return (
     <>
-      {comment && (
+      {comment && isReply && (
         <div className='user-gem_comment-reply-wrapper'>
           <div className='user-gem__comment-replying-to'>
             <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
@@ -149,6 +179,7 @@ const AddComment = ({
             >
               {comment.content}
             </div>
+
             {comment.media?.gifSrc && (
               <div className='user-gem__comment-media'>
                 <img src={comment.media.gifSrc} alt='gif' />
@@ -156,12 +187,14 @@ const AddComment = ({
             )}
 
             {comment.media?.fileSrc && (
-              <img
-                src={`${import.meta.env.VITE_API_URL}/assets/${
-                  comment.media.fileSrc
-                }`}
-                alt='comment-media'
-              />
+              <div className='user-gem__comment-media'>
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/assets/${
+                    comment.media.fileSrc
+                  }`}
+                  alt='comment-media'
+                />
+              </div>
             )}
           </div>
         </div>
@@ -264,7 +297,7 @@ const AddComment = ({
         </div>
       </div>
 
-      {(state.media.file || state.media.gifSrc) && (
+      {(state.media.mediaSrc || state.media.fileSrc || state.media.gifSrc) && (
         <div className='user-gem__comment-image-preview'>
           <button
             title='delete media'
@@ -275,22 +308,14 @@ const AddComment = ({
               style={{ color: 'var(--color-main-yellow)', fontSize: '18px' }}
             />
           </button>
-          {state.media.file?.type.includes('video') ? (
-            <video
-              controls
-              src={state.media.mediaSrc}
-              className='user-media-preview'
-            />
-          ) : (
-            <img
-              src={
-                state.media.mediaSrc ||
-                state.media.gifSrc ||
-                `${import.meta.env.VITE_API_URL}/assets/${state.media.fileName}`
-              }
-              alt='user-gem__comment-preview'
-            />
-          )}
+          <img
+            src={
+              state.media.mediaSrc ||
+              state.media.gifSrc ||
+              `${import.meta.env.VITE_API_URL}/assets/${state.media.fileSrc}`
+            }
+            alt='user-gem__comment-preview'
+          />
         </div>
       )}
     </>
@@ -298,17 +323,13 @@ const AddComment = ({
 };
 
 AddComment.propTypes = {
-  gem: PropTypes.object,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  gif: PropTypes.string,
-  fileName: PropTypes.string,
-  commentId: PropTypes.string,
   gemId: PropTypes.string,
-  hideEditComment: PropTypes.func,
-  setComments: PropTypes.func,
-  focus: PropTypes.bool,
   comment: PropTypes.object,
+  setComments: PropTypes.func,
+  setShowEditComment: PropTypes.func,
+  isReply: PropTypes.bool,
+  placeholder: PropTypes.string,
+  focus: PropTypes.bool,
 };
 
 export default AddComment;

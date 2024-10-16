@@ -1,6 +1,7 @@
 @import 'react-loading-skeleton/dist/skeleton.css';
 @import '@/styles/main.css';
 /* rubik font */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
   /* spring */
@@ -174,6 +175,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', 'Roboto', sans-serif;
+  /* font-family: 'Rubik', sans-serif; */
 }
 
 html {

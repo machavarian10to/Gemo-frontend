@@ -157,13 +157,12 @@ function Comment({ comment, setComments }) {
       {showEditComment ? (
         <div className='user-gem__comment-edit'>
           <AddComment
-            placeholder='Edit comment...'
-            value={comment.content}
-            gif={comment.media.gifSrc}
-            fileSrc={comment.media.fileName}
-            commentId={comment._id}
             gemId={comment.gemId}
-            hideEditComment={() => setShowEditComment(false)}
+            placeholder='Edit comment...'
+            comment={comment}
+            setComments={setComments}
+            setShowEditComment={setShowEditComment}
+            focus
           />
 
           <div
@@ -326,9 +325,13 @@ function Comment({ comment, setComments }) {
               <div className='user-gem__comment-reply-wrapper'>
                 <div className='user-gem__comment-reply'>
                   <AddComment
+                    gemId={comment.gemId}
+                    placeholder='Write a reply...'
                     comment={comment}
-                    placeholder={'Write a reply...'}
-                    focus={true}
+                    setComments={setComments}
+                    setShowEditComment={setShowEditComment}
+                    isReply
+                    focus
                   />
                 </div>
 

@@ -19,9 +19,11 @@ function UserGemFooter({ gemInfo }) {
   const emojiPickerRef = useRef(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
-  const [gem, setGem] = useState(gemInfo);
-
   const [showCommentSection, setShowCommentSection] = useState(false);
+
+  const [gem, setGem] = useState(gemInfo);
+  const [comments, setComments] = useState([]);
+  const [commentsAmount, setCommentsAmount] = useState('');
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -34,6 +36,22 @@ function UserGemFooter({ gemInfo }) {
       document.body.style.overflow = 'unset';
     }
   }, [showReactionsModal]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `/api/gems/${gem._id}/comments`,
+        );
+        setComments(data.comments);
+        setCommentsAmount(data.allCommentsAmount);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchComments();
+  }, [gem._id]);
 
   function onEmojiClick(emoji) {
     axiosInstance
@@ -121,7 +139,7 @@ function UserGemFooter({ gemInfo }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
-          <span>{gem.comments.length}</span>
+          <span>{commentsAmount}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
@@ -150,7 +168,14 @@ function UserGemFooter({ gemInfo }) {
         )}
       </div>
 
-      {showCommentSection && <CommentSection gemId={gem._id} />}
+      {showCommentSection && (
+        <CommentSection
+          gemId={gem._id}
+          comments={comments}
+          setComments={setComments}
+          commentsAmount={commentsAmount}
+        />
+      )}
     </>
   );
 }

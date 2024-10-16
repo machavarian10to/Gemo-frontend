@@ -35,7 +35,6 @@ export default function NewGemContainer({
     {
       id: generateId(),
       name: '3 Days',
-      selected: true,
     },
     {
       id: generateId(),
@@ -44,6 +43,7 @@ export default function NewGemContainer({
     {
       id: generateId(),
       name: '- None -',
+      selected: true,
     },
   ];
 
