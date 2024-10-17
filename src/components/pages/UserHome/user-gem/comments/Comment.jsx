@@ -157,8 +157,8 @@ function Comment({ comment, setComments }) {
       {showEditComment ? (
         <div className='user-gem__comment-edit'>
           <AddComment
-            gemId={comment.gemId}
             placeholder='Edit comment...'
+            gemId={comment.gemId}
             comment={comment}
             setComments={setComments}
             setShowEditComment={setShowEditComment}
@@ -325,8 +325,8 @@ function Comment({ comment, setComments }) {
               <div className='user-gem__comment-reply-wrapper'>
                 <div className='user-gem__comment-reply'>
                   <AddComment
-                    gemId={comment.gemId}
                     placeholder='Write a reply...'
+                    gemId={comment.gemId}
                     comment={comment}
                     setComments={setComments}
                     setShowEditComment={setShowEditComment}

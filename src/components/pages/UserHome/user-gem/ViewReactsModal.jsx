@@ -33,7 +33,7 @@ function ViewReactsModal({ gemId, closeModal }) {
     const searchInput = e.target.value.toLowerCase();
     setSearchValue(e.target.value.toLowerCase());
 
-    if (searchInput === '') {
+    if (searchInput.trim() === '') {
       setFilteredReacts(reacts);
     } else {
       const updatedReacts = reacts.map((react) => ({

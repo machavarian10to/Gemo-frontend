@@ -14,12 +14,12 @@ import axiosInstance from '@/services/axios';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 
 const AddComment = ({
+  placeholder,
   gemId,
   comment,
   setComments,
   setShowEditComment,
   isReply,
-  placeholder,
   focus,
 }) => {
   const user = useSelector((state) => state.user);
@@ -143,6 +143,7 @@ const AddComment = ({
           media: {
             ...prev.media,
             file,
+            gifSrc: null,
             mediaSrc: e.target.result,
           },
         }));
