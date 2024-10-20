@@ -9,14 +9,6 @@ function CommentSection({ gemId, comments, setComments, commentsAmount }) {
     // setComments(gem.comments);
   }
 
-  function handleUpdateComment(updatedComment) {
-    // setComments((prevComments) =>
-    //   prevComments.map((comment) =>
-    //     comment._id === updatedComment._id ? updatedComment : comment,
-    //   ),
-    // );
-  }
-
   return (
     <>
       <Fade in={true} timeout={600}>

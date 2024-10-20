@@ -7,17 +7,15 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import CommentHeader from '@/components/pages/UserHome/user-gem/comments/CommentHeader';
 import axiosInstance from '@/services/axios';
-import { updateGemComment } from '@/state/index.js';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
 function Comment({ comment, setComments }) {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   const emojiPickerRef = useRef(null);
 
@@ -42,109 +40,18 @@ function Comment({ comment, setComments }) {
     setShowEditComment(true);
   }
 
-  function addEmoji(commentEmoji) {
-    const newReaction = {
-      emoji: commentEmoji.emoji,
-      users: [
-        {
-          userId: user._id,
-          userName: user.username,
-          userPhoto: user.profilePicture,
-        },
-      ],
-    };
-
-    let updatedReactions = comment.reacts
-      .map((react) => {
-        if (react.emoji === commentEmoji.emoji) {
-          const updatedUsers = react.users.filter(
-            (reactingUser) => reactingUser.userId !== user._id,
-          );
-          return {
-            ...react,
-            users: [...updatedUsers, newReaction.users[0]],
-          };
-        } else {
-          return {
-            ...react,
-            users: react.users.filter(
-              (reactingUser) => reactingUser.userId !== user._id,
-            ),
-          };
-        }
-      })
-      .filter((react) => react.users.length > 0);
-
-    if (!updatedReactions.some((react) => react.emoji === commentEmoji.emoji)) {
-      updatedReactions.push(newReaction);
-    }
-
+  function onEmojiClick(emoji) {
     axiosInstance
-      .put(
-        `/api/comments/${comment._id}/gems/${comment.gemId}/update-comment-reacts`,
-        {
-          reacts: updatedReactions,
-        },
-      )
-      .then((res) => {
-        onUpdateComment({ ...res.data });
-        dispatch(updateGemComment({ ...res.data }));
+      .put(`/api/gems/${comment.gemId}/comments/${comment._id}/reacts`, {
+        emoji,
+        userId: user._id,
       })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        setShowEmojis(false);
-      });
-  }
-
-  function updateCommentReacts(emoji) {
-    const updatedReactions = comment.reacts
-      .map((react) => {
-        if (react.emoji === emoji) {
-          const userIndex = react.users.findIndex(
-            (reactingUser) => reactingUser.userId === user._id,
-          );
-
-          if (userIndex !== -1) {
-            return {
-              ...react,
-              users: [
-                ...react.users.slice(0, userIndex),
-                ...react.users.slice(userIndex + 1),
-              ],
-            };
-          } else {
-            return {
-              ...react,
-              users: [
-                ...react.users,
-                {
-                  userId: user._id,
-                  userName: user.username,
-                  userPhoto: user.profilePicture,
-                },
-              ],
-            };
-          }
-        } else {
-          return {
-            ...react,
-            users: react.users.filter(
-              (reactingUser) => reactingUser.userId !== user._id,
-            ),
-          };
-        }
-      })
-      .filter((react) => react.users.length > 0);
-
-    axiosInstance
-      .put(
-        `/api/comments/${comment._id}/gems/${comment.gemId}/update-comment-reacts`,
-        {
-          reacts: updatedReactions,
-        },
-      )
-      .then((res) => {
-        dispatch(updateGemComment({ ...res.data }));
+      .then(({ data }) => {
+        setComments((prev) =>
+          prev.map((prevComment) =>
+            prevComment._id === data._id ? data : prevComment,
+          ),
+        );
       })
       .catch((err) => console.error(err))
       .finally(() => {
@@ -238,7 +145,7 @@ function Comment({ comment, setComments }) {
                         ? 'active-emoji'
                         : ''
                     }`}
-                    onClick={() => updateCommentReacts(react.emoji)}
+                    onClick={() => onEmojiClick(react.emoji)}
                   >
                     <div className='user-gem__emoji'>{react.emoji}</div>
                     <div className='user-gem__emoji-count'>
@@ -252,12 +159,13 @@ function Comment({ comment, setComments }) {
                 >
                   <EmojiEmotionsOutlinedIcon
                     style={{
-                      fontSize: '11px',
+                      fontSize: '15px',
+                      fontWeight: '800',
                       color: 'var(--color-grey)',
                       marginTop: '2px',
                     }}
                   />
-                  <div>view reacts</div>
+                  <div>see all</div>
                 </div>
               </div>
             </>
@@ -265,7 +173,8 @@ function Comment({ comment, setComments }) {
 
           {showReactionsModal && (
             <ViewReactsModal
-              modalReacts={comment.reacts}
+              gemId={comment.gemId}
+              commentId={comment._id}
               closeModal={() => setShowReactionsModal(false)}
             />
           )}
@@ -311,7 +220,7 @@ function Comment({ comment, setComments }) {
               ref={emojiPickerRef}
             >
               <EmojiPicker
-                onEmojiClick={(emoji) => addEmoji(emoji)}
+                onEmojiClick={(react) => onEmojiClick(react.emoji)}
                 previewConfig={{ showPreview: false }}
                 autoFocusSearch={false}
                 emojiStyle='native'

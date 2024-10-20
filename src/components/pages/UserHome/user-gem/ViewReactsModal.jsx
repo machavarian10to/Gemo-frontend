@@ -10,7 +10,7 @@ import getTimeDifference from '@/helpers/getTimeDifference';
 import axiosInstance from '@/services/axios';
 import Skeleton from 'react-loading-skeleton';
 
-function ViewReactsModal({ gemId, closeModal }) {
+function ViewReactsModal({ gemId, commentId, closeModal }) {
   const modalContentRef = useRef();
   useClickOutside(modalContentRef, () => closeModal());
 
@@ -20,14 +20,24 @@ function ViewReactsModal({ gemId, closeModal }) {
   const [filteredReacts, setFilteredReacts] = useState([]);
 
   useEffect(() => {
-    axiosInstance
-      .get(`/api/gems/${gemId}/reacts`)
-      .then(({ data }) => {
-        setReacts(data);
-        setFilteredReacts(data);
-      })
-      .catch((err) => console.error(err));
-  }, [gemId]);
+    if (commentId) {
+      axiosInstance
+        .get(`/api/gems/${gemId}/comments/${commentId}/reacts`)
+        .then(({ data }) => {
+          setReacts(data);
+          setFilteredReacts(data);
+        })
+        .catch((err) => console.error(err));
+    } else {
+      axiosInstance
+        .get(`/api/gems/${gemId}/reacts`)
+        .then(({ data }) => {
+          setReacts(data);
+          setFilteredReacts(data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [commentId, gemId]);
 
   function onSearchUsernames(e) {
     const searchInput = e.target.value.toLowerCase();
@@ -255,7 +265,8 @@ function ViewReactsModal({ gemId, closeModal }) {
 }
 
 ViewReactsModal.propTypes = {
-  gemId: PropTypes.string.isRequired,
+  gemId: PropTypes.string,
+  commentId: PropTypes.string,
   closeModal: PropTypes.func.isRequired,
 };
 
