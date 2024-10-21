@@ -14,7 +14,7 @@ import CommentHeader from '@/components/pages/UserHome/user-gem/comments/Comment
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ comment, setComments }) {
+function Comment({ gemAuthorId, comment, setComments }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -92,6 +92,7 @@ function Comment({ comment, setComments }) {
             {!comment.content ? (
               <div className='user-gem__comment-details-only-media'>
                 <CommentHeader
+                  gemAuthorId={gemAuthorId}
                   comment={comment}
                   setComments={setComments}
                   onEditComment={onEditComment}
@@ -100,6 +101,7 @@ function Comment({ comment, setComments }) {
             ) : (
               <div className='user-gem__comment-details'>
                 <CommentHeader
+                  gemAuthorId={gemAuthorId}
                   comment={comment}
                   setComments={setComments}
                   onEditComment={onEditComment}
@@ -263,6 +265,7 @@ function Comment({ comment, setComments }) {
 }
 
 Comment.propTypes = {
+  gemAuthorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
 };

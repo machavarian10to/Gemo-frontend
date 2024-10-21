@@ -15,7 +15,7 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
-function CommentHeader({ comment, setComments, onEditComment }) {
+function CommentHeader({ gemAuthorId, comment, setComments, onEditComment }) {
   const user = useSelector((state) => state.user);
 
   const [showEditComment, setShowEditComment] = useState(false);
@@ -107,15 +107,17 @@ function CommentHeader({ comment, setComments, onEditComment }) {
       {showAuthEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
-            <div className='user-gem__comment-edit-item'>
-              <PushPinOutlinedIcon
-                style={{
-                  fontSize: '18px',
-                  color: 'var(--color-main-yellow)',
-                }}
-              />
-              <span>Pin comment</span>
-            </div>
+            {gemAuthorId === user._id && (
+              <div className='user-gem__comment-edit-item'>
+                <PushPinOutlinedIcon
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--color-main-yellow)',
+                  }}
+                />
+                <span>Pin comment</span>
+              </div>
+            )}
 
             <div
               className='user-gem__comment-edit-item'
@@ -149,15 +151,17 @@ function CommentHeader({ comment, setComments, onEditComment }) {
       {showEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
-            <div className='user-gem__comment-edit-item'>
-              <PushPinOutlinedIcon
-                style={{
-                  fontSize: '18px',
-                  color: 'var(--color-main-yellow)',
-                }}
-              />
-              <span>Pin comment</span>
-            </div>
+            {gemAuthorId === user._id && (
+              <div className='user-gem__comment-edit-item'>
+                <PushPinOutlinedIcon
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--color-main-yellow)',
+                  }}
+                />
+                <span>Pin comment</span>
+              </div>
+            )}
 
             <div className='user-gem__comment-edit-item'>
               <VisibilityOffOutlinedIcon
@@ -196,6 +200,7 @@ function CommentHeader({ comment, setComments, onEditComment }) {
 }
 
 CommentHeader.propTypes = {
+  gemAuthorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,

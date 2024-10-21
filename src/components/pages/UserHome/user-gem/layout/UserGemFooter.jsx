@@ -22,8 +22,12 @@ function UserGemFooter({ gemInfo }) {
   const [showCommentSection, setShowCommentSection] = useState(false);
 
   const [gem, setGem] = useState(gemInfo);
+  const [gemCommentsLength, setGemCommentsLength] = useState(
+    gemInfo.comments.length,
+  );
   const [comments, setComments] = useState([]);
-  const [commentsAmount, setCommentsAmount] = useState('');
+  const [skip, setSkip] = useState(0);
+  const [limit] = useState(3);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -42,16 +46,21 @@ function UserGemFooter({ gemInfo }) {
       try {
         const { data } = await axiosInstance.get(
           `/api/gems/${gem._id}/comments`,
+          {
+            params: {
+              limit,
+              skip,
+            },
+          },
         );
-        setComments(data.comments);
-        setCommentsAmount(data.allCommentsAmount);
+        setComments((prevComments) => [...prevComments, ...data]);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchComments();
-  }, [gem._id]);
+  }, [gem._id, limit, skip]);
 
   function onEmojiClick(emoji) {
     axiosInstance
@@ -67,6 +76,10 @@ function UserGemFooter({ gemInfo }) {
         setShowEmojis(false);
       });
   }
+
+  const showMoreComments = () => {
+    setSkip(skip + limit);
+  };
 
   return (
     <>
@@ -139,7 +152,7 @@ function UserGemFooter({ gemInfo }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
-          <span>{commentsAmount}</span>
+          <span>{gemCommentsLength}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
@@ -171,9 +184,11 @@ function UserGemFooter({ gemInfo }) {
       {showCommentSection && (
         <CommentSection
           gemId={gem._id}
+          gemAuthorId={gemInfo.userId}
           comments={comments}
           setComments={setComments}
-          commentsAmount={commentsAmount}
+          commentsAmount={gemCommentsLength}
+          showMoreComments={showMoreComments}
         />
       )}
     </>

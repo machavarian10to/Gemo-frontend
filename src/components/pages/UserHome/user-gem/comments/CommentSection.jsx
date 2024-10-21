@@ -4,11 +4,14 @@ import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 
-function CommentSection({ gemId, comments, setComments, commentsAmount }) {
-  function onClickShowMoreComments() {
-    // setComments(gem.comments);
-  }
-
+function CommentSection({
+  gemId,
+  gemAuthorId,
+  comments,
+  setComments,
+  commentsAmount,
+  showMoreComments,
+}) {
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -25,16 +28,17 @@ function CommentSection({ gemId, comments, setComments, commentsAmount }) {
                 {comments.map((comment) => (
                   <Comment
                     key={comment._id}
+                    gemAuthorId={gemAuthorId}
                     comment={comment}
                     setComments={setComments}
                   />
                 ))}
               </div>
 
-              {commentsAmount > 3 && (
+              {commentsAmount > 3 && commentsAmount !== comments.length && (
                 <div
                   className='user-gem__comment-show-more-comments'
-                  onClick={onClickShowMoreComments}
+                  onClick={showMoreComments}
                 >
                   show more comments
                 </div>
@@ -63,9 +67,11 @@ function CommentSection({ gemId, comments, setComments, commentsAmount }) {
 
 CommentSection.propTypes = {
   gemId: PropTypes.string.isRequired,
+  gemAuthorId: PropTypes.string,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
   commentsAmount: PropTypes.number.isRequired,
+  showMoreComments: PropTypes.func.isRequired,
 };
 
 export default CommentSection;
