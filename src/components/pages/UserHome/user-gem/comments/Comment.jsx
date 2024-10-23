@@ -14,7 +14,7 @@ import CommentHeader from '@/components/pages/UserHome/user-gem/comments/Comment
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ gemAuthorId, comment, setComments }) {
+function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -69,6 +69,7 @@ function Comment({ gemAuthorId, comment, setComments }) {
             comment={comment}
             setComments={setComments}
             setShowEditComment={setShowEditComment}
+            setGemCommentsLength={setGemCommentsLength}
             focus
           />
 
@@ -95,6 +96,7 @@ function Comment({ gemAuthorId, comment, setComments }) {
                   gemAuthorId={gemAuthorId}
                   comment={comment}
                   setComments={setComments}
+                  setGemCommentsLength={setGemCommentsLength}
                   onEditComment={onEditComment}
                 />
               </div>
@@ -104,6 +106,7 @@ function Comment({ gemAuthorId, comment, setComments }) {
                   gemAuthorId={gemAuthorId}
                   comment={comment}
                   setComments={setComments}
+                  setGemCommentsLength={setGemCommentsLength}
                   onEditComment={onEditComment}
                 />
                 <div className='user-gem__comment-text'>{comment.content}</div>
@@ -241,6 +244,7 @@ function Comment({ gemAuthorId, comment, setComments }) {
                     comment={comment}
                     setComments={setComments}
                     setShowEditComment={setShowEditComment}
+                    setGemCommentsLength={setGemCommentsLength}
                     isReply
                     focus
                   />
@@ -268,6 +272,7 @@ Comment.propTypes = {
   gemAuthorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
+  setGemCommentsLength: PropTypes.func,
 };
 
 export default Comment;

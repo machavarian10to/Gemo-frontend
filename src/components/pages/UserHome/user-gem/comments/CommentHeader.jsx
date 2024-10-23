@@ -15,7 +15,13 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
-function CommentHeader({ gemAuthorId, comment, setComments, onEditComment }) {
+function CommentHeader({
+  gemAuthorId,
+  comment,
+  setComments,
+  setGemCommentsLength,
+  onEditComment,
+}) {
   const user = useSelector((state) => state.user);
 
   const [showEditComment, setShowEditComment] = useState(false);
@@ -32,6 +38,7 @@ function CommentHeader({ gemAuthorId, comment, setComments, onEditComment }) {
     axiosInstance
       .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
       .then(() => {
+        setGemCommentsLength((prevLength) => prevLength - 1);
         setComments((prevComments) =>
           prevComments.filter((prevComment) => prevComment._id !== comment._id),
         );
@@ -203,6 +210,7 @@ CommentHeader.propTypes = {
   gemAuthorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
+  setGemCommentsLength: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,
 };
 

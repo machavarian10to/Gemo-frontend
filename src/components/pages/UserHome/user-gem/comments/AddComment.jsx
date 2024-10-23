@@ -19,6 +19,7 @@ const AddComment = ({
   comment,
   setComments,
   setShowEditComment,
+  setGemCommentsLength,
   isReply,
   focus,
 }) => {
@@ -115,6 +116,7 @@ const AddComment = ({
         } else {
           setComments((prev) => [...prev, res.data]);
         }
+        setGemCommentsLength((prev) => prev + 1);
         resetState();
       })
       .catch((err) => console.error(err));
@@ -328,6 +330,7 @@ AddComment.propTypes = {
   comment: PropTypes.object,
   setComments: PropTypes.func,
   setShowEditComment: PropTypes.func,
+  setGemCommentsLength: PropTypes.func,
   isReply: PropTypes.bool,
   placeholder: PropTypes.string,
   focus: PropTypes.bool,

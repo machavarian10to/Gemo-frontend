@@ -1,7 +1,7 @@
 @import 'react-loading-skeleton/dist/skeleton.css';
 @import '@/styles/main.css';
-/* rubik font */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+/* Noto Sans Georgian */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
   /* spring */
@@ -175,7 +175,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', 'Roboto', sans-serif;
-  /* font-family: 'Rubik', sans-serif; */
+  font-family: "Noto Sans Georgian", sans-serif;
 }
 
 html {
@@ -190,6 +190,7 @@ body,
   height: 100%;
   min-height: 100vh;
   width: 100%;
+  /* background-color: #010409; */
 }
 
 .outlet {

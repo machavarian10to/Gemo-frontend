@@ -53,7 +53,9 @@ function UserGemFooter({ gemInfo }) {
             },
           },
         );
-        setComments((prevComments) => [...prevComments, ...data]);
+        if (data.length > 0) {
+          setComments((prevComments) => [...prevComments, ...data]);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -78,7 +80,7 @@ function UserGemFooter({ gemInfo }) {
   }
 
   const showMoreComments = () => {
-    setSkip(skip + limit);
+    setSkip((prevSkip) => prevSkip + limit);
   };
 
   return (
@@ -121,14 +123,12 @@ function UserGemFooter({ gemInfo }) {
           </div>
         </>
       )}
-
       {showReactionsModal && (
         <ViewReactsModal
           gemId={gem._id}
           closeModal={() => setShowReactionsModal(false)}
         />
       )}
-
       <div className='user-gem__footer'>
         <div
           className={`user-gem__footer-container ${
@@ -180,7 +180,6 @@ function UserGemFooter({ gemInfo }) {
           </div>
         )}
       </div>
-
       {showCommentSection && (
         <CommentSection
           gemId={gem._id}
@@ -188,6 +187,7 @@ function UserGemFooter({ gemInfo }) {
           comments={comments}
           setComments={setComments}
           commentsAmount={gemCommentsLength}
+          setGemCommentsLength={setGemCommentsLength}
           showMoreComments={showMoreComments}
         />
       )}
