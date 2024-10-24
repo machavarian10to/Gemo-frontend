@@ -13,7 +13,6 @@
 
 .user-gem__footer-container {
   display: flex;
-  align-items: center;
   gap: 5px;
   transition: all 0.2s ease;
 }

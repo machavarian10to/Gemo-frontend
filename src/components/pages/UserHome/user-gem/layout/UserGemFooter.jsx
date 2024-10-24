@@ -27,7 +27,7 @@ function UserGemFooter({ gemInfo }) {
   );
   const [comments, setComments] = useState([]);
   const [skip, setSkip] = useState(0);
-  const [limit] = useState(3);
+  const [limit, setLimit] = useState(10);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -53,9 +53,7 @@ function UserGemFooter({ gemInfo }) {
             },
           },
         );
-        if (data.length > 0) {
-          setComments((prevComments) => [...prevComments, ...data]);
-        }
+        setComments(data);
       } catch (err) {
         console.error(err);
       }
@@ -78,10 +76,6 @@ function UserGemFooter({ gemInfo }) {
         setShowEmojis(false);
       });
   }
-
-  const showMoreComments = () => {
-    setSkip((prevSkip) => prevSkip + limit);
-  };
 
   return (
     <>
@@ -186,9 +180,8 @@ function UserGemFooter({ gemInfo }) {
           gemAuthorId={gemInfo.userId}
           comments={comments}
           setComments={setComments}
-          commentsAmount={gemCommentsLength}
+          gemCommentsLength={gemCommentsLength}
           setGemCommentsLength={setGemCommentsLength}
-          showMoreComments={showMoreComments}
         />
       )}
     </>

@@ -9,12 +9,9 @@ function CommentSection({
   gemAuthorId,
   comments,
   setComments,
-  commentsAmount,
+  gemCommentsLength,
   setGemCommentsLength,
-  showMoreComments,
 }) {
-  const displayedComments = comments.slice(0, 3);
-
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -29,7 +26,7 @@ function CommentSection({
           {comments.length > 0 ? (
             <>
               <div className='user-gem__comment-list'>
-                {displayedComments.map((comment) => (
+                {comments.map((comment) => (
                   <Comment
                     key={comment._id}
                     gemAuthorId={gemAuthorId}
@@ -39,15 +36,6 @@ function CommentSection({
                   />
                 ))}
               </div>
-
-              {commentsAmount > 3 && comments.length < commentsAmount && (
-                <div
-                  className='user-gem__comment-show-more-comments'
-                  onClick={showMoreComments}
-                >
-                  Show more comments
-                </div>
-              )}
             </>
           ) : (
             <div className='user-gem__no-comments-wrapper'>
@@ -75,9 +63,8 @@ CommentSection.propTypes = {
   gemAuthorId: PropTypes.string,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
-  commentsAmount: PropTypes.number.isRequired,
+  gemCommentsLength: PropTypes.number.isRequired,
   setGemCommentsLength: PropTypes.func.isRequired,
-  showMoreComments: PropTypes.func.isRequired,
 };
 
 export default CommentSection;
