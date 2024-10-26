@@ -114,7 +114,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
             )}
           </div>
 
-          {comment.media.gifSrc && (
+          {comment?.media?.gifSrc && (
             <div
               className='user-gem__comment-media'
               style={{ marginTop: comment.content && '8px' }}
@@ -123,7 +123,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
             </div>
           )}
 
-          {comment.media.fileSrc && (
+          {comment?.media?.fileSrc && (
             <div
               className='user-gem__comment-media'
               style={{ marginTop: comment.content && '8px' }}
@@ -219,21 +219,6 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
             </div>
           </div>
 
-          {showEmojis && (
-            <div
-              className='user-gem__comment-react-emoji-picker-wrapper'
-              ref={emojiPickerRef}
-            >
-              <EmojiPicker
-                onEmojiClick={(react) => onEmojiClick(react.emoji)}
-                previewConfig={{ showPreview: false }}
-                autoFocusSearch={false}
-                emojiStyle='native'
-                theme='light'
-              />
-            </div>
-          )}
-
           {showCommentReply && (
             <Fade in={showCommentReply} timeout={400}>
               <div className='user-gem__comment-reply-wrapper'>
@@ -261,6 +246,21 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                 </div>
               </div>
             </Fade>
+          )}
+
+          {showEmojis && (
+            <div
+              className='user-gem__comment-react-emoji-picker-wrapper'
+              ref={emojiPickerRef}
+            >
+              <EmojiPicker
+                onEmojiClick={(react) => onEmojiClick(react.emoji)}
+                previewConfig={{ showPreview: false }}
+                autoFocusSearch={false}
+                emojiStyle='native'
+                theme='light'
+              />
+            </div>
           )}
         </div>
       )}
