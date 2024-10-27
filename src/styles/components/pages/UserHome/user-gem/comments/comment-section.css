@@ -31,3 +31,21 @@
   color: var(--color-main-yellow);
   margin-block: 20px 10px;
 }
+
+.user-gem__see-all-comments {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.user-gem__see-all-comments span {
+  font-weight: 700;
+  color: var(--color-main-yellow);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.user-gem__see-all-comments span:hover {
+  opacity: 0.9;
+}

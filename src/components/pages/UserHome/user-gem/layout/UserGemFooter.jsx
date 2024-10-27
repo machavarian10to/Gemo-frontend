@@ -27,7 +27,7 @@ function UserGemFooter({ gemInfo }) {
   );
   const [comments, setComments] = useState([]);
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
