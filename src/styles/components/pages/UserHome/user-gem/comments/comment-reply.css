@@ -1,0 +1,15 @@
+.user-gem__comment-reply-container {
+  margin: 10px 0 0 40px;
+}
+
+.user-gem__reply-comment-wrapper {
+  margin: 20px 0 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-gem__reply-comment-skeleton {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}

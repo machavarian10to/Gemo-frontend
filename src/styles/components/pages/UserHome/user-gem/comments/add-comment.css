@@ -5,11 +5,12 @@
 }
 
 .user-gem__comment-reply-highlight {
+  word-wrap: break-word;
   background-color: #f5f5f5;
   padding: 10px;
   border-radius: var(--border-radius-rect);
   border: 1px solid #e0e0e0;
-  margin: 0 0 10px 0px;
+  margin: 0 0 15px 0px;
   font-size: 12px;
   font-weight: 600;
 }
@@ -20,6 +21,7 @@
   gap: 3px;
   font-size: 12px;
   font-weight: 600;
+  font-style: italic;
   color: var(--color-grey);
   margin-bottom: 5px;
 }
@@ -31,7 +33,7 @@
 }
 
 .user-gem__comment-replying-to span {
-  color: var(--color-main-yellow);
+  color: var(--color-main-black);
   font-weight: 700;
 }
 

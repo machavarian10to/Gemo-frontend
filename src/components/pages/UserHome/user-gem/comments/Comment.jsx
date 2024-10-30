@@ -7,10 +7,12 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import EmojiPicker from 'emoji-picker-react';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import { useSelector } from 'react-redux';
 import { Fade } from '@mui/material';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import CommentHeader from '@/components/pages/UserHome/user-gem/comments/CommentHeader';
+import CommentReply from '@/components/pages/UserHome/user-gem/comments/CommentReply';
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
@@ -23,6 +25,8 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
   const [showReactionsModal, setShowReactionsModal] = useState(false);
   const [showCommentReply, setShowCommentReply] = useState(false);
   const [showEditComment, setShowEditComment] = useState(false);
+
+  const [seeReplies, setSeeReplies] = useState(false);
 
   useEffect(() => {
     if (showReactionsModal) {
@@ -215,7 +219,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                 }}
               />
               <div>Reply</div>
-              <span>0</span>
+              <span>{comment.replies.length}</span>
             </div>
           </div>
 
@@ -224,7 +228,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
               <div className='user-gem__comment-reply-wrapper'>
                 <div className='user-gem__comment-reply'>
                   <AddComment
-                    placeholder='Write a reply...'
+                    placeholder={`Write a reply for @${comment.commentAuthor.username}`}
                     gemId={comment.gemId}
                     comment={comment}
                     setComments={setComments}
@@ -238,7 +242,10 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                 <div className='user-gem__comment-reply-actions'>
                   <div
                     className='user-gem__comment-reply-action'
-                    onClick={() => setShowCommentReply(false)}
+                    onClick={() => {
+                      setShowCommentReply(false);
+                      setSeeReplies(false);
+                    }}
                   >
                     <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
                     <span>Cancel</span>
@@ -260,6 +267,48 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                 emojiStyle='native'
                 theme='light'
               />
+            </div>
+          )}
+
+          {comment.replies.length > 0 && !seeReplies && (
+            <div className='user-gem__see-all-replies'>
+              <KeyboardArrowUpOutlinedIcon
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--color-main-yellow)',
+                  transform: 'rotate(180deg)',
+                }}
+              />
+              <span onClick={() => setSeeReplies(true)}>Show replies</span>
+            </div>
+          )}
+
+          {comment.replies.length > 0 && seeReplies && (
+            <div className='user-gem__see-all-replies'>
+              <KeyboardArrowUpOutlinedIcon
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--color-main-yellow)',
+                }}
+              />
+              <span onClick={() => setSeeReplies(false)}>Hide replies</span>
+            </div>
+          )}
+
+          {comment.replies.length > 0 && seeReplies && (
+            <div className='user-gem__comment-replies'>
+              {comment.replies.map((commentId) => (
+                <CommentReply
+                  key={commentId}
+                  gemId={comment.gemId}
+                  gemAuthorId={gemAuthorId}
+                  parentComment={comment}
+                  commentId={commentId}
+                  setComments={setComments}
+                  setGemCommentsLength={setGemCommentsLength}
+                  setSeeReplies={setSeeReplies}
+                />
+              ))}
             </div>
           )}
         </div>

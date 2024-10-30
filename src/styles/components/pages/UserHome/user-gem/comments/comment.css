@@ -97,3 +97,7 @@
 .user-gem__comment-cancel:hover > svg path{
   color: var(--color-main-yellow);
 }
+
+.user-gem__see-all-replies {
+  margin: 10px 0 0 5px;
+}

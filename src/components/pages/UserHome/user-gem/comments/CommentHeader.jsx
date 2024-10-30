@@ -94,21 +94,23 @@ function CommentHeader({
             />
           </div>
         )}
+      </div>
 
+      <div className='user-gem__comment-menu-wrapper'>
         <div className='user-gem__date'>
-          <span>•</span>
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>
         </div>
-      </div>
-      <div
-        className={`user-gem__comment-menu ${
-          (showEditComment || showAuthEditComment) && 'active'
-        }`}
-      >
-        <MoreVertOutlinedIcon
-          style={{ color: 'var(--color-main-grey)', fontSize: '20px' }}
-          onClick={showEdit}
-        />
+
+        <div
+          className={`user-gem__comment-menu ${
+            (showEditComment || showAuthEditComment) && 'active'
+          }`}
+        >
+          <MoreVertOutlinedIcon
+            style={{ color: 'var(--color-main-grey)', fontSize: '20px' }}
+            onClick={showEdit}
+          />
+        </div>
       </div>
 
       {showAuthEditComment && (

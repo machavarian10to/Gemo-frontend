@@ -66,3 +66,8 @@
 .gem-author a {
   font-size: 12px;
 }
+
+.user-gem__comment-menu-wrapper{
+  display: flex;
+  gap: 5px;
+}

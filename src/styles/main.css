@@ -13,6 +13,7 @@
 @import '@/styles/components/pages/UserHome/top-bar/speech-buble.css';
 @import '@/styles/components/pages/UserHome/user-gem/comments/add-comment.css';
 @import '@/styles/components/pages/UserHome/user-gem/comments/comment-header.css';
+@import '@/styles/components/pages/UserHome/user-gem/comments/comment-reply.css';
 @import '@/styles/components/pages/UserHome/user-gem/comments/comment-section.css';
 @import '@/styles/components/pages/UserHome/user-gem/comments/comment.css';
 @import '@/styles/components/pages/UserHome/user-gem/layout/user-gem-footer.css';

@@ -12,8 +12,6 @@ function CommentSection({
   gemCommentsLength,
   setGemCommentsLength,
 }) {
-  function onSeeAllComments() {}
-
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -22,7 +20,7 @@ function CommentSection({
             gemId={gemId}
             setComments={setComments}
             setGemCommentsLength={setGemCommentsLength}
-            placeholder='Write a tasty comment...'
+            placeholder='Write a comment...'
           />
 
           {comments.length > 0 ? (
@@ -37,11 +35,6 @@ function CommentSection({
                     setGemCommentsLength={setGemCommentsLength}
                   />
                 ))}
-                {gemCommentsLength > comments.length && (
-                  <div className='user-gem__see-all-comments'>
-                    <span onClick={onSeeAllComments}>See all comments</span>
-                  </div>
-                )}
               </div>
             </>
           ) : (

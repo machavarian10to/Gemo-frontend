@@ -15,6 +15,6 @@ export default function getTimeDifference(createdAt) {
       minutesDifference !== 1 ? 's' : ''
     } ago`;
   } else {
-    return `just now`;
+    return `now`;
   }
 }

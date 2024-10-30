@@ -32,20 +32,23 @@
   margin-block: 20px 10px;
 }
 
-.user-gem__see-all-comments {
+.user-gem__see-all-comments,
+.user-gem__see-all-replies {
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 12px;
 }
 
-.user-gem__see-all-comments span {
+.user-gem__see-all-comments span,
+.user-gem__see-all-replies span {
   font-weight: 700;
   color: var(--color-main-yellow);
   cursor: pointer;
   text-decoration: underline;
 }
 
-.user-gem__see-all-comments span:hover {
+.user-gem__see-all-comments span:hover,
+.user-gem__see-all-replies span:hover {
   opacity: 0.9;
 }
