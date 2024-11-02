@@ -49,7 +49,7 @@ function CommentHeader({
   }
 
   function showEdit() {
-    if (user._id === comment.userId) {
+    if (user._id === comment.commentAuthor._id) {
       setShowAuthEditComment(!showAuthEditComment);
     } else {
       setShowEditComment(!showEditComment);
@@ -76,7 +76,7 @@ function CommentHeader({
           {comment.isGemAuthor && (
             <LocalPoliceOutlinedIcon
               style={{
-                color: getUserLevel(comment.commentAuthor.levelType),
+                color: getUserLevel(comment.commentAuthor.levelDetails.type),
                 fontSize: '9px',
                 marginLeft: '5px',
               }}
@@ -88,7 +88,7 @@ function CommentHeader({
           <div className='user-comment__date'>
             <LocalPoliceOutlinedIcon
               style={{
-                color: getUserLevel(comment.commentAuthor.levelType),
+                color: getUserLevel(comment.commentAuthor.levelDetails.type),
                 fontSize: '9px',
               }}
             />

@@ -1,4 +1,7 @@
 .user-gem__comment-reply-container {
+  border-radius: var(--border-radius-rect);
+  border: 1.5px solid #e0e0e0;
+  padding: 10px;
   margin: 10px 0 0 40px;
 }
 

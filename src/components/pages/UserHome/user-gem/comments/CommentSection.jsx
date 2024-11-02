@@ -9,7 +9,6 @@ function CommentSection({
   gemAuthorId,
   comments,
   setComments,
-  gemCommentsLength,
   setGemCommentsLength,
 }) {
   return (
@@ -63,7 +62,6 @@ CommentSection.propTypes = {
   gemAuthorId: PropTypes.string,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
-  gemCommentsLength: PropTypes.number.isRequired,
   setGemCommentsLength: PropTypes.func.isRequired,
 };
 

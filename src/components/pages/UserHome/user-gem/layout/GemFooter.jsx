@@ -13,7 +13,7 @@ import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModa
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
 
-function UserGemFooter({ gemInfo }) {
+function GemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -22,12 +22,11 @@ function UserGemFooter({ gemInfo }) {
   const [showCommentSection, setShowCommentSection] = useState(false);
 
   const [gem, setGem] = useState(gemInfo);
-  const [gemCommentsLength, setGemCommentsLength] = useState(
-    gemInfo.comments.length,
-  );
+  const [totalComments, setTotalComments] = useState(gemInfo.totalComments);
+
   const [comments, setComments] = useState([]);
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -146,7 +145,7 @@ function UserGemFooter({ gemInfo }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
-          <span>{gemCommentsLength}</span>
+          <span>{totalComments}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
@@ -174,22 +173,22 @@ function UserGemFooter({ gemInfo }) {
           </div>
         )}
       </div>
+
       {showCommentSection && (
         <CommentSection
           gemId={gem._id}
-          gemAuthorId={gemInfo.userId}
+          gemAuthorId={gem.gemAuthor._id}
           comments={comments}
           setComments={setComments}
-          gemCommentsLength={gemCommentsLength}
-          setGemCommentsLength={setGemCommentsLength}
+          setGemCommentsLength={setTotalComments}
         />
       )}
     </>
   );
 }
 
-UserGemFooter.propTypes = {
+GemFooter.propTypes = {
   gemInfo: PropTypes.object.isRequired,
 };
 
-export default UserGemFooter;
+export default GemFooter;

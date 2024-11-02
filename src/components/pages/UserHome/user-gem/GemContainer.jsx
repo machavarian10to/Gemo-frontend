@@ -1,38 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 import EventContainer from '@/components/pages/UserHome/user-gem/EventContainer';
-import UserGemHeader from '@/components/pages/UserHome/user-gem/layout/UserGemHeader';
+import GemHeader from '@/components/pages/UserHome/user-gem/layout/GemHeader';
 import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
 import GemPoll from './poll/GemPoll';
-import UserGemFooter from '@/components/pages/UserHome/user-gem/layout/UserGemFooter';
+import GemFooter from '@/components/pages/UserHome/user-gem/layout/GemFooter';
 import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
-import axiosInstance from '@/services/axios';
 
 function GemContainer({ gemId }) {
   const [showMore, setShowMore] = useState(false);
-  const [gemAuthor, setGemAuthor] = useState(null);
 
   const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
 
-  useEffect(() => {
-    async function fetchGemAuthor() {
-      try {
-        const { data } = await axiosInstance.get(`/api/users/${gem.userId}`);
-        setGemAuthor(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchGemAuthor();
-  }, [gem.userId]);
-
   return (
     <>
-      {gem && gemAuthor ? (
+      {gem ? (
         <div className='user-gem'>
-          <UserGemHeader gem={gem} gemAuthor={gemAuthor} />
+          <GemHeader gem={gem} />
 
           <div className='user-gem__texts'>
             <h3>{gem.title}</h3>
@@ -74,7 +60,7 @@ function GemContainer({ gemId }) {
             gem.type === 'poll' && <GemPoll gemId={gem._id} />
           )}
 
-          <UserGemFooter gemInfo={gem} />
+          <GemFooter gemInfo={gem} />
         </div>
       ) : (
         <div className='user-gem'>

@@ -81,237 +81,240 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
             className='user-gem__comment-cancel'
             onClick={() => setShowEditComment(false)}
           >
-            <DoDisturbOnOutlinedIcon style={{ fontSize: '14px' }} />
+            <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
             <span>Cancel</span>
           </div>
         </div>
       ) : (
-        <div className='user-gem__comment-wrapper'>
-          <div className='user-gem__comment'>
-            <UserAvatar
-              width={32}
-              height={30}
-              src={comment.commentAuthor.profilePhoto}
-            />
-
-            {!comment.content ? (
-              <div className='user-gem__comment-details-only-media'>
-                <CommentHeader
-                  gemAuthorId={gemAuthorId}
-                  comment={comment}
-                  setComments={setComments}
-                  setGemCommentsLength={setGemCommentsLength}
-                  onEditComment={onEditComment}
-                />
-              </div>
-            ) : (
-              <div className='user-gem__comment-details'>
-                <CommentHeader
-                  gemAuthorId={gemAuthorId}
-                  comment={comment}
-                  setComments={setComments}
-                  setGemCommentsLength={setGemCommentsLength}
-                  onEditComment={onEditComment}
-                />
-                <div className='user-gem__comment-text'>{comment.content}</div>
-              </div>
-            )}
-          </div>
-
-          {comment?.media?.gifSrc && (
-            <div
-              className='user-gem__comment-media'
-              style={{ marginTop: comment.content && '8px' }}
-            >
-              <img src={comment.media.gifSrc} alt='user-gem-comment-media' />
-            </div>
-          )}
-
-          {comment?.media?.fileSrc && (
-            <div
-              className='user-gem__comment-media'
-              style={{ marginTop: comment.content && '8px' }}
-            >
-              <img
-                src={`${import.meta.env.VITE_API_URL}/assets/${
-                  comment.media.fileSrc
-                }`}
-                alt='user-gem-comment-media'
+        <>
+          <div className='user-gem__comment-wrapper'>
+            <div className='user-gem__comment'>
+              <UserAvatar
+                width={32}
+                height={30}
+                src={comment.commentAuthor.profilePhoto}
               />
-            </div>
-          )}
 
-          {comment.reacts.length > 0 && (
-            <>
-              <div className='user-gem__emoji-list'>
-                {comment.reacts.map((react) => (
-                  <div
-                    key={react._id}
-                    className={`user-gem__emoji-wrapper user-gem__emoji-comment-wrapper ${
-                      react.users.some(
-                        (reactingUser) => reactingUser.userId === user._id,
-                      )
-                        ? 'active-emoji'
-                        : ''
-                    }`}
-                    onClick={() => onEmojiClick(react.emoji)}
-                  >
-                    <div className='user-gem__emoji'>{react.emoji}</div>
-                    <div className='user-gem__emoji-count'>
-                      {react.users.length}
-                    </div>
-                  </div>
-                ))}
-                <div
-                  className='user-gem__view-reactions'
-                  onClick={() => setShowReactionsModal(true)}
-                >
-                  <EmojiEmotionsOutlinedIcon
-                    style={{
-                      fontSize: '15px',
-                      fontWeight: '800',
-                      color: 'var(--color-grey)',
-                      marginTop: '2px',
-                    }}
-                  />
-                  <div>see all</div>
-                </div>
-              </div>
-            </>
-          )}
-
-          {showReactionsModal && (
-            <ViewReactsModal
-              gemId={comment.gemId}
-              commentId={comment._id}
-              closeModal={() => setShowReactionsModal(false)}
-            />
-          )}
-
-          <div className='user-gem__comment-actions'>
-            <div
-              className='user-gem__comment-action'
-              onClick={() => setShowEmojis((prev) => !prev)}
-            >
-              <AddReactionOutlinedIcon
-                style={{
-                  color: showEmojis
-                    ? 'var(--color-main-yellow)'
-                    : 'rgba(130, 130, 130, 0.5)',
-                  fontSize: '15px',
-                }}
-              />
-              <div>React</div>
-              <span>
-                {comment.reacts
-                  .map((react) => react.users.length)
-                  .reduce((a, b) => a + b, 0)}
-              </span>
-            </div>
-            <div
-              className='user-gem__comment-action'
-              onClick={() => setShowCommentReply(true)}
-            >
-              <ModeCommentOutlinedIcon
-                style={{
-                  color: 'rgba(130, 130, 130, 0.5)',
-                  fontSize: '15px',
-                }}
-              />
-              <div>Reply</div>
-              <span>{comment.replies.length}</span>
-            </div>
-          </div>
-
-          {showCommentReply && (
-            <Fade in={showCommentReply} timeout={400}>
-              <div className='user-gem__comment-reply-wrapper'>
-                <div className='user-gem__comment-reply'>
-                  <AddComment
-                    placeholder={`Write a reply for @${comment.commentAuthor.username}`}
-                    gemId={comment.gemId}
+              {!comment.content ? (
+                <div className='user-gem__comment-details-only-media'>
+                  <CommentHeader
+                    gemAuthorId={gemAuthorId}
                     comment={comment}
                     setComments={setComments}
-                    setShowEditComment={setShowEditComment}
                     setGemCommentsLength={setGemCommentsLength}
-                    isReply
-                    focus
+                    onEditComment={onEditComment}
                   />
                 </div>
-
-                <div className='user-gem__comment-reply-actions'>
-                  <div
-                    className='user-gem__comment-reply-action'
-                    onClick={() => {
-                      setShowCommentReply(false);
-                      setSeeReplies(false);
-                    }}
-                  >
-                    <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
-                    <span>Cancel</span>
+              ) : (
+                <div className='user-gem__comment-details'>
+                  <CommentHeader
+                    gemAuthorId={gemAuthorId}
+                    comment={comment}
+                    setComments={setComments}
+                    setGemCommentsLength={setGemCommentsLength}
+                    onEditComment={onEditComment}
+                  />
+                  <div className='user-gem__comment-text'>
+                    {comment.content}
                   </div>
                 </div>
+              )}
+            </div>
+
+            {comment?.media?.gifSrc && (
+              <div
+                className='user-gem__comment-media'
+                style={{ marginTop: comment.content && '8px' }}
+              >
+                <img src={comment.media.gifSrc} alt='user-gem-comment-media' />
               </div>
-            </Fade>
-          )}
+            )}
 
-          {showEmojis && (
-            <div
-              className='user-gem__comment-react-emoji-picker-wrapper'
-              ref={emojiPickerRef}
-            >
-              <EmojiPicker
-                onEmojiClick={(react) => onEmojiClick(react.emoji)}
-                previewConfig={{ showPreview: false }}
-                autoFocusSearch={false}
-                emojiStyle='native'
-                theme='light'
-              />
-            </div>
-          )}
-
-          {comment.replies.length > 0 && !seeReplies && (
-            <div className='user-gem__see-all-replies'>
-              <KeyboardArrowUpOutlinedIcon
-                style={{
-                  fontSize: '18px',
-                  color: 'var(--color-main-yellow)',
-                  transform: 'rotate(180deg)',
-                }}
-              />
-              <span onClick={() => setSeeReplies(true)}>Show replies</span>
-            </div>
-          )}
-
-          {comment.replies.length > 0 && seeReplies && (
-            <div className='user-gem__see-all-replies'>
-              <KeyboardArrowUpOutlinedIcon
-                style={{
-                  fontSize: '18px',
-                  color: 'var(--color-main-yellow)',
-                }}
-              />
-              <span onClick={() => setSeeReplies(false)}>Hide replies</span>
-            </div>
-          )}
-
-          {comment.replies.length > 0 && seeReplies && (
-            <div className='user-gem__comment-replies'>
-              {comment.replies.map((commentId) => (
-                <CommentReply
-                  key={commentId}
-                  gemId={comment.gemId}
-                  gemAuthorId={gemAuthorId}
-                  parentComment={comment}
-                  commentId={commentId}
-                  setComments={setComments}
-                  setGemCommentsLength={setGemCommentsLength}
-                  setSeeReplies={setSeeReplies}
+            {comment?.media?.fileSrc && (
+              <div
+                className='user-gem__comment-media'
+                style={{ marginTop: comment.content && '8px' }}
+              >
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/assets/${
+                    comment.media.fileSrc
+                  }`}
+                  alt='user-gem-comment-media'
                 />
-              ))}
+              </div>
+            )}
+
+            {comment.reacts.length > 0 && (
+              <>
+                <div className='user-gem__emoji-list'>
+                  {comment.reacts.map((react) => (
+                    <div
+                      key={react._id}
+                      className={`user-gem__emoji-wrapper user-gem__emoji-comment-wrapper ${
+                        react.users.some(
+                          (reactingUser) => reactingUser.userId === user._id,
+                        )
+                          ? 'active-emoji'
+                          : ''
+                      }`}
+                      onClick={() => onEmojiClick(react.emoji)}
+                    >
+                      <div className='user-gem__emoji'>{react.emoji}</div>
+                      <div className='user-gem__emoji-count'>
+                        {react.users.length}
+                      </div>
+                    </div>
+                  ))}
+                  <div
+                    className='user-gem__view-reactions'
+                    onClick={() => setShowReactionsModal(true)}
+                  >
+                    <EmojiEmotionsOutlinedIcon
+                      style={{
+                        fontSize: '15px',
+                        fontWeight: '800',
+                        color: 'var(--color-grey)',
+                        marginTop: '2px',
+                      }}
+                    />
+                    <div>see all</div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {showReactionsModal && (
+              <ViewReactsModal
+                gemId={comment.gemId}
+                commentId={comment._id}
+                closeModal={() => setShowReactionsModal(false)}
+              />
+            )}
+
+            <div className='user-gem__comment-actions'>
+              <div
+                className='user-gem__comment-action'
+                onClick={() => setShowEmojis((prev) => !prev)}
+              >
+                <AddReactionOutlinedIcon
+                  style={{
+                    color: showEmojis
+                      ? 'var(--color-main-yellow)'
+                      : 'rgba(130, 130, 130, 0.5)',
+                    fontSize: '15px',
+                  }}
+                />
+                <div>React</div>
+                <span>
+                  {comment.reacts
+                    .map((react) => react.users.length)
+                    .reduce((a, b) => a + b, 0)}
+                </span>
+              </div>
+              <div
+                className='user-gem__comment-action'
+                onClick={() => setShowCommentReply(true)}
+              >
+                <ModeCommentOutlinedIcon
+                  style={{
+                    color: 'rgba(130, 130, 130, 0.5)',
+                    fontSize: '15px',
+                  }}
+                />
+                <div>Reply</div>
+                <span>{comment.replies.length}</span>
+              </div>
             </div>
-          )}
-        </div>
+
+            {showEmojis && (
+              <div
+                className='user-gem__comment-react-emoji-picker-wrapper'
+                ref={emojiPickerRef}
+              >
+                <EmojiPicker
+                  onEmojiClick={(react) => onEmojiClick(react.emoji)}
+                  previewConfig={{ showPreview: false }}
+                  autoFocusSearch={false}
+                  emojiStyle='native'
+                  theme='light'
+                />
+              </div>
+            )}
+
+            {comment.replies.length > 0 && !seeReplies && (
+              <div className='user-gem__see-all-replies'>
+                <KeyboardArrowUpOutlinedIcon
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--color-main-yellow)',
+                    transform: 'rotate(180deg)',
+                  }}
+                />
+                <span onClick={() => setSeeReplies(true)}>Show replies</span>
+              </div>
+            )}
+
+            {comment.replies.length > 0 && seeReplies && (
+              <div className='user-gem__see-all-replies'>
+                <KeyboardArrowUpOutlinedIcon
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--color-main-yellow)',
+                  }}
+                />
+                <span onClick={() => setSeeReplies(false)}>Hide replies</span>
+              </div>
+            )}
+
+            {comment.replies.length > 0 && seeReplies && (
+              <div className='user-gem__comment-replies'>
+                {comment.replies.map((commentId) => (
+                  <CommentReply
+                    key={commentId}
+                    gemId={comment.gemId}
+                    gemAuthorId={gemAuthorId}
+                    parentComment={comment}
+                    commentId={commentId}
+                    setComments={setComments}
+                    setGemCommentsLength={setGemCommentsLength}
+                  />
+                ))}
+              </div>
+            )}
+
+            {showCommentReply && (
+              <Fade in={showCommentReply} timeout={400}>
+                <div className='user-gem__comment-reply-wrapper'>
+                  <div className='user-gem__comment-reply'>
+                    <AddComment
+                      placeholder={`Write a reply for @${comment.commentAuthor.username}`}
+                      gemId={comment.gemId}
+                      comment={comment}
+                      setComments={setComments}
+                      setShowEditComment={setShowEditComment}
+                      setGemCommentsLength={setGemCommentsLength}
+                      isReply
+                      focus
+                    />
+                  </div>
+
+                  <div className='user-gem__comment-reply-actions'>
+                    <div
+                      className='user-gem__comment-reply-action'
+                      onClick={() => {
+                        setShowCommentReply(false);
+                        setSeeReplies(false);
+                      }}
+                    >
+                      <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
+                      <span>Cancel</span>
+                    </div>
+                  </div>
+                </div>
+              </Fade>
+            )}
+          </div>
+        </>
       )}
     </>
   );

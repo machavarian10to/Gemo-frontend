@@ -6,21 +6,21 @@ import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
-function UserGemHeader({ gem, gemAuthor }) {
+function GemHeader({ gem }) {
   return (
     <div className='user-gem__header'>
       <div className='user-gem__user-info'>
-        <UserAvatar width={32} height={32} src={gemAuthor.profilePhoto} />
+        <UserAvatar width={32} height={32} src={gem.gemAuthor.profilePhoto} />
         <div className='user-gem__details'>
           <div className='user-gem__username'>
             @
             <a
-              href={`/user/@${gemAuthor.username}`}
+              href={`/user/@${gem.gemAuthor.username}`}
               target='_blank'
               rel='noreferrer'
               className='user-gem__username-link'
             >
-              {gemAuthor.username}
+              {gem.gemAuthor.username}
             </a>
           </div>
           <div className='user-gem__user-level'>
@@ -34,7 +34,7 @@ function UserGemHeader({ gem, gemAuthor }) {
         <div className='user-gem__date'>
           <LocalPoliceOutlinedIcon
             style={{
-              color: getUserLevel(gemAuthor.levelType),
+              color: getUserLevel(gem.gemAuthor.levelDetails.type),
               fontSize: '9px',
             }}
           />
@@ -48,15 +48,14 @@ function UserGemHeader({ gem, gemAuthor }) {
           />
         </div>
 
-        <GemMenu gem={gem} gemAuthor={gemAuthor} />
+        <GemMenu gem={gem} />
       </div>
     </div>
   );
 }
 
-UserGemHeader.propTypes = {
+GemHeader.propTypes = {
   gem: PropTypes.object.isRequired,
-  gemAuthor: PropTypes.object.isRequired,
 };
 
-export default UserGemHeader;
+export default GemHeader;

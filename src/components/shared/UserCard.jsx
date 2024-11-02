@@ -17,10 +17,13 @@ function UserCard() {
       <div className='divider'></div>
       <div className='user-home_user-card-level-bar-wrapper'>
         <div className='user-home_user-card-level-bar-details'>
-          <div>{user.levelType} cook</div>
-          <div>{user.levelPercent} %</div>
+          <div>{user.levelDetails.type} cook</div>
+          <div>{user.levelDetails.percent} %</div>
         </div>
-        <ProgressBar level={user.levelType} percent={user.levelPercent} />
+        <ProgressBar
+          level={user.levelDetails.type}
+          percent={user.levelDetails.percent}
+        />
       </div>
     </div>
   );

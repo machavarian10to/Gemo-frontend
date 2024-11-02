@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
 
-function GemMenu({ gem, gemAuthor }) {
+function GemMenu({ gem }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -53,7 +53,7 @@ function GemMenu({ gem, gemAuthor }) {
   });
 
   function showGemEditWrapper() {
-    if (gemAuthor._id === user._id) {
+    if (gem.gemAuthor._id === user._id) {
       setModalStates({
         ...modalStates,
         showGemAuthEdit: !modalStates.showGemAuthEdit,
@@ -224,7 +224,7 @@ function GemMenu({ gem, gemAuthor }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{gemAuthor.username}</span>
+              <span>Block @{gem.gemAuthor.username}</span>
             </div>
 
             <div className='user-gem__edit-item'>
@@ -245,6 +245,5 @@ function GemMenu({ gem, gemAuthor }) {
 
 GemMenu.propTypes = {
   gem: PropTypes.object.isRequired,
-  gemAuthor: PropTypes.object.isRequired,
 };
 export default GemMenu;
