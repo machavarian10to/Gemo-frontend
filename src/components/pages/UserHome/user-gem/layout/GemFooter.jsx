@@ -6,6 +6,7 @@ import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
@@ -17,16 +18,16 @@ function GemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
+
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
   const [showCommentSection, setShowCommentSection] = useState(false);
 
   const [gem, setGem] = useState(gemInfo);
-  const [totalComments, setTotalComments] = useState(gemInfo.totalComments);
 
   const [comments, setComments] = useState([]);
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit] = useState(10);
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -52,7 +53,7 @@ function GemFooter({ gemInfo }) {
             },
           },
         );
-        setComments(data);
+        setComments((prev) => [...prev, ...data]);
       } catch (err) {
         console.error(err);
       }
@@ -74,6 +75,10 @@ function GemFooter({ gemInfo }) {
       .finally(() => {
         setShowEmojis(false);
       });
+  }
+
+  function onShowMoreCommentsClick() {
+    setSkip((prev) => prev + limit);
   }
 
   return (
@@ -116,12 +121,14 @@ function GemFooter({ gemInfo }) {
           </div>
         </>
       )}
+
       {showReactionsModal && (
         <ViewReactsModal
           gemId={gem._id}
           closeModal={() => setShowReactionsModal(false)}
         />
       )}
+
       <div className='user-gem__footer'>
         <div
           className={`user-gem__footer-container ${
@@ -145,7 +152,7 @@ function GemFooter({ gemInfo }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
-          <span>{totalComments}</span>
+          <span>{gem.totalComments}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
@@ -175,13 +182,31 @@ function GemFooter({ gemInfo }) {
       </div>
 
       {showCommentSection && (
-        <CommentSection
-          gemId={gem._id}
-          gemAuthorId={gem.gemAuthor._id}
-          comments={comments}
-          setComments={setComments}
-          setGemCommentsLength={setTotalComments}
-        />
+        <>
+          <CommentSection
+            gemId={gem._id}
+            gemAuthorId={gem.gemAuthor._id}
+            comments={comments}
+            setComments={setComments}
+            setGemCommentsLength={setGem}
+          />
+
+          {gem.comments.length > comments.length && (
+            <div
+              className='user-gem__see-all-comments'
+              onClick={onShowMoreCommentsClick}
+            >
+              <KeyboardArrowUpOutlinedIcon
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--color-main-yellow)',
+                  transform: 'rotate(180deg)',
+                }}
+              />
+              <span>Show more comments</span>
+            </div>
+          )}
+        </>
       )}
     </>
   );

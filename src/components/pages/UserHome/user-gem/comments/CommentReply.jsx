@@ -90,7 +90,6 @@ CommentReply.propTypes = {
   commentId: PropTypes.string.isRequired,
   setComments: PropTypes.func.isRequired,
   setGemCommentsLength: PropTypes.func.isRequired,
-  setSeeReplies: PropTypes.func.isRequired,
 };
 
 export default CommentReply;

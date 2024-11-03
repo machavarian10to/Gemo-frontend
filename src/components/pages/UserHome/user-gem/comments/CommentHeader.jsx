@@ -38,7 +38,9 @@ function CommentHeader({
     axiosInstance
       .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
       .then(() => {
-        setGemCommentsLength((prevLength) => prevLength - 1);
+        setGemCommentsLength((prev) => {
+          return { ...prev, totalComments: prev.totalComments - 1 };
+        });
         setComments((prevComments) =>
           prevComments.filter((prevComment) => prevComment._id !== comment._id),
         );

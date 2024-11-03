@@ -115,7 +115,9 @@ const AddComment = ({
           setShowEditComment(false);
         } else {
           setComments((prev) => [...prev, res.data]);
-          setGemCommentsLength((prev) => prev + 1);
+          setGemCommentsLength((prev) => {
+            return { ...prev, totalComments: prev.totalComments + 1 };
+          });
         }
         resetState();
       })

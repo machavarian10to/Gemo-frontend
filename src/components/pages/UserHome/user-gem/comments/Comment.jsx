@@ -28,6 +28,14 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
 
   const [seeReplies, setSeeReplies] = useState(false);
 
+  const [commentRepliesInfo, setCommentRepliesInfo] = useState({});
+  const [commentReplies, setCommentReplies] = useState([]);
+
+  useEffect(() => {
+    setCommentReplies(comment.replies.slice(0, 10));
+    setCommentRepliesInfo({ limit: 10, skip: 0 });
+  }, [comment.replies]);
+
   useEffect(() => {
     if (showReactionsModal) {
       document.body.style.overflow = 'hidden';
@@ -241,7 +249,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
               </div>
             )}
 
-            {comment.replies.length > 0 && !seeReplies && (
+            {!seeReplies && commentReplies.length > 0 && (
               <div className='user-gem__see-all-replies'>
                 <KeyboardArrowUpOutlinedIcon
                   style={{
@@ -254,32 +262,62 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
               </div>
             )}
 
-            {comment.replies.length > 0 && seeReplies && (
-              <div className='user-gem__see-all-replies'>
-                <KeyboardArrowUpOutlinedIcon
-                  style={{
-                    fontSize: '18px',
-                    color: 'var(--color-main-yellow)',
-                  }}
-                />
-                <span onClick={() => setSeeReplies(false)}>Hide replies</span>
-              </div>
-            )}
-
-            {comment.replies.length > 0 && seeReplies && (
-              <div className='user-gem__comment-replies'>
-                {comment.replies.map((commentId) => (
-                  <CommentReply
-                    key={commentId}
-                    gemId={comment.gemId}
-                    gemAuthorId={gemAuthorId}
-                    parentComment={comment}
-                    commentId={commentId}
-                    setComments={setComments}
-                    setGemCommentsLength={setGemCommentsLength}
+            {seeReplies && (
+              <>
+                <div className='user-gem__see-all-replies'>
+                  <KeyboardArrowUpOutlinedIcon
+                    style={{
+                      fontSize: '18px',
+                      color: 'var(--color-main-yellow)',
+                    }}
                   />
-                ))}
-              </div>
+                  <span onClick={() => setSeeReplies(false)}>Hide replies</span>
+                </div>
+
+                <div className='user-gem__comment-replies'>
+                  {commentReplies.map((commentId) => (
+                    <CommentReply
+                      key={commentId}
+                      gemId={comment.gemId}
+                      gemAuthorId={gemAuthorId}
+                      parentComment={comment}
+                      commentId={commentId}
+                      setComments={setComments}
+                      setGemCommentsLength={setGemCommentsLength}
+                    />
+                  ))}
+
+                  {comment.replies.length > 10 &&
+                    comment.replies.length !== commentReplies.length && (
+                      <div className='user-gem__see-all-replies'>
+                        <KeyboardArrowUpOutlinedIcon
+                          style={{
+                            fontSize: '18px',
+                            color: 'var(--color-main-yellow)',
+                            transform: 'rotate(180deg)',
+                          }}
+                        />
+                        <span
+                          onClick={() => {
+                            setCommentReplies((prev) => [
+                              ...prev,
+                              ...comment.replies.slice(
+                                commentRepliesInfo.limit,
+                                commentRepliesInfo.limit + 10,
+                              ),
+                            ]);
+                            setCommentRepliesInfo((prev) => ({
+                              ...prev,
+                              limit: prev.limit + 10,
+                            }));
+                          }}
+                        >
+                          Show more replies
+                        </span>
+                      </div>
+                    )}
+                </div>
+              </>
             )}
 
             {showCommentReply && (

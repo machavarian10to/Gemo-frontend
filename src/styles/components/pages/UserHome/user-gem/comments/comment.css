@@ -40,7 +40,9 @@
 }
 
 .user-gem__comment-reply-wrapper {
-  float: right;
+  border-top: 1.5px solid #e0e0e0;
+  padding-top: 10px;
+  margin-top: 10px;
 }
 
 .user-gem__comment-reply-action {

@@ -32,6 +32,12 @@
   margin-block: 20px 10px;
 }
 
+.user-gem__see-all-comments{
+  padding-top: 10px;
+  border-top: 1px solid var(--color-grey);
+  margin-top: 10px;
+}
+
 .user-gem__see-all-comments,
 .user-gem__see-all-replies {
   display: flex;
