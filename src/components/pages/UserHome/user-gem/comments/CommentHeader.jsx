@@ -19,7 +19,7 @@ function CommentHeader({
   gemAuthorId,
   comment,
   setComments,
-  setGemCommentsLength,
+  setGem,
   onEditComment,
 }) {
   const user = useSelector((state) => state.user);
@@ -37,10 +37,15 @@ function CommentHeader({
   function onDeleteComment() {
     axiosInstance
       .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
-      .then(() => {
-        setGemCommentsLength((prev) => {
-          return { ...prev, totalComments: prev.totalComments - 1 };
-        });
+      .then(({ data }) => {
+        const { deletedCount } = data;
+        setGem((prev) => ({
+          ...prev,
+          totalComments: prev.totalComments - deletedCount,
+          comments: prev.comments.filter(
+            (prevComment) => prevComment !== comment._id,
+          ),
+        }));
         setComments((prevComments) =>
           prevComments.filter((prevComment) => prevComment._id !== comment._id),
         );
@@ -214,7 +219,7 @@ CommentHeader.propTypes = {
   gemAuthorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
-  setGemCommentsLength: PropTypes.func,
+  setGem: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,
 };
 

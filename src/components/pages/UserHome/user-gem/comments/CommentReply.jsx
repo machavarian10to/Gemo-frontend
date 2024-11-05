@@ -11,7 +11,7 @@ function CommentReply({
   parentComment,
   commentId,
   setComments,
-  setGemCommentsLength,
+  setGem,
 }) {
   const [comment, setComment] = useState(null);
 
@@ -66,7 +66,7 @@ function CommentReply({
             gemAuthorId={gemAuthorId}
             comment={comment}
             setComments={setComments}
-            setGemCommentsLength={setGemCommentsLength}
+            setGem={setGem}
           />
         </div>
       ) : (
@@ -89,7 +89,7 @@ CommentReply.propTypes = {
   parentComment: PropTypes.object.isRequired,
   commentId: PropTypes.string.isRequired,
   setComments: PropTypes.func.isRequired,
-  setGemCommentsLength: PropTypes.func.isRequired,
+  setGem: PropTypes.func.isRequired,
 };
 
 export default CommentReply;

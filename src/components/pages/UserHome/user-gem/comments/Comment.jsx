@@ -16,7 +16,7 @@ import CommentReply from '@/components/pages/UserHome/user-gem/comments/CommentR
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
+function Comment({ gemAuthorId, comment, setComments, setGem }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -81,7 +81,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
             comment={comment}
             setComments={setComments}
             setShowEditComment={setShowEditComment}
-            setGemCommentsLength={setGemCommentsLength}
+            setGem={setGem}
             focus
           />
 
@@ -102,31 +102,24 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                 height={30}
                 src={comment.commentAuthor.profilePhoto}
               />
-
-              {!comment.content ? (
-                <div className='user-gem__comment-details-only-media'>
-                  <CommentHeader
-                    gemAuthorId={gemAuthorId}
-                    comment={comment}
-                    setComments={setComments}
-                    setGemCommentsLength={setGemCommentsLength}
-                    onEditComment={onEditComment}
-                  />
-                </div>
-              ) : (
-                <div className='user-gem__comment-details'>
-                  <CommentHeader
-                    gemAuthorId={gemAuthorId}
-                    comment={comment}
-                    setComments={setComments}
-                    setGemCommentsLength={setGemCommentsLength}
-                    onEditComment={onEditComment}
-                  />
+              <div
+                className={`user-gem__comment-details${
+                  !comment.content ? '-only-media' : ''
+                }`}
+              >
+                <CommentHeader
+                  gemAuthorId={gemAuthorId}
+                  comment={comment}
+                  setComments={setComments}
+                  setGem={setGem}
+                  onEditComment={onEditComment}
+                />
+                {comment.content && (
                   <div className='user-gem__comment-text'>
                     {comment.content}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {comment?.media?.gifSrc && (
@@ -283,7 +276,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                       parentComment={comment}
                       commentId={commentId}
                       setComments={setComments}
-                      setGemCommentsLength={setGemCommentsLength}
+                      setGem={setGem}
                     />
                   ))}
 
@@ -330,7 +323,7 @@ function Comment({ gemAuthorId, comment, setComments, setGemCommentsLength }) {
                       comment={comment}
                       setComments={setComments}
                       setShowEditComment={setShowEditComment}
-                      setGemCommentsLength={setGemCommentsLength}
+                      setGem={setGem}
                       isReply
                       focus
                     />
@@ -362,7 +355,7 @@ Comment.propTypes = {
   gemAuthorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
-  setGemCommentsLength: PropTypes.func,
+  setGem: PropTypes.func,
 };
 
 export default Comment;

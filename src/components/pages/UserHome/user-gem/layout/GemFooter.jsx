@@ -24,7 +24,6 @@ function GemFooter({ gemInfo }) {
   const [showCommentSection, setShowCommentSection] = useState(false);
 
   const [gem, setGem] = useState(gemInfo);
-
   const [comments, setComments] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit] = useState(10);
@@ -180,7 +179,6 @@ function GemFooter({ gemInfo }) {
           </div>
         )}
       </div>
-
       {showCommentSection && (
         <>
           <CommentSection
@@ -188,9 +186,10 @@ function GemFooter({ gemInfo }) {
             gemAuthorId={gem.gemAuthor._id}
             comments={comments}
             setComments={setComments}
-            setGemCommentsLength={setGem}
+            setGem={setGem}
           />
 
+          {console.log(gem.comments)}
           {gem.comments.length > comments.length && (
             <div
               className='user-gem__see-all-comments'

@@ -4,13 +4,7 @@ import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 
-function CommentSection({
-  gemId,
-  gemAuthorId,
-  comments,
-  setComments,
-  setGemCommentsLength,
-}) {
+function CommentSection({ gemId, gemAuthorId, comments, setComments, setGem }) {
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -18,7 +12,7 @@ function CommentSection({
           <AddComment
             gemId={gemId}
             setComments={setComments}
-            setGemCommentsLength={setGemCommentsLength}
+            setGem={setGem}
             placeholder='Write a comment...'
           />
 
@@ -31,7 +25,7 @@ function CommentSection({
                     gemAuthorId={gemAuthorId}
                     comment={comment}
                     setComments={setComments}
-                    setGemCommentsLength={setGemCommentsLength}
+                    setGem={setGem}
                   />
                 ))}
               </div>
@@ -62,7 +56,7 @@ CommentSection.propTypes = {
   gemAuthorId: PropTypes.string,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
-  setGemCommentsLength: PropTypes.func.isRequired,
+  setGem: PropTypes.func.isRequired,
 };
 
 export default CommentSection;
