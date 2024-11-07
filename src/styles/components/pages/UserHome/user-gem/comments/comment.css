@@ -63,16 +63,16 @@
 
 .user-gem__comment-media {
   margin: 5px 0 0 40px;
+  width: 100%;
   max-width: 200px;
-  max-height: 200px;
+  aspect-ratio: 1 / 1;
   border-radius: var(--border-radius-rect);
 }
 
 .user-gem__comment-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: var(--border-radius-rect);
+  border-radius: inherit;
 }
 
 .user-gem__comment-details-only-media {

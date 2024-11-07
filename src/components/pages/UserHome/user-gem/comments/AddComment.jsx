@@ -109,15 +109,12 @@ const AddComment = ({
     })
       .then((res) => {
         if (apiMethod === 'put') {
-          setComments((prev) =>
-            prev.map((c) => (c._id === comment._id ? res.data : c)),
-          );
-          setShowEditComment(false);
+          // update comment or comment reply
+          setComments(res.data);
+        } else if (isReply) {
+          // add comment reply
         } else {
           setComments((prev) => [...prev, res.data]);
-          setGem((prev) => {
-            return { ...prev, totalComments: prev.totalComments + 1 };
-          });
         }
         resetState();
       })

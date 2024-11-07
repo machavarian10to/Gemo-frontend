@@ -189,7 +189,6 @@ function GemFooter({ gemInfo }) {
             setGem={setGem}
           />
 
-          {console.log(gem.comments)}
           {gem.comments.length > comments.length && (
             <div
               className='user-gem__see-all-comments'
