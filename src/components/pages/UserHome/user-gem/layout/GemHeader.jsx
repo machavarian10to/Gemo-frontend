@@ -13,31 +13,33 @@ function GemHeader({ gem }) {
         <UserAvatar width={32} height={32} src={gem.gemAuthor.profilePhoto} />
         <div className='user-gem__details'>
           <div className='user-gem__username'>
-            @
-            <a
-              href={`/user/@${gem.gemAuthor.username}`}
-              target='_blank'
-              rel='noreferrer'
-              className='user-gem__username-link'
-            >
-              {gem.gemAuthor.username}
-            </a>
+            <div>
+              @
+              <a
+                href={`/user/@${gem.gemAuthor.username}`}
+                target='_blank'
+                rel='noreferrer'
+                className='user-gem__username-link'
+              >
+                {gem.gemAuthor.username}
+              </a>
+            </div>
+
+            <div className='user-gem__level'>
+              <LocalPoliceOutlinedIcon
+                style={{
+                  color: getUserLevel(gem.gemAuthor.levelDetails.type),
+                  fontSize: '9px',
+                }}
+              />
+            </div>
           </div>
-          <div className='user-gem__user-level'>
+          <div className='user-gem__user-date'>
             <span>&#8226;</span>
             <span data-title={new Date(gem.createdAt)}>
               {getTimeDifference(new Date(gem.createdAt))}
             </span>
           </div>
-        </div>
-
-        <div className='user-gem__date'>
-          <LocalPoliceOutlinedIcon
-            style={{
-              color: getUserLevel(gem.gemAuthor.levelDetails.type),
-              fontSize: '9px',
-            }}
-          />
         </div>
       </div>
 

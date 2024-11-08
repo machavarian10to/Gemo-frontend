@@ -3,8 +3,8 @@
   align-items: center;
   gap: 4px;
 }
-.user-gem__comment-details-header-wrapper .user-gem__date {
-  font-size: 11px;
+.user-gem__comment-details-header .user-gem__user-date {
+  font-size: 10px;
 }
 
 .user-gem__comment-details-header {
@@ -61,6 +61,7 @@
   background-color: var(--bg-shade-03);
   border-radius: var(--border-radius-rect);
   padding: 2px 4px 3px 4px;
+  display: inline-block !important;
 }
 
 .gem-author a {

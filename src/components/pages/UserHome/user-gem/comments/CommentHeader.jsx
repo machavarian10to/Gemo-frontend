@@ -92,7 +92,7 @@ function CommentHeader({
         </div>
 
         {!comment.isGemAuthor && (
-          <div className='user-comment__date'>
+          <div className='user-gem__user-date'>
             <LocalPoliceOutlinedIcon
               style={{
                 color: getUserLevel(comment.commentAuthor.levelDetails.type),
@@ -104,7 +104,8 @@ function CommentHeader({
       </div>
 
       <div className='user-gem__comment-menu-wrapper'>
-        <div className='user-gem__date'>
+        <div className='user-gem__user-date'>
+          <span>&#8226;</span>
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>
         </div>
 

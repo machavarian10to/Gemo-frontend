@@ -151,7 +151,7 @@ function GemFooter({ gemInfo }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>Comment</span>
-          <span>{gem.totalComments}</span>
+          <span>{gem.totalComments || 0}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />

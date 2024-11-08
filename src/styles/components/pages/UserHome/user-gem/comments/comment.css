@@ -58,6 +58,7 @@
 }
 
 .user-gem__username-comment {
+  gap: 0 !important;
   font-size: 0.8rem;
 }
 
