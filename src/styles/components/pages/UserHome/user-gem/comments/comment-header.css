@@ -68,7 +68,12 @@
   font-size: 12px;
 }
 
-.user-gem__comment-menu-wrapper{
+.user-gem__comment-menu-wrapper {
   display: flex;
-  gap: 5px;
+}
+
+.user-gem__comment-pinned {
+  display: flex;
+  align-items: center;
+  transform: rotate(45deg);
 }

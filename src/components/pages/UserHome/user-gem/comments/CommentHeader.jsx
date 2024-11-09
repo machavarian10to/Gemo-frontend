@@ -12,6 +12,7 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import PushPinIcon from '@mui/icons-material/PushPin';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
@@ -61,6 +62,23 @@ function CommentHeader({
     } else {
       setShowEditComment(!showEditComment);
     }
+  }
+
+  function onPinCommentClick() {
+    axiosInstance
+      .put(`/api/gems/${comment.gemId}/comments/${comment._id}/pin`, {
+        isPinned: !comment.isPinned,
+      })
+      .then(({ data }) => {
+        setComments(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setShowEditComment(false);
+        setShowAuthEditComment(false);
+      });
   }
 
   return (
@@ -119,20 +137,36 @@ function CommentHeader({
             onClick={showEdit}
           />
         </div>
+        {console.log(comment.isPinned)}
+        {comment.isPinned && (
+          <div className='user-gem__comment-pinned'>
+            <PushPinIcon
+              style={{
+                fontSize: '18px',
+                color: 'var(--color-main-yellow)',
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {showAuthEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
             {gemAuthorId === user._id && (
-              <div className='user-gem__comment-edit-item'>
+              <div
+                className='user-gem__comment-edit-item'
+                onClick={onPinCommentClick}
+              >
                 <PushPinOutlinedIcon
                   style={{
                     fontSize: '18px',
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Pin comment</span>
+                <span>
+                  {comment.isPinned ? 'Unpin comment' : 'Pin comment'}
+                </span>
               </div>
             )}
 

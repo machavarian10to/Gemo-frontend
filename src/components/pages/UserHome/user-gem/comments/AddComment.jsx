@@ -108,14 +108,12 @@ const AddComment = ({
       },
     })
       .then((res) => {
-        if (apiMethod === 'put') {
-          // update comment or comment reply
-          setComments(res.data);
-        } else if (isReply) {
-          // add comment reply
-        } else {
-          setComments((prev) => [...prev, res.data]);
-        }
+        // if (apiMethod === 'put') {
+        //   // update comment or comment reply
+        // } else if (isReply) {
+        //   // add comment reply
+        // } else {
+        // }
         resetState();
       })
       .catch((err) => console.error(err));
