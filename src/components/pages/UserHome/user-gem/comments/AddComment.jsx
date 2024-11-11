@@ -108,12 +108,25 @@ const AddComment = ({
       },
     })
       .then((res) => {
-        // if (apiMethod === 'put') {
-        //   // update comment or comment reply
-        // } else if (isReply) {
-        //   // add comment reply
-        // } else {
-        // }
+        setComments((prev) => {
+          if (apiMethod === 'put') {
+            return prev.map((prevComment) =>
+              prevComment._id === comment._id ? res.data : prevComment,
+            );
+          } else if (isReply) {
+            return prev.map((prevComment) =>
+              prevComment._id === comment._id
+                ? {
+                    ...prevComment,
+                    replies: [...prevComment.replies, res.data._id],
+                  }
+                : prevComment,
+            );
+          } else {
+            return [...prev, res.data];
+          }
+        });
+        setShowEditComment(false);
         resetState();
       })
       .catch((err) => console.error(err));

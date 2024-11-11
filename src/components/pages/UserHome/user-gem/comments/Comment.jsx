@@ -28,13 +28,11 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
 
   const [seeReplies, setSeeReplies] = useState(false);
 
-  const [commentRepliesInfo, setCommentRepliesInfo] = useState({});
-  const [commentReplies, setCommentReplies] = useState([]);
-
-  useEffect(() => {
-    setCommentReplies(comment.replies.slice(0, 10));
-    setCommentRepliesInfo({ limit: 10, skip: 0 });
-  }, [comment.replies]);
+  const [commentDetails, setCommentRepliesDetails] = useState({
+    replies: comment.replies.slice(0, 10),
+    limit: 10,
+    skip: 0,
+  });
 
   useEffect(() => {
     if (showReactionsModal) {
@@ -242,7 +240,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
               </div>
             )}
 
-            {!seeReplies && commentReplies.length > 0 && (
+            {!seeReplies && commentDetails.replies.length > 0 && (
               <div className='user-gem__see-all-replies'>
                 <KeyboardArrowUpOutlinedIcon
                   style={{
@@ -268,7 +266,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                 </div>
 
                 <div className='user-gem__comment-replies'>
-                  {commentReplies.map((commentId) => (
+                  {commentDetails.replies.map((commentId) => (
                     <CommentReply
                       key={commentId}
                       gemId={comment.gemId}
@@ -281,7 +279,8 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                   ))}
 
                   {comment.replies.length > 10 &&
-                    comment.replies.length !== commentReplies.length && (
+                    comment.replies.length !==
+                      commentDetails.replies.length && (
                       <div className='user-gem__see-all-replies'>
                         <KeyboardArrowUpOutlinedIcon
                           style={{

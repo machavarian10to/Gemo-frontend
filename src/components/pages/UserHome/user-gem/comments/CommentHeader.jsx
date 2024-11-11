@@ -70,7 +70,11 @@ function CommentHeader({
         isPinned: !comment.isPinned,
       })
       .then(({ data }) => {
-        setComments(data);
+        setComments((prevComments) =>
+          prevComments.map((prevComment) =>
+            prevComment._id === comment._id ? data : prevComment,
+          ),
+        );
       })
       .catch((err) => {
         console.error(err);
@@ -137,7 +141,6 @@ function CommentHeader({
             onClick={showEdit}
           />
         </div>
-        {console.log(comment.isPinned)}
         {comment.isPinned && (
           <div className='user-gem__comment-pinned'>
             <PushPinIcon
@@ -203,14 +206,19 @@ function CommentHeader({
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
             {gemAuthorId === user._id && (
-              <div className='user-gem__comment-edit-item'>
+              <div
+                className='user-gem__comment-edit-item'
+                onClick={onPinCommentClick}
+              >
                 <PushPinOutlinedIcon
                   style={{
                     fontSize: '18px',
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Pin comment</span>
+                <span>
+                  {comment.isPinned ? 'Unpin comment' : 'Pin comment'}
+                </span>
               </div>
             )}
 
