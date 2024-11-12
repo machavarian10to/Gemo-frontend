@@ -30,8 +30,6 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
 
   const [commentDetails, setCommentRepliesDetails] = useState({
     replies: comment.replies.slice(0, 10),
-    limit: 10,
-    skip: 0,
   });
 
   useEffect(() => {

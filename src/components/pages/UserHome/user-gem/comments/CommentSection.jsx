@@ -4,7 +4,14 @@ import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 
-function CommentSection({ gemId, gemAuthorId, comments, setComments, setGem }) {
+function CommentSection({
+  gemId,
+  gemAuthorId,
+  pinnedComment,
+  comments,
+  setComments,
+  setGem,
+}) {
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -19,6 +26,16 @@ function CommentSection({ gemId, gemAuthorId, comments, setComments, setGem }) {
           {comments.length > 0 ? (
             <>
               <div className='user-gem__comment-list'>
+                {pinnedComment && (
+                  <Comment
+                    key={pinnedComment._id}
+                    gemAuthorId={gemAuthorId}
+                    comment={pinnedComment}
+                    setComments={setComments}
+                    setGem={setGem}
+                  />
+                )}
+
                 {comments.map((comment) => (
                   <Comment
                     key={comment._id}
@@ -54,6 +71,7 @@ function CommentSection({ gemId, gemAuthorId, comments, setComments, setGem }) {
 CommentSection.propTypes = {
   gemId: PropTypes.string.isRequired,
   gemAuthorId: PropTypes.string,
+  pinnedComment: PropTypes.object,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
   setGem: PropTypes.func.isRequired,
