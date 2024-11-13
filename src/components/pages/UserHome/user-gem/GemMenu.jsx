@@ -53,7 +53,7 @@ function GemMenu({ gem }) {
   });
 
   function showGemEditWrapper() {
-    if (gem.gemAuthor._id === user._id) {
+    if (gem.author._id === user._id) {
       setModalStates({
         ...modalStates,
         showGemAuthEdit: !modalStates.showGemAuthEdit,
@@ -224,7 +224,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{gem.gemAuthor.username}</span>
+              <span>Block @{gem.author.username}</span>
             </div>
 
             <div className='user-gem__edit-item'>

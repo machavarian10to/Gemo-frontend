@@ -17,7 +17,7 @@ import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 
 function CommentHeader({
-  gemAuthorId,
+  authorId,
   comment,
   setComments,
   setGem,
@@ -57,7 +57,7 @@ function CommentHeader({
   }
 
   function showEdit() {
-    if (user._id === comment.commentAuthor._id) {
+    if (user._id === comment.author._id) {
       setShowAuthEditComment(!showAuthEditComment);
     } else {
       setShowEditComment(!showEditComment);
@@ -95,17 +95,17 @@ function CommentHeader({
         >
           @
           <a
-            href={`/user/@${comment.commentAuthor.username}`}
+            href={`/user/@${comment.author.username}`}
             target='_blank'
             rel='noreferrer'
             className='user-gem__username-link'
           >
-            {comment.commentAuthor.username}
+            {comment.author.username}
           </a>
           {comment.isGemAuthor && (
             <LocalPoliceOutlinedIcon
               style={{
-                color: getUserLevel(comment.commentAuthor.levelDetails.type),
+                color: getUserLevel(comment.author.levelDetails.type),
                 fontSize: '9px',
                 marginLeft: '5px',
               }}
@@ -117,7 +117,7 @@ function CommentHeader({
           <div className='user-gem__user-date'>
             <LocalPoliceOutlinedIcon
               style={{
-                color: getUserLevel(comment.commentAuthor.levelDetails.type),
+                color: getUserLevel(comment.author.levelDetails.type),
                 fontSize: '9px',
               }}
             />
@@ -156,7 +156,7 @@ function CommentHeader({
       {showAuthEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
-            {gemAuthorId === user._id && (
+            {authorId === user._id && (
               <div
                 className='user-gem__comment-edit-item'
                 onClick={onPinCommentClick}
@@ -205,7 +205,7 @@ function CommentHeader({
       {showEditComment && (
         <Fade in={true} timeout={400}>
           <div className='user-gem__comment-edit-wrapper' ref={editCommentRef}>
-            {gemAuthorId === user._id && (
+            {authorId === user._id && (
               <div
                 className='user-gem__comment-edit-item'
                 onClick={onPinCommentClick}
@@ -239,7 +239,7 @@ function CommentHeader({
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{comment.commentAuthor.username}</span>
+              <span>Block @{comment.author.username}</span>
             </div>
 
             <div className='user-gem__comment-edit-item'>
@@ -259,7 +259,7 @@ function CommentHeader({
 }
 
 CommentHeader.propTypes = {
-  gemAuthorId: PropTypes.string,
+  authorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
   setGem: PropTypes.func,

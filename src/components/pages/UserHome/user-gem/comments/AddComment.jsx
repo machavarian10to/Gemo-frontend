@@ -181,7 +181,7 @@ const AddComment = ({
         <div className='user-gem_comment-reply-wrapper'>
           <div className='user-gem__comment-replying-to'>
             <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
-            reply to <span>@{comment.commentAuthor.username}</span>
+            reply to <span>@{comment.author.username}</span>
           </div>
           <div className='user-gem__comment-reply-highlight'>
             <div

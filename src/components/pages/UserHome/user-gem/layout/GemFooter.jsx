@@ -182,7 +182,7 @@ function GemFooter({ gemInfo }) {
         <>
           <CommentSection
             gemId={gem._id}
-            gemAuthorId={gem.gemAuthor._id}
+            authorId={gem.author._id}
             pinnedComment={gem.pinnedComment}
             comments={commentState.comments}
             setComments={setCommentState}

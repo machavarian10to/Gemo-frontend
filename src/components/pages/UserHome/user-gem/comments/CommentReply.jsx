@@ -7,7 +7,7 @@ import Skeleton from 'react-loading-skeleton';
 
 function CommentReply({
   gemId,
-  gemAuthorId,
+  authorId,
   parentComment,
   commentId,
   setComments,
@@ -29,7 +29,7 @@ function CommentReply({
           <div className='user-gem_comment-reply-wrapper'>
             <div className='user-gem__comment-replying-to'>
               <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
-              reply to <span>@{parentComment.commentAuthor.username}</span>
+              reply to <span>@{parentComment.author.username}</span>
             </div>
             <div className='user-gem__comment-reply-highlight'>
               <div
@@ -63,7 +63,7 @@ function CommentReply({
           </div>
 
           <Comment
-            gemAuthorId={gemAuthorId}
+            authorId={authorId}
             comment={comment}
             setComments={setComments}
             setGem={setGem}
@@ -85,7 +85,7 @@ function CommentReply({
 
 CommentReply.propTypes = {
   gemId: PropTypes.string.isRequired,
-  gemAuthorId: PropTypes.string.isRequired,
+  authorId: PropTypes.string.isRequired,
   parentComment: PropTypes.object.isRequired,
   commentId: PropTypes.string.isRequired,
   setComments: PropTypes.func.isRequired,

@@ -16,7 +16,7 @@ import CommentReply from '@/components/pages/UserHome/user-gem/comments/CommentR
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 
-function Comment({ gemAuthorId, comment, setComments, setGem }) {
+function Comment({ authorId, comment, setComments, setGem }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -120,7 +120,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
               <UserAvatar
                 width={32}
                 height={30}
-                src={comment.commentAuthor.profilePhoto}
+                src={comment.author.profilePhoto}
               />
               <div
                 className={`user-gem__comment-details${
@@ -128,7 +128,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                 }`}
               >
                 <CommentHeader
-                  gemAuthorId={gemAuthorId}
+                  authorId={authorId}
                   comment={comment}
                   setComments={setComments}
                   setGem={setGem}
@@ -294,7 +294,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                     <CommentReply
                       key={commentId}
                       gemId={comment.gemId}
-                      gemAuthorId={gemAuthorId}
+                      authorId={authorId}
                       parentComment={comment}
                       commentId={commentId}
                       setComments={setComments}
@@ -334,7 +334,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                 <div className='user-gem__comment-reply-wrapper'>
                   <div className='user-gem__comment-reply'>
                     <AddComment
-                      placeholder={`Write a reply for @${comment.commentAuthor.username}`}
+                      placeholder={`Write a reply for @${comment.author.username}`}
                       gemId={comment.gemId}
                       comment={comment}
                       setComments={setComments}
@@ -368,7 +368,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
 }
 
 Comment.propTypes = {
-  gemAuthorId: PropTypes.string,
+  authorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setComments: PropTypes.func,
   setGem: PropTypes.func,

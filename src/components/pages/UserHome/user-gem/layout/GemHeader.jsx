@@ -10,25 +10,25 @@ function GemHeader({ gem }) {
   return (
     <div className='user-gem__header'>
       <div className='user-gem__user-info'>
-        <UserAvatar width={32} height={32} src={gem.gemAuthor.profilePhoto} />
+        <UserAvatar width={32} height={32} src={gem.author.profilePhoto} />
         <div className='user-gem__details'>
           <div className='user-gem__username'>
             <div>
               @
               <a
-                href={`/user/@${gem.gemAuthor.username}`}
+                href={`/user/@${gem.author.username}`}
                 target='_blank'
                 rel='noreferrer'
                 className='user-gem__username-link'
               >
-                {gem.gemAuthor.username}
+                {gem.author.username}
               </a>
             </div>
 
             <div className='user-gem__level'>
               <LocalPoliceOutlinedIcon
                 style={{
-                  color: getUserLevel(gem.gemAuthor.levelDetails.type),
+                  color: getUserLevel(gem.author.levelDetails.type),
                   fontSize: '9px',
                 }}
               />

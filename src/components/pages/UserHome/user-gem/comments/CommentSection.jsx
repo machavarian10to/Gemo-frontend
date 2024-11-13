@@ -6,7 +6,7 @@ import AnimationStandingChef from '@/components/animations/AnimationStandingChef
 
 function CommentSection({
   gemId,
-  gemAuthorId,
+  authorId,
   pinnedComment,
   comments,
   setComments,
@@ -29,7 +29,7 @@ function CommentSection({
                 {pinnedComment && (
                   <Comment
                     key={pinnedComment._id}
-                    gemAuthorId={gemAuthorId}
+                    authorId={authorId}
                     comment={pinnedComment}
                     setComments={setComments}
                     setGem={setGem}
@@ -39,7 +39,7 @@ function CommentSection({
                 {comments.map((comment) => (
                   <Comment
                     key={comment._id}
-                    gemAuthorId={gemAuthorId}
+                    authorId={authorId}
                     comment={comment}
                     setComments={setComments}
                     setGem={setGem}
@@ -70,7 +70,7 @@ function CommentSection({
 
 CommentSection.propTypes = {
   gemId: PropTypes.string.isRequired,
-  gemAuthorId: PropTypes.string,
+  authorId: PropTypes.string,
   pinnedComment: PropTypes.object,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
