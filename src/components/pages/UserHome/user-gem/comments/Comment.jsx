@@ -25,12 +25,36 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
   const [showReactionsModal, setShowReactionsModal] = useState(false);
   const [showCommentReply, setShowCommentReply] = useState(false);
   const [showEditComment, setShowEditComment] = useState(false);
+  const [showReplies, setShowReplies] = useState(false);
 
-  const [seeReplies, setSeeReplies] = useState(false);
-
-  const [commentDetails, setCommentRepliesDetails] = useState({
-    replies: comment.replies.slice(0, 10),
+  const [commentReplyState, setCommentReplyState] = useState({
+    replies: [],
+    limit: 10,
+    skip: 0,
   });
+
+  useEffect(() => {
+    const fetchReplies = async () => {
+      try {
+        const res = await axiosInstance.get(
+          `/api/gems/${comment.gemId}/comments/${comment._id}/replies?limit=${commentReplyState.limit}&skip=${commentReplyState.skip}`,
+        );
+        setCommentReplyState((prev) => ({
+          ...prev,
+          replies: res.data,
+        }));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchReplies();
+  }, [
+    comment._id,
+    comment.gemId,
+    commentReplyState.limit,
+    commentReplyState.skip,
+  ]);
 
   useEffect(() => {
     if (showReactionsModal) {
@@ -238,7 +262,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
               </div>
             )}
 
-            {!seeReplies && commentDetails.replies.length > 0 && (
+            {!showReplies && commentReplyState.replies.length > 0 && (
               <div className='user-gem__see-all-replies'>
                 <KeyboardArrowUpOutlinedIcon
                   style={{
@@ -247,11 +271,11 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                     transform: 'rotate(180deg)',
                   }}
                 />
-                <span onClick={() => setSeeReplies(true)}>Show replies</span>
+                <span onClick={() => setShowReplies(true)}>Show replies</span>
               </div>
             )}
 
-            {seeReplies && (
+            {showReplies && (
               <>
                 <div className='user-gem__see-all-replies'>
                   <KeyboardArrowUpOutlinedIcon
@@ -260,11 +284,13 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                       color: 'var(--color-main-yellow)',
                     }}
                   />
-                  <span onClick={() => setSeeReplies(false)}>Hide replies</span>
+                  <span onClick={() => setShowReplies(false)}>
+                    Hide replies
+                  </span>
                 </div>
 
                 <div className='user-gem__comment-replies'>
-                  {commentDetails.replies.map((commentId) => (
+                  {commentReplyState.replies.map((commentId) => (
                     <CommentReply
                       key={commentId}
                       gemId={comment.gemId}
@@ -278,7 +304,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
 
                   {comment.replies.length > 10 &&
                     comment.replies.length !==
-                      commentDetails.replies.length && (
+                      commentReplyState.replies.length && (
                       <div className='user-gem__see-all-replies'>
                         <KeyboardArrowUpOutlinedIcon
                           style={{
@@ -289,16 +315,9 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                         />
                         <span
                           onClick={() => {
-                            setCommentReplies((prev) => [
+                            setCommentReplyState((prev) => ({
                               ...prev,
-                              ...comment.replies.slice(
-                                commentRepliesInfo.limit,
-                                commentRepliesInfo.limit + 10,
-                              ),
-                            ]);
-                            setCommentRepliesInfo((prev) => ({
-                              ...prev,
-                              limit: prev.limit + 10,
+                              skip: prev.skip + 10,
                             }));
                           }}
                         >
@@ -331,7 +350,7 @@ function Comment({ gemAuthorId, comment, setComments, setGem }) {
                       className='user-gem__comment-reply-action'
                       onClick={() => {
                         setShowCommentReply(false);
-                        setSeeReplies(false);
+                        setShowReplies(false);
                       }}
                     >
                       <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />

@@ -24,9 +24,11 @@ function GemFooter({ gemInfo }) {
   const [showCommentSection, setShowCommentSection] = useState(false);
 
   const [gem, setGem] = useState(gemInfo);
-  const [comments, setComments] = useState([]);
-  const [skip, setSkip] = useState(0);
-  const [limit] = useState(10);
+  const [commentState, setCommentState] = useState({
+    comments: [],
+    limit: 10,
+    skip: 0,
+  });
 
   useClickOutside(emojiPickerRef, () => {
     setShowEmojis(false);
@@ -44,22 +46,19 @@ function GemFooter({ gemInfo }) {
     const fetchComments = async () => {
       try {
         const { data } = await axiosInstance.get(
-          `/api/gems/${gem._id}/comments`,
-          {
-            params: {
-              limit,
-              skip,
-            },
-          },
+          `/api/gems/${gem._id}/comments?limit=${commentState.limit}&skip=${commentState.skip}`,
         );
-        setComments((prev) => [...prev, ...data]);
+        setCommentState((prev) => ({
+          ...prev,
+          comments: [...prev.comments, ...data],
+        }));
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchComments();
-  }, [gem._id, limit, skip]);
+  }, [commentState.limit, commentState.skip, gem._id]);
 
   function onEmojiClick(emoji) {
     axiosInstance
@@ -185,12 +184,12 @@ function GemFooter({ gemInfo }) {
             gemId={gem._id}
             gemAuthorId={gem.gemAuthor._id}
             pinnedComment={gem.pinnedComment}
-            comments={comments}
-            setComments={setComments}
+            comments={commentState.comments}
+            setComments={setCommentState}
             setGem={setGem}
           />
 
-          {gem.comments.length > comments.length && (
+          {gem.comments.length > commentState.comments.length && (
             <div
               className='user-gem__see-all-comments'
               onClick={onShowMoreCommentsClick}
