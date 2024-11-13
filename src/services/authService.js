@@ -15,7 +15,7 @@ const getCurrentUser = async () => {
     const response = await axiosInstance.get('/api/users/user');
     return response.data;
   } catch (error) {
-    console.log('Error getting user: ', error.response.data);
+    // console.log(error.response.data.message);
   }
 };
 

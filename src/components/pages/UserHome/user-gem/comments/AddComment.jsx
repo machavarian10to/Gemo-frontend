@@ -17,7 +17,7 @@ const AddComment = ({
   placeholder,
   gemId,
   comment,
-  setComments,
+  setCommentState,
   setShowEditComment,
   setGem,
   isReply,
@@ -108,7 +108,7 @@ const AddComment = ({
       },
     })
       .then((res) => {
-        setComments((prev) => {
+        setCommentState((prev) => {
           if (apiMethod === 'put') {
             return prev.map((prevComment) =>
               prevComment._id === comment._id ? res.data : prevComment,
@@ -338,7 +338,7 @@ const AddComment = ({
 AddComment.propTypes = {
   gemId: PropTypes.string,
   comment: PropTypes.object,
-  setComments: PropTypes.func,
+  setCommentState: PropTypes.func,
   setShowEditComment: PropTypes.func,
   setGem: PropTypes.func,
   isReply: PropTypes.bool,

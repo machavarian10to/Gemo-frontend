@@ -14,6 +14,10 @@
   position: relative;
 }
 
+.user-gem__comment-details-header:has(.gem-author) {
+  margin-bottom: 5px;
+}
+
 .user-gem__comment-edit-wrapper {
   position: absolute;
   top: 100%;

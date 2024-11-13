@@ -76,7 +76,10 @@ function GemFooter({ gemInfo }) {
   }
 
   function onShowMoreCommentsClick() {
-    setSkip((prev) => prev + limit);
+    setCommentState((prev) => ({
+      ...prev,
+      skip: prev.skip + prev.limit,
+    }));
   }
 
   return (
@@ -185,7 +188,7 @@ function GemFooter({ gemInfo }) {
             authorId={gem.author._id}
             pinnedComment={gem.pinnedComment}
             comments={commentState.comments}
-            setComments={setCommentState}
+            setCommentState={setCommentState}
             setGem={setGem}
           />
 

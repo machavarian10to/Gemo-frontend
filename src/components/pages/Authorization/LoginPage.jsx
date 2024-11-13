@@ -96,7 +96,7 @@ function Login({ setCurrentTab }) {
         dispatch(setLogin({ user }));
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         if (err.response) {
           const { message, type } = err.response.data;
           if (type === 'username') {

@@ -15,8 +15,9 @@ import CommentHeader from '@/components/pages/UserHome/user-gem/comments/Comment
 import CommentReply from '@/components/pages/UserHome/user-gem/comments/CommentReply';
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
+import Skeleton from 'react-loading-skeleton';
 
-function Comment({ authorId, comment, setComments, setGem }) {
+function Comment({ authorId, comment, setCommentState, setGem }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -33,28 +34,19 @@ function Comment({ authorId, comment, setComments, setGem }) {
     skip: 0,
   });
 
-  useEffect(() => {
-    const fetchReplies = async () => {
-      try {
-        const res = await axiosInstance.get(
-          `/api/gems/${comment.gemId}/comments/${comment._id}/replies?limit=${commentReplyState.limit}&skip=${commentReplyState.skip}`,
-        );
-        setCommentReplyState((prev) => ({
-          ...prev,
-          replies: res.data,
-        }));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchReplies();
-  }, [
-    comment._id,
-    comment.gemId,
-    commentReplyState.limit,
-    commentReplyState.skip,
-  ]);
+  const fetchReplies = async () => {
+    try {
+      const res = await axiosInstance.get(
+        `/api/gems/${comment.gemId}/comments/${comment._id}/replies?limit=${commentReplyState.limit}&skip=${commentReplyState.skip}`,
+      );
+      setCommentReplyState((prev) => ({
+        ...prev,
+        replies: res.data,
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     if (showReactionsModal) {
@@ -79,7 +71,7 @@ function Comment({ authorId, comment, setComments, setGem }) {
         userId: user._id,
       })
       .then(({ data }) => {
-        setComments((prev) =>
+        setCommentState((prev) =>
           prev.map((prevComment) =>
             prevComment._id === data._id ? data : prevComment,
           ),
@@ -91,6 +83,11 @@ function Comment({ authorId, comment, setComments, setGem }) {
       });
   }
 
+  function onShowReplies() {
+    setShowReplies(true);
+    fetchReplies();
+  }
+
   return (
     <>
       {showEditComment ? (
@@ -99,7 +96,7 @@ function Comment({ authorId, comment, setComments, setGem }) {
             placeholder='Edit comment...'
             gemId={comment.gemId}
             comment={comment}
-            setComments={setComments}
+            setCommentState={setCommentState}
             setShowEditComment={setShowEditComment}
             setGem={setGem}
             focus
@@ -130,7 +127,7 @@ function Comment({ authorId, comment, setComments, setGem }) {
                 <CommentHeader
                   authorId={authorId}
                   comment={comment}
-                  setComments={setComments}
+                  setCommentState={setCommentState}
                   setGem={setGem}
                   onEditComment={onEditComment}
                 />
@@ -262,7 +259,7 @@ function Comment({ authorId, comment, setComments, setGem }) {
               </div>
             )}
 
-            {!showReplies && commentReplyState.replies.length > 0 && (
+            {!showReplies && comment.replies.length > 0 && (
               <div className='user-gem__see-all-replies'>
                 <KeyboardArrowUpOutlinedIcon
                   style={{
@@ -271,11 +268,11 @@ function Comment({ authorId, comment, setComments, setGem }) {
                     transform: 'rotate(180deg)',
                   }}
                 />
-                <span onClick={() => setShowReplies(true)}>Show replies</span>
+                <span onClick={onShowReplies}>Show replies</span>
               </div>
             )}
 
-            {showReplies && (
+            {showReplies ? (
               <>
                 <div className='user-gem__see-all-replies'>
                   <KeyboardArrowUpOutlinedIcon
@@ -289,44 +286,54 @@ function Comment({ authorId, comment, setComments, setGem }) {
                   </span>
                 </div>
 
-                <div className='user-gem__comment-replies'>
-                  {commentReplyState.replies.map((commentId) => (
-                    <CommentReply
-                      key={commentId}
-                      gemId={comment.gemId}
-                      authorId={authorId}
-                      parentComment={comment}
-                      commentId={commentId}
-                      setComments={setComments}
-                      setGem={setGem}
-                    />
-                  ))}
+                {commentReplyState.replies.length > 0 && (
+                  <div className='user-gem__comment-replies'>
+                    {commentReplyState.replies.map((reply) => (
+                      <CommentReply
+                        key={reply._id}
+                        authorId={authorId}
+                        parentComment={comment}
+                        comment={reply}
+                        setCommentState={setCommentState}
+                        setGem={setGem}
+                      />
+                    ))}
 
-                  {comment.replies.length > 10 &&
-                    comment.replies.length !==
-                      commentReplyState.replies.length && (
-                      <div className='user-gem__see-all-replies'>
-                        <KeyboardArrowUpOutlinedIcon
-                          style={{
-                            fontSize: '18px',
-                            color: 'var(--color-main-yellow)',
-                            transform: 'rotate(180deg)',
-                          }}
-                        />
-                        <span
-                          onClick={() => {
-                            setCommentReplyState((prev) => ({
-                              ...prev,
-                              skip: prev.skip + 10,
-                            }));
-                          }}
-                        >
-                          Show more replies
-                        </span>
-                      </div>
-                    )}
-                </div>
+                    {comment.replies.length > 10 &&
+                      comment.replies.length !==
+                        commentReplyState.replies.length && (
+                        <div className='user-gem__see-all-replies'>
+                          <KeyboardArrowUpOutlinedIcon
+                            style={{
+                              fontSize: '18px',
+                              color: 'var(--color-main-yellow)',
+                              transform: 'rotate(180deg)',
+                            }}
+                          />
+                          <span
+                            onClick={() => {
+                              setCommentReplyState((prev) => ({
+                                ...prev,
+                                skip: prev.skip + 10,
+                              }));
+                            }}
+                          >
+                            Show more replies
+                          </span>
+                        </div>
+                      )}
+                  </div>
+                )}
               </>
+            ) : (
+              <div className='user-gem__reply-comment-wrapper'>
+                <Skeleton height={15} width={'40%'} />
+                <Skeleton height={30} />
+                <div className='user-gem__reply-comment-skeleton'>
+                  <Skeleton circle width={30} height={30} />
+                  <Skeleton height={70} containerClassName='flex-1' />
+                </div>
+              </div>
             )}
 
             {showCommentReply && (
@@ -337,7 +344,7 @@ function Comment({ authorId, comment, setComments, setGem }) {
                       placeholder={`Write a reply for @${comment.author.username}`}
                       gemId={comment.gemId}
                       comment={comment}
-                      setComments={setComments}
+                      setCommentState={setCommentState}
                       setShowEditComment={setShowEditComment}
                       setGem={setGem}
                       isReply
@@ -370,7 +377,7 @@ function Comment({ authorId, comment, setComments, setGem }) {
 Comment.propTypes = {
   authorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
-  setComments: PropTypes.func,
+  setCommentState: PropTypes.func,
   setGem: PropTypes.func,
 };
 

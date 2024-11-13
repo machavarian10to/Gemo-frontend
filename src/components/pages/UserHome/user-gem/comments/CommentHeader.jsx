@@ -19,7 +19,7 @@ import getUserLevel from '@/helpers/getUserLevel';
 function CommentHeader({
   authorId,
   comment,
-  setComments,
+  setCommentState,
   setGem,
   onEditComment,
 }) {
@@ -47,7 +47,7 @@ function CommentHeader({
             (prevComment) => prevComment !== comment._id,
           ),
         }));
-        setComments((prevComments) =>
+        setCommentState((prevComments) =>
           prevComments.filter((prevComment) => prevComment._id !== comment._id),
         );
       })
@@ -70,7 +70,7 @@ function CommentHeader({
         isPinned: !comment.isPinned,
       })
       .then(({ data }) => {
-        setComments((prevComments) =>
+        setCommentState((prevComments) =>
           prevComments.map((prevComment) =>
             prevComment._id === comment._id ? data : prevComment,
           ),
@@ -261,7 +261,7 @@ function CommentHeader({
 CommentHeader.propTypes = {
   authorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
-  setComments: PropTypes.func,
+  setCommentState: PropTypes.func,
   setGem: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,
 };

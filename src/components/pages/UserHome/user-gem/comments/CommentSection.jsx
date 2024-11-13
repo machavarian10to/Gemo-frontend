@@ -9,7 +9,7 @@ function CommentSection({
   authorId,
   pinnedComment,
   comments,
-  setComments,
+  setCommentState,
   setGem,
 }) {
   return (
@@ -18,7 +18,7 @@ function CommentSection({
         <div className='user-gem__comment-section'>
           <AddComment
             gemId={gemId}
-            setComments={setComments}
+            setCommentState={setCommentState}
             setGem={setGem}
             placeholder='Write a comment...'
           />
@@ -31,7 +31,7 @@ function CommentSection({
                     key={pinnedComment._id}
                     authorId={authorId}
                     comment={pinnedComment}
-                    setComments={setComments}
+                    setCommentState={setCommentState}
                     setGem={setGem}
                   />
                 )}
@@ -41,7 +41,7 @@ function CommentSection({
                     key={comment._id}
                     authorId={authorId}
                     comment={comment}
-                    setComments={setComments}
+                    setCommentState={setCommentState}
                     setGem={setGem}
                   />
                 ))}
@@ -73,7 +73,7 @@ CommentSection.propTypes = {
   authorId: PropTypes.string,
   pinnedComment: PropTypes.object,
   comments: PropTypes.array.isRequired,
-  setComments: PropTypes.func.isRequired,
+  setCommentState: PropTypes.func.isRequired,
   setGem: PropTypes.func.isRequired,
 };
 
