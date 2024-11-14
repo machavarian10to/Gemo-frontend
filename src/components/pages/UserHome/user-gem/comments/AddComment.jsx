@@ -107,23 +107,17 @@ const AddComment = ({
         'Content-Type': 'multipart/form-data',
       },
     })
-      .then((res) => {
+      .then(({ data }) => {
         setCommentState((prev) => {
           if (apiMethod === 'put') {
-            return prev.map((prevComment) =>
-              prevComment._id === comment._id ? res.data : prevComment,
-            );
+            // TODO: update comments
           } else if (isReply) {
-            return prev.map((prevComment) =>
-              prevComment._id === comment._id
-                ? {
-                    ...prevComment,
-                    replies: [...prevComment.replies, res.data._id],
-                  }
-                : prevComment,
-            );
+            // TODO: update replies
           } else {
-            return [...prev, res.data];
+            return {
+              ...prev,
+              comments: [...prev.comments, data],
+            };
           }
         });
         setShowEditComment(false);

@@ -272,7 +272,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
               </div>
             )}
 
-            {showReplies ? (
+            {showReplies && (
               <>
                 <div className='user-gem__see-all-replies'>
                   <KeyboardArrowUpOutlinedIcon
@@ -286,7 +286,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
                   </span>
                 </div>
 
-                {commentReplyState.replies.length > 0 && (
+                {commentReplyState.replies.length > 0 ? (
                   <div className='user-gem__comment-replies'>
                     {commentReplyState.replies.map((reply) => (
                       <CommentReply
@@ -323,17 +323,17 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
                         </div>
                       )}
                   </div>
+                ) : (
+                  <div className='user-gem__reply-comment-wrapper'>
+                    <Skeleton height={15} width={'40%'} />
+                    <Skeleton height={30} />
+                    <div className='user-gem__reply-comment-skeleton'>
+                      <Skeleton circle width={30} height={30} />
+                      <Skeleton height={70} containerClassName='flex-1' />
+                    </div>
+                  </div>
                 )}
               </>
-            ) : (
-              <div className='user-gem__reply-comment-wrapper'>
-                <Skeleton height={15} width={'40%'} />
-                <Skeleton height={30} />
-                <div className='user-gem__reply-comment-skeleton'>
-                  <Skeleton circle width={30} height={30} />
-                  <Skeleton height={70} containerClassName='flex-1' />
-                </div>
-              </div>
             )}
 
             {showCommentReply && (

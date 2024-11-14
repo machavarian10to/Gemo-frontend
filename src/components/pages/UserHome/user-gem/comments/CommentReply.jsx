@@ -62,7 +62,7 @@ function CommentReply({
 CommentReply.propTypes = {
   authorId: PropTypes.string.isRequired,
   parentComment: PropTypes.object.isRequired,
-  comment: PropTypes.string.isRequired,
+  comment: PropTypes.object.isRequired,
   setCommentState: PropTypes.func.isRequired,
   setGem: PropTypes.func.isRequired,
 };

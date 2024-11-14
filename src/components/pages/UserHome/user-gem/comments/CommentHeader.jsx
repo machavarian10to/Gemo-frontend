@@ -39,17 +39,12 @@ function CommentHeader({
     axiosInstance
       .delete(`/api/gems/${comment.gemId}/comments/${comment._id}`)
       .then(({ data }) => {
+        // TODO: update comments correctly
         const { deletedCount } = data;
         setGem((prev) => ({
           ...prev,
           totalComments: prev.totalComments - deletedCount,
-          comments: prev.comments.filter(
-            (prevComment) => prevComment !== comment._id,
-          ),
         }));
-        setCommentState((prevComments) =>
-          prevComments.filter((prevComment) => prevComment._id !== comment._id),
-        );
       })
       .catch((err) => {
         console.error(err);
