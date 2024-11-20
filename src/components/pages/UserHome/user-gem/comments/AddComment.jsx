@@ -18,6 +18,7 @@ const AddComment = ({
   gemId,
   comment,
   setCommentState,
+  setCommentReplyState,
   setShowEditComment,
   setGem,
   isReply,
@@ -108,19 +109,51 @@ const AddComment = ({
       },
     })
       .then(({ data }) => {
-        setCommentState((prev) => {
-          if (apiMethod === 'put') {
-            // TODO: update comments
-          } else if (isReply) {
-            // TODO: update replies
-          } else {
+        if (apiMethod === 'put') {
+          setGem((prev) => {
+            const updatedComments = prev.comments.map((c) => {
+              if (c._id === comment._id) {
+                return data;
+              }
+              return c;
+            });
+            return {
+              ...prev,
+              comments: updatedComments,
+            };
+          });
+        } else if (isReply) {
+          setCommentState((prev) => {
+            return {
+              ...prev,
+              comments: prev.comments.map((c) => {
+                if (c._id === comment._id) {
+                  return {
+                    ...c,
+                    replies: [...c.replies, data],
+                  };
+                }
+                return c;
+              }),
+            };
+          });
+          setCommentReplyState((prev) => {
+            return {
+              ...prev,
+              replies: [...prev.replies, data],
+            };
+          });
+          console.log('id', data._id);
+          console.log('cpmment', comment);
+        } else {
+          setCommentState((prev) => {
             return {
               ...prev,
               comments: [...prev.comments, data],
             };
-          }
-        });
-        setShowEditComment(false);
+          });
+        }
+        // setShowEditComment((prev) => !prev);
         resetState();
       })
       .catch((err) => console.error(err));
@@ -333,6 +366,7 @@ AddComment.propTypes = {
   gemId: PropTypes.string,
   comment: PropTypes.object,
   setCommentState: PropTypes.func,
+  setCommentReplyState: PropTypes.func,
   setShowEditComment: PropTypes.func,
   setGem: PropTypes.func,
   isReply: PropTypes.bool,

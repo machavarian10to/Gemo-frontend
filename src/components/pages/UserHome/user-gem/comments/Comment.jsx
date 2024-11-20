@@ -97,6 +97,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
             gemId={comment.gemId}
             comment={comment}
             setCommentState={setCommentState}
+            setCommentReplyState={setCommentReplyState}
             setShowEditComment={setShowEditComment}
             setGem={setGem}
             focus
@@ -345,6 +346,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
                       gemId={comment.gemId}
                       comment={comment}
                       setCommentState={setCommentState}
+                      setCommentReplyState={setCommentReplyState}
                       setShowEditComment={setShowEditComment}
                       setGem={setGem}
                       isReply

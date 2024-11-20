@@ -15,7 +15,7 @@
 }
 
 .user-gem__comment-details-header:has(.gem-author) {
-  margin-bottom: 5px;
+  margin-block: 5px;
 }
 
 .user-gem__comment-edit-wrapper {
@@ -63,8 +63,8 @@
 
 .gem-author {
   background-color: var(--bg-shade-03);
-  border-radius: var(--border-radius-rect);
-  padding: 2px 6px 3px 5px;
+  border-radius: 20px;
+  padding: 1px 7px 3px 7px;
   display: inline-block !important;
 }
 

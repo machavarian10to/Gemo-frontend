@@ -178,6 +178,11 @@ function GemFooter({ gemInfo }) {
               emojiStyle='native'
               theme='light'
             />
+            {/* // TODO: Implement custom emoji creation
+            <div className='user-gem__custom-emoji'>
+              <EmojiEmotionsOutlinedIcon style={{ fontSize: '18px' }} />
+              <div>create custom emoji</div>
+            </div> */}
           </div>
         )}
       </div>

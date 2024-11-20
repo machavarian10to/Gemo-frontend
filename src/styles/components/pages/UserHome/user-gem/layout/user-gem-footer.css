@@ -49,6 +49,17 @@
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
 }
 
+/* .user-gem__custom-emoji {
+  padding: 10px;
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-main-yellow);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+} */
+
 .user-gem__emoji-list {
   display: flex;
   align-items: center;
@@ -130,7 +141,11 @@
 
 .user-gem__comment {
   display: flex;
-  gap: 10px;
+  gap: 7px;
+}
+
+.user-gem__comment .avatar {
+  margin-top: 5px;
 }
 
 .user-gem__comment-details {
@@ -158,7 +173,7 @@
 }
 
 .user-gem__comment-actions {
-  margin: 15px 0 0 40px;
+  margin: 15px 0 0 35px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

@@ -23,7 +23,7 @@
   font-weight: 600;
   font-style: italic;
   color: var(--color-grey);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .user-gem_comment-reply-wrapper  .user-gem__comment-media{
@@ -33,8 +33,8 @@
 }
 
 .user-gem__comment-replying-to span {
-  color: var(--color-main-black);
-  font-weight: 700;
+  color: var(--color-main-yellow);
+  font-weight: 600;
 }
 
 .user-gem__comment-section-input {
