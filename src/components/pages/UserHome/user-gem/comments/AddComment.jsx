@@ -110,41 +110,12 @@ const AddComment = ({
     })
       .then(({ data }) => {
         if (apiMethod === 'put') {
-          setGem((prev) => {
-            const updatedComments = prev.comments.map((c) => {
-              if (c._id === comment._id) {
-                return data;
-              }
-              return c;
-            });
-            return {
-              ...prev,
-              comments: updatedComments,
-            };
-          });
+          // update comment
         } else if (isReply) {
-          setCommentState((prev) => {
-            return {
-              ...prev,
-              comments: prev.comments.map((c) => {
-                if (c._id === comment._id) {
-                  return {
-                    ...c,
-                    replies: [...c.replies, data],
-                  };
-                }
-                return c;
-              }),
-            };
-          });
-          setCommentReplyState((prev) => {
-            return {
-              ...prev,
-              replies: [...prev.replies, data],
-            };
-          });
-          console.log('id', data._id);
-          console.log('cpmment', comment);
+          setCommentReplyState((prev) => ({
+            ...prev,
+            replies: [...prev.replies, data],
+          }));
         } else {
           setCommentState((prev) => {
             return {
@@ -153,7 +124,7 @@ const AddComment = ({
             };
           });
         }
-        // setShowEditComment((prev) => !prev);
+        setShowEditComment(false);
         resetState();
       })
       .catch((err) => console.error(err));

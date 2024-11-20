@@ -39,11 +39,14 @@ function Header() {
           <Input
             leftIcon={
               <SearchIcon
-                style={{ color: 'var(--color-main-grey)', fontSize: '22px' }}
+                style={{
+                  color: 'var(--color-main-grey)',
+                  fontSize: '20px',
+                  marginTop: '3px',
+                }}
               />
             }
             name='search'
-            size='large'
             value={searchValue}
             type='text'
             placeholder='Type @ to search users, type > to search groups...'
