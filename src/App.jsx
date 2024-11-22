@@ -6,9 +6,13 @@ function App() {
   return (
     <div className='app'>
       <Header />
-      <SideBar />
-      <div className='outlet'>
-        <Outlet />
+
+      <div className='outlet-wrapper'>
+        <SideBar />
+
+        <div className='outlet'>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
