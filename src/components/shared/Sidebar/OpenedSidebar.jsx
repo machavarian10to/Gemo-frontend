@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import UserCard from '@/components/shared/UserCard';
 import EventIcon from '@mui/icons-material/Event';
@@ -8,11 +9,12 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
+import { Fade } from '@mui/material';
 
-function SideBar() {
+function OpenedSidebar() {
   return (
-    <div className='sidebar'>
-      <div>
+    <Fade in={true} timeout={1000}>
+      <div className='opened-sidebar'>
         <UserCard />
         <div className='navigation-wrapper'>
           <div className='navigation-container'>
@@ -57,8 +59,8 @@ function SideBar() {
           </div>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 }
 
-export default SideBar;
+export default OpenedSidebar;

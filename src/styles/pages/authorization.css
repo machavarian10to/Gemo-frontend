@@ -45,12 +45,14 @@
 
 .user-home__auth-left-body h6 {
   font-size: 1rem;
+  color: var(--color-main-yellow);
   font-weight: 600;
   text-align: center;
   margin-bottom: 30px;
 }
 
 .user-home__auth-left-body h5 {
+  color: var(--color-main-yellow);
   width: 400px;
   font-size: 1rem;
   font-weight: 600;

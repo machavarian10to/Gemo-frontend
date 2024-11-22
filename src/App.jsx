@@ -1,5 +1,5 @@
 import Header from '@/components/shared/Header';
-import SideBar from '@/components/shared/SideBar';
+import Sidebar from '@/components/shared/Sidebar/Main.jsx';
 import { Outlet } from 'react-router-dom';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
       <Header />
 
       <div className='outlet-wrapper'>
-        <SideBar />
+        <Sidebar />
 
         <div className='outlet'>
           <Outlet />

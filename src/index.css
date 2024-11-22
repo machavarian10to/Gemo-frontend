@@ -26,6 +26,7 @@
   --summer-color-5: #d4824c;
   --summer-color-6: #270601;
 
+  /* MAIN COLORS */
   --bg-main-white: #ebedf0;
   --bg-main-yellow: #fff0de;
   --bg-main-brown: #80485b;
@@ -229,6 +230,7 @@ body,
 .outlet {
   flex: 1;
   margin-top: 100px;
+  margin-left: 200px;
   /* width: calc(100% - 230px); */
   /* height: calc(100% - 58px); */
 }

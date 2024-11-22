@@ -141,11 +141,11 @@
 
 .user-gem__comment {
   display: flex;
-  gap: 7px;
+  gap: 5px;
 }
 
 .user-gem__comment .avatar {
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 .user-gem__comment-details {
