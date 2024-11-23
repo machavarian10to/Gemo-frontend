@@ -129,6 +129,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
                   authorId={authorId}
                   comment={comment}
                   setCommentState={setCommentState}
+                  setCommentReplyState={setCommentReplyState}
                   setGem={setGem}
                   onEditComment={onEditComment}
                 />

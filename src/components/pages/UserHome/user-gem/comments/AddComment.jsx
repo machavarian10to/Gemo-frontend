@@ -112,6 +112,20 @@ const AddComment = ({
         if (apiMethod === 'put') {
           // update comment
         } else if (isReply) {
+          setCommentState((prev) => {
+            return {
+              ...prev,
+              comments: prev.comments.map((c) => {
+                if (c._id === comment._id) {
+                  return {
+                    ...c,
+                    replies: [...c.replies, data._id],
+                  };
+                }
+                return c;
+              }),
+            };
+          });
           setCommentReplyState((prev) => ({
             ...prev,
             replies: [...prev.replies, data],

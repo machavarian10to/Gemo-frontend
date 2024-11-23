@@ -20,6 +20,7 @@ function CommentHeader({
   authorId,
   comment,
   setCommentState,
+  setCommentReplyState,
   setGem,
   onEditComment,
 }) {
@@ -44,6 +45,18 @@ function CommentHeader({
         setGem((prev) => ({
           ...prev,
           totalComments: prev.totalComments - deletedCount,
+        }));
+        setCommentState((prevComments) => ({
+          ...prevComments,
+          comments: prevComments.comments.filter(
+            (prevComment) => prevComment._id !== comment._id,
+          ),
+        }));
+        setCommentReplyState((prevReplies) => ({
+          ...prevReplies,
+          replies: prevReplies.replies.filter(
+            (prevReply) => prevReply._id !== comment._id,
+          ),
         }));
       })
       .catch((err) => {
@@ -257,6 +270,7 @@ CommentHeader.propTypes = {
   authorId: PropTypes.string,
   comment: PropTypes.object.isRequired,
   setCommentState: PropTypes.func,
+  setCommentReplyState: PropTypes.func,
   setGem: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,
 };
