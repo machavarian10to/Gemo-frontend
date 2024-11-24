@@ -19,7 +19,6 @@ function CommentSection({
           <AddComment
             gemId={gemId}
             setCommentState={setCommentState}
-            setGem={setGem}
             placeholder='Write a comment...'
           />
 

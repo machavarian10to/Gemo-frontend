@@ -99,7 +99,6 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
             setCommentState={setCommentState}
             setCommentReplyState={setCommentReplyState}
             setShowEditComment={setShowEditComment}
-            setGem={setGem}
             focus
           />
 
@@ -348,8 +347,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
                       comment={comment}
                       setCommentState={setCommentState}
                       setCommentReplyState={setCommentReplyState}
-                      setShowEditComment={setShowEditComment}
-                      setGem={setGem}
+                      setShowCommentReply={setShowCommentReply}
                       isReply
                       focus
                     />

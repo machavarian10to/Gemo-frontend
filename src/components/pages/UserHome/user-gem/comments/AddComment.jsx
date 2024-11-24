@@ -20,7 +20,7 @@ const AddComment = ({
   setCommentState,
   setCommentReplyState,
   setShowEditComment,
-  setGem,
+  setShowCommentReply,
   isReply,
   focus,
 }) => {
@@ -76,6 +76,24 @@ const AddComment = ({
     }
   }, [focus]);
 
+  const addReplyToComments = (comments, parentId, newReply) => {
+    return comments.map((comment) => {
+      if (comment._id === parentId) {
+        return {
+          ...comment,
+          replies: [...comment.replies, newReply],
+        };
+      }
+      if (comment.replies && comment.replies.length > 0) {
+        return {
+          ...comment,
+          replies: addReplyToComments(comment.replies, parentId, newReply),
+        };
+      }
+      return comment;
+    });
+  };
+
   function onClickHandler() {
     if (state.isButtonDisabled) return;
 
@@ -112,20 +130,11 @@ const AddComment = ({
         if (apiMethod === 'put') {
           // update comment
         } else if (isReply) {
-          setCommentState((prev) => {
-            return {
-              ...prev,
-              comments: prev.comments.map((c) => {
-                if (c._id === comment._id) {
-                  return {
-                    ...c,
-                    replies: [...c.replies, data._id],
-                  };
-                }
-                return c;
-              }),
-            };
-          });
+          setCommentState((prev) => ({
+            ...prev,
+            comments: addReplyToComments(prev.comments, comment._id, data),
+          }));
+
           setCommentReplyState((prev) => ({
             ...prev,
             replies: [...prev.replies, data],
@@ -138,8 +147,9 @@ const AddComment = ({
             };
           });
         }
-        setShowEditComment(false);
         resetState();
+        if (setShowEditComment) setShowEditComment(false);
+        if (setShowCommentReply) setShowCommentReply(false);
       })
       .catch((err) => console.error(err));
   }
@@ -353,7 +363,7 @@ AddComment.propTypes = {
   setCommentState: PropTypes.func,
   setCommentReplyState: PropTypes.func,
   setShowEditComment: PropTypes.func,
-  setGem: PropTypes.func,
+  setShowCommentReply: PropTypes.func,
   isReply: PropTypes.bool,
   placeholder: PropTypes.string,
   focus: PropTypes.bool,
