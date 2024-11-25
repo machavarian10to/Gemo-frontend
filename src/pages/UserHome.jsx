@@ -41,10 +41,7 @@ function UserHome() {
             <div className='user-home__post-wrapper'>
               {gems.length > 0 ? (
                 gems.map((gem) => (
-                  <GemContainer
-                    key={`${gem._id}-${gem.updatedAt}`}
-                    gemId={gem._id}
-                  />
+                  <GemContainer key={`${gem._id}-${gem.updatedAt}`} gem={gem} />
                 ))
               ) : (
                 <div className='user-home__no-gems'>

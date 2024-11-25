@@ -71,11 +71,21 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
         userId: user._id,
       })
       .then(({ data }) => {
-        setCommentState((prev) =>
-          prev.map((prevComment) =>
-            prevComment._id === data._id ? data : prevComment,
-          ),
-        );
+        if (comment.parentId) {
+          setCommentReplyState((prev) => ({
+            ...prev,
+            replies: prev.replies.map((prevReply) =>
+              prevReply._id === data._id ? data : prevReply,
+            ),
+          }));
+        } else {
+          setCommentState((prev) => ({
+            ...prev,
+            comments: prev.comments.map((prevComment) =>
+              prevComment._id === data._id ? data : prevComment,
+            ),
+          }));
+        }
       })
       .catch((err) => console.error(err))
       .finally(() => {

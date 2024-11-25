@@ -7,12 +7,9 @@ import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
 import GemPoll from './poll/GemPoll';
 import GemFooter from '@/components/pages/UserHome/user-gem/layout/GemFooter';
 import Skeleton from 'react-loading-skeleton';
-import { useSelector } from 'react-redux';
 
-function GemContainer({ gemId }) {
+function GemContainer({ gem }) {
   const [showMore, setShowMore] = useState(false);
-
-  const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
 
   return (
     <>
@@ -94,7 +91,7 @@ function GemContainer({ gemId }) {
 }
 
 GemContainer.propTypes = {
-  gemId: PropTypes.string.isRequired,
+  gem: PropTypes.object,
 };
 
 export default GemContainer;

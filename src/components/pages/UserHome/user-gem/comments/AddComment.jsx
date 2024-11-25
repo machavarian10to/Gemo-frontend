@@ -129,16 +129,35 @@ const AddComment = ({
       .then(({ data }) => {
         if (apiMethod === 'put') {
           // update comment
+          if (isReply) {
+            setCommentReplyState((prev) => {
+              return {
+                ...prev,
+                replies: prev.replies.map((reply) =>
+                  reply._id === data._id ? data : reply,
+                ),
+              };
+            });
+            setCommentState((prev) => {
+              return {
+                ...prev,
+                comments: addReplyToComments(prev.comments, comment._id, data),
+              };
+            });
+          }
         } else if (isReply) {
-          setCommentState((prev) => ({
-            ...prev,
-            comments: addReplyToComments(prev.comments, comment._id, data),
-          }));
-
-          setCommentReplyState((prev) => ({
-            ...prev,
-            replies: [...prev.replies, data],
-          }));
+          setCommentReplyState((prev) => {
+            return {
+              ...prev,
+              replies: [...prev.replies, data],
+            };
+          });
+          setCommentState((prev) => {
+            return {
+              ...prev,
+              comments: addReplyToComments(prev.comments, comment._id, data),
+            };
+          });
         } else {
           setCommentState((prev) => {
             return {
