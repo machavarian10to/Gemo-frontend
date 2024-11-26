@@ -17,7 +17,7 @@ import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 import Skeleton from 'react-loading-skeleton';
 
-function Comment({ authorId, comment, setCommentState, setGem }) {
+function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   const user = useSelector((state) => state.user);
 
   const emojiPickerRef = useRef(null);
@@ -141,6 +141,7 @@ function Comment({ authorId, comment, setCommentState, setGem }) {
                   setCommentReplyState={setCommentReplyState}
                   setGem={setGem}
                   onEditComment={onEditComment}
+                  isPinned={isPinned}
                 />
                 {comment.content && (
                   <div className='user-gem__comment-text'>
@@ -390,6 +391,7 @@ Comment.propTypes = {
   comment: PropTypes.object.isRequired,
   setCommentState: PropTypes.func,
   setGem: PropTypes.func,
+  isPinned: PropTypes.bool,
 };
 
 export default Comment;

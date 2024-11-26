@@ -32,6 +32,7 @@ function CommentSection({
                     comment={pinnedComment}
                     setCommentState={setCommentState}
                     setGem={setGem}
+                    isPinned
                   />
                 )}
 

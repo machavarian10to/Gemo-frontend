@@ -12,6 +12,7 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
@@ -23,6 +24,7 @@ function CommentHeader({
   setCommentReplyState,
   setGem,
   onEditComment,
+  isPinned,
 }) {
   const user = useSelector((state) => state.user);
 
@@ -75,14 +77,21 @@ function CommentHeader({
   function onPinCommentClick() {
     axiosInstance
       .put(`/api/gems/${comment.gemId}/comments/${comment._id}/pin`, {
-        isPinned: !comment.isPinned,
+        isPinned: !isPinned,
       })
-      .then(({ data }) => {
-        setCommentState((prevComments) =>
-          prevComments.map((prevComment) =>
-            prevComment._id === comment._id ? data : prevComment,
+      .then(() => {
+        setCommentState((prevComments) => ({
+          ...prevComments,
+          comments: prevComments.comments.filter(
+            (prevComment) => prevComment._id !== comment._id,
           ),
-        );
+        }));
+        setCommentReplyState((prevReplies) => ({
+          ...prevReplies,
+          replies: prevReplies.replies.filter(
+            (prevReply) => prevReply._id !== comment._id,
+          ),
+        }));
       })
       .catch((err) => {
         console.error(err);
@@ -139,6 +148,18 @@ function CommentHeader({
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>
         </div>
 
+        {comment.updatedAt !== comment.createdAt && (
+          <div
+            className='user-gem__comment-edited'
+            title={new Date(comment.updatedAt)}
+          >
+            <CreateOutlinedIcon
+              style={{ fontSize: '15px', color: 'var(--color-grey)' }}
+            />
+            <span>edited</span>
+          </div>
+        )}
+
         <div
           className={`user-gem__comment-menu ${
             (showEditComment || showAuthEditComment) && 'active'
@@ -149,7 +170,7 @@ function CommentHeader({
             onClick={showEdit}
           />
         </div>
-        {comment.isPinned && (
+        {isPinned && (
           <div className='user-gem__comment-pinned'>
             <PushPinIcon
               style={{
@@ -175,9 +196,7 @@ function CommentHeader({
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>
-                  {comment.isPinned ? 'Unpin comment' : 'Pin comment'}
-                </span>
+                <span>{isPinned ? 'Unpin comment' : 'Pin comment'}</span>
               </div>
             )}
 
@@ -224,9 +243,7 @@ function CommentHeader({
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>
-                  {comment.isPinned ? 'Unpin comment' : 'Pin comment'}
-                </span>
+                <span>{isPinned ? 'Unpin comment' : 'Pin comment'}</span>
               </div>
             )}
 
@@ -273,6 +290,7 @@ CommentHeader.propTypes = {
   setCommentReplyState: PropTypes.func,
   setGem: PropTypes.func,
   onEditComment: PropTypes.func.isRequired,
+  isPinned: PropTypes.bool,
 };
 
 export default CommentHeader;
