@@ -2,12 +2,37 @@ import UserAvatar from '@/components/shared/UserAvatar';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import PropTypes from 'prop-types';
 import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
-
+import html2canvas from 'html2canvas';
 function GemHeader({ gem }) {
+  const captureScreenshot = async () => {
+    const gemElement = document.getElementById(`gem-${gem._id}`);
+    if (!gemElement) return;
+
+    try {
+      const canvas = await html2canvas(gemElement, {
+        allowTaint: true,
+        useCORS: true,
+        logging: false,
+        scale: 3,
+      });
+
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = `Gem-${gem._id}-By-${
+        gem.author.username
+      }-on-${new Date()}.png`;
+      link.click();
+    } catch (error) {
+      console.error('Error capturing screenshot:', error);
+    }
+  };
+
   return (
     <div className='user-gem__header'>
       <div className='user-gem__user-info'>
@@ -56,7 +81,20 @@ function GemHeader({ gem }) {
 
         <div className='user-gem__fullscreen'>
           <AspectRatioOutlinedIcon
-            style={{ fontSize: '20px', color: 'var(--color-grey)' }}
+            style={{
+              fontSize: '20px',
+              color: 'var(--color-grey)',
+              marginRight: '8px',
+            }}
+          />
+        </div>
+
+        <div className='user-gem_snapshot' onClick={captureScreenshot}>
+          <CameraAltOutlinedIcon
+            style={{
+              fontSize: '22px',
+              color: 'var(--color-grey)',
+            }}
           />
         </div>
 

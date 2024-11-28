@@ -60,6 +60,7 @@
   color: #333;
   word-break: break-word;
   resize: vertical;
+  background-color: #fff;
 
   &::placeholder {
     color: #a0a0a0;

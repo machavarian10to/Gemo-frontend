@@ -124,7 +124,6 @@ function CommentHeader({
               style={{
                 color: getUserLevel(comment.author.levelDetails.type),
                 fontSize: '9px',
-                marginLeft: '5px',
               }}
             />
           )}

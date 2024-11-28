@@ -14,7 +14,7 @@ function GemContainer({ gem }) {
   return (
     <>
       {gem ? (
-        <div className='user-gem'>
+        <div className='user-gem' id={`gem-${gem._id}`}>
           <GemHeader gem={gem} />
 
           <div className='user-gem__texts'>
