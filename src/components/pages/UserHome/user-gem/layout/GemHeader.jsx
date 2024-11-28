@@ -1,6 +1,7 @@
 import UserAvatar from '@/components/shared/UserAvatar';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import PropTypes from 'prop-types';
 import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
@@ -44,6 +45,15 @@ function GemHeader({ gem }) {
       </div>
 
       <div className='user-gem__menu-options-wrapper'>
+        {gem.updated && (
+          <div className='user-gem__edited' title={new Date(gem.updatedAt)}>
+            <CreateOutlinedIcon
+              style={{ fontSize: '15px', color: 'var(--color-grey)' }}
+            />
+            <span>Edited</span>
+          </div>
+        )}
+
         <div className='user-gem__fullscreen'>
           <AspectRatioOutlinedIcon
             style={{ fontSize: '20px', color: 'var(--color-grey)' }}

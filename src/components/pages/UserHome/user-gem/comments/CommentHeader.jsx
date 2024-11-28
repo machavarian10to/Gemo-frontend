@@ -148,7 +148,7 @@ function CommentHeader({
           <span>{getTimeDifference(new Date(comment.createdAt))}</span>
         </div>
 
-        {comment.updatedAt !== comment.createdAt && (
+        {comment.updated && (
           <div
             className='user-gem__comment-edited'
             title={new Date(comment.updatedAt)}
@@ -156,7 +156,7 @@ function CommentHeader({
             <CreateOutlinedIcon
               style={{ fontSize: '15px', color: 'var(--color-grey)' }}
             />
-            <span>edited</span>
+            <span>Edited</span>
           </div>
         )}
 

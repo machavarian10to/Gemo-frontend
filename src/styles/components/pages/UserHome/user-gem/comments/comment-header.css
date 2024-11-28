@@ -77,13 +77,20 @@
   align-items: center;
 }
 
-.user-gem__comment-edited {
+.user-gem__comment-edited,
+.user-gem__edited {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   margin-left: 8px;
   font-size: 12px;
+  font-weight: 600;
   color: var(--color-main-yellow);
+}
+
+.user-gem__edited {
+  margin-left: 0;
+  margin-right: 5px;
 }
 
 .user-gem__comment-pinned {
