@@ -260,51 +260,58 @@ const AddComment = ({
         </div>
         <div className='user-gem__comment-section-input'>
           <div className='user-gem__comment-input-wrapper'>
-            <textarea
-              ref={textAreaRef}
-              className='user-gem__comment-input'
-              placeholder={placeholder}
-              value={state.userComment}
-              onChange={(e) =>
-                setState((prev) => ({ ...prev, userComment: e.target.value }))
-              }
-            />
-
-            <div className='user-gem__comment-icons'>
-              <TagFacesOutlinedIcon
-                style={{
-                  color: state.showEmojis
-                    ? 'var(--color-main-yellow)'
-                    : 'var(--color-light-grey)',
-                  fontSize: '22px',
-                }}
-                onClick={() =>
-                  setState((prev) => ({
-                    ...prev,
-                    showEmojis: !prev.showEmojis,
-                  }))
+            <div className='textarea-container'>
+              <textarea
+                ref={textAreaRef}
+                className='user-gem__comment-input'
+                value={state.userComment}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, userComment: e.target.value }))
                 }
               />
-              <label className='user-gem__comment-input-label'>
-                <input
-                  hidden
-                  type='file'
-                  accept='image/png, image/gif, image/jpeg, image/webp, video/mp4, video/quicktime'
-                  onChange={handleFileChange}
+              {!state.userComment && (
+                <div className='placeholder-text'>{placeholder}</div>
+              )}
+
+              <div className='user-gem__comment-icons'>
+                <TagFacesOutlinedIcon
+                  style={{
+                    color: state.showEmojis
+                      ? 'var(--color-main-yellow)'
+                      : 'var(--color-light-grey)',
+                    fontSize: '22px',
+                  }}
+                  onClick={() =>
+                    setState((prev) => ({
+                      ...prev,
+                      showEmojis: !prev.showEmojis,
+                    }))
+                  }
                 />
-                <ImageOutlinedIcon
-                  style={{ color: 'var(--color-light-grey)', fontSize: '22px' }}
+                <label className='user-gem__comment-input-label'>
+                  <input
+                    hidden
+                    type='file'
+                    accept='image/png, image/gif, image/jpeg, image/webp, video/mp4, video/quicktime'
+                    onChange={handleFileChange}
+                  />
+                  <ImageOutlinedIcon
+                    style={{
+                      color: 'var(--color-light-grey)',
+                      fontSize: '22px',
+                    }}
+                  />
+                </label>
+                <GifBoxOutlinedIcon
+                  style={{
+                    color: state.gifs
+                      ? 'var(--color-main-yellow)'
+                      : 'var(--color-light-grey)',
+                    fontSize: '22px',
+                  }}
+                  onClick={() => setState((prev) => ({ ...prev, gifs: true }))}
                 />
-              </label>
-              <GifBoxOutlinedIcon
-                style={{
-                  color: state.gifs
-                    ? 'var(--color-main-yellow)'
-                    : 'var(--color-light-grey)',
-                  fontSize: '22px',
-                }}
-                onClick={() => setState((prev) => ({ ...prev, gifs: true }))}
-              />
+              </div>
             </div>
 
             {state.showEmojis && (
