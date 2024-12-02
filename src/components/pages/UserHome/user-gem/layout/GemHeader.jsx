@@ -1,6 +1,5 @@
 import UserAvatar from '@/components/shared/UserAvatar';
 import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
-import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import PropTypes from 'prop-types';
@@ -78,16 +77,6 @@ function GemHeader({ gem }) {
             <span>Edited</span>
           </div>
         )}
-
-        <div className='user-gem__fullscreen'>
-          <AspectRatioOutlinedIcon
-            style={{
-              fontSize: '20px',
-              color: 'var(--color-grey)',
-              marginRight: '8px',
-            }}
-          />
-        </div>
 
         <div className='user-gem_snapshot' onClick={captureScreenshot}>
           <CameraAltOutlinedIcon
