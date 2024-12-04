@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import { Fade } from '@mui/material';
 import useClickOutside from '@/hook/useClickOutside';
 import { useRef, useState, useEffect } from 'react';
@@ -9,6 +10,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import axiosInstance from '@/services/axios';
 import Skeleton from 'react-loading-skeleton';
+import getUserLevel from '@/helpers/getUserLevel';
 
 function ViewReactsModal({ gemId, commentId, closeModal }) {
   const modalContentRef = useRef();
@@ -136,22 +138,31 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                                     {react.emoji}
                                   </div>
                                   <UserAvatar
-                                    key={user._id}
                                     src={user.profilePhoto}
                                     width={40}
                                     height={40}
                                   />
                                 </div>
-                                <div className='user-gem__username'>
-                                  @
-                                  <a
-                                    href={`/user/@${user.username}`}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className='user-gem__username-link'
-                                  >
-                                    {user.username}
-                                  </a>
+                                <div className='user-gem_reacts-username-info'>
+                                  <div className='user-gem__username'>
+                                    @
+                                    <a
+                                      href={`/user/@${user.username}`}
+                                      target='_blank'
+                                      rel='noreferrer'
+                                      className='user-gem__username-link'
+                                    >
+                                      {user.username}
+                                    </a>
+                                  </div>
+                                  <div className='user-gem__user-date'>
+                                    <LocalPoliceOutlinedIcon
+                                      style={{
+                                        color: getUserLevel(user.levelType),
+                                        fontSize: '9px',
+                                      }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
 
@@ -185,22 +196,31 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                                   }
                                 </div>
                                 <UserAvatar
-                                  key={user._id}
                                   src={user.profilePhoto}
                                   width={40}
                                   height={40}
                                 />
                               </div>
-                              <div className='user-gem__username'>
-                                @
-                                <a
-                                  href={`/user/@${user.username}`}
-                                  target='_blank'
-                                  rel='noreferrer'
-                                  className='user-gem__username-link'
-                                >
-                                  {user.username}
-                                </a>
+                              <div className='user-gem_reacts-username-info'>
+                                <div className='user-gem__username'>
+                                  @
+                                  <a
+                                    href={`/user/@${user.username}`}
+                                    target='_blank'
+                                    rel='noreferrer'
+                                    className='user-gem__username-link'
+                                  >
+                                    {user.username}
+                                  </a>
+                                </div>
+                                <div className='user-gem__user-date'>
+                                  <LocalPoliceOutlinedIcon
+                                    style={{
+                                      color: getUserLevel(user.levelType),
+                                      fontSize: '9px',
+                                    }}
+                                  />
+                                </div>
                               </div>
                             </div>
                             <div className='user-view-reacts-timestamp'>

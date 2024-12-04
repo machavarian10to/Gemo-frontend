@@ -38,6 +38,16 @@
   transition: all 0.3s;
 }
 
+.user-gem_reacts-username-info {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.user-gem_reacts-username-info .user-gem__username {
+  gap: 0;
+}
+
 .modal-reactions-react-amount {
   font-size: 0.9rem;
   font-weight: 800;
@@ -76,20 +86,20 @@
   font-size: 14px;
 }
 
-.modal-reactions-header-skeleton{
+.modal-reactions-header-skeleton {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.modal-reactions-wrapper-skeleton{
+.modal-reactions-wrapper-skeleton {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.modal-reaction-skeleton{
+.modal-reaction-skeleton {
   display: flex;
   align-items: center;
   gap: 10px;

@@ -7,6 +7,7 @@ import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import StarRateIcon from '@mui/icons-material/StarRate';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
@@ -80,6 +81,20 @@ function GemFooter({ gemInfo }) {
       ...prev,
       skip: prev.skip + prev.limit,
     }));
+  }
+
+  function onFavoritesClick() {
+    axiosInstance
+      .put(`/api/gems/${gem._id}/favorites`, {
+        userId: user._id,
+      })
+      .then(({ data }) => {
+        setGem((prev) => ({
+          ...prev,
+          favorites: data.favorites,
+        }));
+      })
+      .catch((err) => console.error(err));
   }
 
   return (
@@ -165,8 +180,18 @@ function GemFooter({ gemInfo }) {
           <span>Send</span>
           <span>0</span>
         </div>
-        <div className='user-gem__footer-container' title='Add to favorites'>
-          <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
+        <div
+          className='user-gem__footer-container'
+          title='Add to favorites'
+          onClick={onFavoritesClick}
+        >
+          {gem.favorites.some((fav) => fav === user._id) ? (
+            <StarRateIcon
+              style={{ fontSize: '19px', color: 'var(--color-main-yellow)' }}
+            />
+          ) : (
+            <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
+          )}
         </div>
 
         {showEmojis && (
