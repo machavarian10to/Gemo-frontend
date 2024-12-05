@@ -132,7 +132,7 @@ function GemFooter({ gemInfo }) {
                   marginTop: '2px',
                 }}
               />
-              <div>see all</div>
+              <div>View all</div>
             </div>
           </div>
         </>

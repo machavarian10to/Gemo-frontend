@@ -25,7 +25,7 @@ function CommentSection({
           {comments.length > 0 ? (
             <>
               <div className='user-gem__comment-list'>
-                {pinnedComment && (
+                {/* {pinnedComment && (
                   <Comment
                     key={pinnedComment._id}
                     authorId={authorId}
@@ -34,7 +34,7 @@ function CommentSection({
                     setGem={setGem}
                     isPinned
                   />
-                )}
+                )} */}
 
                 {comments.map((comment) => (
                   <Comment

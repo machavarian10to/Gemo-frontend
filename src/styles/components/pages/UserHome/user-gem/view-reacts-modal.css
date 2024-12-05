@@ -41,7 +41,7 @@
 .user-gem_reacts-username-info {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
 }
 
 .user-gem_reacts-username-info .user-gem__username {

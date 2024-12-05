@@ -17,6 +17,13 @@
   opacity: 0.7;
 }
 
+.poll-results-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .poll-results__modal-content-wrapper {
   display: flex;
   height: 100%;

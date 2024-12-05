@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
 import { Fade } from '@mui/material';
 import useClickOutside from '@/hook/useClickOutside';
 import { useRef, useState, useEffect } from 'react';
 import UserAvatar from '@/components/shared/UserAvatar';
 import axiosInstance from '@/services/axios';
 import getTimeDifference from '@/helpers/getTimeDifference';
+import getUserLevel from '@/helpers/getUserLevel';
 
 function PollResultsModal({ pollOptions, closeModal }) {
   const modalContentRef = useRef();
@@ -88,27 +90,41 @@ function PollResultsModal({ pollOptions, closeModal }) {
                         src={user.profilePhoto}
                       />
                     </div>
-                    <div className='user-gem__username'>
-                      @
-                      <a
-                        href={`/user/@${user.username}`}
-                        target='_blank'
-                        rel='noreferrer'
-                        className='user-gem__username-link'
-                      >
-                        {user.username}
-                      </a>
-                    </div>
 
-                    <div className='user-gem__user-vote-timestamp'>
-                      <span>&#8226;</span>
-                      {getTimeDifference(
-                        new Date(
-                          pollOptions
-                            .find((option) => option.id === activeOption)
-                            .users.find((u) => u.id === user._id)?.timestamp,
-                        ),
-                      )}
+                    <div className='poll-results-header'>
+                      <div className='user-gem_reacts-username-info'>
+                        <div className='user-gem__username'>
+                          @
+                          <a
+                            href={`/user/@${user.username}`}
+                            target='_blank'
+                            rel='noreferrer'
+                            className='user-gem__username-link'
+                          >
+                            {user.username}
+                            {console.log(user)}
+                          </a>
+                        </div>
+                        <div className='user-gem__user-date'>
+                          <LocalPoliceOutlinedIcon
+                            style={{
+                              color: getUserLevel(user.levelDetails.type),
+                              fontSize: '9px',
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className='user-gem__user-vote-timestamp'>
+                        <span>&#8226;</span>
+                        {getTimeDifference(
+                          new Date(
+                            pollOptions
+                              .find((option) => option.id === activeOption)
+                              .users.find((u) => u.id === user._id)?.timestamp,
+                          ),
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))
