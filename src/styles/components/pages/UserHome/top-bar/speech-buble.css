@@ -12,14 +12,13 @@
 .speech-bubble {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
   color: var(--color-grey);
   font-weight: 600;
   width: 80%;
   position: relative;
   border-radius: var(--border-radius-rect);
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 8px;
   transition: all 0.3s;
 }
 

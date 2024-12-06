@@ -224,7 +224,7 @@ function GemPoll({ gemId }) {
               placeholder='Add new option...'
               leftIcon={
                 <AddCircleOutlineOutlinedIcon
-                  style={{ color: 'var(--color-main-grey)', fontSize: '21px' }}
+                  style={{ color: 'var(--color-main-grey)', fontSize: '19px' }}
                 />
               }
               onInput={(e) =>

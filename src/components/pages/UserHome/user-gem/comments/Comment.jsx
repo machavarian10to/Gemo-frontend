@@ -207,7 +207,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                         marginTop: '2px',
                       }}
                     />
-                    <div>View all</div>
+                    <div>view all</div>
                   </div>
                 </div>
               </>

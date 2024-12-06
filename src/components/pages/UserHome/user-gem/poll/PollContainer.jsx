@@ -34,7 +34,7 @@ function PollContainer({
             borderRadius:
               percentage === '100'
                 ? 'var(--border-radius-rect)'
-                : '5px 0 0 5px',
+                : '9px 0 0 9px',
           }}
           className='user-gem__poll-option-container-inner'
         ></div>

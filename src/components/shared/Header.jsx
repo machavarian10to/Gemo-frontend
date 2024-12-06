@@ -42,7 +42,6 @@ function Header() {
                 style={{
                   color: 'var(--color-main-grey)',
                   fontSize: '20px',
-                  marginTop: '3px',
                 }}
               />
             }
