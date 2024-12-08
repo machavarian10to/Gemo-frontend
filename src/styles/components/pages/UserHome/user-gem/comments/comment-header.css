@@ -68,6 +68,12 @@
   display: inline-block !important;
 }
 
+.gem-author::before {
+  content: '✍';
+  font-size: 13px;
+  margin-right: 5px;
+}
+
 .gem-author a {
   font-size: 12px;
   margin-right: 5px;
