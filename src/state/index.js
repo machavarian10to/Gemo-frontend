@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import authService from '@/services/authService';
 
 const initialState = {
-  mode: 'light',
+  mode: 'dark',
   user: null,
   resetToken: null,
   gems: [],
@@ -12,8 +12,8 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setMode: (state, payload) => {
-      state.mode = payload;
+    setMode: (state) => {
+      state.mode = state.mode === 'light' ? 'dark' : 'light';
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;

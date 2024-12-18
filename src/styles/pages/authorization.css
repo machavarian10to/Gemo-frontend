@@ -40,7 +40,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
 }
 
 .user-home__auth-left-body h6 {
@@ -113,7 +113,7 @@
 }
 
 .user-home__auth-google-button button:hover {
-  background-color: var(--bg-main-white);
+  background-color: var(-bg-main-color);
 }
 .user-home__auth-google-button button:active {
   background-color: var(--color-grey);
@@ -129,7 +129,7 @@
   position: relative;
   padding-inline: 15px;
   font-weight: 600;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
 }
 
 .user-home__auth-divider::before {

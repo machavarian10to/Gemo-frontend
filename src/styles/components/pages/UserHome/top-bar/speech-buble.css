@@ -1,7 +1,7 @@
 .speech-bubble-wrapper {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   padding: 15px;
   border-radius: var(--border-radius-rect);
   transition: all 0.5s;
@@ -13,12 +13,13 @@
   display: flex;
   align-items: center;
   color: var(--color-grey);
+  font-size: 0.9rem;
   font-weight: 600;
   width: 80%;
   position: relative;
   border-radius: var(--border-radius-rect);
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 10px;
   transition: all 0.3s;
 }
 

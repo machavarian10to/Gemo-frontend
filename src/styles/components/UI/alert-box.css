@@ -38,7 +38,7 @@
   line-height: 1.5;
   font-weight: 700;
   word-break: break-all;
-  color: var(--color-main-black);
+  color: var(--text-main-color);
 }
 
 @keyframes slideInFromRight {

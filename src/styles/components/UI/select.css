@@ -71,5 +71,5 @@
 
 .options-container ul li.selected {
   background: #f2f2f2;
-  color: var(--color-main-black);
+  color: var(--text-main-color);
 }

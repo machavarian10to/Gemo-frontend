@@ -27,7 +27,6 @@
   display: flex;
   gap: 5px;
   font-weight: 600;
-  transition: all 0.3s;
   cursor: pointer;
 }
 .user-gem__username a:hover {
@@ -35,7 +34,7 @@
 }
 .user-gem__username-link {
   text-decoration: none;
-  color: var(--color-main-black);
+  color: var(--text-main-color);
 }
 
 .user-gem__user-date {

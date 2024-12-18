@@ -141,7 +141,7 @@
 
 .user-gem__comment {
   display: flex;
-  gap: 5px;
+  gap: 7px;
 }
 
 .user-gem__comment .avatar {
@@ -149,7 +149,7 @@
 }
 
 .user-gem__comment-details {
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -169,7 +169,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
-  color: var(--color-main-grey);
+  color: var(--color-grey);
 }
 
 .user-gem__comment-actions {

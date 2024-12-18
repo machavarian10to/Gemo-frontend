@@ -23,13 +23,13 @@
   top: 115%;
   right: -100%;
   padding: 3px;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   z-index: 200;
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
   border-radius: var(--border-radius-rect);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.5);
 }
 
 .user-gem__edit-item,
@@ -45,6 +45,6 @@
 
 .user-gem__edit-item:hover,
 .user-gem__comment-edit-item:hover {
-  background-color: #f2f2f2;
-  color: var(--color-main-black);
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
 }

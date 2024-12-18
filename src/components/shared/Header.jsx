@@ -6,6 +6,7 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import UserAvatar from '@/components/shared/UserAvatar';
+import ToggleTheme from '@/components/UI/ToggleTheme';
 import { useDispatch } from 'react-redux';
 import Fade from '@mui/material/Fade';
 import useClickOutside from '@/hook/useClickOutside';
@@ -14,7 +15,10 @@ import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import { setLogout } from '@/state/index';
+import { useSelector } from 'react-redux';
+import { setMode } from '@/state/index';
 
 function Header() {
   const [searchValue, setSearchValue] = useState('');
@@ -28,6 +32,8 @@ function Header() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const mode = useSelector((state) => state.mode);
 
   return (
     <>
@@ -100,14 +106,31 @@ function Header() {
                     <span>Help & support</span>
                   </div>
 
-                  <div className='header-options-item'>
+                  <div
+                    className='header-options-item theme-toggle'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
                     <LightModeOutlinedIcon
                       style={{
                         fontSize: '22px',
                         color: 'var(--color-main-yellow)',
+                        marginRight: '13px',
                       }}
                     />
-                    <span>Light</span>
+                    <ToggleTheme
+                      isOn={mode === 'dark'}
+                      onColor='var(--color-main-yellow)'
+                      handleToggle={() => dispatch(setMode())}
+                    />
+                    <BedtimeOutlinedIcon
+                      style={{
+                        fontSize: '22px',
+                        color: 'var(--color-main-yellow)',
+                        marginLeft: '13px',
+                      }}
+                    />
                   </div>
 
                   <div

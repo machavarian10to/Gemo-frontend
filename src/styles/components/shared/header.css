@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   height: 80px;
-  background: #fff;
+  background: var(--bg-secondary-color);
   border-bottom: 1px solid var(--color-grey);
   position: fixed;
   z-index: 1000;
@@ -71,13 +71,13 @@
   top: 125%;
   right: 0;
   padding: 3px;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   z-index: 200;
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
   border-radius: var(--border-radius-rect);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.5);
 }
 
 .header-options-item {
@@ -91,6 +91,6 @@
 }
 
 .header-options-item:hover {
-  background-color: #f2f2f2;
-  color: var(--color-main-black);
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
 }

@@ -24,9 +24,9 @@ function SideBar() {
           style={{
             fontSize: '1.1rem',
             borderRadius: '50%',
-            border: '1px solid var(--color-grey)',
-            color: 'var(--color-grey)',
-            backgroundColor: '#fff',
+            border: '1.5px solid var(--color-main-grey)',
+            color: 'var(--color-main-grey)',
+            backgroundColor: 'var(--bg-secondary-color)',
             rotate: isSidebarOpen ? '0deg' : '180deg',
             transition: 'all 0.3s ease',
             boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.1)',

@@ -19,6 +19,7 @@ import Skeleton from 'react-loading-skeleton';
 
 function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   const user = useSelector((state) => state.user);
+  const mode = useSelector((state) => state.mode);
 
   const emojiPickerRef = useRef(null);
 
@@ -266,7 +267,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                   previewConfig={{ showPreview: false }}
                   autoFocusSearch={false}
                   emojiStyle='native'
-                  theme='light'
+                  theme={mode}
                 />
               </div>
             )}

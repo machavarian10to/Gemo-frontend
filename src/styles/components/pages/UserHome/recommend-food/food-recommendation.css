@@ -45,7 +45,7 @@
 }
 
 .user-home__food-recommends-content h4 {
-  color: var(--color-main-black);
+  color: var(--text-main-color);
   font-size: 24px;
   font-weight: 600;
 }

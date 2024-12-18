@@ -9,13 +9,12 @@
   margin-top: 40px;
   border: 2px solid rgba(249, 161, 9, 1);
   border-radius: 12px;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   box-shadow: 0px 2px 10px rgba(249, 161, 9, 0.3);
   transition: all 0.3s ease-in-out;
 }
 
 .user-home_user-card-avatar-wrapper {
-  /* border: 2px dashed var(--color-grey); */
   border-radius: var(--border-radius-rect) ;
   cursor: pointer;
   transition: all 0.3s;
@@ -27,6 +26,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 130px;
+  color: var(--text-main-color);
 }
 
 .user-home_user-card a {

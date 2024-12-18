@@ -63,8 +63,9 @@
 
 .gem-author {
   background-color: var(--bg-shade-03);
-  border-radius: 20px;
-  padding: 1px 7px 3px 7px;
+  color: #010409;
+  border-radius: var(--border-radius-rect);
+  padding: 3px 10px 5px 10px;
   display: inline-block !important;
 }
 
@@ -75,6 +76,7 @@
 }
 
 .gem-author a {
+  color: #010409;
   font-size: 12px;
   margin-right: 5px;
 }

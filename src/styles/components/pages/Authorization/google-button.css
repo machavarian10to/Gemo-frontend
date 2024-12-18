@@ -3,14 +3,14 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   -webkit-appearance: none;
-  background-color: WHITE;
+  background-color: var(--bg-secondary-color);
   background-image: none;
   border: 1px solid #747775;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: #1f1f1f;
+  color: var(--text-main-color);
   cursor: pointer;
   font-family: 'Roboto', arial, sans-serif;
   font-size: 14px;

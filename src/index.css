@@ -27,17 +27,18 @@
   --summer-color-6: #270601;
 
   /* MAIN COLORS */
-  --bg-main-white: #ebedf0;
+  --bg-main-color: #ebedf0;
+  --bg-secondary-color: #fff;
   --bg-main-yellow: #fff0de;
   --bg-main-brown: #80485b;
   --bg-main-red: #ff5252;
-  --color-grey: rgba(128, 128, 128, 0.5);
+  --color-grey: #a0a0a0;
   --color-main-yellow: #ffa500;
   --color-main-yellow-light: rgba(255, 165, 0, 0.8);
   --color-main-grey: #808080;
   --color-main-silver: #c0c0c0;
   --color-light-grey: #ccc;
-  --color-main-black: #34333a;
+  --text-main-color: #34333a;
   --color-main-green: #4caf50;
   --color-main-blue: #0070b5;
 
@@ -181,6 +182,12 @@
   --border-radius-circle: 50%;
 }
 
+[data-theme='dark'] {
+  --bg-main-color: #010409;
+  --bg-secondary-color: #252728;
+  --text-main-color: #ffffff;
+}
+
 @font-face {
   font-family: 'Quicksand';
   src: local('Quicksand'), url('@/assets/fonts/Quicksand-VariableFont_wght.ttf');
@@ -201,6 +208,7 @@
   box-sizing: border-box;
   font-family: 'Quicksand', 'Roboto', sans-serif;
   font-family: "Noto Sans Georgian", sans-serif;
+  caret-color: var(--color-main-yellow);
 }
 
 html, body, #root, .app {
@@ -213,12 +221,14 @@ html {
 
 body,
 #root {
-  background: var(--bg-main-white);
-  color: var(--color-main-black);
+  background: var(--bg-main-color);
+  color: var(--text-main-color);
   min-height: 100vh;
   width: 100%;
-  /* background-color: #010409; black */
-  /* background-color: #252728; grey */
+}
+
+input, textarea, select {
+  color: var(--text-main-color);
 }
 
 .outlet-wrapper {

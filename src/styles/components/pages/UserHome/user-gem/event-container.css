@@ -84,7 +84,7 @@
   font-style: normal;
   line-height: 1.5;
   margin-block: 10px;
-  color: var(--color-main-black);
+  color: var(--text-main-color);
 }
 
 .user-gem__event-attendees{

@@ -17,6 +17,7 @@ import CommentSection from '@/components/pages/UserHome/user-gem/comments/Commen
 
 function GemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
+  const mode = useSelector((state) => state.mode);
 
   const emojiPickerRef = useRef(null);
 
@@ -201,7 +202,7 @@ function GemFooter({ gemInfo }) {
               previewConfig={{ showPreview: false }}
               autoFocusSearch={false}
               emojiStyle='native'
-              theme='light'
+              theme={mode}
             />
             {/* // TODO: Implement custom emoji creation
             <div className='user-gem__custom-emoji'>
