@@ -25,6 +25,7 @@ const AddComment = ({
   focus,
 }) => {
   const user = useSelector((state) => state.user);
+  const mode = useSelector((state) => state.mode);
 
   const [state, setState] = useState({
     userComment: !isReply && comment?.content ? comment.content : '',
@@ -329,7 +330,7 @@ const AddComment = ({
                   previewConfig={{ showPreview: false }}
                   autoFocusSearch={false}
                   emojiStyle='native'
-                  theme='light'
+                  theme={mode}
                 />
               </div>
             )}

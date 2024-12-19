@@ -157,7 +157,7 @@ function TabContentPoll({ pollTabState, setPollTabState }) {
               >
                 <DragIndicatorIcon
                   style={{
-                    color: 'var(--bg-shade-42)',
+                    color: 'var(--text-main-color)',
                     cursor: 'pointer',
                     opacity: '0.5',
                   }}

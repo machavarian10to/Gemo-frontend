@@ -301,13 +301,13 @@ export default function NewGemContainer({
           <div>Poll</div>
         </div>
 
-        <div
+        {/* <div
           className={`event ${activeTab === 'event' ? 'active' : ''}`}
           onClick={() => handleActiveTab('event')}
         >
           <EditCalendarIcon style={{ fontSize: '17px' }} />
           <div>Event</div>
-        </div>
+        </div> */}
 
         <div
           className={`gif ${activeTab === 'gif' ? 'active' : ''}`}

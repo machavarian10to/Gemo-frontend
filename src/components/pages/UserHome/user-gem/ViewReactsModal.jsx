@@ -9,7 +9,7 @@ import Input from '@/components/UI/Input';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import axiosInstance from '@/services/axios';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import getUserLevel from '@/helpers/getUserLevel';
 
 function ViewReactsModal({ gemId, commentId, closeModal }) {
@@ -238,44 +238,46 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
             </>
           ) : (
             <div className='modal-no-reactions-skeleton'>
-              <div className='modal-reactions-header-skeleton'>
-                <Skeleton width={60} height={40} />
-                <Skeleton width={60} height={40} />
-                <Skeleton width={60} height={40} />
-                <Skeleton width={60} height={40} />
-                <Skeleton width={60} height={40} />
-                <Skeleton width={60} height={40} />
-                <Skeleton width={60} height={40} />
-              </div>
+              <SkeletonTheme baseColor='var(--bg-main-color)'>
+                <div className='modal-reactions-header-skeleton'>
+                  <Skeleton width={60} height={40} />
+                  <Skeleton width={60} height={40} />
+                  <Skeleton width={60} height={40} />
+                  <Skeleton width={60} height={40} />
+                  <Skeleton width={60} height={40} />
+                  <Skeleton width={60} height={40} />
+                  <Skeleton width={60} height={40} />
+                </div>
 
-              <Skeleton height={30} style={{ marginTop: '15px' }} />
+                <Skeleton height={30} style={{ marginTop: '15px' }} />
 
-              <div className='modal-reactions-wrapper-skeleton'>
-                <div className='modal-reaction-skeleton'>
-                  <Skeleton width={40} height={40} circle />
-                  <Skeleton width={300} count={1} />
+                <div className='modal-reactions-wrapper-skeleton'>
+                  <div className='modal-reaction-skeleton'>
+                    <Skeleton width={40} height={40} circle />
+                    <Skeleton width={300} count={1} />
+                  </div>
+                  <div className='modal-reaction-skeleton'>
+                    <Skeleton width={40} height={40} circle />
+                    <Skeleton width={300} count={1} />
+                  </div>
+                  <div className='modal-reaction-skeleton'>
+                    <Skeleton width={40} height={40} circle />
+                    <Skeleton width={300} count={1} />
+                  </div>
+                  <div className='modal-reaction-skeleton'>
+                    <Skeleton width={40} height={40} circle />
+                    <Skeleton width={300} count={1} />
+                  </div>
+                  <div className='modal-reaction-skeleton'>
+                    <Skeleton width={40} height={40} circle />
+                    <Skeleton width={300} count={1} />
+                  </div>
+                  <div className='modal-reaction-skeleton'>
+                    <Skeleton width={40} height={40} circle />
+                    <Skeleton width={300} count={1} />
+                  </div>
                 </div>
-                <div className='modal-reaction-skeleton'>
-                  <Skeleton width={40} height={40} circle />
-                  <Skeleton width={300} count={1} />
-                </div>
-                <div className='modal-reaction-skeleton'>
-                  <Skeleton width={40} height={40} circle />
-                  <Skeleton width={300} count={1} />
-                </div>
-                <div className='modal-reaction-skeleton'>
-                  <Skeleton width={40} height={40} circle />
-                  <Skeleton width={300} count={1} />
-                </div>
-                <div className='modal-reaction-skeleton'>
-                  <Skeleton width={40} height={40} circle />
-                  <Skeleton width={300} count={1} />
-                </div>
-                <div className='modal-reaction-skeleton'>
-                  <Skeleton width={40} height={40} circle />
-                  <Skeleton width={300} count={1} />
-                </div>
-              </div>
+              </SkeletonTheme>
             </div>
           )}
         </div>

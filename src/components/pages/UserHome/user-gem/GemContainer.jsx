@@ -6,7 +6,7 @@ import GemHeader from '@/components/pages/UserHome/user-gem/layout/GemHeader';
 import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
 import GemPoll from './poll/GemPoll';
 import GemFooter from '@/components/pages/UserHome/user-gem/layout/GemFooter';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function GemContainer({ gem }) {
   const [showMore, setShowMore] = useState(false);
@@ -61,29 +61,34 @@ function GemContainer({ gem }) {
         </div>
       ) : (
         <div className='user-gem'>
-          <div className='user-gem__header-skeleton'>
-            <Skeleton circle={true} height={32} width={32} />
-            <div>
-              <Skeleton width={200} height={10} />
-              <Skeleton width={80} height={7} />
+          <SkeletonTheme baseColor='var(--bg-main-color)'>
+            <div className='user-gem__header-skeleton'>
+              <Skeleton circle={true} height={32} width={32} />
+              <div>
+                <Skeleton width={200} height={10} />
+                <Skeleton width={80} height={7} />
+              </div>
             </div>
-          </div>
 
-          <div className='user-gem__texts'>
-            <Skeleton height={100} style={{ marginTop: '10px' }} />
-            <div className='user-gem__footer-skeleton-wrapper'>
-              <Skeleton containerClassName='flex-1' />
-              <Skeleton containerClassName='flex-1' />
-              <Skeleton containerClassName='flex-1' />
-              <Skeleton containerClassName='flex-1' />
-              <Skeleton
-                width={100}
-                baseColor='transparent'
-                enableAnimation={false}
-              />
-              <Skeleton containerClassName='flex-1 last-skeleton' width={20} />
+            <div className='user-gem__texts'>
+              <Skeleton height={100} style={{ marginTop: '10px' }} />
+              <div className='user-gem__footer-skeleton-wrapper'>
+                <Skeleton containerClassName='flex-1' />
+                <Skeleton containerClassName='flex-1' />
+                <Skeleton containerClassName='flex-1' />
+                <Skeleton containerClassName='flex-1' />
+                <Skeleton
+                  width={100}
+                  baseColor='transparent'
+                  enableAnimation={false}
+                />
+                <Skeleton
+                  containerClassName='flex-1 last-skeleton'
+                  width={20}
+                />
+              </div>
             </div>
-          </div>
+          </SkeletonTheme>
         </div>
       )}
     </>

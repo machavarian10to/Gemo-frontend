@@ -14,7 +14,7 @@
 .modal-content {
   width: 570px;
   height: 555px;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   border-radius: var(--border-radius-rect);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
   padding: 15px;
@@ -89,5 +89,5 @@
 }
 
 .modal-body .audience-wrapper .audience:hover {
-  background-color: #e4e6eb;
+  background-color: var(--bg-main-color);
 }

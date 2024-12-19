@@ -64,7 +64,7 @@
 
 .poll-results__option.active-option,
 .poll-results__option-wrapper:hover {
-  background-color: var(-bg-main-color);
+  background-color: var(--bg-main-color);
   border-radius: var(--border-radius-rect);
 }
 

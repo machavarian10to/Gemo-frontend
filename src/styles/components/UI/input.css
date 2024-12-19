@@ -71,6 +71,13 @@
   padding: 12px 24px 12px 32px;
 }
 
+.input-component-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .input-component-left-icon {
   position: absolute;
   left: 8px;

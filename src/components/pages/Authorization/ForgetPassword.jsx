@@ -74,6 +74,7 @@ function ForgetPassword({ setCurrentTab }) {
         </h5>
         <div className='user-home__auth-left-body-inputs'>
           <Input
+            label='Email'
             onInput={onEmailInput}
             onBlur={checkEmail}
             value={email}

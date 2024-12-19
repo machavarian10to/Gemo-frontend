@@ -134,6 +134,7 @@ function Login({ setCurrentTab }) {
         <h6>Welcome back! Please enter your details.</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
+            label='Username'
             value={formState.username}
             onInput={(e) => onUsernameInput(e)}
             onBlur={onUsernameBlur}
@@ -150,6 +151,7 @@ function Login({ setCurrentTab }) {
           />
           <div className='user-home__auth-password-input-wrapper'>
             <Input
+              label='Password'
               type={formState.showPassword ? 'text' : 'password'}
               value={formState.password}
               onInput={(e) => onPasswordInput(e)}

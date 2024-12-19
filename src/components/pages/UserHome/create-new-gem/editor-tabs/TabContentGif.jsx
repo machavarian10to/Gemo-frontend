@@ -4,7 +4,7 @@ import Input from '@/components/UI/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function TabContentGif({ gifTabState, setGifTabState }) {
   const [searchValue, setSearchValue] = useState('');
@@ -78,8 +78,10 @@ function TabContentGif({ gifTabState, setGifTabState }) {
             <div className='gifs-wrapper'>
               {loading ? (
                 <>
-                  <Skeleton height={150} width={235} />
-                  <Skeleton height={150} width={235} />
+                  <SkeletonTheme baseColor='var(--bg-main-color)'>
+                    <Skeleton height={150} width={235} />
+                    <Skeleton height={150} width={235} />
+                  </SkeletonTheme>
                 </>
               ) : (
                 gifs.map((gif) => (

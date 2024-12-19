@@ -15,7 +15,7 @@ import CommentHeader from '@/components/pages/UserHome/user-gem/comments/Comment
 import CommentReply from '@/components/pages/UserHome/user-gem/comments/CommentReply';
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   const user = useSelector((state) => state.user);
@@ -338,12 +338,14 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                   </div>
                 ) : (
                   <div className='user-gem__reply-comment-wrapper'>
-                    <Skeleton height={15} width={'40%'} />
-                    <Skeleton height={30} />
-                    <div className='user-gem__reply-comment-skeleton'>
-                      <Skeleton circle width={30} height={30} />
-                      <Skeleton height={70} containerClassName='flex-1' />
-                    </div>
+                    <SkeletonTheme baseColor='var(--bg-main-color)'>
+                      <Skeleton height={15} width={'40%'} />
+                      <Skeleton height={30} />
+                      <div className='user-gem__reply-comment-skeleton'>
+                        <Skeleton circle width={30} height={30} />
+                        <Skeleton height={70} containerClassName='flex-1' />
+                      </div>
+                    </SkeletonTheme>
                   </div>
                 )}
               </>

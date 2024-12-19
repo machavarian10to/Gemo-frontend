@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function UserAvatar({ width = 40, height = 40, src }) {
   const user = useSelector((state) => state.user);
@@ -63,7 +63,9 @@ function UserAvatar({ width = 40, height = 40, src }) {
           className='avatar'
         ></div>
       ) : (
-        <Skeleton circle width={width} height={height} />
+        <SkeletonTheme baseColor='var(--bg-main-color)'>
+          <Skeleton circle width={width} height={height} />
+        </SkeletonTheme>
       )}
     </>
   );

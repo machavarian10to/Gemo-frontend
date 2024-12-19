@@ -5,6 +5,7 @@ import { Zoom } from '@mui/material';
 function Input({
   name,
   value = '',
+  label,
   type = 'text', // text, password, email, number, date
   state = 'active', // danger, inactive
   size = 'medium', // extra-small, small, medium, large
@@ -24,36 +25,47 @@ function Input({
   }, [focused]);
 
   return (
-    <div
-      className={`input-component-wrapper ${
-        state === 'danger' ? 'danger' : ''
-      }`}
-    >
-      {leftIcon && <div className='input-component-left-icon'>{leftIcon}</div>}
-      <input
-        ref={inputRef}
-        name={name}
-        type={type}
-        value={value}
-        onInput={onInput}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        placeholder={placeholder}
-        autoComplete='off'
-        disabled={state === 'inactive'}
-        className={`input-component ${size} ${state} ${
-          leftIcon ? size + '-left-icon' : ''
-        }`}
-      />
-      {helperText && (
-        <Zoom in={true} timeout={400}>
-          <p
-            className={`${state === 'danger' ? 'error-text' : 'support-text'}`}
-          >
-            {helperText}
-          </p>
-        </Zoom>
+    <div className='input-component-container'>
+      {label && (
+        <label className='input-component-label' htmlFor={name}>
+          {label}
+        </label>
       )}
+      <div
+        className={`input-component-wrapper ${
+          state === 'danger' ? 'danger' : ''
+        }`}
+      >
+        {leftIcon && (
+          <div className='input-component-left-icon'>{leftIcon}</div>
+        )}
+        <input
+          ref={inputRef}
+          name={name}
+          type={type}
+          value={value}
+          onInput={onInput}
+          onKeyDown={onKeyDown}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          autoComplete='off'
+          disabled={state === 'inactive'}
+          className={`input-component ${size} ${state} ${
+            leftIcon ? size + '-left-icon' : ''
+          }`}
+        />
+        {helperText && (
+          <Zoom in={true} timeout={400}>
+            <p
+              className={`${
+                state === 'danger' ? 'error-text' : 'support-text'
+              }`}
+            >
+              {helperText}
+            </p>
+          </Zoom>
+        )}
+      </div>
     </div>
   );
 }
@@ -62,6 +74,7 @@ Input.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string,
+  label: PropTypes.string,
   state: PropTypes.string,
   size: PropTypes.string,
   onInput: PropTypes.func,

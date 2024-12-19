@@ -8,7 +8,7 @@
 
 .select-component .select-component-label {
   font-size: 13px;
-  color: rgba(51, 51, 51, 0.6);
+  color: var(--color-grey);
 }
 
 .selected-option-title {
@@ -23,8 +23,8 @@
   padding: 8px;
   border-radius: var(--border-radius-rect) ;
   outline: 1px solid var(--color-grey);
-  outline: 1px solid rgba(51, 51, 51, 0.5);
-  background: #fff;
+  /* outline: 1px solid rgba(51, 51, 51, 0.5); */
+  background: var(--bg-secondary-color);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease-in-out;
 }
@@ -34,14 +34,10 @@
   outline: 2px solid var(--color-main-yellow);
 }
 
-.selected-option span {
-  color: #828282;
-}
-
 .options-container {
   border-radius: var(--border-radius-rect) ;
   border: 1px solid var(--color-grey);
-  background: #fff;
+  background: var(--bg-secondary-color);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
   transition: all 0.7s ease-in-out;
 }
@@ -66,10 +62,11 @@
 }
 
 .options-container ul li:hover {
-  background: #f2f2f2;
+  background: var(--bg-main-color);
+  color: var(--text-main-color);
 }
 
 .options-container ul li.selected {
-  background: #f2f2f2;
+  background: var(--bg-main-color);
   color: var(--text-main-color);
 }

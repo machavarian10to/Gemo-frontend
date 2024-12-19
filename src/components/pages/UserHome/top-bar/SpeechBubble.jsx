@@ -39,7 +39,7 @@ function SpeechBubble() {
         <div className='user-home__speech-bubble-icons-wrapper'>
           <CollectionsIcon onClick={() => iconClickHandler('media')} />
           <PollIcon onClick={() => iconClickHandler('poll')} />
-          <EditCalendarIcon onClick={() => iconClickHandler('event')} />
+          {/* <EditCalendarIcon onClick={() => iconClickHandler('event')} /> */}
           <GifBoxIcon onClick={() => iconClickHandler('gif')} />
         </div>
       </div>

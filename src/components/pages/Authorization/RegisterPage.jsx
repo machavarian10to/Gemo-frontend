@@ -231,6 +231,7 @@ function Register({ setCurrentTab }) {
         <h6>Create an account, Start your culinary journey!</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
+            label='Email'
             onInput={onEmailInput}
             onBlur={checkEmail}
             value={formState.email}
@@ -251,6 +252,7 @@ function Register({ setCurrentTab }) {
             }
           />
           <Input
+            label='Username'
             onInput={onUsernameInput}
             onBlur={onUsernameBlur}
             value={formState.username}
@@ -270,6 +272,7 @@ function Register({ setCurrentTab }) {
             placeholder='Enter username'
           />
           <Input
+            label='Password'
             onInput={onPasswordInput}
             onBlur={onPasswordBlur}
             value={formState.password}
@@ -341,6 +344,7 @@ function Register({ setCurrentTab }) {
             )}
           </div>
           <Input
+            label='Repeat password'
             onInput={onRepeatPasswordInput}
             onBlur={onRepeatPasswordBlur}
             value={formState.repeatPassword}

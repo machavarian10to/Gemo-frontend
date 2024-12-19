@@ -23,12 +23,12 @@
   top: 100%;
   right: -10%;
   padding: 3px;
-  background-color: #fff;
+  background-color: var(--bg-secondary-color);
   z-index: 200;
   font-size: 12px;
   font-weight: 500;
   border-radius: var(--border-radius-rect);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.5);
 }
 
 .user-gem__comment-menu {
@@ -62,16 +62,16 @@
 }
 
 .gem-author {
-  background-color: var(--bg-shade-03);
+  background-color: var(--bg-shade-01);
   color: #010409;
-  border-radius: var(--border-radius-rect);
+  border-radius: 20px;
   padding: 3px 10px 5px 10px;
   display: inline-block !important;
 }
 
 .gem-author::before {
   content: '✍';
-  font-size: 13px;
+  font-size: 11px;
   margin-right: 5px;
 }
 

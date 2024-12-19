@@ -22,6 +22,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import PropTypes from 'prop-types';
 import GifContainer from '@/components/UI/GifContainer';
+import { useSelector } from 'react-redux';
 
 function TabContentPost({ postTabState, setPostTabState }) {
   const initialState = {
@@ -45,6 +46,8 @@ function TabContentPost({ postTabState, setPostTabState }) {
   const editorContentRef = useRef(null);
   const fileInputRef = useRef(null);
   const gifRef = useRef(null);
+
+  const mode = useSelector((state) => state.mode);
 
   useClickOutside(emojiRef, () => {
     setState({ ...state, showEmojiPicker: false });
@@ -402,7 +405,7 @@ function TabContentPost({ postTabState, setPostTabState }) {
                 previewConfig={{ showPreview: false }}
                 autoFocusSearch={false}
                 emojiStyle='native'
-                theme='light'
+                theme={mode}
               />
             </div>
           )}

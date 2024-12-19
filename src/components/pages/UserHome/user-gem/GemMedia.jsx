@@ -1,4 +1,4 @@
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import PropTypes from 'prop-types';
 
 function GemMedia({ gem }) {
@@ -31,7 +31,9 @@ function GemMedia({ gem }) {
       ) : (
         <div className='user-gem__image'>
           <div className='user-gem__image-skeleton'>
-            <Skeleton height={300} />
+            <SkeletonTheme baseColor='var(--bg-main-color)'>
+              <Skeleton height={300} />
+            </SkeletonTheme>
           </div>
         </div>
       )}

@@ -229,6 +229,11 @@ body,
 
 input, textarea, select {
   color: var(--text-main-color);
+  background-color: var(--bg-secondary-color);
+}
+
+input:not(::placeholder-shown) {
+  background-color: red;
 }
 
 .outlet-wrapper {

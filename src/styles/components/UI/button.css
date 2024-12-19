@@ -77,6 +77,6 @@
 .button-inactive {
   pointer-events: none;
   user-select: none;
-  background: #f0f1f3;
+  background: var(--bg-main-color);
   color: #949baa;
 }
