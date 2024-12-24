@@ -2,9 +2,8 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 300px;
-  height: 100px;
-  padding: 8px;
+  height: 80px;
+  padding: 8px 15px;
   z-index: 99999999;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.2);
   background-color: var(--bg-shade-13);
@@ -14,31 +13,35 @@
   gap: 10px;
   cursor: pointer;
   transition: all 0.5s;
-  animation: slideInFromRight 0.5s;
+  animation: slideInFromRight 0.5s, shake 0.5s ease-in-out;
 }
 
 .notification-component.success {
-  border: 2.5px solid var(--color-main-green);
+  background-color: #c3e6cd;
+  color: var(--color-main-green);
 }
 
 .notification-component.error {
-  border: 2.5px solid var(--bg-main-red);
+  background-color: #f8d7da;
+  color: var(--bg-main-red);
 }
 
 .notification-component.info {
-  border: 2.5px solid var(--color-main-blue);
+  background-color: #d1ecf1;
+  color: var(--color-main-blue);
 }
 
 .notification-component.warning {
-  border: 2.5px solid var(--color-main-yellow);
+  background-color: #fff3cd;
+  color: var(--color-main-yellow);
 }
 
 .notification-component_message {
+  max-width: 300px;
   font-size: 1rem;
   line-height: 1.5;
   font-weight: 700;
   word-break: break-all;
-  color: var(--text-main-color);
 }
 
 @keyframes slideInFromRight {
@@ -50,9 +53,19 @@
   }
 }
 
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-5px);
+  }
+  40%, 80% {
+    transform: translateX(5px);
+  }
+}
+
 .meal-prepare-animation-wrapper {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  margin-left: 10px;
+  display: grid;
+  place-items: center;
 }

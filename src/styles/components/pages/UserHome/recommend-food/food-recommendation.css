@@ -1,5 +1,5 @@
 .user-home__food-recommends-wrapper {
-  padding: 30px;
+  padding: 25px;
   border-radius: var(--border-radius-rect) ;
   background-color: var(--bg-main-yellow);
 }
@@ -7,7 +7,8 @@
 .user-home__food-recommends-wrapper__title {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 12px;
 }
 
 .user-home__food-recommends-wrapper__title h4 {
@@ -17,7 +18,7 @@
 }
 
 .user-home__food-recommends-image {
-  margin-top: 30px;
+  margin-top: 20px;
   border-radius: 25px;
   width: 100%;
   height: 200px;
@@ -39,13 +40,13 @@
 }
 
 .user-home__food-recommends-content h6 {
-  color: #c1c1c4;
+  color: var(--color-grey);
   font-size: 12px;
   font-weight: 800;
 }
 
 .user-home__food-recommends-content h4 {
-  color: var(--text-main-color);
+  color: #010409;
   font-size: 24px;
   font-weight: 600;
 }

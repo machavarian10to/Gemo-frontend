@@ -102,7 +102,6 @@ function PollResultsModal({ pollOptions, closeModal }) {
                             className='user-gem__username-link'
                           >
                             {user.username}
-                            {console.log(user)}
                           </a>
                         </div>
                         <div className='user-gem__user-date'>

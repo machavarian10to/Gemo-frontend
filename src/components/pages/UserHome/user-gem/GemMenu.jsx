@@ -99,6 +99,10 @@ function GemMenu({ gem }) {
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
       .then(() => {
+        setAlertBox({
+          type: 'success',
+          message: 'Gem deleted successfully!',
+        });
         dispatch(deleteGem(gem._id));
       })
       .catch((err) => {
@@ -106,9 +110,6 @@ function GemMenu({ gem }) {
           type: 'error',
           message: err.response.data.message || 'Something went wrong!',
         });
-        setTimeout(() => {
-          setAlertBox({ type: '', message: '' });
-        }, 1000);
       });
   }
 

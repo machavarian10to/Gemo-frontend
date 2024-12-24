@@ -12,7 +12,7 @@
   align-items: center;
   margin-top: 15px;
   background-color: var(--bg-secondary-color);
-  transition: all 0.3s;
+  transition: width 0.3s;
 }
 
 .closed-sidebar-wrapper {

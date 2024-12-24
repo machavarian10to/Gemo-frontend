@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import { Slide } from '@mui/material';
 import { useState, useEffect } from 'react';
-import AnimationMealPrepare from '@/components/animations/AnimationMealPrepare';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
 
 function AlertBox({
   type = 'success', // info, success, error, warning
@@ -26,7 +29,16 @@ function AlertBox({
         onClick={() => setShow(false)}
       >
         <div className='meal-prepare-animation-wrapper'>
-          <AnimationMealPrepare />
+          {type === 'success' && (
+            <CheckCircleOutlineOutlinedIcon style={{ fontSize: '22px' }} />
+          )}
+          {type === 'error' && (
+            <ErrorOutlineOutlinedIcon style={{ fontSize: '22px' }} />
+          )}
+          {type === 'warning' && (
+            <WarningAmberOutlinedIcon style={{ fontSize: '22px' }} />
+          )}
+          {type === 'info' && <InfoOutlinedIcon style={{ fontSize: '22px' }} />}
         </div>
         <p className='notification-component_message'>{message}</p>
       </div>
