@@ -23,9 +23,7 @@ function GemHeader({ gem }) {
       const image = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = image;
-      link.download = `Gem-${gem._id}-By-${
-        gem.author.username
-      }-on-${new Date()}.png`;
+      link.download = `gem-${gem._id} ${new Date()}.png`;
       link.click();
     } catch (error) {
       console.error('Error capturing screenshot:', error);

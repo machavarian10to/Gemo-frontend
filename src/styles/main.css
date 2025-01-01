@@ -39,6 +39,7 @@
 @import '@/styles/components/UI/progress-bar.css';
 @import '@/styles/components/UI/select.css';
 @import '@/styles/components/UI/toggle-theme.css';
+@import '@/styles/components/UI/translator.css';
 @import '@/styles/components/animations/loading.css';
 @import '@/styles/components/animations/meal-prepare.css';
 @import '@/styles/pages/authorization.css';

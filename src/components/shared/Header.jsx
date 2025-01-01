@@ -7,6 +7,7 @@ import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStore
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import UserAvatar from '@/components/shared/UserAvatar';
 import ToggleTheme from '@/components/UI/ToggleTheme';
+import Translator from '@/components/UI/Translator';
 import { useDispatch } from 'react-redux';
 import Fade from '@mui/material/Fade';
 import useClickOutside from '@/hook/useClickOutside';
@@ -132,6 +133,8 @@ function Header() {
                       }}
                     />
                   </div>
+
+                  <Translator />
 
                   <div
                     className='header-options-item'

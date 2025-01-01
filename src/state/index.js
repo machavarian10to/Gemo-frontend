@@ -3,6 +3,7 @@ import authService from '@/services/authService';
 
 const initialState = {
   mode: 'dark',
+  language: 'English',
   user: null,
   resetToken: null,
   gems: [],
@@ -14,6 +15,9 @@ export const authSlice = createSlice({
   reducers: {
     setMode: (state) => {
       state.mode = state.mode === 'light' ? 'dark' : 'light';
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload;
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;
@@ -75,6 +79,7 @@ export const authSlice = createSlice({
 
 export const {
   setMode,
+  setLanguage,
   setLogin,
   setLogout,
   setResetToken,

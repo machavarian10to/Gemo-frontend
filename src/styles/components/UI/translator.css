@@ -1,0 +1,31 @@
+.header-options-item.active {
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
+}
+
+.language-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: var(--color-grey);
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 22px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.language-option:hover {
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
+}

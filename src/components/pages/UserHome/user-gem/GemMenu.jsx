@@ -95,15 +95,17 @@ function GemMenu({ gem }) {
   }
 
   function gemDeleteHandler() {
-    setModalStates({ ...modalStates, showGemAuthEdit: false });
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
       .then(() => {
-        setAlertBox({
-          type: 'success',
-          message: 'Gem deleted successfully!',
-        });
         dispatch(deleteGem(gem._id));
+        setTimeout(() => {
+          setAlertBox({
+            type: 'success',
+            message: 'Gem deleted successfully!',
+          });
+        }, 0);
+        setModalStates({ ...modalStates, showGemAuthEdit: false });
       })
       .catch((err) => {
         setAlertBox({

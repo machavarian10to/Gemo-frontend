@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '@/App.jsx';
 import '@/index.css';
+import '/node_modules/flag-icons/css/flag-icons.min.css';
 import UserHome from '@/pages/UserHome';
 import GroupsPage from '@/pages/GroupsPage';
 import EmailVerification from '@/components/pages/Authorization/EmailVerification';
