@@ -1,0 +1,62 @@
+{
+  "user_home": {
+    "speech_bubble": "What should I eat?"
+  },
+  "header": {
+    "profile": "Profile",
+    "achievements": "Achievements",
+    "help": "Help & Support",
+    "logout": "Logout",
+    "search": "Type @ to search users, type > to search groups..."
+  },
+  "sidebar": {
+    "home": "Home",
+    "groups": "Groups",
+    "bites": "Bites",
+    "messages": "Messages",
+    "events": "Events",
+    "activities": "Activities",
+    "settings": "Settings",
+    "favorites": "Favorites"
+  },
+  "gem": {
+    "new_gem": "Create a gem",
+    "post": "Post",
+    "media": "Media",
+    "poll": "Poll",
+    "event": "Event",
+    "gif": "Gif",
+    "title": "Title",
+    "post_btn": "Post",
+    "poll_checkboxes": {
+      "multiple": "Multiple selection",
+      "allow_add": "Allow adding options",
+      "hide_votes": "Hide people votes"
+    },
+    "poll_duration": "Poll duration",
+    "poll_durations": {
+      "one": "1 day",
+      "two": "2 days",
+      "three": "3 days",
+      "week": "1 week",
+      "none": "- None -"
+    },
+    "cant_edit_finished_poll": "You can't edit a finished poll!",
+    "edited_success": "Gem edited successfully!",
+    "created_success": "Gem created successfully!",
+    "deleted_success": "Gem deleted successfully!",
+    "audience": "audience"
+  },
+  "time": {
+    "days": "{{count}} day{{count !== 1 ? 's' : ''}}",
+    "hours": "{{count}} hour{{count !== 1 ? 's' : ''}}",
+    "minutes": "{{count}} minute{{count !== 1 ? 's' : ''}}",
+    "now": "now"
+  },
+  "option": "Option",
+  "add_option": "Add option",
+  "fill_fields": "Please fill all the fields!",
+  "drag_drop": "Drag & Drop media or click in this zone to upload",
+  "search_gif": "Search most delicious gifs...",
+  "edited": "Edited"
+}

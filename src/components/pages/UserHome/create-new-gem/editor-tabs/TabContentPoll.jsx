@@ -8,10 +8,13 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Checkbox from '@/components/UI/Checkbox';
 import PropTypes from 'prop-types';
 import generateId from '@/helpers/generateId';
+import { useTranslation } from 'react-i18next';
 
 function TabContentPoll({ pollTabState, setPollTabState }) {
   const draggedOption = useRef(null);
   const draggedOverOption = useRef(null);
+
+  const { t } = useTranslation();
 
   function onMultipleOptionCheck(e) {
     setPollTabState((prev) => ({
@@ -54,7 +57,7 @@ function TabContentPoll({ pollTabState, setPollTabState }) {
     const newOption = {
       id: generateId(),
       value: '',
-      placeholder: `Option ${pollTabState.pollOptions.length + 1}`,
+      placeholder: `${t('option')} ${pollTabState.pollOptions.length + 1}`,
       deleteIcon: true,
     };
     setPollTabState((prev) => ({
@@ -82,7 +85,7 @@ function TabContentPoll({ pollTabState, setPollTabState }) {
       } else {
         option.deleteIcon = false;
       }
-      option.placeholder = `Option ${index + 1}`;
+      option.placeholder = `${t('option')} ${index + 1}`;
     });
     return clonedOptions;
   }
@@ -186,29 +189,33 @@ function TabContentPoll({ pollTabState, setPollTabState }) {
           </div>
           <div className='poll-footer'>
             <div className='button-component-wrapper'>
-              <Button clickHandler={addOption} type='base' label='Add Option' />
+              <Button
+                clickHandler={addOption}
+                type='base'
+                label={t('add_option')}
+              />
             </div>
             <div className='select-component-wrapper'>
               <div className='poll-tab-content-multi-select'>
                 <Checkbox
                   checked={pollTabState.multipleSelection}
-                  label='Multiple selection'
+                  label={t('gem.poll_checkboxes.multiple')}
                   onChange={onMultipleOptionCheck}
                 />
                 <Checkbox
                   checked={pollTabState.usersCanAddOptions}
-                  label='Add options by users'
+                  label={t('gem.poll_checkboxes.allow_add')}
                   onChange={onUsersCanAddOptions}
                 />
                 <Checkbox
                   checked={pollTabState.hidePeoplesVotes}
-                  label='Hide people votes'
+                  label={t('gem.poll_checkboxes.hide_votes')}
                   onChange={onHidePeopleVotes}
                 />
               </div>
 
               <Select
-                label='Poll duration'
+                label={t('gem.poll_duration')}
                 selectedOption={pollTabState.pollDurations.selectedDuration}
                 options={pollTabState.pollDurations.options}
                 showOptions={pollTabState.pollDurations.showDurations}

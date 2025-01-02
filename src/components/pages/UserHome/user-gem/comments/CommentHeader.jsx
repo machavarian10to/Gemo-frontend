@@ -16,6 +16,7 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
+import { useTranslation } from 'react-i18next';
 
 function CommentHeader({
   authorId,
@@ -32,6 +33,8 @@ function CommentHeader({
   const [showAuthEditComment, setShowAuthEditComment] = useState(false);
 
   const editCommentRef = useRef(null);
+
+  const { t } = useTranslation();
 
   useClickOutside(editCommentRef, () => {
     setShowEditComment(false);
@@ -144,7 +147,7 @@ function CommentHeader({
       <div className='user-gem__comment-menu-wrapper'>
         <div className='user-gem__user-date'>
           <span>&#8226;</span>
-          <span>{getTimeDifference(new Date(comment.createdAt))}</span>
+          <span>{getTimeDifference(new Date(comment.createdAt), t)}</span>
         </div>
 
         {comment.updated && (
@@ -155,7 +158,7 @@ function CommentHeader({
             <CreateOutlinedIcon
               style={{ fontSize: '15px', color: 'var(--color-grey)' }}
             />
-            <span>Edited</span>
+            <span>{t('edited')}</span>
           </div>
         )}
 

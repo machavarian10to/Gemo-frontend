@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '@/App.jsx';
+import './i18n';
 import '@/index.css';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import UserHome from '@/pages/UserHome';

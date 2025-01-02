@@ -7,7 +7,9 @@ import GemMenu from '@/components/pages/UserHome/user-gem/GemMenu';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 import html2canvas from 'html2canvas';
+import { useTranslation } from 'react-i18next';
 function GemHeader({ gem }) {
+  const { t } = useTranslation();
   const captureScreenshot = async () => {
     const gemElement = document.getElementById(`gem-${gem._id}`);
     if (!gemElement) return;
@@ -60,7 +62,7 @@ function GemHeader({ gem }) {
           <div className='user-gem__user-date'>
             <span>&#8226;</span>
             <span data-title={new Date(gem.createdAt)}>
-              {getTimeDifference(new Date(gem.createdAt))}
+              {getTimeDifference(new Date(gem.createdAt), t)}
             </span>
           </div>
         </div>

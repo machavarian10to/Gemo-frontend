@@ -11,6 +11,7 @@ import getTimeDifference from '@/helpers/getTimeDifference';
 import axiosInstance from '@/services/axios';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import getUserLevel from '@/helpers/getUserLevel';
+import { useTranslation } from 'react-i18next';
 
 function ViewReactsModal({ gemId, commentId, closeModal }) {
   const modalContentRef = useRef();
@@ -20,6 +21,8 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
   const [searchValue, setSearchValue] = useState('');
   const [reacts, setReacts] = useState([]);
   const [filteredReacts, setFilteredReacts] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (commentId) {
@@ -169,7 +172,10 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                               <div className='user-view-reacts-timestamp'>
                                 <span>&#8226;</span>
                                 <span>
-                                  {getTimeDifference(new Date(user.timestamp))}
+                                  {getTimeDifference(
+                                    new Date(user.timestamp),
+                                    t,
+                                  )}
                                 </span>
                               </div>
                             </div>
@@ -226,7 +232,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                             <div className='user-view-reacts-timestamp'>
                               <span>&#8226;</span>
                               <span>
-                                {getTimeDifference(new Date(user.timestamp))}
+                                {getTimeDifference(new Date(user.timestamp), t)}
                               </span>
                             </div>
                           </div>

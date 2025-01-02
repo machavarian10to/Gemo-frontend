@@ -5,10 +5,13 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import GifBoxIcon from '@mui/icons-material/GifBox';
+import { useTranslation } from 'react-i18next';
 
 function SpeechBubble() {
   const [showModal, setShowModal] = useState(false);
   const [activeTab, setActiveTab] = useState('post');
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (showModal) {
@@ -34,7 +37,7 @@ function SpeechBubble() {
           <UserAvatar width={30} height={30} />
         </div>
         <div onClick={() => iconClickHandler('post')} className='speech-bubble'>
-          What should I eat?
+          {t('user_home.speech_bubble')}
         </div>
         <div className='user-home__speech-bubble-icons-wrapper'>
           <CollectionsIcon onClick={() => iconClickHandler('media')} />
@@ -45,7 +48,7 @@ function SpeechBubble() {
       </div>
       {showModal && (
         <NewGemModal
-          title='Create a gem'
+          title={t('gem.new_gem')}
           closeModal={() => setShowModal(false)}
           activeTab={activeTab}
           handleActiveTab={handleActiveTab}

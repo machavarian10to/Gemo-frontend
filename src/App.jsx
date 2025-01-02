@@ -3,13 +3,21 @@ import Sidebar from '@/components/shared/Sidebar/Main.jsx';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import i18n from 'i18next';
 
 function App() {
-  const mode = useSelector((state) => state.mode);
+  const currentMode = useSelector((state) => state.mode);
+  const currentLanguage = useSelector((state) => state.language);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', mode);
-  }, [mode]);
+    document.documentElement.setAttribute('data-theme', currentMode);
+  }, [currentMode]);
+
+  useEffect(() => {
+    if (currentLanguage) {
+      i18n.changeLanguage(currentLanguage);
+    }
+  }, [currentLanguage]);
 
   return (
     <div className='app'>

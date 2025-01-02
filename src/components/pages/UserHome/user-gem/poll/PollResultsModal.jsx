@@ -8,11 +8,14 @@ import UserAvatar from '@/components/shared/UserAvatar';
 import axiosInstance from '@/services/axios';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
+import { useTranslation } from 'react-i18next';
 
 function PollResultsModal({ pollOptions, closeModal }) {
   const modalContentRef = useRef();
   const [activeOption, setActiveOption] = useState(pollOptions[0].id);
   const [usersDetails, setUsersDetails] = useState([]);
+
+  const { t } = useTranslation();
 
   useClickOutside(modalContentRef, () => closeModal());
 
@@ -122,6 +125,7 @@ function PollResultsModal({ pollOptions, closeModal }) {
                               .find((option) => option.id === activeOption)
                               .users.find((u) => u.id === user._id)?.timestamp,
                           ),
+                          t,
                         )}
                       </div>
                     </div>

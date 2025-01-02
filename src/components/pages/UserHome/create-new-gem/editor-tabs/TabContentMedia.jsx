@@ -3,9 +3,11 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function TabContentMedia({ mediaTabState, setMediaTabState }) {
   const [isDragOver, setDragOver] = useState(false);
+  const { t } = useTranslation();
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -116,7 +118,7 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
                   style={{ color: 'var(--color-light-grey)', fontSize: '80px' }}
                 />
               </div>
-              <p>Drag & Drop media or click in this zone to upload</p>
+              <p>{t('drag_drop')}</p>
             </div>
           </label>
         </Fade>

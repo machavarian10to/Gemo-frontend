@@ -7,10 +7,12 @@ import useClickOutside from '@/hook/useClickOutside';
 import UserAvatar from '@/components/shared/UserAvatar';
 import { Fade } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function NewGemModal({ title, closeModal, activeTab, handleActiveTab, gem }) {
   const modalContentRef = useRef();
   const user = useSelector((state) => state.user);
+  const { t } = useTranslation();
 
   useClickOutside(modalContentRef, () => closeModal());
 
@@ -31,7 +33,7 @@ function NewGemModal({ title, closeModal, activeTab, handleActiveTab, gem }) {
             <div className='modal-body__gem-details'>
               <h5>@{user.username}</h5>
               <div className='audience-wrapper'>
-                <span>audience:</span>
+                <span>{t('gem.audience')}:</span>
                 <div className='audience'>
                   <PublicIcon style={{ fontSize: '13px' }} />
                 </div>

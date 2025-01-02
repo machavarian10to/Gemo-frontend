@@ -20,6 +20,7 @@ import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import { setLogout } from '@/state/index';
 import { useSelector } from 'react-redux';
 import { setMode } from '@/state/index';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
   const [searchValue, setSearchValue] = useState('');
@@ -35,6 +36,8 @@ function Header() {
   const navigate = useNavigate();
 
   const mode = useSelector((state) => state.mode);
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -55,7 +58,7 @@ function Header() {
             name='search'
             value={searchValue}
             type='text'
-            placeholder='Type @ to search users, type > to search groups...'
+            placeholder={t('header.search')}
             onInput={(e) => setSearchValue(e.target.value)}
           />
         </div>
@@ -84,7 +87,7 @@ function Header() {
                         color: 'var(--color-main-yellow)',
                       }}
                     />
-                    <span>Profile</span>
+                    <span>{t('header.profile')}</span>
                   </div>
 
                   <div className='header-options-item'>
@@ -94,7 +97,7 @@ function Header() {
                         color: 'var(--color-main-yellow)',
                       }}
                     />
-                    <span>Achievements</span>
+                    <span>{t('header.achievements')}</span>
                   </div>
 
                   <div className='header-options-item'>
@@ -104,7 +107,7 @@ function Header() {
                         color: 'var(--color-main-yellow)',
                       }}
                     />
-                    <span>Help & support</span>
+                    <span>{t('header.help')}</span>
                   </div>
 
                   <div
@@ -146,7 +149,7 @@ function Header() {
                         color: 'var(--color-main-yellow)',
                       }}
                     />
-                    <span>Logout</span>
+                    <span>{t('header.logout')}</span>
                   </div>
                 </div>
               </Fade>

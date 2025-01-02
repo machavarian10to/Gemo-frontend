@@ -3,7 +3,7 @@ import authService from '@/services/authService';
 
 const initialState = {
   mode: 'dark',
-  language: 'English',
+  language: 'en',
   user: null,
   resetToken: null,
   gems: [],

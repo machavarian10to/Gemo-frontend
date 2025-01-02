@@ -17,10 +17,13 @@ import AlertBox from '@/components/UI/AlertBox';
 import { useSelector, useDispatch } from 'react-redux';
 import axiosInstance from '@/services/axios';
 import { deleteGem } from '@/state/index';
+import { useTranslation } from 'react-i18next';
 
 function GemMenu({ gem }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+
+  const { t } = useTranslation();
 
   const [activeTab, setActiveTab] = useState(gem.type);
   const postEditRef = useRef(null);
@@ -67,7 +70,8 @@ function GemMenu({ gem }) {
   }
 
   function isPollEnded() {
-    if (gem.content.pollDuration === '- None -') return false;
+    if (gem.content.pollDuration === `${t('gem.poll_durations.none')}`)
+      return false;
     const gemCreatedAt = new Date(gem.createdAt);
     const pollDurationInDays = gem.content.pollDuration[0];
     const pollEndTime = new Date(
@@ -80,7 +84,7 @@ function GemMenu({ gem }) {
     if (gem.type === 'poll' && isPollEnded()) {
       setAlertBox({
         type: 'error',
-        message: 'You cannot edit a poll which is ended',
+        message: `${t('gem.cant_edit_finished_poll')}`,
       });
       setTimeout(() => {
         setAlertBox({ type: '', message: '' });
@@ -102,7 +106,7 @@ function GemMenu({ gem }) {
         setTimeout(() => {
           setAlertBox({
             type: 'success',
-            message: 'Gem deleted successfully!',
+            message: `${t('gem_deleted')}`,
           });
         }, 0);
         setModalStates({ ...modalStates, showGemAuthEdit: false });

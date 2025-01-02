@@ -16,6 +16,7 @@ import AlertBox from '@/components/UI/AlertBox';
 import { setGem, updateGem } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import generateId from '@/helpers/generateId';
+import { useTranslation } from 'react-i18next';
 
 export default function NewGemContainer({
   gem,
@@ -23,26 +24,28 @@ export default function NewGemContainer({
   activeTab,
   handleActiveTab,
 }) {
+  const { t } = useTranslation();
+
   const pollDurationOptions = [
     {
       id: generateId(),
-      name: '1 Day',
+      name: `${t('gem.poll_durations.one')}`,
     },
     {
       id: generateId(),
-      name: '2 Days',
+      name: `${t('gem.poll_durations.two')}`,
     },
     {
       id: generateId(),
-      name: '3 Days',
+      name: `${t('gem.poll_durations.three')}`,
     },
     {
       id: generateId(),
-      name: '7 Days',
+      name: `${t('gem.poll_durations.week')}`,
     },
     {
       id: generateId(),
-      name: '- None -',
+      name: `${t('gem.poll_durations.none')}`,
       selected: true,
     },
   ];
@@ -108,13 +111,13 @@ export default function NewGemContainer({
             {
               id: generateId(),
               value: '',
-              placeholder: 'Option 1',
+              placeholder: `${t('option')} 1`,
               deleteIcon: false,
             },
           ],
           pollDurations: {
             showDurations: false,
-            selectedDuration: '- None -',
+            selectedDuration: `${t('gem.poll_durations.none')}`,
             options: pollDurationOptions,
           },
         },
@@ -187,7 +190,7 @@ export default function NewGemContainer({
       });
       if (options.length === 0) {
         setAlertBox({
-          message: 'Please fill all the fields!',
+          message: `${t('fill_fields')}`,
           type: 'error',
         });
         return;
@@ -209,7 +212,7 @@ export default function NewGemContainer({
         !eventTabState.description
       ) {
         setAlertBox({
-          message: 'Please fill all the fields!',
+          message: `${t('fill_fields')}`,
           type: 'error',
         });
         return;
@@ -247,7 +250,9 @@ export default function NewGemContainer({
       }
       setIsButtonDisabled(true);
       setAlertBox({
-        message: gem ? 'Gem edited successfully' : 'Gem created successfully!',
+        message: gem
+          ? `${t('gem.edited_success')}`
+          : `${t('gem.created_success')}`,
         type: 'success',
       });
       setTimeout(() => {
@@ -282,7 +287,7 @@ export default function NewGemContainer({
           onClick={() => handleActiveTab('post')}
         >
           <PostAddIcon style={{ fontSize: '17px' }} />
-          <div>Post</div>
+          <div>{t('gem.post')}</div>
         </div>
 
         <div
@@ -290,7 +295,7 @@ export default function NewGemContainer({
           onClick={() => handleActiveTab('media')}
         >
           <CollectionsIcon style={{ fontSize: '17px' }} />
-          <div>Media</div>
+          <div>{t('gem.media')}</div>
         </div>
 
         <div
@@ -298,7 +303,7 @@ export default function NewGemContainer({
           onClick={() => handleActiveTab('poll')}
         >
           <PollIcon style={{ fontSize: '17px' }} />
-          <div>Poll</div>
+          <div>{t('gem.poll')}</div>
         </div>
 
         {/* <div
@@ -306,7 +311,7 @@ export default function NewGemContainer({
           onClick={() => handleActiveTab('event')}
         >
           <EditCalendarIcon style={{ fontSize: '17px' }} />
-          <div>Event</div>
+          <div>{t('gem.event')}</div>
         </div> */}
 
         <div
@@ -314,7 +319,7 @@ export default function NewGemContainer({
           onClick={() => handleActiveTab('gif')}
         >
           <GifBoxIcon style={{ fontSize: '17px' }} />
-          <div>Gifs</div>
+          <div>{t('gem.gif')}</div>
         </div>
       </div>
 
@@ -323,7 +328,7 @@ export default function NewGemContainer({
           <textarea
             name='post-title'
             className='title'
-            placeholder='Title'
+            placeholder={t('gem.title')}
             maxLength={200}
             onChange={(e) => setTitle(e)}
             value={titleState.gemTitle}
@@ -360,7 +365,7 @@ export default function NewGemContainer({
 
         <Button
           fillContainer
-          label='Post'
+          label={t('gem.post_btn')}
           state={
             titleState.charCount === 0 ||
             titleState.gemTitle.trim() === '' ||

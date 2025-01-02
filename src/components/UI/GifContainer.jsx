@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import Input from './Input';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function GifContainer({ setGif, showGifs }) {
   useEffect(() => {
@@ -10,6 +11,8 @@ function GifContainer({ setGif, showGifs }) {
 
   const [gifs, setGifs] = useState([]);
   const [searchGifValue, setSearchGifValue] = useState('');
+
+  const { t } = useTranslation();
 
   function fetchGifs(searchValue) {
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${
@@ -59,7 +62,7 @@ function GifContainer({ setGif, showGifs }) {
               />
             }
             size='extra-small'
-            placeholder='Search most delicious gifs...'
+            placeholder={t('search_gif')}
             onInput={(e) => setSearchGifValue(e.target.value)}
           />
         </div>

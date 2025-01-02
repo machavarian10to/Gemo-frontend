@@ -10,8 +10,11 @@ import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 import { Fade } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function OpenedSidebar() {
+  const { t } = useTranslation();
+
   return (
     <Fade in={true} timeout={1000}>
       <div className='opened-sidebar'>
@@ -20,41 +23,41 @@ function OpenedSidebar() {
           <div className='navigation-container'>
             <NavLink to='/'>
               <LocalDiningOutlinedIcon />
-              <span>Home</span>
+              <span>{t('sidebar.home')}</span>
             </NavLink>
             <NavLink to='/groups'>
               <PeopleAltOutlinedIcon />
-              <span>Groups</span>
+              <span>{t('sidebar.groups')}</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
             <NavLink to='/bites'>
               <PlayCircleOutlinedIcon />
-              <span>Bites</span>
+              <span>{t('sidebar.bites')}</span>
             </NavLink>
             <NavLink to='/messages'>
               <EmailOutlinedIcon />
-              <span>Messages</span>
+              <span>{t('sidebar.messages')}</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
             <NavLink to='/events'>
               <EventIcon />
-              <span>Events</span>
+              <span>{t('sidebar.events')}</span>
             </NavLink>
             <NavLink to='/notifications'>
               <NotificationsOutlinedIcon />
-              <span>Activities</span>
+              <span>{t('sidebar.activities')}</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
             <NavLink to='/settings'>
               <SettingsOutlinedIcon />
-              <span>Settings</span>
+              <span>{t('sidebar.settings')}</span>
             </NavLink>
             <NavLink to='/favorites'>
               <GradeOutlinedIcon />
-              <span>Favorites</span>
+              <span>{t('sidebar.favorites')}</span>
             </NavLink>
           </div>
         </div>

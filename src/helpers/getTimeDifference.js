@@ -1,4 +1,4 @@
-export default function getTimeDifference(createdAt) {
+export default function getTimeDifference(createdAt, t) {
   const currentTime = new Date();
   const timeDifference = Math.abs(currentTime - createdAt);
   const secondsDifference = Math.round(timeDifference / 1000);
@@ -7,14 +7,16 @@ export default function getTimeDifference(createdAt) {
   const daysDifference = Math.round(hoursDifference / 24);
 
   if (daysDifference > 0) {
-    return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`;
+    return `${t('time.days', { count: daysDifference })} ago`;
   } else if (hoursDifference > 0) {
-    return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
+    return `${hoursDifference} ${t('time.hours', {
+      count: hoursDifference,
+    })} ago`;
   } else if (minutesDifference > 0) {
-    return `${minutesDifference} minute${
-      minutesDifference !== 1 ? 's' : ''
-    } ago`;
+    return `${minutesDifference} ${t('time.minutes', {
+      count: minutesDifference,
+    })} ago`;
   } else {
-    return `now`;
+    return t('time.now');
   }
 }
