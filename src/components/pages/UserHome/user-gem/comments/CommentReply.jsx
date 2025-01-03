@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import Comment from '@/components/pages/UserHome/user-gem/comments/Comment';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
+import { useTranslation } from 'react-i18next';
 
 function CommentReply({
   authorId,
@@ -9,13 +10,15 @@ function CommentReply({
   setCommentState,
   setGem,
 }) {
+  const { t } = useTranslation();
   return (
     <>
       <div className='user-gem__comment-reply-container'>
         <div className='user-gem_comment-reply-wrapper'>
           <div className='user-gem__comment-replying-to'>
             <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
-            reply to <span>@{parentComment.author.username}</span>
+            {t('comments.reply_to')}{' '}
+            <span>@{parentComment.author.username}</span>
           </div>
           <div className='user-gem__comment-reply-highlight'>
             <div

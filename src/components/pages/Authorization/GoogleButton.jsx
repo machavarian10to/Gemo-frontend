@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function GoogleButton({ onClick }) {
+  const { t } = useTranslation();
   return (
     <button className='gsi-material-button' type='button' onClick={onClick}>
       <div className='gsi-material-button-state'></div>
@@ -32,7 +34,7 @@ function GoogleButton({ onClick }) {
           </svg>
         </div>
         <span className='gsi-material-button-contents'>
-          Continue with Google
+          {t('authorization.continue_with_google')}
         </span>
         <span style={{ display: 'none' }}>Continue with Google</span>
       </div>

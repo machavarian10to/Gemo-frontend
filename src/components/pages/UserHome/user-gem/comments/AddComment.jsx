@@ -12,6 +12,7 @@ import GifContainer from '@/components/UI/GifContainer';
 import { useSelector } from 'react-redux';
 import axiosInstance from '@/services/axios';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
+import { useTranslation } from 'react-i18next';
 
 const AddComment = ({
   placeholder,
@@ -26,6 +27,8 @@ const AddComment = ({
 }) => {
   const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
+
+  const { t } = useTranslation();
 
   const [state, setState] = useState({
     userComment: !isReply && comment?.content ? comment.content : '',
@@ -223,7 +226,7 @@ const AddComment = ({
         <div className='user-gem_comment-reply-wrapper'>
           <div className='user-gem__comment-replying-to'>
             <ReplyOutlinedIcon style={{ fontSize: '18px' }} />
-            reply to <span>@{comment.author.username}</span>
+            {t('comments.reply_to')} <span>@{comment.author.username}</span>
           </div>
           <div className='user-gem__comment-reply-highlight'>
             <div

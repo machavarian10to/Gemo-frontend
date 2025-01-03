@@ -13,10 +13,13 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogin } from '@/state/index';
 import authService from '@/services/authService';
+import { useTranslation } from 'react-i18next';
 
 function Login({ setCurrentTab }) {
   const dispatch = useDispatch();
   const resetPasswordToken = useSelector((state) => state.resetToken);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (resetPasswordToken) {
@@ -54,7 +57,7 @@ function Login({ setCurrentTab }) {
     if (!formState.username.trim()) {
       setFormState((prev) => ({
         ...prev,
-        usernameError: 'Username should not be empty!',
+        usernameError: t('authorization.empty_username'),
       }));
     }
   }
@@ -63,7 +66,7 @@ function Login({ setCurrentTab }) {
     if (!formState.password.trim()) {
       setFormState((prev) => ({
         ...prev,
-        passwordError: 'Password should not be empty!',
+        passwordError: t('authorization.empty_password'),
       }));
     }
   }
@@ -131,10 +134,10 @@ function Login({ setCurrentTab }) {
   return (
     <Fade in={true} timeout={1000}>
       <form onSubmit={onLogin}>
-        <h6>Welcome back! Please enter your details.</h6>
+        <h6>{t('authorization.welcome')}</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
-            label='Username'
+            label={t('authorization.username')}
             value={formState.username}
             onInput={(e) => onUsernameInput(e)}
             onBlur={onUsernameBlur}
@@ -143,7 +146,7 @@ function Login({ setCurrentTab }) {
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
-            placeholder='Enter username'
+            placeholder={t('authorization.username_placeholder')}
             state={formState.usernameError ? 'danger' : 'active'}
             helperText={
               formState.usernameError ? formState.usernameError : null
@@ -151,7 +154,7 @@ function Login({ setCurrentTab }) {
           />
           <div className='user-home__auth-password-input-wrapper'>
             <Input
-              label='Password'
+              label={t('authorization.password')}
               type={formState.showPassword ? 'text' : 'password'}
               value={formState.password}
               onInput={(e) => onPasswordInput(e)}
@@ -164,7 +167,7 @@ function Login({ setCurrentTab }) {
                   }}
                 />
               }
-              placeholder='Enter password'
+              placeholder={t('authorization.password_placeholder')}
               state={formState.passwordError ? 'danger' : 'active'}
               helperText={
                 formState.passwordError ? formState.passwordError : null
@@ -199,7 +202,7 @@ function Login({ setCurrentTab }) {
           <div className='user-home__auth-body-inputs-footer'>
             <div className='user-home__auth-remember-wrapper'>
               <Checkbox
-                label='Remember me'
+                label={t('authorization.remember_me')}
                 checked={formState.remember}
                 onChange={() =>
                   setFormState((prev) => ({
@@ -215,18 +218,18 @@ function Login({ setCurrentTab }) {
                 className='link'
                 onClick={() => setCurrentTab('forget-password')}
               >
-                Forgot password?
+                {t('authorization.forgot_password')}
               </span>
             </div>
           </div>
           <Button
             submit
-            label='Log in'
+            label={t('authorization.login')}
             clickHandler={onLogin}
             state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />
           <p className='user-home__auth-divider'>
-            <span>or</span>
+            <span>{t('or')}</span>
           </p>
           <GoogleButton
             onClick={() =>
@@ -236,9 +239,9 @@ function Login({ setCurrentTab }) {
             }
           />
           <div className='user-home__auth-footer'>
-            <span>Don&apos;t have an account?</span>
+            <span>{t('authorization.dont_have_account')}</span>
             <span className='link' onClick={() => setCurrentTab('register')}>
-              Sign up
+              {t('authorization.sign_up')}
             </span>
           </div>
         </div>

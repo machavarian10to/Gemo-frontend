@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AnimationVerificationDone from '@/components/animations/AnimationVerificationDone';
 import Button from '@/components/UI/Button';
+import { useTranslation } from 'react-i18next';
 
 function EmailVerification() {
   const navigate = useNavigate();
   const [verified, setVerified] = useState('');
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function verifyEmail() {
@@ -39,7 +42,7 @@ function EmailVerification() {
             {verified === 'Email Verified!' ? (
               <>
                 <h4>{verified}</h4>
-                <p>Your email address was successfully verified!</p>
+                <p>{t('authorization.successful_verification')}</p>
                 <div className='verification-dene-animation-container-wrapper'>
                   <AnimationVerificationDone />
                 </div>

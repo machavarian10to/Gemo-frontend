@@ -16,12 +16,15 @@ import CommentReply from '@/components/pages/UserHome/user-gem/comments/CommentR
 import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useTranslation } from 'react-i18next';
 
 function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
 
   const emojiPickerRef = useRef(null);
+
+  const { t } = useTranslation();
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
@@ -104,7 +107,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
       {showEditComment ? (
         <div className='user-gem__comment-edit'>
           <AddComment
-            placeholder='Edit comment...'
+            placeholder={t('comments.edit_comment')}
             gemId={comment.gemId}
             comment={comment}
             setCommentState={setCommentState}
@@ -118,7 +121,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
             onClick={() => setShowEditComment(false)}
           >
             <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
-            <span>Cancel</span>
+            <span>{t('cancel')}</span>
           </div>
         </div>
       ) : (
@@ -208,7 +211,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                         marginTop: '2px',
                       }}
                     />
-                    <div>view all</div>
+                    <div>{t('view_all')}</div>
                   </div>
                 </div>
               </>
@@ -235,7 +238,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                     fontSize: '15px',
                   }}
                 />
-                <div>React</div>
+                <div>{t('react')}</div>
                 <span>
                   {comment.reacts
                     .map((react) => react.users.length)
@@ -252,7 +255,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                     fontSize: '15px',
                   }}
                 />
-                <div>Reply</div>
+                <div>{t('reply')}</div>
                 <span>{comment.replies.length}</span>
               </div>
             </div>
@@ -281,7 +284,9 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                     transform: 'rotate(180deg)',
                   }}
                 />
-                <span onClick={onShowReplies}>Show replies</span>
+                <span onClick={onShowReplies}>
+                  {t('comments.show_replies')}
+                </span>
               </div>
             )}
 
@@ -295,7 +300,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                     }}
                   />
                   <span onClick={() => setShowReplies(false)}>
-                    Hide replies
+                    {t('comments.hide_replies')}
                   </span>
                 </div>
 
@@ -331,7 +336,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                               }));
                             }}
                           >
-                            Show more replies
+                            {t('comments.show_more_replies')}
                           </span>
                         </div>
                       )}
@@ -356,7 +361,9 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                 <div className='user-gem__comment-reply-wrapper'>
                   <div className='user-gem__comment-reply'>
                     <AddComment
-                      placeholder={`Write a reply for @${comment.author.username}`}
+                      placeholder={`${t('comments.write_reply')} @${
+                        comment.author.username
+                      }`}
                       gemId={comment.gemId}
                       comment={comment}
                       setCommentState={setCommentState}
@@ -376,7 +383,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
                       }}
                     >
                       <DoDisturbOnOutlinedIcon style={{ fontSize: '15px' }} />
-                      <span>Cancel</span>
+                      <span>{t('cancel')}</span>
                     </div>
                   </div>
                 </div>

@@ -114,7 +114,7 @@ function GemMenu({ gem }) {
       .catch((err) => {
         setAlertBox({
           type: 'error',
-          message: err.response.data.message || 'Something went wrong!',
+          message: err.response.data.message || `${t('something_wrong')}`,
         });
       });
   }
@@ -159,7 +159,7 @@ function GemMenu({ gem }) {
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Edit gem</span>
+                <span>{t('gem.edit_gem')}</span>
               </div>
               <div className='user-gem__edit-item' onClick={gemDeleteHandler}>
                 <DeleteOutlineOutlinedIcon
@@ -168,7 +168,7 @@ function GemMenu({ gem }) {
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Delete gem</span>
+                <span>{t('gem.delete_gem')}</span>
               </div>
               <div className='user-gem__edit-item'>
                 <NotificationsOffOutlinedIcon
@@ -177,7 +177,7 @@ function GemMenu({ gem }) {
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Turn off notifications</span>
+                <span>{t('gem.turn_off_notifications')}</span>
               </div>
               <div className='user-gem__edit-item'>
                 <IntegrationInstructionsOutlinedIcon
@@ -186,7 +186,7 @@ function GemMenu({ gem }) {
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>Embed gem</span>
+                <span>{t('gem.embed_gem')}</span>
               </div>
             </div>
           </Fade>
@@ -201,7 +201,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Not food related</span>
+              <span>{t('gem.not_food_related')}</span>
             </div>
 
             <div className='user-gem__edit-item'>
@@ -211,7 +211,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Not interesting for me</span>
+              <span>{t('gem.not_interesting')}</span>
             </div>
 
             <div className='user-gem__edit-item'>
@@ -221,7 +221,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Hide gem</span>
+              <span>{t('gem.hide_gem')}</span>
             </div>
 
             <div className='user-gem__edit-item'>
@@ -231,7 +231,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{gem.author.username}</span>
+              <span>{`${t('gem.block')} @${gem.author.username}`}</span>
             </div>
 
             <div className='user-gem__edit-item'>
@@ -241,7 +241,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Report gem</span>
+              <span>{t('gem.report_gem')}</span>
             </div>
           </div>
         )}

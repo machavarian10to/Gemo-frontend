@@ -3,6 +3,7 @@ import Comment from '@/components/pages/UserHome/user-gem/comments/Comment';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
+import { useTranslation } from 'react-i18next';
 
 function CommentSection({
   gemId,
@@ -12,6 +13,7 @@ function CommentSection({
   setCommentState,
   setGem,
 }) {
+  const { t } = useTranslation();
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -19,7 +21,7 @@ function CommentSection({
           <AddComment
             gemId={gemId}
             setCommentState={setCommentState}
-            placeholder='Write a comment...'
+            placeholder={`${t('comments.write_comment')}`}
           />
 
           {comments.length > 0 ? (
@@ -57,7 +59,7 @@ function CommentSection({
                   <AnimationStandingChef />
                 </div>
                 <p id='user-gem__no-comments-text'>
-                  No comments yet, be the first to leave a tasty one!
+                  {t('comments.no_comments')}
                 </p>
               </div>
             </div>

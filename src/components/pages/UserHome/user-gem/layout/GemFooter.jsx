@@ -14,12 +14,15 @@ import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
+import { useTranslation } from 'react-i18next';
 
 function GemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
 
   const emojiPickerRef = useRef(null);
+
+  const { t } = useTranslation();
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
@@ -133,7 +136,7 @@ function GemFooter({ gemInfo }) {
                   marginTop: '2px',
                 }}
               />
-              <div>view all</div>
+              <div>{t('view_all')}</div>
             </div>
           </div>
         </>
@@ -154,7 +157,7 @@ function GemFooter({ gemInfo }) {
           onClick={() => setShowEmojis((prev) => !prev)}
         >
           <AddReactionOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>React</span>
+          <span>{t('react')}</span>
           <span>
             {gem.reacts
               .map((react) => react.users.length)
@@ -168,17 +171,17 @@ function GemFooter({ gemInfo }) {
           onClick={() => setShowCommentSection((prev) => !prev)}
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Comment</span>
+          <span>{t('comment')}</span>
           <span>{gem.totalComments || 0}</span>
         </div>
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
-          <span>Share</span>
+          <span>{t('share')}</span>
           <span>0</span>
         </div>
         <div className='user-gem__footer-container'>
           <ForwardToInboxOutlinedIcon style={{ fontSize: '20px' }} />
-          <span>Send</span>
+          <span>{t('send')}</span>
           <span>0</span>
         </div>
         <div
@@ -235,7 +238,7 @@ function GemFooter({ gemInfo }) {
                   transform: 'rotate(180deg)',
                 }}
               />
-              <span>Show more comments</span>
+              <span>{t('comments.show_more_comments')}</span>
             </div>
           )}
         </>

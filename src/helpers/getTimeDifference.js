@@ -7,15 +7,17 @@ export default function getTimeDifference(createdAt, t) {
   const daysDifference = Math.round(hoursDifference / 24);
 
   if (daysDifference > 0) {
-    return `${t('time.days', { count: daysDifference })} ago`;
+    return `${daysDifference} ${
+      daysDifference === 1 ? t('time.day_ago') : t('time.days_ago')
+    }`;
   } else if (hoursDifference > 0) {
-    return `${hoursDifference} ${t('time.hours', {
-      count: hoursDifference,
-    })} ago`;
+    return `${hoursDifference} ${
+      hoursDifference === 1 ? t('time.hour_ago') : t('time.hours_ago')
+    }`;
   } else if (minutesDifference > 0) {
-    return `${minutesDifference} ${t('time.minutes', {
-      count: minutesDifference,
-    })} ago`;
+    return `${minutesDifference} ${
+      minutesDifference === 1 ? t('time.minute_ago') : t('time.minutes_ago')
+    }`;
   } else {
     return t('time.now');
   }

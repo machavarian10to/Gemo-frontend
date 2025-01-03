@@ -8,6 +8,7 @@ import AlertBox from '@/components/UI/AlertBox';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResetToken } from '@/state/index';
+import { useTranslation } from 'react-i18next';
 
 function NewPassword({ setCurrentTab }) {
   const [formState, setFormState] = useState({
@@ -20,6 +21,8 @@ function NewPassword({ setCurrentTab }) {
 
   const [alert, setAlert] = useState({ message: '', type: '' });
 
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const resetPasswordToken = useSelector((state) => state.resetToken);
 
@@ -27,14 +30,14 @@ function NewPassword({ setCurrentTab }) {
     if (!formState.newPassword.trim()) {
       setFormState((prev) => ({
         ...prev,
-        newPasswordError: 'Password should not be empty!',
+        newPasswordError: t('authorization.empty_password'),
       }));
       return;
     }
     if (formState.newPassword.length < 6) {
       setFormState((prev) => ({
         ...prev,
-        newPasswordError: 'Password should be at least 6 characters long!',
+        newPasswordError: t('authorization.min_password_length'),
       }));
       return;
     }
@@ -44,14 +47,14 @@ function NewPassword({ setCurrentTab }) {
     if (!formState.confirmPassword.trim()) {
       setFormState((prev) => ({
         ...prev,
-        confirmPasswordError: 'Repeat password should not be empty!',
+        confirmPasswordError: t('authorization.empty_repeat_password'),
       }));
       return;
     }
     if (formState.confirmPassword !== formState.newPassword) {
       setFormState((prev) => ({
         ...prev,
-        confirmPasswordError: 'Passwords do not match!',
+        confirmPasswordError: t('authorization.passwords_not_match'),
       }));
       return;
     }
@@ -84,7 +87,10 @@ function NewPassword({ setCurrentTab }) {
     setAlert({ message: '', type: '' });
 
     if (!resetPasswordToken) {
-      setAlert({ message: 'Invalid reset password token!', type: 'error' });
+      setAlert({
+        message: t('authorization.invalid_reset_token'),
+        type: 'error',
+      });
       setFormState((prev) => ({ ...prev, isButtonDisabled: false }));
       return;
     }
@@ -115,10 +121,8 @@ function NewPassword({ setCurrentTab }) {
   return (
     <Fade in={true} timeout={1000}>
       <form onSubmit={ResetPassword}>
-        <h6>Reset password</h6>
-        <h5>
-          Enter new password and confirm it to reset your password and log in
-        </h5>
+        <h6>{t('authorization.reset_password')}</h6>
+        <h5>{t('authorization.enter_new_password')}</h5>
         <div className='user-home__auth-left-body-inputs'>
           <Input
             type='password'
@@ -133,7 +137,7 @@ function NewPassword({ setCurrentTab }) {
                 : 'active'
             }
             helperText={formState.newPasswordError}
-            placeholder='New password'
+            placeholder={t('authorization.new_password')}
             leftIcon={
               <VpnKeyOutlinedIcon
                 style={{
@@ -156,7 +160,7 @@ function NewPassword({ setCurrentTab }) {
                 : 'active'
             }
             helperText={formState.confirmPasswordError}
-            placeholder='Repeat password'
+            placeholder={t('authorization.repeat_password')}
             leftIcon={
               <VpnKeyOutlinedIcon
                 style={{
@@ -168,7 +172,7 @@ function NewPassword({ setCurrentTab }) {
           />
           <Button
             submit
-            label='Reset password'
+            label={t('authorization.reset_password')}
             clickHandler={ResetPassword}
             state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function PollContainer({
   option,
@@ -12,6 +13,7 @@ function PollContainer({
 }) {
   const [percentage, setPercentage] = useState(0);
   const user = useSelector((state) => state.user);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setPercentage(
@@ -72,8 +74,8 @@ function PollContainer({
           <div className='user-gem__poll-option-percentage'>{percentage}%</div>
           <div className='user-gem__poll-option-count'>
             {option.users.length > 1
-              ? `${option.users.length} votes`
-              : `${option.users.length} vote`}
+              ? `${option.users.length} ${t('gem.votes')}`
+              : `${option.users.length} ${t('gem.vote')}`}
           </div>
         </div>
       </div>

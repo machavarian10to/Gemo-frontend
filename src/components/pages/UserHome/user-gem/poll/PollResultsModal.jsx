@@ -48,7 +48,7 @@ function PollResultsModal({ pollOptions, closeModal }) {
       <div className='modal'>
         <div className='modal-content' ref={modalContentRef}>
           <div className='modal-header'>
-            <h4>Poll results</h4>
+            <h4>{t('gem.poll_results')}</h4>
             <button onClick={closeModal}>
               <HighlightOffIcon
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
@@ -72,7 +72,7 @@ function PollResultsModal({ pollOptions, closeModal }) {
                     </div>
                     <span>
                       {`${option.users.length} ${
-                        option.users.length > 1 ? 'votes' : 'vote'
+                        option.users.length > 1 ? t('gem.votes') : t('gem.vote')
                       }`}
                     </span>
                   </div>
@@ -82,7 +82,9 @@ function PollResultsModal({ pollOptions, closeModal }) {
             <div className='poll-results__votes'>
               {pollOptions.find((option) => option.id === activeOption).users
                 .length === 0 ? (
-                <div className='poll-results__no-votes'>No votes yet.</div>
+                <div className='poll-results__no-votes'>
+                  {t('gem.no_votes')}.
+                </div>
               ) : (
                 usersDetails.map((user) => (
                   <div key={user._id} className='poll-results__user-wrapper'>

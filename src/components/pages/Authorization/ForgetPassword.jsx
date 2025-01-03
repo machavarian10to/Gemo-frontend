@@ -6,6 +6,7 @@ import Button from '@/components/UI/Button';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import axios from 'axios';
 import AlertBox from '@/components/UI/AlertBox';
+import { useTranslation } from 'react-i18next';
 
 function ForgetPassword({ setCurrentTab }) {
   const [email, setEmail] = useState('');
@@ -13,17 +14,19 @@ function ForgetPassword({ setCurrentTab }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [alert, setAlert] = useState({ message: '', type: '' });
 
+  const { t } = useTranslation();
+
   function isValidEmail() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
   function checkEmail() {
     if (!email.trim()) {
-      setEmailError('Email should not be empty!');
+      setEmailError(t('authorization.empty_email'));
       return false;
     }
     if (!isValidEmail()) {
-      setEmailError('Email is invalid!');
+      setEmailError(t('authorization.invalid_email'));
       return false;
     }
     setEmailError('');
@@ -68,13 +71,10 @@ function ForgetPassword({ setCurrentTab }) {
   return (
     <Fade in={true} timeout={1000}>
       <form onSubmit={onSendInstructions}>
-        <h5>
-          Enter the email and we’ll send an email with instructions to reset
-          your password
-        </h5>
+        <h5>{t('authorization.send_instructions')}</h5>
         <div className='user-home__auth-left-body-inputs'>
           <Input
-            label='Email'
+            label={t('authorization.email')}
             onInput={onEmailInput}
             onBlur={checkEmail}
             value={email}
@@ -82,7 +82,7 @@ function ForgetPassword({ setCurrentTab }) {
               isButtonDisabled ? 'inactive' : emailError ? 'danger' : 'active'
             }
             helperText={emailError}
-            placeholder='Enter email'
+            placeholder={t('authorization.email_placeholder')}
             leftIcon={
               <EmailOutlinedIcon
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
@@ -91,14 +91,14 @@ function ForgetPassword({ setCurrentTab }) {
           />
           <Button
             submit
-            label='Send instructions'
+            label={t('authorization.send_instructions_btn')}
             clickHandler={onSendInstructions}
             state={isButtonDisabled ? 'inactive' : 'active'}
           />
           <div className='user-home__auth-footer'>
-            <span>Back to</span>
+            <span>{t('authorization.back_to')}</span>
             <span className='link' onClick={() => setCurrentTab('login')}>
-              Log in
+              {t('authorization.login')}
             </span>
           </div>
         </div>

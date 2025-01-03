@@ -8,17 +8,20 @@ import { useSelector } from 'react-redux';
 import Input from '@/components/UI/Input';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import generateId from '@/helpers/generateId';
+import { useTranslation } from 'react-i18next';
 
 function GemPoll({ gemId }) {
   const user = useSelector((state) => state.user);
   const gem = useSelector((state) => state.gems.find((g) => g._id === gemId));
+
+  const { t } = useTranslation();
 
   const [pollState, setPollState] = useState({
     pollOptions: gem.content.pollOptions,
     pollVotesAmount: gem.content.pollOptions.reduce((acc, option) => {
       return acc + option.users.length;
     }, 0),
-    pollIsEnded: calculatePollEndTime() === 'Poll ended',
+    pollIsEnded: calculatePollEndTime() === `${t('gem.ended_poll')}`,
     pollEndTime: calculatePollEndTime(),
     showPollResultsModal: false,
     showAllOptions: false,
@@ -26,7 +29,7 @@ function GemPoll({ gemId }) {
   });
 
   function calculatePollEndTime() {
-    if (gem.content.pollDuration === '- None -') return;
+    if (gem.content.pollDuration === `${t('gem.poll_durations.none')}`) return;
     const gemCreatedAt = new Date(gem.createdAt);
     const pollDurationInDays = gem.content.pollDuration[0];
     const pollEndTime = new Date(
@@ -42,13 +45,19 @@ function GemPoll({ gemId }) {
       (pollEndTime - new Date()) / (1000 * 60),
     );
     if (daysDifference > 0) {
-      return `${daysDifference} day${daysDifference !== 1 ? 's' : ''}`;
+      return `${daysDifference} ${
+        daysDifference === 1 ? t('time.day') : t('time.days')
+      }`;
     } else if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''}`;
+      return `${hoursDifference} ${
+        hoursDifference === 1 ? t('time.hour') : t('time.hours')
+      }`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''}`;
+      return `${minutesDifference} ${
+        minutesDifference === 1 ? t('time.minute') : t('time.minutes')
+      }`;
     } else {
-      return `Poll ended`;
+      return `${t('gem.ended_poll')}`;
     }
   }
 
@@ -122,7 +131,7 @@ function GemPoll({ gemId }) {
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then((res) => {
+      .then(() => {
         setPollState({
           ...pollState,
           pollOptions: updatedPollOptions,
@@ -151,7 +160,7 @@ function GemPoll({ gemId }) {
     };
     axiosInstance
       .put(`/api/gems/${gem._id}`, data)
-      .then((res) => {
+      .then(() => {
         setPollState({
           ...pollState,
           pollOptions: updatedPollOptions,
@@ -187,7 +196,7 @@ function GemPoll({ gemId }) {
       };
       axiosInstance
         .put(`/api/gems/${gem._id}`, data)
-        .then((res) => {
+        .then(() => {
           setPollState({
             ...pollState,
             pollOptions: updatedPollOptions,
@@ -221,7 +230,7 @@ function GemPoll({ gemId }) {
               size='large'
               type='text'
               value={pollState.inputValue}
-              placeholder='Add new option...'
+              placeholder={t('add_option')}
               leftIcon={
                 <AddCircleOutlineOutlinedIcon
                   style={{ color: 'var(--color-main-grey)', fontSize: '19px' }}
@@ -237,7 +246,11 @@ function GemPoll({ gemId }) {
 
         {pollState.pollOptions.length > 5 && (
           <Button
-            label={pollState.showAllOptions ? 'Show less' : 'Show all'}
+            label={
+              pollState.showAllOptions
+                ? `${t('show_less')}`
+                : `${t('show_all')}`
+            }
             type='base'
             size='extra-small'
             clickHandler={toggleShowAllOptions}
@@ -252,7 +265,7 @@ function GemPoll({ gemId }) {
             ) ? (
               <>
                 <Button
-                  label='Remove my vote'
+                  label={t('gem.remove_vote')}
                   type='base'
                   size='extra-small'
                   clickHandler={removeUserVote}
@@ -270,7 +283,7 @@ function GemPoll({ gemId }) {
                   <span>{pollState.pollEndTime}</span>
                 </div>
               ) : (
-                <span>Poll is ended!</span>
+                <span>{t('gem.ended_poll')}</span>
               )}
             </div>
           </div>
@@ -280,7 +293,7 @@ function GemPoll({ gemId }) {
             }`}
             onClick={showTotalVotesModal}
           >
-            total votes: <span>{pollState.pollVotesAmount}</span>
+            {t('gem.total_votes')}: <span>{pollState.pollVotesAmount}</span>
           </div>
         </div>
       </div>
