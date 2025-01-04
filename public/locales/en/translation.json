@@ -1,6 +1,6 @@
 {
   "authorization": {
-    "welcome": "Welcome back! Please enter your details.",
+    "welcome": "Welcome back! Please enter your details",
     "username": "username",
     "username_placeholder": "Enter your username",
     "email": "Email",
@@ -31,10 +31,7 @@
     "empty_repeat_password": "Repeat password can't be empty!",
     "register_success": "You have successfully registered! Please check your email to verify your account.",
     "create_account": "Create an account, Start your culinary journey!",
-    "already_have_account": "Already have an account?",
-  },
-  "user_home": {
-    "speech_bubble": "What should I eat?"
+    "already_have_account": "Already have an account?"
   },
   "header": {
     "profile": "Profile",
@@ -54,6 +51,7 @@
     "favorites": "Favorites"
   },
   "gem": {
+    "no_gems": "No gems yet, Click on the speech bubble to create one!",
     "new_gem": "Create a gem",
     "post": "Post",
     "media": "Media",
@@ -95,8 +93,10 @@
     "not_food_related": "Not food related",
     "not_interesting": "Not interesting for me",
     "hide_gem": "Hide gem",
-    "block": "Block",
-    "report_gem": "Report gem"
+    "report_gem": "Report gem",
+    "link_title": "Enter the title of the link",
+    "link_url": "Enter the URL of the link",
+    "invalid_link": "Link is not valid!"
   },
   "time": {
     "day": "day",
@@ -113,7 +113,26 @@
     "minutes_ago": "minutes ago",
     "now": "now"
   },
+  "comments": {
+    "show_more_comments": "Show more comments",
+    "write_comment": "Write a comment...",
+    "no_comments": "No comments yet, be the first to leave a tasty one!",
+    "reply_to": "reply to",
+    "edit": "Edit comment",
+    "delete": "Delete comment",
+    "pin": "Pin comment",
+    "unpin": "Unpin comment",
+    "hide": "Hide comment",
+    "report": "Report comment",
+    "edit_comment": "Edit comment...",
+    "show_replies": "Show replies",
+    "hide_replies": "Hide replies",
+    "show_more_replies": "Show more replies",
+    "write_reply": "Write a reply for"
+  },
+  "speech_bubble": "What should I eat?",
   "or": "or",
+  "add": "Add",
   "option": "Option",
   "add_option": "Add option",
   "fill_fields": "Please fill all the fields!",
@@ -121,6 +140,7 @@
   "search_gif": "Search most delicious gifs...",
   "edited": "Edited",
   "something_wrong": "Something went wrong!",
+  "show_more": "Show more",
   "show_less": "Show less",
   "show_all": "Show all",
   "view_all": "view all",
@@ -130,16 +150,12 @@
   "send": "Send",
   "cancel": "Cancel",
   "reply": "Reply",
-  "comments": {
-    "show_more_comments": "Show more comments",
-    "write_comment": "Write a comment...",
-    "no_comments": "No comments yet, be the first to leave a tasty one!",
-    "reply_to": "reply to",
-    "edit_comment": "Edit comment...",
-    "show_replies": "Show replies",
-    "hide_replies": "Hide replies",
-    "show_more_replies": "Show more replies",
-    "write_reply": "Write a reply for"
-  },
-  "network_error": "Network error! Please try again later."
+  "block": "Block",
+  "network_error": "Network error! Please try again later.",
+  "view_reacts": "View reacts",
+  "all": "All",
+  "search_uby_username": "Search by username...",
+  "strong": "Strong",
+  "normal": "Normal",
+  "weak": "Weak"
 }

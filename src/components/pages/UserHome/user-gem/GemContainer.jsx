@@ -7,9 +7,12 @@ import GemMedia from '@/components/pages/UserHome/user-gem/GemMedia';
 import GemPoll from './poll/GemPoll';
 import GemFooter from '@/components/pages/UserHome/user-gem/layout/GemFooter';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useTranslation } from 'react-i18next';
 
 function GemContainer({ gem }) {
   const [showMore, setShowMore] = useState(false);
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -36,7 +39,7 @@ function GemContainer({ gem }) {
                 className='user-gem__show-full-gem'
                 onClick={() => setShowMore((prev) => !prev)}
               >
-                <span>show more</span>
+                <span>{t('show_more')}</span>
               </div>
             )}
             {gem?.content?.body?.length > 200 && showMore && (
@@ -44,7 +47,7 @@ function GemContainer({ gem }) {
                 className='user-gem__show-full-gem'
                 onClick={() => setShowMore((prev) => !prev)}
               >
-                <span>show less</span>
+                <span>{t('show_less')}</span>
               </div>
             )}
           </div>

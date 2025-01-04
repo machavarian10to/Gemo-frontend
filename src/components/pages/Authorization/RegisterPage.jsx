@@ -82,14 +82,14 @@ function Register({ setCurrentTab }) {
         /\d/.test(password) &&
         /[!@#$%^&*()-_=+{}[\]:;<>,.?/\\|_]/.test(password)
       ) {
-        setFormState((prev) => ({ ...prev, passwordStrength: 'Strong' }));
+        setFormState((prev) => ({ ...prev, passwordStrength: t('strong') }));
       } else if (/[A-Z]/.test(password) || /\d/.test(password)) {
-        setFormState((prev) => ({ ...prev, passwordStrength: 'Normal' }));
+        setFormState((prev) => ({ ...prev, passwordStrength: t('normal') }));
       } else {
-        setFormState((prev) => ({ ...prev, passwordStrength: 'Weak' }));
+        setFormState((prev) => ({ ...prev, passwordStrength: t('weak') }));
       }
     } else {
-      setFormState((prev) => ({ ...prev, passwordStrength: 'Weak' }));
+      setFormState((prev) => ({ ...prev, passwordStrength: t('weak') }));
     }
   };
 
@@ -250,7 +250,7 @@ function Register({ setCurrentTab }) {
             }
             helperText={formState.emailError}
             type='email'
-            placeholder={t('authorization.enter_email')}
+            placeholder={t('authorization.email_placeholder')}
             leftIcon={
               <EmailOutlinedIcon
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
@@ -303,11 +303,11 @@ function Register({ setCurrentTab }) {
               <ProgressBar
                 percent={100}
                 color={
-                  formState.passwordStrength === 'Weak'
+                  formState.passwordStrength === t('weak')
                     ? 'var(--bg-main-red)'
-                    : formState.passwordStrength === 'Normal'
+                    : formState.passwordStrength === t('normal')
                     ? 'var(--color-yellow-shade-04)'
-                    : formState.passwordStrength === 'Strong'
+                    : formState.passwordStrength === t('strong')
                     ? 'var(--color-main-green)'
                     : ''
                 }
@@ -315,9 +315,9 @@ function Register({ setCurrentTab }) {
               <ProgressBar
                 percent={100}
                 color={
-                  formState.passwordStrength === 'Normal'
+                  formState.passwordStrength === t('normal')
                     ? 'var(--color-yellow-shade-04)'
-                    : formState.passwordStrength === 'Strong'
+                    : formState.passwordStrength === t('strong')
                     ? 'var(--color-main-green)'
                     : ''
                 }
@@ -325,7 +325,7 @@ function Register({ setCurrentTab }) {
               <ProgressBar
                 percent={100}
                 color={
-                  formState.passwordStrength === 'Strong'
+                  formState.passwordStrength === t('strong')
                     ? 'var(--color-main-green)'
                     : ''
                 }
@@ -335,11 +335,11 @@ function Register({ setCurrentTab }) {
               <div className='user-home__auth-password-strength'>
                 <span
                   style={
-                    formState.passwordStrength === 'Weak'
+                    formState.passwordStrength === t('weak')
                       ? { color: 'var(--bg-main-red)' }
-                      : formState.passwordStrength === 'Normal'
+                      : formState.passwordStrength === t('normal')
                       ? { color: 'var(--color-yellow-shade-04)' }
-                      : formState.passwordStrength === 'Strong'
+                      : formState.passwordStrength === t('strong')
                       ? { color: 'var(--color-main-green)' }
                       : { color: 'var(--color-main-grey)' }
                   }
@@ -372,7 +372,7 @@ function Register({ setCurrentTab }) {
           />
           <Button
             submit
-            label='Sign up'
+            label={t('authorization.sign_up')}
             clickHandler={onRegister}
             state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />

@@ -9,10 +9,13 @@ import AlertBox from '@/components/UI/AlertBox';
 import { setAllGems } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
+import { useTranslation } from 'react-i18next';
 
 function UserHome() {
   const dispatch = useDispatch();
   const gems = useSelector((state) => state.gems);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     axiosInstance
@@ -48,7 +51,7 @@ function UserHome() {
                   <div className='user-home__chef-animation-wrapper'>
                     <AnimationStandingChef />
                   </div>
-                  <p>No gems yet, Click on the speech bubble to create one!</p>
+                  <p>{t('gem.no_gems')}</p>
                 </div>
               )}
             </div>

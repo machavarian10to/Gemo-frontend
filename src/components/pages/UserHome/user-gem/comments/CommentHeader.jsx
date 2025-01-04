@@ -198,7 +198,9 @@ function CommentHeader({
                     color: 'var(--color-main-yellow)',
                   }}
                 />
-                <span>{isPinned ? 'Unpin comment' : 'Pin comment'}</span>
+                <span>
+                  {isPinned ? t('comments.unpin') : t('comments.pin')}
+                </span>
               </div>
             )}
 
@@ -212,7 +214,7 @@ function CommentHeader({
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Edit comment</span>
+              <span>{t('comments.edit')}</span>
             </div>
 
             <div
@@ -225,7 +227,7 @@ function CommentHeader({
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Delete comment</span>
+              <span>{t('comments.delete')}</span>
             </div>
           </div>
         </Fade>
@@ -256,7 +258,7 @@ function CommentHeader({
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Hide comment</span>
+              <span>{t('comments.hide')}</span>
             </div>
 
             <div className='user-gem__comment-edit-item'>
@@ -266,7 +268,9 @@ function CommentHeader({
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Block @{comment.author.username}</span>
+              <span>
+                {t('block')} @{comment.author.username}
+              </span>
             </div>
 
             <div className='user-gem__comment-edit-item'>
@@ -276,7 +280,7 @@ function CommentHeader({
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>Report comment</span>
+              <span>{t('comments.report')}</span>
             </div>
           </div>
         </Fade>

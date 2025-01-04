@@ -3,6 +3,7 @@ import useClickOutside from '@/hook/useClickOutside';
 import Button from '@/components/UI/Button';
 import PropTypes from 'prop-types';
 import { Grow } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function CustomLink({
   showCustomLink,
@@ -16,6 +17,8 @@ function CustomLink({
 
   const linkUrlRef = useRef();
   const modalRef = useRef();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (showCustomLink) {
@@ -75,21 +78,21 @@ function CustomLink({
             value={linkTitle}
             onChange={(e) => setLinkTitle(e.target.value)}
             tabIndex='2'
-            placeholder='Enter the title of link'
+            placeholder={t('gem.link_title')}
           />
           <input
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             ref={linkUrlRef}
             tabIndex='1'
-            placeholder='Enter the URL'
+            placeholder={t('gem.link_url')}
           />
           {showInvalidLinkError && (
-            <p className='not-valid-link'>Link is not valid!</p>
+            <p className='not-valid-link'>{t('gem.invalid_link')}</p>
           )}
         </div>
         <Button
-          label='Add'
+          label={t('add')}
           size='extra-small'
           state={linkUrl.length ? 'active' : 'inactive'}
           clickHandler={createLink}

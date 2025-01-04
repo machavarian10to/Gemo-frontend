@@ -231,7 +231,7 @@ function GemMenu({ gem }) {
                   color: 'var(--color-main-yellow)',
                 }}
               />
-              <span>{`${t('gem.block')} @${gem.author.username}`}</span>
+              <span>{`${t('block')} @${gem.author.username}`}</span>
             </div>
 
             <div className='user-gem__edit-item'>

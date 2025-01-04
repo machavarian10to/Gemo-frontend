@@ -66,7 +66,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
       <div className='modal'>
         <div className='modal-content' ref={modalContentRef}>
           <div className='modal-header'>
-            <h4>View Reacts</h4>
+            <h4>{t('view_reacts')}</h4>
             <button onClick={closeModal}>
               <HighlightOffIcon
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
@@ -82,7 +82,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                   }`}
                   onClick={() => setActiveTab('all')}
                 >
-                  <div>All</div>
+                  <div>{t('all')}</div>
                   <div className='modal-reactions-react-amount'>
                     {filteredReacts
                       .map((react) => react.users.length)
@@ -116,7 +116,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                         }}
                       />
                     }
-                    placeholder='Search by username...'
+                    placeholder={t('search_by_username')}
                     size='small'
                     value={searchValue}
                     onInput={onSearchUsernames}

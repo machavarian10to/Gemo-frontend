@@ -37,7 +37,7 @@ function SpeechBubble() {
           <UserAvatar width={30} height={30} />
         </div>
         <div onClick={() => iconClickHandler('post')} className='speech-bubble'>
-          {t('user_home.speech_bubble')}
+          {t('speech_bubble')}
         </div>
         <div className='user-home__speech-bubble-icons-wrapper'>
           <CollectionsIcon onClick={() => iconClickHandler('media')} />

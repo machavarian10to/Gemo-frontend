@@ -45,6 +45,8 @@
 }
 
 .user-home__auth-left-body h6 {
+  max-width: 400px;
+  line-height: 1.5;
   font-size: 1rem;
   color: var(--color-main-yellow);
   font-weight: 600;
@@ -54,7 +56,8 @@
 
 .user-home__auth-left-body h5 {
   color: var(--color-main-yellow);
-  width: 400px;
+  max-width: 400px;
+  line-height: 1.5;
   font-size: 1rem;
   font-weight: 600;
   text-align: center;

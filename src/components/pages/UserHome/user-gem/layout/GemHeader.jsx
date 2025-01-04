@@ -74,7 +74,7 @@ function GemHeader({ gem }) {
             <CreateOutlinedIcon
               style={{ fontSize: '15px', color: 'var(--color-grey)' }}
             />
-            <span>Edited</span>
+            <span>{t('edited')}</span>
           </div>
         )}
 

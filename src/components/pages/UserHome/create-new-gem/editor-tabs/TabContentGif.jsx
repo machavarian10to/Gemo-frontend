@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import PropTypes from 'prop-types';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useTranslation } from 'react-i18next';
 
 function TabContentGif({ gifTabState, setGifTabState }) {
   const [searchValue, setSearchValue] = useState('');
@@ -12,6 +13,8 @@ function TabContentGif({ gifTabState, setGifTabState }) {
   const [loading, setLoading] = useState(false);
 
   const gifContainerRef = useRef(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchGifs('cooking');
@@ -55,7 +58,7 @@ function TabContentGif({ gifTabState, setGifTabState }) {
             />
           }
           size='small'
-          placeholder='Search the most delicious gifs...'
+          placeholder={t('search_gif')}
           onInput={(e) => setSearchValue(e.target.value)}
         />
         {gifTabState.gifSrc ? (
