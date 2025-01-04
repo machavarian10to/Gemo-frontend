@@ -9,7 +9,7 @@
     "password_placeholder": "Enter your password",
     "min_password_length": "Password must be at least 6 characters",
     "forgot_password": "Forgot password?",
-    "password_not_match": "Passwords do not match!",
+    "passwords_not_match": "Passwords do not match!",
     "reset_password": "Reset password",
     "new_password": "New password",
     "repeat_password": "Repeat password",
@@ -28,7 +28,10 @@
     "empty_email": "Email can't be empty!",
     "empty_username": "Username can't be empty!",
     "empty_password": "Password can't be empty!",
-    "empty_repeat_password": "Repeat password can't be empty!"
+    "empty_repeat_password": "Repeat password can't be empty!",
+    "register_success": "You have successfully registered! Please check your email to verify your account.",
+    "create_account": "Create an account, Start your culinary journey!",
+    "already_have_account": "Already have an account?",
   },
   "user_home": {
     "speech_bubble": "What should I eat?"
@@ -137,5 +140,6 @@
     "hide_replies": "Hide replies",
     "show_more_replies": "Show more replies",
     "write_reply": "Write a reply for"
-  }
+  },
+  "network_error": "Network error! Please try again later."
 }

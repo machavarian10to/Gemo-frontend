@@ -9,6 +9,7 @@ import Button from '@/components/UI/Button';
 import { Fade } from '@mui/material';
 import axios from 'axios';
 import AlertBox from '@/components/UI/AlertBox';
+import { useTranslation } from 'react-i18next';
 
 function Register({ setCurrentTab }) {
   const [formState, setFormState] = useState({
@@ -26,6 +27,8 @@ function Register({ setCurrentTab }) {
 
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
+  const { t } = useTranslation();
+
   function isValidEmail() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email);
   }
@@ -34,12 +37,15 @@ function Register({ setCurrentTab }) {
     if (!formState.email.trim()) {
       setFormState((prev) => ({
         ...prev,
-        emailError: 'Email should not be empty!',
+        emailError: t('authorization.empty_email'),
       }));
       return;
     }
     if (!isValidEmail()) {
-      setFormState((prev) => ({ ...prev, emailError: 'Email is invalid!' }));
+      setFormState((prev) => ({
+        ...prev,
+        emailError: t('authorization.invalid_email'),
+      }));
       return;
     }
   }
@@ -99,7 +105,7 @@ function Register({ setCurrentTab }) {
     if (!formState.username.trim()) {
       setFormState((prev) => ({
         ...prev,
-        usernameError: 'Username should not be empty!',
+        usernameError: t('authorization.empty_username'),
       }));
     }
   }
@@ -108,7 +114,7 @@ function Register({ setCurrentTab }) {
     if (!formState.password) {
       setFormState((prev) => ({
         ...prev,
-        passwordError: 'Password should not be empty!',
+        passwordError: t('authorization.empty_password'),
         passwordStrength: '',
       }));
       return;
@@ -116,7 +122,7 @@ function Register({ setCurrentTab }) {
     if (formState.password.length < 6) {
       setFormState((prev) => ({
         ...prev,
-        passwordError: 'Password should be at least 6 characters long!',
+        passwordError: t('authorization.min_password_length'),
         passwordStrength: '',
       }));
       return;
@@ -127,14 +133,14 @@ function Register({ setCurrentTab }) {
     if (!formState.repeatPassword) {
       setFormState((prev) => ({
         ...prev,
-        repeatPasswordError: 'Repeat password should not be empty!',
+        repeatPasswordError: t('authorization.empty_repeat_password'),
       }));
       return;
     }
     if (formState.repeatPassword !== formState.password) {
       setFormState((prev) => ({
         ...prev,
-        repeatPasswordError: 'Passwords do not match!',
+        repeatPasswordError: t('authorization.passwords_not_match'),
       }));
       return;
     }
@@ -184,7 +190,7 @@ function Register({ setCurrentTab }) {
 
         if (res.statusText === 'OK') {
           setAlertBox({
-            message: 'Account created successfully! Please verify your email.',
+            message: t('authorization.register_success'),
             type: 'success',
           });
           setTimeout(() => {
@@ -215,7 +221,7 @@ function Register({ setCurrentTab }) {
         }
         if (err.message === 'Network Error') {
           setAlertBox({
-            message: 'Network Error',
+            message: t('network_error'),
             type: 'error',
           });
         }
@@ -228,10 +234,10 @@ function Register({ setCurrentTab }) {
   return (
     <Fade in={true} timeout={1000}>
       <form onSubmit={onRegister}>
-        <h6>Create an account, Start your culinary journey!</h6>
+        <h6>{t('authorization.create_account')}</h6>
         <div className='user-home__auth-left-body-inputs'>
           <Input
-            label='Email'
+            label={t('authorization.email')}
             onInput={onEmailInput}
             onBlur={checkEmail}
             value={formState.email}
@@ -244,7 +250,7 @@ function Register({ setCurrentTab }) {
             }
             helperText={formState.emailError}
             type='email'
-            placeholder='Enter email'
+            placeholder={t('authorization.enter_email')}
             leftIcon={
               <EmailOutlinedIcon
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
@@ -252,7 +258,7 @@ function Register({ setCurrentTab }) {
             }
           />
           <Input
-            label='Username'
+            label={t('authorization.username')}
             onInput={onUsernameInput}
             onBlur={onUsernameBlur}
             value={formState.username}
@@ -269,10 +275,10 @@ function Register({ setCurrentTab }) {
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
-            placeholder='Enter username'
+            placeholder={t('authorization.username_placeholder')}
           />
           <Input
-            label='Password'
+            label={t('authorization.password')}
             onInput={onPasswordInput}
             onBlur={onPasswordBlur}
             value={formState.password}
@@ -290,7 +296,7 @@ function Register({ setCurrentTab }) {
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
-            placeholder='Enter password'
+            placeholder={t('authorization.password_placeholder')}
           />
           <div className='user-home__auth-password-checker'>
             <div className='user-home__auth-password-progressbar'>
@@ -344,7 +350,7 @@ function Register({ setCurrentTab }) {
             )}
           </div>
           <Input
-            label='Repeat password'
+            label={t('authorization.repeat_password')}
             onInput={onRepeatPasswordInput}
             onBlur={onRepeatPasswordBlur}
             value={formState.repeatPassword}
@@ -362,7 +368,7 @@ function Register({ setCurrentTab }) {
                 style={{ color: 'var(--color-main-grey)', fontSize: '18px' }}
               />
             }
-            placeholder='Repeat password'
+            placeholder={t('authorization.repeat_password')}
           />
           <Button
             submit
@@ -371,9 +377,9 @@ function Register({ setCurrentTab }) {
             state={formState.isButtonDisabled ? 'inactive' : 'active'}
           />
           <div className='user-home__auth-footer'>
-            <span>Already have an account?</span>
+            <span>{t('authorization.already_have_account')}</span>
             <span className='link' onClick={() => setCurrentTab('login')}>
-              Log in
+              {t('authorization.login')}
             </span>
           </div>
         </div>
