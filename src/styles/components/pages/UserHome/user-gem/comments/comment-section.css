@@ -27,6 +27,8 @@
 }
 
 #user-gem__no-comments-text {
+  text-align: center;
+  line-height: 1.5;
   font-weight: 700;
   color: var(--color-main-yellow);
   margin-block: 20px 10px;

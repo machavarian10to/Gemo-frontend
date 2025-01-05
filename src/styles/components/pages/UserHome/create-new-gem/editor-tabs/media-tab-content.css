@@ -28,6 +28,8 @@
   opacity: 0.8;
   letter-spacing: 0.4px;
   font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .upload-wrapper span {

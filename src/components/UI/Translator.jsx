@@ -43,7 +43,9 @@ function Translator() {
             ? 'ქართული'
             : chosenLanguage === 'en'
             ? 'English'
-            : 'Spanish'}
+            : chosenLanguage === 'ru'
+            ? 'Русский'
+            : 'Español'}
         </span>
         <ArrowDropDownOutlinedIcon
           style={{
@@ -76,10 +78,17 @@ function Translator() {
             </div>
             <div
               className='language-option'
+              onClick={() => onChangeLanguage('ru')}
+            >
+              <span className='fi fi-ru'></span>
+              <span>Русский</span>
+            </div>
+            <div
+              className='language-option'
               onClick={() => onChangeLanguage('es')}
             >
               <span className='fi fi-es'></span>
-              <span>Spanish</span>
+              <span>Español</span>
             </div>
           </div>
         </Fade>
