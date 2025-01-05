@@ -4,11 +4,19 @@ import Authorization from '@/pages/Authorization';
 import { setLogin, setLogout } from '@/state/index';
 import PropTypes from 'prop-types';
 import authService from '@/services/authService';
+import i18n from 'i18next';
 
 const AuthRoute = ({ children }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const mode = useSelector((state) => state.mode);
+  const language = useSelector((state) => state.language);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', mode || 'dark');
+    i18n.changeLanguage(language || 'en');
+  }, [mode, language]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -16,6 +24,8 @@ const AuthRoute = ({ children }) => {
         const currentUser = await authService.getCurrentUser();
         if (currentUser) {
           dispatch(setLogin({ user: currentUser }));
+        } else {
+          dispatch(setLogout());
         }
       } catch (error) {
         dispatch(setLogout());
