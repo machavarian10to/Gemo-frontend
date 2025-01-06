@@ -279,7 +279,7 @@ function GemPoll({ gemId }) {
             <div>
               {!pollState.pollIsEnded ? (
                 <div>
-                  {pollState.pollEndTime && 'Poll ends in: '}
+                  {pollState.pollEndTime && `${t('gem.poll_ends')}`}
                   <span>{pollState.pollEndTime}</span>
                 </div>
               ) : (

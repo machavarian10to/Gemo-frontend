@@ -131,6 +131,7 @@ const AddComment = ({
       },
     })
       .then(({ data }) => {
+        // TODO: alert when comment is changed
         if (apiMethod === 'put') {
           // update comment
           if (isReply) {

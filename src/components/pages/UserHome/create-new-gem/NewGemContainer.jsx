@@ -56,6 +56,7 @@ export default function NewGemContainer({
   const [alertBox, setAlertBox] = useState({
     message: '',
     type: '',
+    duration: 3000,
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -246,7 +247,14 @@ export default function NewGemContainer({
             'Content-Type': 'multipart/form-data',
           },
         });
-        dispatch(updateGem(res.data));
+        setAlertBox({
+          message: `${t('gem.edited_success')}`,
+          type: 'success',
+          duration: 1000,
+        });
+        setTimeout(() => {
+          dispatch(updateGem(res.data));
+        }, 1000);
       }
       setIsButtonDisabled(true);
       setAlertBox({
@@ -278,7 +286,11 @@ export default function NewGemContainer({
   return (
     <div className='create-post-container'>
       {alertBox.message && (
-        <AlertBox message={alertBox.message} type={alertBox.type} />
+        <AlertBox
+          duration={alertBox.duration}
+          message={alertBox.message}
+          type={alertBox.type}
+        />
       )}
 
       <div className='post-container-header'>

@@ -128,7 +128,11 @@
     "show_replies": "Mostrar respuestas",
     "hide_replies": "Ocultar respuestas",
     "show_more_replies": "Mostrar más respuestas",
-    "write_reply": "Escribe una respuesta para"
+    "write_reply": "Escribe una respuesta para",
+    "edited_success": "¡Comentario editado con éxito!",
+    "deleted_success": "¡Comentario eliminado con éxito!",
+    "pinned_success": "¡Comentario fijado con éxito!",
+    "unpinned_success": "¡Comentario desfijado con éxito!"
   },
   "speech_bubble": "¿Qué debo comer?",
   "or": "o",
@@ -157,5 +161,6 @@
   "search_by_username": "Buscar por nombre de usuario...",
   "strong": "Fuerte",
   "normal": "Normal",
-  "weak": "Débil"
+  "weak": "Débil",
+  "screenshot_captured": "¡Captura de pantalla realizada!"
 }

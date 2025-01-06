@@ -102,14 +102,12 @@ function GemMenu({ gem }) {
     axiosInstance
       .delete(`/api/gems/${gem._id}`)
       .then(() => {
-        dispatch(deleteGem(gem._id));
-        setTimeout(() => {
-          setAlertBox({
-            type: 'success',
-            message: `${t('gem_deleted')}`,
-          });
-        }, 0);
+        setAlertBox({
+          type: 'success',
+          message: `${t('gem.deleted_success')}`,
+        });
         setModalStates({ ...modalStates, showGemAuthEdit: false });
+        setTimeout(() => dispatch(deleteGem(gem._id)), 1000);
       })
       .catch((err) => {
         setAlertBox({
@@ -122,7 +120,11 @@ function GemMenu({ gem }) {
   return (
     <>
       {alertBox.message && (
-        <AlertBox type={alertBox.type} message={alertBox.message} />
+        <AlertBox
+          duration={1000}
+          type={alertBox.type}
+          message={alertBox.message}
+        />
       )}
 
       {modalStates.showModal && (

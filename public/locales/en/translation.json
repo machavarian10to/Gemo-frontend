@@ -128,7 +128,11 @@
     "show_replies": "Show replies",
     "hide_replies": "Hide replies",
     "show_more_replies": "Show more replies",
-    "write_reply": "Write a reply for"
+    "write_reply": "Write a reply for",
+    "edited_success": "Comment edited successfully!",
+    "deleted_success": "Comment deleted successfully!",
+    "pinned_success": "Comment pinned successfully!",
+    "unpinned_success": "Comment unpinned successfully!"
   },
   "speech_bubble": "What should I eat?",
   "or": "or",
@@ -157,5 +161,6 @@
   "search_by_username": "Search by username...",
   "strong": "Strong",
   "normal": "Normal",
-  "weak": "Weak"
+  "weak": "Weak",
+  "screenshot_captured": "Screenshot captured!"
 }

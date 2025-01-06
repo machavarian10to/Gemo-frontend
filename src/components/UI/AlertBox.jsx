@@ -9,16 +9,17 @@ import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
 function AlertBox({
   type = 'success', // info, success, error, warning
   message,
+  duration = 3000,
 }) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShow(false);
-    }, 3000);
+    }, duration);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [duration]);
 
   if (!show) return null;
 
