@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import PollIcon from '@mui/icons-material/Poll';
-import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import GifBoxIcon from '@mui/icons-material/GifBox';
 import TabContentPost from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentPost';
 import TabContentMedia from '@/components/pages/UserHome/create-new-gem/editor-tabs/TabContentMedia';
@@ -30,22 +29,27 @@ export default function NewGemContainer({
     {
       id: generateId(),
       name: `${t('gem.poll_durations.one')}`,
+      time: 1,
     },
     {
       id: generateId(),
       name: `${t('gem.poll_durations.two')}`,
+      time: 2,
     },
     {
       id: generateId(),
       name: `${t('gem.poll_durations.three')}`,
+      time: 3,
     },
     {
       id: generateId(),
       name: `${t('gem.poll_durations.week')}`,
+      time: 7,
     },
     {
       id: generateId(),
       name: `${t('gem.poll_durations.none')}`,
+      time: 0,
       selected: true,
     },
   ];
@@ -199,6 +203,10 @@ export default function NewGemContainer({
       const content = {
         pollOptions: options,
         pollDuration: pollTabState.pollDurations.selectedDuration,
+        time: pollTabState.pollDurations.options.find(
+          (option) =>
+            option.name === pollTabState.pollDurations.selectedDuration,
+        ).time,
       };
       if (pollTabState.multipleSelection) content.multipleSelection = true;
       if (pollTabState.hidePeoplesVotes) content.hidePeoplesVotes = true;

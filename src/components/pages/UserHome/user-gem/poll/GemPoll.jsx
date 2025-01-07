@@ -29,7 +29,7 @@ function GemPoll({ gemId }) {
   });
 
   function calculatePollEndTime() {
-    if (gem.content.pollDuration === `${t('gem.poll_durations.none')}`) return;
+    if (gem.content.time === 0) return;
     const gemCreatedAt = new Date(gem.createdAt);
     const pollDurationInDays = gem.content.pollDuration[0];
     const pollEndTime = new Date(
