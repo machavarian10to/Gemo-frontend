@@ -23,6 +23,7 @@ import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import PropTypes from 'prop-types';
 import GifContainer from '@/components/UI/GifContainer';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function TabContentPost({ postTabState, setPostTabState }) {
   const initialState = {
@@ -48,6 +49,8 @@ function TabContentPost({ postTabState, setPostTabState }) {
   const gifRef = useRef(null);
 
   const mode = useSelector((state) => state.mode);
+
+  const { t } = useTranslation();
 
   useClickOutside(emojiRef, () => {
     setState({ ...state, showEmojiPicker: false });
@@ -389,6 +392,7 @@ function TabContentPost({ postTabState, setPostTabState }) {
             contentEditable='true'
             onInput={inputHandler}
             ref={editorContentRef}
+            data-placeholder={t('editor_placeholder')}
           />
           {showCustomLink && (
             <CustomLink

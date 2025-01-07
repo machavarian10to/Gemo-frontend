@@ -58,7 +58,7 @@
 
 .editor-content::after {
   position: absolute;
-  content: 'Additional info (optional)';
+  content: attr(data-placeholder);
   font-family: 'Quicksand';
   color: var(--color-main-grey);
   opacity: 0.7;

@@ -162,5 +162,6 @@
   "strong": "ძლიერი",
   "normal": "ნორმალური",
   "weak": "სუსტი",
-  "screenshot_captured": "სკრინშოტი დაფიქსირდა!"
+  "screenshot_captured": "სკრინშოტი დაფიქსირდა!",
+  "editor_placeholder": "დამატებითი ინფორმაცია (არასავალდებულო)"
 }

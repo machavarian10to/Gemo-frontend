@@ -162,5 +162,6 @@
   "strong": "Сильный",
   "normal": "Нормальный",
   "weak": "Слабый",
-  "screenshot_captured": "Скриншот захвачен!"
+  "screenshot_captured": "Скриншот захвачен!",
+  "editor_placeholder": "Дополнительная информация (необязательно)"
 }

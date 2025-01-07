@@ -162,5 +162,6 @@
   "strong": "Fuerte",
   "normal": "Normal",
   "weak": "Débil",
-  "screenshot_captured": "¡Captura de pantalla realizada!"
+  "screenshot_captured": "¡Captura de pantalla realizada!",
+  "editor_placeholder": "Información adicional (opcional)"
 }
