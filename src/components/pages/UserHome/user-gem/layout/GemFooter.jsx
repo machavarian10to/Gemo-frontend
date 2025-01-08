@@ -47,24 +47,6 @@ function GemFooter({ gemInfo }) {
     }
   }, [showReactionsModal]);
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const { data } = await axiosInstance.get(
-          `/api/gems/${gem._id}/comments?limit=${commentState.limit}&skip=${commentState.skip}`,
-        );
-        setCommentState((prev) => ({
-          ...prev,
-          comments: [...prev.comments, ...data],
-        }));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchComments();
-  }, [commentState.limit, commentState.skip, gem._id]);
-
   function onEmojiClick(emoji) {
     axiosInstance
       .put(`/api/gems/${gem._id}/reacts`, {
@@ -222,6 +204,7 @@ function GemFooter({ gemInfo }) {
             authorId={gem.author._id}
             pinnedComment={gem.pinnedComment}
             comments={commentState.comments}
+            commentState={commentState}
             setCommentState={setCommentState}
             setGem={setGem}
           />
