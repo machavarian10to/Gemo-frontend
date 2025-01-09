@@ -1,7 +1,18 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import VideoComponent from '@/components/UI/VideoComponent';
 import PropTypes from 'prop-types';
 
 function GemMedia({ gem }) {
+  const fileExtension = gem.media?.fileSrc?.split('.').pop().toLowerCase();
+  const videoExtensions = ['mp4', 'mov', 'mkv', 'avi', 'flv', 'wmv', 'webm'];
+  if (videoExtensions.includes(fileExtension)) {
+    return (
+      <VideoComponent
+        src={`${import.meta.env.VITE_API_URL}/assets/${gem.media.fileSrc}`}
+      />
+    );
+  }
+
   return (
     <>
       {gem.media?.fileSrc && gem.type !== 'event' ? (
