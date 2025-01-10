@@ -3,14 +3,19 @@ import { useRef, useState, useEffect } from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
+import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+import logo from '@/assets/images/logo.png';
 
-function VideoPlayer({ src, poster, title }) {
+function VideoComponent({ src, poster, title }) {
   const videoRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [hoverTime, setHoverTime] = useState(null);
+  const [preview, setPreview] = useState(logo);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -58,6 +63,16 @@ function VideoPlayer({ src, poster, title }) {
     setHoverTime(hoverTime);
   };
 
+  const handleVolumeToggle = () => {
+    if (volume > 0) {
+      videoRef.current.volume = 0;
+      setVolume(0);
+    } else {
+      videoRef.current.volume = 1;
+      setVolume(1);
+    }
+  };
+
   return (
     <div className='user-gem__video' onClick={onPlayPauseClick}>
       <video
@@ -66,6 +81,7 @@ function VideoPlayer({ src, poster, title }) {
         src={src}
         poster={poster}
         title={title}
+        crossOrigin='anonymous'
       />
 
       <div
@@ -73,11 +89,7 @@ function VideoPlayer({ src, poster, title }) {
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onPlayPauseClick}>
-          {isPlaying ? (
-            <PauseIcon style={{ color: '#fff' }} />
-          ) : (
-            <PlayArrowIcon style={{ color: '#fff' }} />
-          )}
+          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
         </button>
         <div
           className='user-gem__video-progress-bar'
@@ -89,14 +101,14 @@ function VideoPlayer({ src, poster, title }) {
             className='user-gem__video-progress'
             style={{ width: `${(currentTime / duration) * 100 + 1}%` }}
           ></div>
-          {hoverTime !== null && (
+          {hoverTime && (
             <div
               className='hover-preview'
               style={{
                 left: `${(hoverTime / duration) * 100}%`,
               }}
             >
-              <img alt='Preview' src={poster} />
+              <img alt='Preview' src={preview} />
               <span>{formatTime(hoverTime)}</span>
             </div>
           )}
@@ -105,8 +117,11 @@ function VideoPlayer({ src, poster, title }) {
           {formatTime(currentTime)} <span>/</span> {formatTime(duration)}
         </div>
         <div className='user-gem__video-options-wrapper'>
+          <button onClick={handleVolumeToggle}>
+            {volume > 0 ? <VolumeUpOutlinedIcon /> : <VolumeOffOutlinedIcon />}
+          </button>
           <button onClick={() => videoRef.current.requestFullscreen()}>
-            <FullscreenOutlinedIcon style={{ color: '#fff' }} />
+            <FullscreenOutlinedIcon />
           </button>
         </div>
       </div>
@@ -114,10 +129,10 @@ function VideoPlayer({ src, poster, title }) {
   );
 }
 
-VideoPlayer.propTypes = {
+VideoComponent.propTypes = {
   src: PropTypes.string.isRequired,
   poster: PropTypes.string,
   title: PropTypes.string,
 };
 
-export default VideoPlayer;
+export default VideoComponent;
