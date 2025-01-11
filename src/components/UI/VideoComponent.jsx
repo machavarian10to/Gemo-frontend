@@ -117,9 +117,23 @@ function VideoComponent({ src, poster, title }) {
           {formatTime(currentTime)} <span>/</span> {formatTime(duration)}
         </div>
         <div className='user-gem__video-options-wrapper'>
-          <button onClick={handleVolumeToggle}>
-            {volume > 0 ? <VolumeUpOutlinedIcon /> : <VolumeOffOutlinedIcon />}
-          </button>
+          <div className='user-gem__video-volume'>
+            <button onClick={handleVolumeToggle}>
+              {volume > 0 ? (
+                <VolumeUpOutlinedIcon />
+              ) : (
+                <VolumeOffOutlinedIcon />
+              )}
+            </button>
+
+            <div className='user-gem__video-volume-bar'>
+              <div
+                className='user-gem__video-volume-progress'
+                style={{ height: `${volume * 100}%` }}
+              ></div>
+            </div>
+          </div>
+
           <button onClick={() => videoRef.current.requestFullscreen()}>
             <FullscreenOutlinedIcon />
           </button>

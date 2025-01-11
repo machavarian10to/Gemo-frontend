@@ -12,9 +12,9 @@
   border-radius: var(--border-radius-rect);
 }
 
-/* .user-gem__video-element:hover  + .user-gem__video-controls {
+.user-gem__video:hover .user-gem__video-controls {
   display: flex;
-} */
+}
 
 .user-gem__video svg path {
   color: #fff;
@@ -36,9 +36,9 @@
   padding: 8px;
   position: absolute;
   bottom: 0;
-  display: flex;
+  display: none;
   align-items: center;
-  background-color: rgba(52, 51, 58, 0.8);
+  background-color: rgba(52, 51, 58, 1);
   border-end-end-radius: var(--border-radius-rect);
   border-end-start-radius: var(--border-radius-rect);
 }
@@ -56,7 +56,7 @@
   position: relative;
   height: 10px;
   width: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 1);
   border-radius: var(--border-radius-rect);
   margin: 0 15px 3px 10px;
   cursor: pointer;
