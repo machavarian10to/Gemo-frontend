@@ -73,6 +73,14 @@ function VideoComponent({ src, poster, title }) {
     }
   };
 
+  const handleVolumeClick = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    let newVolume = 1 - (e.clientY - rect.top) / rect.height;
+    newVolume = Math.max(0, Math.min(1, newVolume));
+    videoRef.current.volume = newVolume;
+    setVolume(newVolume);
+  };
+
   return (
     <div className='user-gem__video' onClick={onPlayPauseClick}>
       <video
@@ -118,6 +126,20 @@ function VideoComponent({ src, poster, title }) {
         </div>
         <div className='user-gem__video-options-wrapper'>
           <div className='user-gem__video-volume'>
+            <div className='user-gem__video-volume-wrapper'>
+              <div
+                className='user-gem__video-volume-bar'
+                onClick={handleVolumeClick}
+              >
+                <div
+                  className='user-gem__video-volume-progress'
+                  style={{
+                    height: `${volume * 100}%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+
             <button onClick={handleVolumeToggle}>
               {volume > 0 ? (
                 <VolumeUpOutlinedIcon />
@@ -125,13 +147,6 @@ function VideoComponent({ src, poster, title }) {
                 <VolumeOffOutlinedIcon />
               )}
             </button>
-
-            <div className='user-gem__video-volume-bar'>
-              <div
-                className='user-gem__video-volume-progress'
-                style={{ height: `${volume * 100}%` }}
-              ></div>
-            </div>
           </div>
 
           <button onClick={() => videoRef.current.requestFullscreen()}>
