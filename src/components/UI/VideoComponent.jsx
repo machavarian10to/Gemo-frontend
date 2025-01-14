@@ -126,6 +126,14 @@ function VideoComponent({ src, poster, title }) {
         </div>
         <div className='user-gem__video-options-wrapper'>
           <div className='user-gem__video-volume'>
+            <button onClick={handleVolumeToggle}>
+              {volume > 0 ? (
+                <VolumeUpOutlinedIcon />
+              ) : (
+                <VolumeOffOutlinedIcon />
+              )}
+            </button>
+
             <div className='user-gem__video-volume-wrapper'>
               <div
                 className='user-gem__video-volume-bar'
@@ -139,14 +147,6 @@ function VideoComponent({ src, poster, title }) {
                 ></div>
               </div>
             </div>
-
-            <button onClick={handleVolumeToggle}>
-              {volume > 0 ? (
-                <VolumeUpOutlinedIcon />
-              ) : (
-                <VolumeOffOutlinedIcon />
-              )}
-            </button>
           </div>
 
           <button onClick={() => videoRef.current.requestFullscreen()}>
