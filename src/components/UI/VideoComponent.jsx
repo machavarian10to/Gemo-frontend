@@ -6,6 +6,7 @@ import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
+import VideoSettings from '@/components/pages/UserHome/user-gem/VideoSettings';
 import logo from '@/assets/images/logo.png';
 
 function VideoComponent({ src, poster, title }) {
@@ -17,6 +18,7 @@ function VideoComponent({ src, poster, title }) {
   const [preview, setPreview] = useState(logo);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -150,14 +152,20 @@ function VideoComponent({ src, poster, title }) {
             </div>
           </div>
 
-          <button>
-            <SettingsSuggestOutlinedIcon
-              style={{
-                fontSize: '25px',
-                margin: '0 0 3px 5px',
-              }}
-            />
-          </button>
+          <div className='user-gem__video-settings-wrapper'>
+            <button onClick={() => setSettingsOpen((preview) => !preview)}>
+              <SettingsSuggestOutlinedIcon
+                style={{
+                  fontSize: '25px',
+                  margin: '0 0 3px 5px',
+                }}
+              />
+            </button>
+
+            {settingsOpen && (
+              <VideoSettings setSettingsOpen={setSettingsOpen} />
+            )}
+          </div>
 
           <button onClick={() => videoRef.current.requestFullscreen()}>
             <FullscreenOutlinedIcon style={{ fontSize: '26px' }} />
