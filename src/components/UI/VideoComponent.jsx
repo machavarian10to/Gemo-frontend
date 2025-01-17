@@ -6,7 +6,7 @@ import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
-import VideoSettings from '@/components/pages/UserHome/user-gem/VideoSettings';
+import VideoSettings from '@/components/pages/UserHome/user-gem/video-component/VideoSettings';
 import logo from '@/assets/images/logo.png';
 
 function VideoComponent({ src, poster, title }) {

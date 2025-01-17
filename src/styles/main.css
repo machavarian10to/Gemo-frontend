@@ -21,12 +21,12 @@
 @import '@/styles/components/pages/UserHome/user-gem/poll/poll-container.css';
 @import '@/styles/components/pages/UserHome/user-gem/poll/poll-results-modal.css';
 @import '@/styles/components/pages/UserHome/user-gem/poll/user-gem-poll.css';
+@import '@/styles/components/pages/UserHome/user-gem/video-component/video-settings.css';
 @import '@/styles/components/pages/UserHome/user-gem/event-container.css';
 @import '@/styles/components/pages/UserHome/user-gem/gem-container.css';
 @import '@/styles/components/pages/UserHome/user-gem/user-gem-group.css';
 @import '@/styles/components/pages/UserHome/user-gem/user-gem-media.css';
 @import '@/styles/components/pages/UserHome/user-gem/user-gem-menu.css';
-@import '@/styles/components/pages/UserHome/user-gem/video-settings.css';
 @import '@/styles/components/pages/UserHome/user-gem/view-reacts-modal.css';
 @import '@/styles/components/pages/UserHome/featured-gem.css';
 @import '@/styles/components/shared/header.css';
