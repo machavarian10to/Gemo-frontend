@@ -36,7 +36,8 @@
   padding: 8px;
   position: absolute;
   bottom: 0;
-  display: none;
+  /* display: none; */
+  display: flex;
   align-items: center;
   background-color: rgba(52, 51, 58, 1);
   border-end-end-radius: var(--border-radius-rect);
@@ -65,7 +66,7 @@
 .user-gem__video-progress {
   height: 100%;
   width: 0%;
-  background-color: #ffa500;
+  background-color: var(--color-main-yellow);
   border-radius: var(--border-radius-rect);
   margin-bottom: 10px;
 }
@@ -73,8 +74,10 @@
 .user-gem__video-options-wrapper {
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin: 3px 0 0 10px;
+  gap: 12px;
+  margin-top: 3px;
+  position: absolute;
+  right: 20px;
 }
 
 .user-gem__video-volume-wrapper {
@@ -114,6 +117,10 @@
   width: 100%;
   background-color: #ffa500;
   border-radius: var(--border-radius-rect);
+}
+
+.user-gem__video-settings-wrapper{
+  position: relative;
 }
 
 /* .hover-preview {
