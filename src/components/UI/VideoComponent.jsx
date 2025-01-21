@@ -84,6 +84,11 @@ function VideoComponent({ src, poster, title }) {
     setVolume(newVolume);
   };
 
+  const setSpeed = (speed) => {
+    videoRef.current.playbackRate = speed;
+    setSettingsOpen(false);
+  };
+
   return (
     <div className='user-gem__video' onClick={onPlayPauseClick}>
       <video
@@ -163,7 +168,10 @@ function VideoComponent({ src, poster, title }) {
             </button>
 
             {settingsOpen && (
-              <VideoSettings setSettingsOpen={setSettingsOpen} />
+              <VideoSettings
+                setSettingsOpen={setSettingsOpen}
+                setSpeed={setSpeed}
+              />
             )}
           </div>
 

@@ -2,11 +2,13 @@
   font-size: 0.9rem;
   position: absolute;
   bottom: 45px;
-  right: -52px;
+  right: -55px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 10px;
+  gap: 12px;
+  width: 100px;
+  padding-inline: 10px;
+  padding-block: 15px;
   border-radius: var(--border-radius-rect);
   background-color: rgba(52, 51, 58, 1);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -16,8 +18,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
+}
+
+.user-gem__video-settings__column:hover svg path {
+  color: var(--color-main-yellow);
+}
+
+.user-gem__video-settings__column:first-child {
+  border-bottom: 2px solid var(--color-main-yellow);
+  padding-bottom: 10px;
+}
+
+.user-gem_video-back-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  top: 13px;
+  left: 5px;
+  cursor: pointer;
+  border-bottom: 2px solid var(--color-main-yellow);
+  padding-bottom: 10px;
 }
 
 .user-gem_video-settings-arrow {
@@ -28,4 +51,20 @@
   bottom: -5px;
   left: 25px;
   transform: rotate(45deg);
+}
+
+.user-gem__video-settings__speed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-gem__video-settings__speed__item {
+  padding-inline: 10px;
+  cursor: pointer;
+}
+
+.user-gem__video-settings__speed__item:hover {
+  color: var(--color-main-yellow);
 }
