@@ -74,7 +74,7 @@
 .user-gem__video-options-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: 3px;
   position: absolute;
   right: 20px;
@@ -89,10 +89,9 @@
   cursor: pointer;
 }
 
-.user-gem__video-volume button:hover + .user-gem__video-volume-wrapper .user-gem__video-volume-bar,
-.user-gem__video-volume-wrapper:hover .user-gem__video-volume-bar
- {
-  display: block;
+.user-gem__video-volume button:hover + .user-gem__video-volume-wrapper .user-gem__video-volume-bar-wrapper,
+.user-gem__video-volume-wrapper:hover .user-gem__video-volume-bar-wrapper {
+  display: flex;
 }
 
 .user-gem__video-volume {
@@ -100,8 +99,21 @@
   z-index: 100;
 }
 
-.user-gem__video-volume-bar {
+.user-gem__video-volume-bar-wrapper {
   display: none;
+  width: 25px;
+  height: 100px;
+  position: absolute;
+  left: -8px;
+  bottom: 0;
+  background-color: rgba(52, 51, 58, 1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: var(--border-radius-rect);
+  justify-content: center;
+  align-items: center;
+}
+
+.user-gem__video-volume-bar {
   position: absolute;
   bottom: 0;
   height: 80px;
@@ -109,6 +121,7 @@
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 5px rgba(146, 119, 119, 0.5);
   border-radius: var(--border-radius-rect);
+  margin-bottom: 10px;
 }
 
 .user-gem__video-volume-progress {
@@ -119,7 +132,7 @@
   border-radius: var(--border-radius-rect);
 }
 
-.user-gem__video-settings-wrapper{
+.user-gem__video-settings-wrapper {
   position: relative;
 }
 

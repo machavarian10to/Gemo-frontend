@@ -143,16 +143,19 @@ function VideoComponent({ src, poster, title }) {
             </button>
 
             <div className='user-gem__video-volume-wrapper'>
-              <div
-                className='user-gem__video-volume-bar'
-                onClick={handleVolumeClick}
-              >
+              <div className='user-gem__video-volume-bar-wrapper'>
                 <div
-                  className='user-gem__video-volume-progress'
-                  style={{
-                    height: `${volume * 100}%`,
-                  }}
-                ></div>
+                  className='user-gem__video-volume-bar'
+                  onClick={handleVolumeClick}
+                >
+                  <div
+                    className='user-gem__video-volume-progress'
+                    style={{
+                      height: `${volume * 100}%`,
+                    }}
+                  ></div>
+                </div>
+                <div className='user-gem_video-volume-arrow'></div>
               </div>
             </div>
           </div>

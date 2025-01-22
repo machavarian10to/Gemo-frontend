@@ -65,12 +65,22 @@ function VideoSettings({ setSettingsOpen, setSpeed }) {
       )}
 
       {qualityOpen && (
-        <div className='user-gem__video-settings__quality'>
-          <div className='user-gem__video-settings__quality__item'>1080p</div>
-          <div className='user-gem__video-settings__quality__item'>720p</div>
-          <div className='user-gem__video-settings__quality__item'>480p</div>
-          <div className='user-gem__video-settings__quality__item'>360p</div>
-        </div>
+        <>
+          <div
+            className='user-gem_video-back-btn'
+            onClick={() => setQualityOpen(false)}
+          >
+            <ArrowBackOutlinedIcon style={{ fontSize: '15px' }} />
+            <span>Back</span>
+          </div>
+
+          <div className='user-gem__video-settings__quality'>
+            <div className='user-gem__video-settings__quality__item'>1080p</div>
+            <div className='user-gem__video-settings__quality__item'>720p</div>
+            <div className='user-gem__video-settings__quality__item'>480p</div>
+            <div className='user-gem__video-settings__quality__item'>360p</div>
+          </div>
+        </>
       )}
 
       {!speedOpen && !qualityOpen && !subtitlesOpen && (
@@ -81,13 +91,6 @@ function VideoSettings({ setSettingsOpen, setSpeed }) {
           >
             <RocketLaunchOutlinedIcon style={{ fontSize: '20px' }} />
             <span>Speed</span>
-          </div>
-          <div
-            className='user-gem__video-settings__column'
-            onClick={() => setQualityOpen(true)}
-          >
-            <HighQualityOutlinedIcon style={{ fontSize: '20px' }} />
-            <span>Quality</span>
           </div>
           <div
             className='user-gem__video-settings__column'
