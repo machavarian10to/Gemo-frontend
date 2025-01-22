@@ -2,11 +2,11 @@ import useClickOutside from '@/hook/useClickOutside';
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-import HighQualityOutlinedIcon from '@mui/icons-material/HighQualityOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import SubtitlesOutlinedIcon from '@mui/icons-material/SubtitlesOutlined';
 
-function VideoSettings({ setSettingsOpen, setSpeed }) {
+function VideoSettings({ setSettingsOpen, setSpeed, onVideoDownload }) {
   const settingsRef = useRef(null);
 
   const [speedOpen, setSpeedOpen] = useState(false);
@@ -99,6 +99,13 @@ function VideoSettings({ setSettingsOpen, setSpeed }) {
             <SubtitlesOutlinedIcon style={{ fontSize: '19px' }} />
             <span>Subtitles</span>
           </div>
+          <div
+            className='user-gem__video-settings__column'
+            onClick={onVideoDownload}
+          >
+            <FileDownloadOutlinedIcon style={{ fontSize: '20px' }} />
+            <span>Download</span>
+          </div>
         </>
       )}
 
@@ -110,6 +117,7 @@ function VideoSettings({ setSettingsOpen, setSpeed }) {
 VideoSettings.propTypes = {
   setSettingsOpen: PropTypes.func.isRequired,
   setSpeed: PropTypes.func.isRequired,
+  onVideoDownload: PropTypes.func.isRequired,
 };
 
 export default VideoSettings;

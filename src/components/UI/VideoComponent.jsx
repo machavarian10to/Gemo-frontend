@@ -7,9 +7,10 @@ import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
 import VideoSettings from '@/components/pages/UserHome/user-gem/video-component/VideoSettings';
+import AlertBox from '@/components/UI/AlertBox';
 import logo from '@/assets/images/logo.png';
 
-function VideoComponent({ src, poster, title }) {
+function VideoComponent({ src, poster, title = 'Video' }) {
   const videoRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -19,6 +20,10 @@ function VideoComponent({ src, poster, title }) {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [alert, setAlert] = useState({
+    message: '',
+    type: '',
+  });
 
   useEffect(() => {
     const video = videoRef.current;
@@ -89,101 +94,128 @@ function VideoComponent({ src, poster, title }) {
     setSettingsOpen(false);
   };
 
+  function onVideoDownload() {
+    const videoBlob = new Blob([videoRef.current.src], { type: 'video/mp4' });
+    const url = URL.createObjectURL(videoBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = title;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setAlert({
+      message: 'Video downloaded successfully',
+      type: 'success',
+    });
+
+    setTimeout(() => {
+      setAlert({
+        message: '',
+        type: '',
+      });
+    }, 3000);
+  }
+
   return (
-    <div className='user-gem__video' onClick={onPlayPauseClick}>
-      <video
-        ref={videoRef}
-        className='user-gem__video-element'
-        src={src}
-        poster={poster}
-        title={title}
-        crossOrigin='anonymous'
-      />
+    <>
+      {alert.message && <AlertBox message={alert.message} type={alert.type} />}
+      <div className='user-gem__video' onClick={onPlayPauseClick}>
+        <video
+          ref={videoRef}
+          className='user-gem__video-element'
+          src={src}
+          poster={poster}
+          title={title}
+          crossOrigin='anonymous'
+        />
 
-      <div
-        className='user-gem__video-controls'
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button onClick={onPlayPauseClick}>
-          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-        </button>
         <div
-          className='user-gem__video-progress-bar'
-          onClick={handleSeek}
-          onMouseMove={handleHover}
-          onMouseLeave={() => setHoverTime(null)}
+          className='user-gem__video-controls'
+          onClick={(e) => e.stopPropagation()}
         >
+          <button onClick={onPlayPauseClick}>
+            {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+          </button>
           <div
-            className='user-gem__video-progress'
-            style={{ width: `${(currentTime / duration) * 100 + 1}%` }}
-          ></div>
-          {hoverTime && (
+            className='user-gem__video-progress-bar'
+            onClick={handleSeek}
+            onMouseMove={handleHover}
+            onMouseLeave={() => setHoverTime(null)}
+          >
             <div
-              className='hover-preview'
-              style={{
-                left: `${(hoverTime / duration) * 100}%`,
-              }}
-            >
-              <img alt='Preview' src={preview} />
-              <span>{formatTime(hoverTime)}</span>
-            </div>
-          )}
-        </div>
-        <div className='time-display'>
-          {formatTime(currentTime)} <span>/</span> {formatTime(duration)}
-        </div>
-        <div className='user-gem__video-options-wrapper'>
-          <div className='user-gem__video-volume'>
-            <button onClick={handleVolumeToggle}>
-              {volume > 0 ? (
-                <VolumeUpOutlinedIcon />
-              ) : (
-                <VolumeOffOutlinedIcon />
-              )}
-            </button>
-
-            <div className='user-gem__video-volume-wrapper'>
-              <div className='user-gem__video-volume-bar-wrapper'>
-                <div
-                  className='user-gem__video-volume-bar'
-                  onClick={handleVolumeClick}
-                >
-                  <div
-                    className='user-gem__video-volume-progress'
-                    style={{
-                      height: `${volume * 100}%`,
-                    }}
-                  ></div>
-                </div>
-                <div className='user-gem_video-volume-arrow'></div>
-              </div>
-            </div>
-          </div>
-
-          <div className='user-gem__video-settings-wrapper'>
-            <button onClick={() => setSettingsOpen((preview) => !preview)}>
-              <SettingsSuggestOutlinedIcon
+              className='user-gem__video-progress'
+              style={{ width: `${(currentTime / duration) * 100 + 1}%` }}
+            ></div>
+            {hoverTime && (
+              <div
+                className='hover-preview'
                 style={{
-                  fontSize: '25px',
-                  margin: '0 0 3px 5px',
+                  left: `${(hoverTime / duration) * 100}%`,
                 }}
-              />
-            </button>
-
-            {settingsOpen && (
-              <VideoSettings
-                setSettingsOpen={setSettingsOpen}
-                setSpeed={setSpeed}
-              />
+              >
+                <img alt='Preview' src={preview} />
+                <span>{formatTime(hoverTime)}</span>
+              </div>
             )}
           </div>
+          <div className='time-display'>
+            {formatTime(currentTime)} <span>/</span> {formatTime(duration)}
+          </div>
+          <div className='user-gem__video-options-wrapper'>
+            <div className='user-gem__video-volume'>
+              <button onClick={handleVolumeToggle}>
+                {volume > 0 ? (
+                  <VolumeUpOutlinedIcon />
+                ) : (
+                  <VolumeOffOutlinedIcon />
+                )}
+              </button>
 
-          <button onClick={() => videoRef.current.requestFullscreen()}>
-            <FullscreenOutlinedIcon style={{ fontSize: '26px' }} />
-          </button>
+              <div className='user-gem__video-volume-wrapper'>
+                <div className='user-gem__video-volume-bar-wrapper'>
+                  <div
+                    className='user-gem__video-volume-bar'
+                    onClick={handleVolumeClick}
+                  >
+                    <div
+                      className='user-gem__video-volume-progress'
+                      style={{
+                        height: `${volume * 100}%`,
+                      }}
+                    ></div>
+                  </div>
+                  <div className='user-gem_video-volume-arrow'></div>
+                </div>
+              </div>
+            </div>
+
+            <div className='user-gem__video-settings-wrapper'>
+              <button onClick={() => setSettingsOpen((preview) => !preview)}>
+                <SettingsSuggestOutlinedIcon
+                  style={{
+                    fontSize: '25px',
+                    margin: '0 0 3px 5px',
+                  }}
+                />
+              </button>
+
+              {settingsOpen && (
+                <VideoSettings
+                  setSettingsOpen={setSettingsOpen}
+                  setSpeed={setSpeed}
+                  onVideoDownload={onVideoDownload}
+                />
+              )}
+            </div>
+
+            <button onClick={() => videoRef.current.requestFullscreen()}>
+              <FullscreenOutlinedIcon style={{ fontSize: '26px' }} />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -2,11 +2,11 @@
   font-size: 0.9rem;
   position: absolute;
   bottom: 45px;
-  right: -55px;
+  right: -50px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 110px;
+  width: 120px;
   padding-inline: 13px;
   padding-block: 12px;
   border-radius: var(--border-radius-rect);
@@ -49,7 +49,7 @@
   width: 13px;
   height: 13px;
   bottom: -5px;
-  left: 35px;
+  left: 48px;
   transform: rotate(45deg);
 }
 
