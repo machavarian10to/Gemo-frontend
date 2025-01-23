@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import authService from '@/services/authService';
 
 const initialState = {
-  mode: 'dark',
+  mode: 'light',
   language: 'en',
   user: null,
   resetToken: null,

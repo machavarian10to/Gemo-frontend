@@ -57,18 +57,39 @@ function VideoComponent({ src, poster, title = 'Video' }) {
     return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
   }
 
-  const handleSeek = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const seekTime =
-      ((e.clientX - rect.left) / rect.width) * videoRef.current.duration;
-    videoRef.current.currentTime = seekTime;
-  };
-
   const handleHover = (e) => {
     const rect = e.target.getBoundingClientRect();
     const hoverTime =
       ((e.clientX - rect.left) / rect.width) * videoRef.current.duration;
     setHoverTime(hoverTime);
+  };
+
+  const handleSeekDrag = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const seekTime = (offsetX / rect.width) * videoRef.current.duration;
+
+    videoRef.current.currentTime = Math.max(
+      0,
+      Math.min(videoRef.current.duration, seekTime),
+    );
+    setCurrentTime(videoRef.current.currentTime);
+  };
+
+  const handleSeekMouseDown = (e) => {
+    handleSeekDrag(e);
+
+    const onMouseMove = (moveEvent) => {
+      handleSeekDrag(moveEvent);
+    };
+
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
   };
 
   const handleVolumeToggle = () => {
@@ -81,7 +102,23 @@ function VideoComponent({ src, poster, title = 'Video' }) {
     }
   };
 
-  const handleVolumeClick = (e) => {
+  const handleVolumeMouseDown = (e) => {
+    handleVolumeDrag(e);
+
+    const onMouseMove = (moveEvent) => {
+      handleVolumeDrag(moveEvent);
+    };
+
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
+
+  const handleVolumeDrag = (e) => {
     const rect = e.target.getBoundingClientRect();
     let newVolume = 1 - (e.clientY - rect.top) / rect.height;
     newVolume = Math.max(0, Math.min(1, newVolume));
@@ -139,7 +176,7 @@ function VideoComponent({ src, poster, title = 'Video' }) {
           </button>
           <div
             className='user-gem__video-progress-bar'
-            onClick={handleSeek}
+            onMouseDown={handleSeekMouseDown}
             onMouseMove={handleHover}
             onMouseLeave={() => setHoverTime(null)}
           >
@@ -176,7 +213,7 @@ function VideoComponent({ src, poster, title = 'Video' }) {
                 <div className='user-gem__video-volume-bar-wrapper'>
                   <div
                     className='user-gem__video-volume-bar'
-                    onClick={handleVolumeClick}
+                    onMouseDown={handleVolumeMouseDown}
                   >
                     <div
                       className='user-gem__video-volume-progress'

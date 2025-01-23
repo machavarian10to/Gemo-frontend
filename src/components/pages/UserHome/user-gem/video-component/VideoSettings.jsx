@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import SubtitlesOutlinedIcon from '@mui/icons-material/SubtitlesOutlined';
 
 function VideoSettings({ setSettingsOpen, setSpeed, onVideoDownload }) {
   const settingsRef = useRef(null);
 
   const [speedOpen, setSpeedOpen] = useState(false);
   const [qualityOpen, setQualityOpen] = useState(false);
-  const [subtitlesOpen, setSubtitlesOpen] = useState(false);
 
   useClickOutside(settingsRef, () => {
     setSettingsOpen(false);
@@ -83,7 +81,7 @@ function VideoSettings({ setSettingsOpen, setSpeed, onVideoDownload }) {
         </>
       )}
 
-      {!speedOpen && !qualityOpen && !subtitlesOpen && (
+      {!speedOpen && !qualityOpen && (
         <>
           <div
             className='user-gem__video-settings__column'
@@ -91,13 +89,6 @@ function VideoSettings({ setSettingsOpen, setSpeed, onVideoDownload }) {
           >
             <RocketLaunchOutlinedIcon style={{ fontSize: '20px' }} />
             <span>Speed</span>
-          </div>
-          <div
-            className='user-gem__video-settings__column'
-            onClick={() => setSubtitlesOpen(true)}
-          >
-            <SubtitlesOutlinedIcon style={{ fontSize: '19px' }} />
-            <span>Subtitles</span>
           </div>
           <div
             className='user-gem__video-settings__column'
