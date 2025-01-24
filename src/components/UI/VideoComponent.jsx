@@ -58,22 +58,22 @@ function VideoComponent({ src, poster, title = 'Video' }) {
   }
 
   const handleHover = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const hoverTime =
-      ((e.clientX - rect.left) / rect.width) * videoRef.current.duration;
-    setHoverTime(hoverTime);
+    const rect = e.currentTarget.getBoundingClientRect();
+    const hoverX = e.clientX - rect.left;
+    const hoverTime = (hoverX / rect.width) * videoRef.current.duration;
+    setHoverTime(Math.max(0, Math.min(videoRef.current.duration, hoverTime)));
   };
 
   const handleSeekDrag = (e) => {
-    const rect = e.target.getBoundingClientRect();
+    const rect = e.currentTarget.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
     const seekTime = (offsetX / rect.width) * videoRef.current.duration;
-
-    videoRef.current.currentTime = Math.max(
+    const clampedSeekTime = Math.max(
       0,
       Math.min(videoRef.current.duration, seekTime),
     );
-    setCurrentTime(videoRef.current.currentTime);
+    videoRef.current.currentTime = clampedSeekTime;
+    setCurrentTime(clampedSeekTime);
   };
 
   const handleSeekMouseDown = (e) => {
@@ -119,11 +119,12 @@ function VideoComponent({ src, poster, title = 'Video' }) {
   };
 
   const handleVolumeDrag = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    let newVolume = 1 - (e.clientY - rect.top) / rect.height;
-    newVolume = Math.max(0, Math.min(1, newVolume));
-    videoRef.current.volume = newVolume;
-    setVolume(newVolume);
+    const rect = e.currentTarget.getBoundingClientRect();
+    const offsetY = e.clientY - rect.top;
+    const newVolume = 1 - offsetY / rect.height;
+    const clampedVolume = Math.max(0, Math.min(1, newVolume));
+    videoRef.current.volume = clampedVolume;
+    setVolume(clampedVolume);
   };
 
   const setSpeed = (speed) => {
