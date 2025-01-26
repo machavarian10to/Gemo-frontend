@@ -6,14 +6,18 @@ import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
+import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import VideoSettings from '@/components/pages/UserHome/user-gem/video-component/VideoSettings';
 import AlertBox from '@/components/UI/AlertBox';
 import logo from '@/assets/images/logo.png';
+import Fade from '@mui/material/Fade';
 
 function VideoComponent({ src, poster, title = 'Video' }) {
   const videoRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showPauseIcon, setShowPauseIcon] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [hoverTime, setHoverTime] = useState(null);
   const [preview, setPreview] = useState(logo);
@@ -49,6 +53,10 @@ function VideoComponent({ src, poster, title = 'Video' }) {
       videoRef.current.play();
     }
     setIsPlaying((prevState) => !prevState);
+    setShowPauseIcon(!isPlaying);
+    setTimeout(() => {
+      setShowPauseIcon(false);
+    }, 500);
   }
 
   function formatTime(time) {
@@ -167,6 +175,20 @@ function VideoComponent({ src, poster, title = 'Video' }) {
           title={title}
           crossOrigin='anonymous'
         />
+
+        {!isPlaying && (
+          <Fade in={true} timeout={500}>
+            <div className='user-gem__video-playing'>
+              <PlayCircleFilledWhiteOutlinedIcon style={{ fontSize: '80px' }} />
+            </div>
+          </Fade>
+        )}
+
+        {showPauseIcon && (
+          <div className='user-gem__video-playing'>
+            <PauseCircleOutlineIcon style={{ fontSize: '80px' }} />
+          </div>
+        )}
 
         <div
           className='user-gem__video-controls'
