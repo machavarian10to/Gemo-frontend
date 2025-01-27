@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
+import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
@@ -28,6 +29,9 @@ function VideoComponent({ src, poster, title = 'Video' }) {
     message: '',
     type: '',
   });
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const progressBarWidth = isFullscreen ? '80%' : '45%';
 
   useEffect(() => {
     const video = videoRef.current;
@@ -45,6 +49,40 @@ function VideoComponent({ src, poster, title = 'Video' }) {
       video.removeEventListener('ended', handleEnded);
     };
   }, []);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const video = videoRef.current;
+      if (!document.fullscreenElement) {
+        setIsFullscreen(false);
+        video.classList.remove('fullscreen-video');
+      } else {
+        setIsFullscreen(true);
+        video.classList.add('fullscreen-video');
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () =>
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  function handleFullscreen() {
+    const videoContainer = videoRef.current.parentElement;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      if (videoContainer.requestFullscreen) {
+        videoContainer.requestFullscreen();
+      } else if (videoContainer.webkitRequestFullscreen) {
+        videoContainer.webkitRequestFullscreen();
+      } else if (videoContainer.mozRequestFullScreen) {
+        videoContainer.mozRequestFullScreen();
+      } else if (videoContainer.msRequestFullscreen) {
+        videoContainer.msRequestFullscreen();
+      }
+    }
+  }
 
   function onPlayPauseClick() {
     if (isPlaying) {
@@ -202,6 +240,7 @@ function VideoComponent({ src, poster, title = 'Video' }) {
             onMouseDown={handleSeekMouseDown}
             onMouseMove={handleHover}
             onMouseLeave={() => setHoverTime(null)}
+            style={{ width: progressBarWidth }}
           >
             <div
               className='user-gem__video-progress'
@@ -268,9 +307,12 @@ function VideoComponent({ src, poster, title = 'Video' }) {
                 />
               )}
             </div>
-
-            <button onClick={() => videoRef.current.requestFullscreen()}>
-              <FullscreenOutlinedIcon style={{ fontSize: '26px' }} />
+            <button className='fullscreen-button' onClick={handleFullscreen}>
+              {isFullscreen ? (
+                <FullscreenExitOutlinedIcon style={{ fontSize: '26px' }} />
+              ) : (
+                <FullscreenOutlinedIcon style={{ fontSize: '26px' }} />
+              )}
             </button>
           </div>
         </div>

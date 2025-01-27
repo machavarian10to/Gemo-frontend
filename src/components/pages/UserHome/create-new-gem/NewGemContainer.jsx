@@ -147,6 +147,7 @@ export default function NewGemContainer({
   );
 
   async function clickHandler() {
+    setIsButtonDisabled(true);
     const formData = new FormData();
     formData.append('userId', user._id);
     formData.append('title', titleState.gemTitle.trim());
@@ -264,7 +265,6 @@ export default function NewGemContainer({
           dispatch(updateGem(res.data));
         }, 1000);
       }
-      setIsButtonDisabled(true);
       setAlertBox({
         message: gem
           ? `${t('gem.edited_success')}`

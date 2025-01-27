@@ -70,9 +70,7 @@
 .user-gem__video-progress-bar {
   position: relative;
   height: 10px;
-  width: 50%;
   background-color: rgba(255, 255, 255, 1);
-  border-radius: var(--border-radius-rect);
   margin: 0 15px 3px 10px;
   cursor: pointer;
 }
@@ -81,7 +79,6 @@
   height: 100%;
   width: 0%;
   background-color: var(--color-main-yellow);
-  border-radius: var(--border-radius-rect);
   margin-bottom: 10px;
 }
 
@@ -122,7 +119,6 @@
   bottom: 0;
   background-color: rgba(52, 51, 58, 1);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  border-radius: var(--border-radius-rect);
   justify-content: center;
   align-items: center;
 }
@@ -134,7 +130,6 @@
   width: 10px;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 5px rgba(146, 119, 119, 0.5);
-  border-radius: var(--border-radius-rect);
   margin-bottom: 10px;
 }
 
@@ -143,7 +138,6 @@
   bottom: 0;
   width: 100%;
   background-color: #ffa500;
-  border-radius: var(--border-radius-rect);
 }
 
 .user-gem__video-settings-wrapper {
