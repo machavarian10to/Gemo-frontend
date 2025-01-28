@@ -49,8 +49,7 @@
   padding: 8px;
   position: absolute;
   bottom: 0;
-  /* display: none; */
-  display: flex;
+  display: none;
   align-items: center;
   background-color: rgba(52, 51, 58, 1);
   border-end-end-radius: var(--border-radius-rect);
