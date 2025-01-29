@@ -16,7 +16,6 @@ import Fade from '@mui/material/Fade';
 
 function VideoComponent({ src, poster, title = 'Video' }) {
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPauseIcon, setShowPauseIcon] = useState(false);
@@ -104,32 +103,11 @@ function VideoComponent({ src, poster, title = 'Video' }) {
     return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
   }
 
-  const captureFrame = (time) => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
-    const context = canvas.getContext('2d');
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    video.currentTime = time;
-
-    video.addEventListener(
-      'seeked',
-      () => {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        setPreview(canvas.toDataURL());
-      },
-      { once: true },
-    );
-  };
-
   const handleHover = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const hoverX = e.clientX - rect.left;
     const hoverTime = (hoverX / rect.width) * videoRef.current.duration;
     setHoverTime(Math.max(0, Math.min(videoRef.current.duration, hoverTime)));
-    captureFrame(hoverTime);
   };
 
   const handleSeekDrag = (e) => {
@@ -235,7 +213,6 @@ function VideoComponent({ src, poster, title = 'Video' }) {
           title={title}
           crossOrigin='anonymous'
         />
-        <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
 
         {!isPlaying && (
           <Fade in={true} timeout={500}>
