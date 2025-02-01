@@ -14,7 +14,7 @@ import AlertBox from '@/components/UI/AlertBox';
 import logo from '@/assets/images/logo.png';
 import Fade from '@mui/material/Fade';
 
-function VideoComponent({ src, poster, title = 'Video' }) {
+function VideoElement({ src, poster, title = 'Video' }) {
   const videoRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -321,10 +321,10 @@ function VideoComponent({ src, poster, title = 'Video' }) {
   );
 }
 
-VideoComponent.propTypes = {
+VideoElement.propTypes = {
   src: PropTypes.string.isRequired,
   poster: PropTypes.string,
   title: PropTypes.string,
 };
 
-export default VideoComponent;
+export default VideoElement;

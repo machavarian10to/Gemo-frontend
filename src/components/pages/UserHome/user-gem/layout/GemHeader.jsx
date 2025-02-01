@@ -9,6 +9,7 @@ import getUserLevel from '@/helpers/getUserLevel';
 import html2canvas from 'html2canvas';
 import { useTranslation } from 'react-i18next';
 import AlertBox from '@/components/UI/AlertBox';
+import Tooltip from '@/components/UI/Tooltip';
 import { useState } from 'react';
 function GemHeader({ gem }) {
   const { t } = useTranslation();
@@ -55,6 +56,10 @@ function GemHeader({ gem }) {
     }
   };
 
+  function getGemDate() {
+    return new Date(gem.createdAt).toLocaleString();
+  }
+
   return (
     <>
       {alertBox.message && (
@@ -89,9 +94,9 @@ function GemHeader({ gem }) {
             </div>
             <div className='user-gem__user-date'>
               <span>&#8226;</span>
-              <span data-title={new Date(gem.createdAt)}>
-                {getTimeDifference(new Date(gem.createdAt), t)}
-              </span>
+              <Tooltip text={getGemDate()} position='bottom'>
+                <span>{getTimeDifference(new Date(gem.createdAt), t)}</span>
+              </Tooltip>
             </div>
           </div>
         </div>

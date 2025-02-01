@@ -4,7 +4,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import VideoComponent from '@/components/UI/VideoComponent';
+import VideoElement from '@/components/UI/VideoElement';
 
 function TabContentMedia({ mediaTabState, setMediaTabState }) {
   const [isDragOver, setDragOver] = useState(false);
@@ -81,7 +81,7 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
             />
           </button>
           {mediaTabState.file?.type.includes('video') ? (
-            <VideoComponent src={mediaTabState.mediaSrc} />
+            <VideoElement src={mediaTabState.mediaSrc} />
           ) : (
             <img
               alt='user media preview'
