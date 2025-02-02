@@ -56,8 +56,8 @@ function GemHeader({ gem }) {
     }
   };
 
-  function getGemDate() {
-    return new Date(gem.createdAt).toLocaleString();
+  function getGemDate(date) {
+    return new Date(date).toLocaleString();
   }
 
   return (
@@ -94,7 +94,7 @@ function GemHeader({ gem }) {
             </div>
             <div className='user-gem__user-date'>
               <span>&#8226;</span>
-              <Tooltip text={getGemDate()} position='bottom'>
+              <Tooltip text={getGemDate(gem.createdAt)}>
                 <span>{getTimeDifference(new Date(gem.createdAt), t)}</span>
               </Tooltip>
             </div>
@@ -103,22 +103,26 @@ function GemHeader({ gem }) {
 
         <div className='user-gem__menu-options-wrapper'>
           {gem.updated && (
-            <div className='user-gem__edited' title={new Date(gem.updatedAt)}>
+            <div className='user-gem__edited'>
               <CreateOutlinedIcon
                 style={{ fontSize: '15px', color: 'var(--color-grey)' }}
               />
-              <span>{t('edited')}</span>
+              <Tooltip text={getGemDate(gem.updatedAt)}>
+                <span>{t('edited')}</span>
+              </Tooltip>
             </div>
           )}
 
-          <div className='user-gem_snapshot' onClick={captureScreenshot}>
-            <CameraAltOutlinedIcon
-              style={{
-                fontSize: '22px',
-                color: 'var(--color-grey)',
-              }}
-            />
-          </div>
+          <Tooltip text={t('screenshot')}>
+            <div className='user-gem_snapshot' onClick={captureScreenshot}>
+              <CameraAltOutlinedIcon
+                style={{
+                  fontSize: '22px',
+                  color: 'var(--color-grey)',
+                }}
+              />
+            </div>
+          </Tooltip>
 
           <GemMenu gem={gem} />
         </div>

@@ -1,13 +1,15 @@
 .tooltip-wrapper {
   position: relative;
-  display: inline-block;
+  z-index: 900;
+  /* background-color: green; */
 }
 
 .tooltip {
   position: absolute;
-  background-color: #1a202c;
-  color: white;
-  font-size: 14px;
+  background-color: var(--color-main-grey);
+  color: #ebedf0;
+  font-size: 0.7rem;
+  font-weight: 600;
   padding: 6px 12px;
   border-radius: 6px;
   white-space: nowrap;
@@ -27,15 +29,15 @@
 }
 
 .tooltip-top {
-  bottom: 100%;
-  left: 50%;
+  bottom: 120%;
+  left: 0;
   transform: translateX(-50%);
   margin-bottom: 4px;
 }
 
 .tooltip-bottom {
-  top: 100%;
-  left: 50%;
+  top: 120%;
+  left: 0;
   transform: translateX(-50%);
   margin-top: 4px;
 }

@@ -162,6 +162,10 @@
   "strong": "ძლიერი",
   "normal": "ნორმალური",
   "weak": "სუსტი",
+  "screenshot": "სკრინშოტი",
   "screenshot_captured": "სკრინშოტი დაფიქსირდა!",
-  "editor_placeholder": "დამატებითი ინფორმაცია (არასავალდებულო)"
+  "editor_placeholder": "დამატებითი ინფორმაცია (არასავალდებულო)",
+  "add_to_favorites": "ფავორიტებში დამატება",
+  "remove_from_favorites": "ფავორიტებიდან წაშლა",
+  "delete_media": "მედიის წაშლა"
 }

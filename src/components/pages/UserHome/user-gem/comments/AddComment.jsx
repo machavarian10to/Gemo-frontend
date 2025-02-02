@@ -365,11 +365,7 @@ const AddComment = ({
 
       {(state.media.mediaSrc || state.media.fileSrc || state.media.gifSrc) && (
         <div className='user-gem__comment-image-preview'>
-          <button
-            title='delete media'
-            className='delete-media-icon'
-            onClick={deleteMedia}
-          >
+          <button className='delete-media-icon' onClick={deleteMedia}>
             <HighlightOffIcon
               style={{ color: 'var(--color-main-yellow)', fontSize: '18px' }}
             />

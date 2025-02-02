@@ -48,11 +48,7 @@ function TabContentEvent({ eventTabState, setEventTabState }) {
       <div className='event-tab-container'>
         {eventTabState.media.mediaSrc || eventTabState.media.fileSrc ? (
           <div className='media-wrapper'>
-            <button
-              title='delete media'
-              className='delete-media-icon'
-              onClick={deleteMedia}
-            >
+            <button className='delete-media-icon' onClick={deleteMedia}>
               <HighlightOffIcon
                 style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
               />

@@ -162,6 +162,10 @@
   "strong": "Strong",
   "normal": "Normal",
   "weak": "Weak",
+  "screenshot": "Screenshot",
   "screenshot_captured": "Screenshot captured!",
-  "editor_placeholder": "Additional info (optional)"
+  "editor_placeholder": "Additional info (optional)",
+  "add_to_favorites": "Add to favorites",
+  "remove_from_favorites": "Remove from favorites",
+  "delete_media": "Delete media"
 }

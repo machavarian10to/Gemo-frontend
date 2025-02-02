@@ -162,6 +162,10 @@
   "strong": "Сильный",
   "normal": "Нормальный",
   "weak": "Слабый",
+  "screenshot": "Скриншот",
   "screenshot_captured": "Скриншот захвачен!",
-  "editor_placeholder": "Дополнительная информация (необязательно)"
+  "editor_placeholder": "Дополнительная информация (необязательно)",
+  "add_to_favorites": "Добавить в избранное",
+  "remove_from_favorites": "Удалить из избранного",
+  "delete_media": "Удалить медиа"
 }

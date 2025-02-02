@@ -162,6 +162,10 @@
   "strong": "Fuerte",
   "normal": "Normal",
   "weak": "Débil",
+  "screenshot": "Captura de pantalla",
   "screenshot_captured": "¡Captura de pantalla realizada!",
-  "editor_placeholder": "Información adicional (opcional)"
+  "editor_placeholder": "Información adicional (opcional)",
+  "add_to_favorites": "Agregar a favoritos",
+  "remove_from_favorites": "Eliminar de favoritos",
+  "delete_media": "Eliminar medios"
 }

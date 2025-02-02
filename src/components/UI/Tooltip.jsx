@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Tooltip = ({ children, text, position = 'top' }) => {
+const Tooltip = ({ children, text, position = 'bottom' }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (

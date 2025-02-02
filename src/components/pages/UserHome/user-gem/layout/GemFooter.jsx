@@ -15,6 +15,7 @@ import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModa
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
 import { useTranslation } from 'react-i18next';
+import Tooltip from '@/components/UI/Tooltip';
 
 function GemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
@@ -166,18 +167,23 @@ function GemFooter({ gemInfo }) {
           <span>{t('send')}</span>
           <span>0</span>
         </div>
-        <div
-          className='user-gem__footer-container'
-          title='Add to favorites'
-          onClick={onFavoritesClick}
-        >
-          {gem.favorites.some((fav) => fav === user._id) ? (
-            <StarRateIcon
-              style={{ fontSize: '19px', color: 'var(--color-main-yellow)' }}
-            />
-          ) : (
-            <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
-          )}
+
+        <div className='user-gem__footer-container' onClick={onFavoritesClick}>
+          <Tooltip
+            text={
+              gem.favorites.some((fav) => fav === user._id)
+                ? t('remove_from_favorites')
+                : t('add_to_favorites')
+            }
+          >
+            {gem.favorites.some((fav) => fav === user._id) ? (
+              <StarRateIcon
+                style={{ fontSize: '19px', color: 'var(--color-main-yellow)' }}
+              />
+            ) : (
+              <StarBorderOutlinedIcon style={{ fontSize: '19px' }} />
+            )}
+          </Tooltip>
         </div>
 
         {showEmojis && (

@@ -71,11 +71,7 @@ function TabContentMedia({ mediaTabState, setMediaTabState }) {
     <>
       {mediaTabState.mediaSrc || mediaTabState.fileSrc ? (
         <div className='media-wrapper'>
-          <button
-            title='delete media'
-            className='delete-media-icon'
-            onClick={deleteMedia}
-          >
+          <button className='delete-media-icon' onClick={deleteMedia}>
             <HighlightOffIcon
               style={{ color: 'var(--color-main-yellow)', fontSize: '25px' }}
             />

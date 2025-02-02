@@ -67,7 +67,6 @@ function TabContentGif({ gifTabState, setGifTabState }) {
               <img src={gifTabState.gifSrc} alt={gifTabState.title} />
             </div>
             <button
-              title='delete media'
               className='delete-media-icon'
               onClick={() => setGifTabState('')}
             >
