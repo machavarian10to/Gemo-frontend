@@ -24,7 +24,7 @@
   right: -50%;
   padding: 3px;
   background-color: var(--bg-secondary-color);
-  z-index: 200;
+  z-index: 999;
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;

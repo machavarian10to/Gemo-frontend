@@ -30,7 +30,7 @@ export const authSlice = createSlice({
       state.resetToken = action.payload;
     },
     setAllGems: (state, action) => {
-      state.gems = action.payload;
+      state.gems = [...state.gems, ...action.payload];
     },
     setGem: (state, action) => {
       const updatedGems = [action.payload, ...state.gems];

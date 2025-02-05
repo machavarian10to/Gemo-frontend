@@ -1,7 +1,6 @@
 .tooltip-wrapper {
   position: relative;
   z-index: 900;
-  /* background-color: green; */
 }
 
 .tooltip {

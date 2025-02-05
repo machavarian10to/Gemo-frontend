@@ -15,11 +15,31 @@ function UserHome() {
   const dispatch = useDispatch();
   const gems = useSelector((state) => state.gems);
 
+  const [gemState, setGemState] = useState({
+    limit: 3,
+    skip: 0,
+  });
+
   const { t } = useTranslation();
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
+        setGemState((prev) => ({ ...prev, skip: prev.skip + prev.limit }));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     axiosInstance
-      .get('/api/gems')
+      .get(`api/gems?limit=${gemState.limit}&skip=${gemState.skip}`)
       .then((response) => {
         dispatch(setAllGems(response.data));
       })
@@ -30,7 +50,7 @@ function UserHome() {
           type: 'error',
         });
       });
-  }, [dispatch]);
+  }, [dispatch, gemState.limit, gemState.skip]);
 
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
 
