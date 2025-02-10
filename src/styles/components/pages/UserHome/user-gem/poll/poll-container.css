@@ -104,7 +104,7 @@
 .user-gem__poll-option-container-inner {
   position: absolute;
   height: 100%;
-  background-color: var(--color-yellow-shade-02);
+  background-color: var(--bg-shade-01);
 }
 
 .user-gem__poll-option-container-inner + .user-gem__poll-input{

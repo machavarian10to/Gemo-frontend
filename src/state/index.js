@@ -24,6 +24,7 @@ export const authSlice = createSlice({
     },
     setLogout: (state) => {
       state.user = null;
+      state.gems = [];
       authService.logout();
     },
     setResetToken: (state, action) => {

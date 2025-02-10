@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Tooltip = ({ children, text, position = 'bottom' }) => {
+const Tooltip = ({ children, text, position = 'top' }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -13,6 +13,7 @@ const Tooltip = ({ children, text, position = 'bottom' }) => {
       {children}
       <div className={`tooltip tooltip-${position} ${isVisible ? 'show' : ''}`}>
         {text}
+        <div className='tooltip-arrow'></div>
       </div>
     </div>
   );

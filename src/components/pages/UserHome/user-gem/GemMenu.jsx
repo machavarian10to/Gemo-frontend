@@ -130,7 +130,7 @@ function GemMenu({ gem }) {
       {modalStates.showModal && (
         <NewGemModal
           gem={gem}
-          title='Edit gem'
+          title={t('gem.edit_gem')}
           closeModal={() =>
             setModalStates({ ...modalStates, showModal: false })
           }
