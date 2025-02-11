@@ -10,32 +10,26 @@ import { setAllGems } from '@/state/index';
 import { useSelector, useDispatch } from 'react-redux';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 import { useTranslation } from 'react-i18next';
+import InfiniteScroll from '@/components/shared/InfiniteScroll';
 
 function UserHome() {
   const dispatch = useDispatch();
   const gems = useSelector((state) => state.gems);
 
   const [gemState, setGemState] = useState({
-    limit: 3,
+    limit: 10,
     skip: 0,
   });
 
   const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (
-  //       window.innerHeight + document.documentElement.scrollTop ===
-  //       document.documentElement.offsetHeight
-  //     ) {
-  //       setGemState((prev) => ({ ...prev, skip: prev.skip + prev.limit }));
-  //     }
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
+  const loadMore = () => {
+    alert('load more');
+    // setGemState((prev) => ({
+    //   ...prev,
+    //   skip: prev.skip + prev.limit,
+    // }));
+  };
 
   useEffect(() => {
     axiosInstance
@@ -63,9 +57,7 @@ function UserHome() {
 
             <div className='user-home__post-wrapper'>
               {gems.length > 0 ? (
-                gems.map((gem) => (
-                  <GemContainer key={`${gem._id}-${gem.updatedAt}`} gem={gem} />
-                ))
+                gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
               ) : (
                 <div className='user-home__no-gems'>
                   <div className='user-home__chef-animation-wrapper'>
@@ -74,6 +66,7 @@ function UserHome() {
                   <p>{t('gem.no_gems')}</p>
                 </div>
               )}
+              <InfiniteScroll loadMore={loadMore} />
             </div>
           </div>
 
