@@ -11,11 +11,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from '@/components/shared/InfiniteScroll';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function UserHome() {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const gems = useSelector((state) => state.gems);
-
   const [gemState, setGemState] = useState({
     limit: 10,
     skip: 0,
@@ -43,6 +44,9 @@ function UserHome() {
           message: error.response.data,
           type: 'error',
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [dispatch, gemState.limit, gemState.skip]);
 
@@ -56,17 +60,35 @@ function UserHome() {
             <SpeechBubble />
 
             <div className='user-home__post-wrapper'>
-              {gems.length > 0 ? (
-                gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
-              ) : (
-                <div className='user-home__no-gems'>
-                  <div className='user-home__chef-animation-wrapper'>
-                    <AnimationStandingChef />
+              {loading ? (
+                <SkeletonTheme baseColor='var(--bg-secondary-color)'>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '30px',
+                    }}
+                  >
+                    <Skeleton height={300} width={570} />
+                    <Skeleton height={300} width={570} />
+                    <Skeleton height={300} width={570} />
                   </div>
-                  <p>{t('gem.no_gems')}</p>
-                </div>
+                </SkeletonTheme>
+              ) : (
+                <>
+                  {gems.length > 0 ? (
+                    gems.map((gem) => <GemContainer key={gem._id} gem={gem} />)
+                  ) : (
+                    <div className='user-home__no-gems'>
+                      <div className='user-home__chef-animation-wrapper'>
+                        <AnimationStandingChef />
+                      </div>
+                      <p>{t('gem.no_gems')}</p>
+                    </div>
+                  )}
+                  <InfiniteScroll loadMore={loadMore} />
+                </>
               )}
-              <InfiniteScroll loadMore={loadMore} />
             </div>
           </div>
 
