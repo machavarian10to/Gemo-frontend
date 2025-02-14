@@ -1,0 +1,40 @@
+.count-down-wrapper {
+  width: 100%;
+  padding: 15px;
+  color: var(--color-main-grey);
+  border-radius: var(--border-radius-rect);
+  background-color: var(--bg-secondary-color);
+  border-inline: 5px solid var(--color-yellow-shade-01);
+}
+
+.countdown-title,
+.count-down-new-food-text {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 2;
+  margin-left: 8px;
+  color: var(--color-main-yellow);
+}
+
+.countdown-date {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2;
+  text-align: center;
+  color: var(--color-light-grey);
+}
+
+.count-down-icon {
+  display: flex;
+  margin-top: 5px;
+}
+
+.count-down-title-wrapper,
+.count-down-new-food-wrapper {
+  display: flex;
+}
+
+.count-down-new-food-button {
+  margin-top: 15px;
+}

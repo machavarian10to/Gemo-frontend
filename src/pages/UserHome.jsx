@@ -12,6 +12,7 @@ import AnimationStandingChef from '@/components/animations/AnimationStandingChef
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from '@/components/shared/InfiniteScroll';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import CountDown from '@/components/pages/UserHome/CountDown';
 
 function UserHome() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function UserHome() {
   const [hasMore, setHasMore] = useState(true);
   const gems = useSelector((state) => state.gems);
   const [gemState, setGemState] = useState({
-    limit: 5,
+    limit: 20,
     skip: 0,
   });
 
@@ -98,6 +99,7 @@ function UserHome() {
           </div>
 
           <div className='user-home__food-recommendation-wrapper'>
+            <CountDown />
             {/* <FoodRecommendation /> */}
             {/* <FeaturedGem /> */}
           </div>

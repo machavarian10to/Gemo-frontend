@@ -167,5 +167,6 @@
   "editor_placeholder": "Información adicional (opcional)",
   "add_to_favorites": "Agregar a favoritos",
   "remove_from_favorites": "Eliminar de favoritos",
-  "delete_media": "Eliminar medios"
+  "delete_media": "Eliminar medios",
+  "countdown": "Tiempo restante hasta la próxima recomendación alimentaria:"
 }

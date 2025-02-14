@@ -167,5 +167,6 @@
   "editor_placeholder": "Additional info (optional)",
   "add_to_favorites": "Add to favorites",
   "remove_from_favorites": "Remove from favorites",
-  "delete_media": "Delete media"
+  "delete_media": "Delete media",
+  "countdown": "Time remaining until the next food recommendation:"
 }

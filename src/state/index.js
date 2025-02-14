@@ -31,8 +31,13 @@ export const authSlice = createSlice({
       state.resetToken = action.payload;
     },
     setAllGems: (state, action) => {
-      state.gems = [...state.gems, ...action.payload];
+      const newGems = action.payload.filter(
+        (newGem) =>
+          !state.gems.some((existingGem) => existingGem._id === newGem._id),
+      );
+      state.gems = [...state.gems, ...newGems];
     },
+
     setGem: (state, action) => {
       const updatedGems = [action.payload, ...state.gems];
       state.gems = updatedGems;
