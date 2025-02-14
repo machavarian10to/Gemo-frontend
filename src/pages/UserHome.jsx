@@ -16,27 +16,34 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 function UserHome() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [alertBox, setAlertBox] = useState({ message: '', type: '' });
+  const [hasMore, setHasMore] = useState(true);
   const gems = useSelector((state) => state.gems);
   const [gemState, setGemState] = useState({
-    limit: 10,
+    limit: 5,
     skip: 0,
   });
 
   const { t } = useTranslation();
 
   const loadMore = () => {
-    alert('load more');
-    // setGemState((prev) => ({
-    //   ...prev,
-    //   skip: prev.skip + prev.limit,
-    // }));
+    if (!hasMore) return;
+    setGemState((prev) => ({
+      ...prev,
+      skip: prev.skip + prev.limit,
+    }));
   };
 
   useEffect(() => {
+    if (!hasMore) return;
     axiosInstance
       .get(`api/gems?limit=${gemState.limit}&skip=${gemState.skip}`)
       .then((response) => {
-        dispatch(setAllGems(response.data));
+        if (response.data.length === 0) {
+          setHasMore(false);
+        } else {
+          dispatch(setAllGems(response.data));
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -48,9 +55,7 @@ function UserHome() {
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, gemState.limit, gemState.skip]);
-
-  const [alertBox, setAlertBox] = useState({ message: '', type: '' });
+  }, [dispatch, gemState.limit, gemState.skip, hasMore]);
 
   return (
     <>
