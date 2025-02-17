@@ -100,8 +100,9 @@ function UserHome() {
 
           <div className='user-home__food-recommendation-wrapper'>
             <CountDown />
-            {/* <FoodRecommendation /> */}
-            {/* <FeaturedGem /> */}
+            <FoodRecommendation />
+            <FeaturedGem gem={gems[0]} />
+            {/* <Trending /> */}
           </div>
         </div>
       </Fade>

@@ -1,7 +1,8 @@
 .user-home__food-recommends-wrapper {
   padding: 25px;
   border-radius: var(--border-radius-rect) ;
-  background-color: var(--bg-main-yellow);
+  background-color: var(--bg-secondary-color);
+  color: var(--text-main-color);
 }
 
 .user-home__food-recommends-wrapper__title {
@@ -46,13 +47,11 @@
 }
 
 .user-home__food-recommends-content h4 {
-  color: #010409;
   font-size: 24px;
   font-weight: 600;
 }
 
 .user-home__food-recommends-content p {
-  color: #000;
   font-size: 14px;
   line-height: 1.5;
   font-weight: 500;

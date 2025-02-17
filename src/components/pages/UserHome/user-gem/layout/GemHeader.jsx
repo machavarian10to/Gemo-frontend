@@ -20,7 +20,7 @@ function GemHeader({ gem }) {
   });
 
   const captureScreenshot = async () => {
-    const gemElement = document.getElementById(`gem-${gem._id}`);
+    const gemElement = document.getElementById(gem._id);
     if (!gemElement) return;
 
     try {
@@ -34,7 +34,7 @@ function GemHeader({ gem }) {
       const image = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = image;
-      link.download = `gem-${gem._id} ${new Date()}.png`;
+      link.download = `${gem._id}.png`;
       link.click();
       setAlertBox({
         message: t('screenshot_captured'),

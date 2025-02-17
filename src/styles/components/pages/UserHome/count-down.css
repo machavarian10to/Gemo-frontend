@@ -13,7 +13,8 @@
   font-weight: 700;
   line-height: 2;
   margin-left: 8px;
-  color: var(--color-main-yellow);
+  color: var(--color-grey);
+  text-align: center;
 }
 
 .countdown-date {
@@ -22,7 +23,7 @@
   font-weight: 600;
   line-height: 2;
   text-align: center;
-  color: var(--color-light-grey);
+  color: var(--color-main-yellow);
 }
 
 .count-down-icon {
