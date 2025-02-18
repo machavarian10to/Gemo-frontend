@@ -60,3 +60,7 @@
 .user-gem__see-all-replies span:hover {
   opacity: 0.9;
 }
+
+.user-gem__comment-section-comment-skeleton {
+  margin-top: 15px;
+}

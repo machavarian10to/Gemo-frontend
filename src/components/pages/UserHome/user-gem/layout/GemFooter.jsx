@@ -84,6 +84,23 @@ function GemFooter({ gemInfo }) {
       .catch((err) => console.error(err));
   }
 
+  async function toggleCommentSection() {
+    setShowCommentSection((prev) => !prev);
+    if (!showCommentSection) {
+      try {
+        const { data } = await axiosInstance.get(
+          `/api/gems/${gem._id}/comments?limit=${commentState.limit}&skip=${commentState.skip}`,
+        );
+        setCommentState((prev) => ({
+          ...prev,
+          comments: [...prev.comments, ...data],
+        }));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
   return (
     <>
       {gem.reacts.length > 0 && (
@@ -151,7 +168,7 @@ function GemFooter({ gemInfo }) {
           className={`user-gem__footer-container ${
             showCommentSection ? 'active-section' : ''
           }`}
-          onClick={() => setShowCommentSection((prev) => !prev)}
+          onClick={toggleCommentSection}
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>{t('comment')}</span>
@@ -209,7 +226,6 @@ function GemFooter({ gemInfo }) {
             gemId={gem._id}
             authorId={gem.author._id}
             pinnedComment={gem.pinnedComment}
-            comments={commentState.comments}
             commentState={commentState}
             setCommentState={setCommentState}
             setGem={setGem}

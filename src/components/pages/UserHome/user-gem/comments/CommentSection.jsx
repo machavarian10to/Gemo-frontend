@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import Comment from '@/components/pages/UserHome/user-gem/comments/Comment';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 import AnimationStandingChef from '@/components/animations/AnimationStandingChef';
 import { useTranslation } from 'react-i18next';
-import axiosInstance from '@/services/axios';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function CommentSection({
   gemId,
@@ -17,26 +17,6 @@ function CommentSection({
 }) {
   const { t } = useTranslation();
 
-  const { comments } = commentState;
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const { data } = await axiosInstance.get(
-          `/api/gems/${gemId}/comments?limit=${commentState.limit}&skip=${commentState.skip}`,
-        );
-        setCommentState((prev) => ({
-          ...prev,
-          comments: [...prev.comments, ...data],
-        }));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchComments();
-  }, [commentState, setCommentState, gemId]);
-
   return (
     <>
       <Fade in={true} timeout={600}>
@@ -47,7 +27,20 @@ function CommentSection({
             placeholder={`${t('comments.write_comment')}`}
           />
 
-          {comments.length > 0 ? (
+          {/* {loading && (
+            <div>
+              <SkeletonTheme baseColor='var(--bg-main-color)'>
+                <Skeleton height={15} width={'40%'} />
+                <Skeleton height={30} />
+                <div className='user-gem__reply-comment-skeleton'>
+                  <Skeleton circle width={30} height={30} />
+                  <Skeleton height={70} containerClassName='flex-1' />
+                </div>
+              </SkeletonTheme>
+            </div>
+          )} */}
+
+          {commentState.comments.length > 0 ? (
             <>
               <div className='user-gem__comment-list'>
                 {/* {pinnedComment && (
@@ -61,7 +54,7 @@ function CommentSection({
                   />
                 )} */}
 
-                {comments.map((comment) => (
+                {commentState.comments.map((comment) => (
                   <Comment
                     key={comment._id}
                     authorId={authorId}
