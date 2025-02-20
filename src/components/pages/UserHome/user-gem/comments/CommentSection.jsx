@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import AddComment from '@/components/pages/UserHome/user-gem/comments/AddComment';
 import Comment from '@/components/pages/UserHome/user-gem/comments/Comment';
 import Fade from '@mui/material/Fade';
@@ -14,6 +13,7 @@ function CommentSection({
   commentState,
   setCommentState,
   setGem,
+  loading,
 }) {
   const { t } = useTranslation();
 
@@ -26,34 +26,22 @@ function CommentSection({
             setCommentState={setCommentState}
             placeholder={`${t('comments.write_comment')}`}
           />
-
-          {/* {loading && (
+          {loading ? (
             <div>
               <SkeletonTheme baseColor='var(--bg-main-color)'>
-                <Skeleton height={15} width={'40%'} />
-                <Skeleton height={30} />
+                <div className='user-gem__reply-comment-skeleton'>
+                  <Skeleton circle width={30} height={30} />
+                  <Skeleton height={70} containerClassName='flex-1' />
+                </div>
                 <div className='user-gem__reply-comment-skeleton'>
                   <Skeleton circle width={30} height={30} />
                   <Skeleton height={70} containerClassName='flex-1' />
                 </div>
               </SkeletonTheme>
             </div>
-          )} */}
-
-          {commentState.comments.length > 0 ? (
+          ) : commentState.comments.length > 0 ? (
             <>
               <div className='user-gem__comment-list'>
-                {/* {pinnedComment && (
-                  <Comment
-                    key={pinnedComment._id}
-                    authorId={authorId}
-                    comment={pinnedComment}
-                    setCommentState={setCommentState}
-                    setGem={setGem}
-                    isPinned
-                  />
-                )} */}
-
                 {commentState.comments.map((comment) => (
                   <Comment
                     key={comment._id}
@@ -93,6 +81,7 @@ CommentSection.propTypes = {
   commentState: PropTypes.object.isRequired,
   setCommentState: PropTypes.func.isRequired,
   setGem: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default CommentSection;

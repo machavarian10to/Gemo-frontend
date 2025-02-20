@@ -28,6 +28,7 @@ function GemFooter({ gemInfo }) {
   const [showEmojis, setShowEmojis] = useState(false);
   const [showReactionsModal, setShowReactionsModal] = useState(false);
   const [showCommentSection, setShowCommentSection] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [gem, setGem] = useState(gemInfo);
   const [commentState, setCommentState] = useState({
@@ -87,16 +88,23 @@ function GemFooter({ gemInfo }) {
   async function toggleCommentSection() {
     setShowCommentSection((prev) => !prev);
     if (!showCommentSection) {
+      setLoading(true);
       try {
         const { data } = await axiosInstance.get(
           `/api/gems/${gem._id}/comments?limit=${commentState.limit}&skip=${commentState.skip}`,
         );
         setCommentState((prev) => ({
           ...prev,
-          comments: [...prev.comments, ...data],
+          comments: data.filter(
+            (comment) =>
+              comment._id !==
+              commentState.comments.map((comment) => comment._id),
+          ),
         }));
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     }
   }
@@ -229,6 +237,7 @@ function GemFooter({ gemInfo }) {
             commentState={commentState}
             setCommentState={setCommentState}
             setGem={setGem}
+            loading={loading}
           />
 
           {gem.comments.length > commentState.comments.length && (
