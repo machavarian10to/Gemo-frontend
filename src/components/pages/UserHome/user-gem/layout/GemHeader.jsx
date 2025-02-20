@@ -87,7 +87,7 @@ function GemHeader({ gem }) {
                 <LocalPoliceOutlinedIcon
                   style={{
                     color: getUserLevel(gem.author.levelDetails.type),
-                    fontSize: '9px',
+                    fontSize: '14px',
                   }}
                 />
               </div>

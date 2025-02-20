@@ -113,7 +113,7 @@ function PollResultsModal({ pollOptions, closeModal }) {
                           <LocalPoliceOutlinedIcon
                             style={{
                               color: getUserLevel(user.levelDetails.type),
-                              fontSize: '9px',
+                              fontSize: '14px',
                             }}
                           />
                         </div>

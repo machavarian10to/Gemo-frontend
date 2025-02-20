@@ -63,11 +63,12 @@
 
 .gem-author {
   /* background-color: var(--summer-color-1); */
+  display: grid;
+  place-items: center;
   background-color: var(--bg-shade-01);
   color: #010409;
   border-radius: 20px;
   padding: 3px 10px 5px 10px;
-  display: inline-block !important;
 }
 
 .gem-author::before {

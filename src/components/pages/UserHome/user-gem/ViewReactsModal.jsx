@@ -162,7 +162,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                                     <LocalPoliceOutlinedIcon
                                       style={{
                                         color: getUserLevel(user.levelType),
-                                        fontSize: '9px',
+                                        fontSize: '16px',
                                       }}
                                     />
                                   </div>
@@ -223,7 +223,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                                   <LocalPoliceOutlinedIcon
                                     style={{
                                       color: getUserLevel(user.levelType),
-                                      fontSize: '9px',
+                                      fontSize: '16px',
                                     }}
                                   />
                                 </div>

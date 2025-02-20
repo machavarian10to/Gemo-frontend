@@ -148,7 +148,7 @@ function CommentHeader({
               <LocalPoliceOutlinedIcon
                 style={{
                   color: getUserLevel(comment.author.levelDetails.type),
-                  fontSize: '9px',
+                  fontSize: '13px',
                 }}
               />
             )}
@@ -159,7 +159,7 @@ function CommentHeader({
               <LocalPoliceOutlinedIcon
                 style={{
                   color: getUserLevel(comment.author.levelDetails.type),
-                  fontSize: '9px',
+                  fontSize: '14px',
                 }}
               />
             </div>
