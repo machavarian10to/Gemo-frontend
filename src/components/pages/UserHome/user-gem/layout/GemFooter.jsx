@@ -33,7 +33,7 @@ function GemFooter({ gemInfo }) {
   const [gem, setGem] = useState(gemInfo);
   const [commentState, setCommentState] = useState({
     comments: [],
-    limit: 10,
+    limit: 5,
     skip: 0,
   });
 
@@ -240,21 +240,22 @@ function GemFooter({ gemInfo }) {
             loading={loading}
           />
 
-          {gem.comments.length > commentState.comments.length && (
-            <div
-              className='user-gem__see-all-comments'
-              onClick={onShowMoreCommentsClick}
-            >
-              <KeyboardArrowUpOutlinedIcon
-                style={{
-                  fontSize: '18px',
-                  color: 'var(--color-main-yellow)',
-                  transform: 'rotate(180deg)',
-                }}
-              />
-              <span>{t('comments.show_more_comments')}</span>
-            </div>
-          )}
+          {gem.totalComments > commentState.comments.length &&
+            commentState.comments.length === 5 && (
+              <div
+                className='user-gem__see-all-comments'
+                onClick={onShowMoreCommentsClick}
+              >
+                <KeyboardArrowUpOutlinedIcon
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--color-main-yellow)',
+                    transform: 'rotate(180deg)',
+                  }}
+                />
+                <span>{t('comments.show_more_comments')}</span>
+              </div>
+            )}
         </>
       )}
     </>

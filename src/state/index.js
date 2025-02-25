@@ -53,32 +53,6 @@ export const authSlice = createSlice({
       );
       state.gems = updatedGems;
     },
-    updateGemComment(state, action) {
-      const foundedGem = state.gems.find(
-        (gem) => gem._id === action.payload.gemId,
-      );
-      const updatedComments = foundedGem.comments.map((comment) =>
-        comment._id === action.payload._id ? action.payload : comment,
-      );
-      foundedGem.comments = updatedComments;
-      const updatedGems = state.gems.map((gem) =>
-        gem._id === action.payload.gemId ? foundedGem : gem,
-      );
-      state.gems = updatedGems;
-    },
-    deleteComment(state, action) {
-      const updatedGem = {
-        ...state.gems.find((gem) => gem._id === action.payload.gemId),
-      };
-      const updatedComments = updatedGem.comments.filter(
-        (comment) => comment._id !== action.payload.commentId,
-      );
-      updatedGem.comments = updatedComments;
-      const updatedGems = state.gems.map((gem) =>
-        gem._id === action.payload.gemId ? updatedGem : gem,
-      );
-      state.gems = updatedGems;
-    },
   },
 });
 
@@ -92,7 +66,5 @@ export const {
   setGem,
   updateGem,
   deleteGem,
-  updateGemComment,
-  deleteComment,
 } = authSlice.actions;
 export default authSlice.reducer;
