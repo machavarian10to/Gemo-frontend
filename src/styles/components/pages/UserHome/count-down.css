@@ -1,6 +1,6 @@
 .count-down-wrapper {
   width: 100%;
-  padding: 15px;
+  padding: 10px;
   color: var(--color-main-grey);
   border-radius: var(--border-radius-rect);
   background-color: var(--bg-secondary-color);
@@ -24,6 +24,9 @@
   line-height: 2;
   text-align: center;
   color: var(--color-main-yellow);
+  background-color: var(--bg-shade-03);
+  border-radius: var(--border-radius-rect);
+  margin-top: 10px;
 }
 
 .count-down-icon {
