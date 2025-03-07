@@ -29,7 +29,6 @@ function GemFooter({ gemInfo }) {
   const [showReactionsModal, setShowReactionsModal] = useState(false);
   const [showCommentSection, setShowCommentSection] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [gem, setGem] = useState(gemInfo);
   const [commentState, setCommentState] = useState({
     comments: [],
@@ -65,10 +64,23 @@ function GemFooter({ gemInfo }) {
   }
 
   function onShowMoreCommentsClick() {
-    setCommentState((prev) => ({
-      ...prev,
-      skip: prev.skip + prev.limit,
-    }));
+    axiosInstance
+      .get(
+        `/api/gems/${gem._id}/comments?limit=${commentState.limit}&skip=${
+          commentState.skip + commentState.limit
+        }`,
+      )
+      .then(({ data }) => {
+        setCommentState((prev) => ({
+          ...prev,
+          comments: [...prev.comments, ...data],
+          skip: prev.skip + prev.limit,
+        }));
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   function onFavoritesClick() {
@@ -106,6 +118,12 @@ function GemFooter({ gemInfo }) {
       } finally {
         setLoading(false);
       }
+    } else {
+      setCommentState({
+        comments: [],
+        limit: 5,
+        skip: 0,
+      });
     }
   }
 
@@ -180,8 +198,9 @@ function GemFooter({ gemInfo }) {
         >
           <SmsOutlinedIcon style={{ fontSize: '19px' }} />
           <span>{t('comment')}</span>
-          <span>{gem.totalComments || 0}</span>
+          <span>{gem.totalComments}</span>
         </div>
+
         <div className='user-gem__footer-container'>
           <AutorenewOutlinedIcon style={{ fontSize: '19px' }} />
           <span>{t('share')}</span>
@@ -240,22 +259,21 @@ function GemFooter({ gemInfo }) {
             loading={loading}
           />
 
-          {gem.totalComments > commentState.comments.length &&
-            commentState.comments.length === 5 && (
-              <div
-                className='user-gem__see-all-comments'
-                onClick={onShowMoreCommentsClick}
-              >
-                <KeyboardArrowUpOutlinedIcon
-                  style={{
-                    fontSize: '18px',
-                    color: 'var(--color-main-yellow)',
-                    transform: 'rotate(180deg)',
-                  }}
-                />
-                <span>{t('comments.show_more_comments')}</span>
-              </div>
-            )}
+          {gem.totalComments > commentState.comments.length && (
+            <div
+              className='user-gem__see-all-comments'
+              onClick={onShowMoreCommentsClick}
+            >
+              <KeyboardArrowUpOutlinedIcon
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--color-main-yellow)',
+                  transform: 'rotate(180deg)',
+                }}
+              />
+              <span>{t('comments.show_more_comments')}</span>
+            </div>
+          )}
         </>
       )}
     </>

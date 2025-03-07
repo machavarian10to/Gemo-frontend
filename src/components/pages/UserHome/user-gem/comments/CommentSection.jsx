@@ -37,6 +37,10 @@ function CommentSection({
                   <Skeleton circle width={30} height={30} />
                   <Skeleton height={70} containerClassName='flex-1' />
                 </div>
+                <div className='user-gem__reply-comment-skeleton'>
+                  <Skeleton circle width={30} height={30} />
+                  <Skeleton height={70} containerClassName='flex-1' />
+                </div>
               </SkeletonTheme>
             </div>
           ) : commentState.comments.length > 0 ? (
