@@ -1,27 +1,30 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Fade } from '@mui/material';
 
-const Tooltip = ({ children, text, position = 'top' }) => {
+const Tooltip = ({ text, children, position = 'bottom' }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <div
-      className='tooltip-wrapper'
+      className='tooltip-container'
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
       {children}
-      <div className={`tooltip tooltip-${position} ${isVisible ? 'show' : ''}`}>
-        {text}
-        <div className='tooltip-arrow'></div>
-      </div>
+
+      {isVisible && (
+        <Fade in={true} timeout={500}>
+          <div className={`tooltip-box tooltip-${position}`}>{text}</div>
+        </Fade>
+      )}
     </div>
   );
 };
 
 Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   position: PropTypes.string,
 };
 
