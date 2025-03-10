@@ -92,13 +92,26 @@
   display: flex;
   gap: 6px;
   align-items: center;
-  padding-block: 8px;
+  padding: 8px;
 }
 
 .user-gem__emoji-username {
   font-size: 13px;
   font-weight: 600;
   transition: all 0.3s;
+}
+
+.user-gem__emoji-total-reacts {
+  font-size: 0.8rem;
+  color: var(--color-grey);
+  margin-block: 5px;
+  text-align: center;
+}
+
+.user-gem__emoji-total-reacts span {
+  font-weight: 600;
+  color: #fff;
+  margin-inline: 2px;
 }
 
 .user-gem__emoji-count {

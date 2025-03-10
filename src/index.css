@@ -207,7 +207,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', 'Roboto', sans-serif;
-  font-family: "Noto Sans Georgian", sans-serif;
+  /* font-family: "Noto Sans Georgian", sans-serif; */
   caret-color: var(--color-main-yellow);
 }
 

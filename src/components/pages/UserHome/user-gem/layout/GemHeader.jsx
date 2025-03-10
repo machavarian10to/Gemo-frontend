@@ -74,7 +74,7 @@ function GemHeader({ gem }) {
               <div>
                 @
                 <a
-                  href={`/user/@${gem.author.username}`}
+                  href={`/users/${gem.author.username}`}
                   target='_blank'
                   rel='noreferrer'
                   className='user-gem__username-link'

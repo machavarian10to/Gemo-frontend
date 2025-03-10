@@ -150,7 +150,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                                   <div className='user-gem__username'>
                                     @
                                     <a
-                                      href={`/user/@${user.username}`}
+                                      href={`/users/${user.username}`}
                                       target='_blank'
                                       rel='noreferrer'
                                       className='user-gem__username-link'
@@ -211,7 +211,7 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                                 <div className='user-gem__username'>
                                   @
                                   <a
-                                    href={`/user/@${user.username}`}
+                                    href={`/users/${user.username}`}
                                     target='_blank'
                                     rel='noreferrer'
                                     className='user-gem__username-link'

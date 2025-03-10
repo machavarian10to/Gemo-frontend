@@ -31,7 +31,7 @@ function GemFooter({ gemInfo }) {
   const [showCommentSection, setShowCommentSection] = useState(false);
   const [loading, setLoading] = useState(false);
   const [gem, setGem] = useState(gemInfo);
-  const [reactUsers, setReactUsers] = useState([]);
+  const [reactUsers, setReactUsers] = useState({});
   const [commentState, setCommentState] = useState({
     comments: [],
     limit: 5,
@@ -146,23 +146,33 @@ function GemFooter({ gemInfo }) {
         <>
           <div className='user-gem__emoji-list'>
             {gem.reacts.map((react) => (
-              <>
+              <div key={react._id}>
                 <Tooltip
-                  text={reactUsers.map((user) => (
-                    <div
-                      key={user._id}
-                      className='user-gem__emoji-usernames-wrapper'
-                    >
-                      <UserAvatar
-                        src={user.profilePhoto}
-                        width={17}
-                        height={17}
-                      />
-                      <div className='user-gem__emoji-username'>
-                        @{user.username}
-                      </div>
+                  text={
+                    <div>
+                      {reactUsers.users?.map((user) => (
+                        <div
+                          key={user._id}
+                          className='user-gem__emoji-usernames-wrapper'
+                        >
+                          <UserAvatar
+                            src={user.profilePhoto}
+                            width={17}
+                            height={17}
+                          />
+                          <div className='user-gem__emoji-username'>
+                            @{user.username}
+                          </div>
+                        </div>
+                      ))}
+                      {reactUsers.totalReacts > 3 && (
+                        <div className='user-gem__emoji-total-reacts'>
+                          and <span>{reactUsers.totalReacts - 3}</span> more
+                          reacted
+                        </div>
+                      )}
                     </div>
-                  ))}
+                  }
                 >
                   <div
                     onMouseEnter={() => getUsernamesByReacts(react._id)}
@@ -182,7 +192,7 @@ function GemFooter({ gemInfo }) {
                     </div>
                   </div>
                 </Tooltip>
-              </>
+              </div>
             ))}
             <div
               className='user-gem__view-reactions'
