@@ -24,7 +24,11 @@ const Tooltip = ({ text, children, position = 'bottom' }) => {
 
 Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  text: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.node,
+  ]),
   position: PropTypes.string,
 };
 

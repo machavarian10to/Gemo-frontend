@@ -9,6 +9,7 @@ import axiosInstance from '@/services/axios';
 import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 import { useTranslation } from 'react-i18next';
+import Tooltip from '@/components/UI/Tooltip';
 
 function PollResultsModal({ pollOptions, closeModal }) {
   const modalContentRef = useRef();
@@ -42,6 +43,10 @@ function PollResultsModal({ pollOptions, closeModal }) {
 
     fetchUserDetails();
   }, [activeOption, pollOptions]);
+
+  function getVotedDate(date) {
+    return new Date(date).toLocaleString();
+  }
 
   return (
     <Fade in={true} timeout={600}>
@@ -121,14 +126,30 @@ function PollResultsModal({ pollOptions, closeModal }) {
 
                       <div className='user-gem__user-vote-timestamp'>
                         <span>&#8226;</span>
-                        {getTimeDifference(
-                          new Date(
-                            pollOptions
-                              .find((option) => option.id === activeOption)
-                              .users.find((u) => u.id === user._id)?.timestamp,
-                          ),
-                          t,
-                        )}
+                        <Tooltip
+                          text={getVotedDate(
+                            new Date(
+                              pollOptions
+                                .find((option) => option.id === activeOption)
+                                .users.find(
+                                  (u) => u.id === user._id,
+                                )?.timestamp,
+                            ),
+                          )}
+                        >
+                          <span>
+                            {getTimeDifference(
+                              new Date(
+                                pollOptions
+                                  .find((option) => option.id === activeOption)
+                                  .users.find(
+                                    (u) => u.id === user._id,
+                                  )?.timestamp,
+                              ),
+                              t,
+                            )}
+                          </span>
+                        </Tooltip>
                       </div>
                     </div>
                   </div>

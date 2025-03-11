@@ -12,6 +12,7 @@ import axiosInstance from '@/services/axios';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import getUserLevel from '@/helpers/getUserLevel';
 import { useTranslation } from 'react-i18next';
+import Tooltip from '@/components/UI/Tooltip';
 
 function ViewReactsModal({ gemId, commentId, closeModal }) {
   const modalContentRef = useRef();
@@ -59,6 +60,10 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
       }));
       setFilteredReacts(updatedReacts);
     }
+  }
+
+  function getReactedDate(date) {
+    return new Date(date).toLocaleString();
   }
 
   return (
@@ -171,12 +176,14 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
 
                               <div className='user-view-reacts-timestamp'>
                                 <span>&#8226;</span>
-                                <span>
-                                  {getTimeDifference(
-                                    new Date(user.timestamp),
-                                    t,
-                                  )}
-                                </span>
+                                <Tooltip text={getReactedDate(user.timestamp)}>
+                                  <span>
+                                    {getTimeDifference(
+                                      new Date(user.timestamp),
+                                      t,
+                                    )}
+                                  </span>
+                                </Tooltip>
                               </div>
                             </div>
                           ))}
@@ -231,9 +238,14 @@ function ViewReactsModal({ gemId, commentId, closeModal }) {
                             </div>
                             <div className='user-view-reacts-timestamp'>
                               <span>&#8226;</span>
-                              <span>
-                                {getTimeDifference(new Date(user.timestamp), t)}
-                              </span>
+                              <Tooltip text={getReactedDate(user.timestamp)}>
+                                <span>
+                                  {getTimeDifference(
+                                    new Date(user.timestamp),
+                                    t,
+                                  )}
+                                </span>
+                              </Tooltip>
                             </div>
                           </div>
                         ))}

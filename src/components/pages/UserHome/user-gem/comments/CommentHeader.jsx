@@ -18,6 +18,7 @@ import getTimeDifference from '@/helpers/getTimeDifference';
 import getUserLevel from '@/helpers/getUserLevel';
 import { useTranslation } from 'react-i18next';
 import AlertBox from '@/components/UI/AlertBox';
+import Tooltip from '@/components/UI/Tooltip';
 
 function CommentHeader({
   authorId,
@@ -122,6 +123,10 @@ function CommentHeader({
       });
   }
 
+  function getCreatedDate(date) {
+    return new Date(date).toLocaleString();
+  }
+
   return (
     <>
       {alertBox.message && (
@@ -137,7 +142,7 @@ function CommentHeader({
           >
             @
             <a
-              href={`/user/@${comment.author.username}`}
+              href={`/users/${comment.author.username}`}
               target='_blank'
               rel='noreferrer'
               className='user-gem__username-link'
@@ -169,7 +174,9 @@ function CommentHeader({
         <div className='user-gem__comment-menu-wrapper'>
           <div className='user-gem__user-date'>
             <span>&#8226;</span>
-            <span>{getTimeDifference(new Date(comment.createdAt), t)}</span>
+            <Tooltip text={getCreatedDate(comment.createdAt)}>
+              <span>{getTimeDifference(new Date(comment.createdAt), t)}</span>
+            </Tooltip>
           </div>
 
           {comment.updated && (
