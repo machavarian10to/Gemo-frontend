@@ -17,6 +17,8 @@ import axiosInstance from '@/services/axios';
 import ViewReactsModal from '@/components/pages/UserHome/user-gem/ViewReactsModal';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useTranslation } from 'react-i18next';
+import Tooltip from '@/components/UI/Tooltip';
+import ReactedUsers from '@/components/pages/UserHome/ReactedUsers';
 
 function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   const user = useSelector((state) => state.user);
@@ -31,7 +33,7 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   const [showCommentReply, setShowCommentReply] = useState(false);
   const [showEditComment, setShowEditComment] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
-
+  const [reactUsers, setReactUsers] = useState({});
   const [commentReplyState, setCommentReplyState] = useState({
     replies: [],
     limit: 10,
@@ -100,6 +102,17 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
   function onShowReplies() {
     setShowReplies(true);
     fetchReplies();
+  }
+
+  async function getUsernamesByReacts(reactId) {
+    try {
+      const { data } = await axiosInstance.get(
+        `/api/gems/${comment.gemId}/comments/${comment._id}/reacts/${reactId}`,
+      );
+      setReactUsers(data);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -182,21 +195,27 @@ function Comment({ authorId, comment, setCommentState, setGem, isPinned }) {
               <>
                 <div className='user-gem__emoji-list'>
                   {comment.reacts.map((react) => (
-                    <div
-                      key={react._id}
-                      className={`user-gem__emoji-wrapper user-gem__emoji-comment-wrapper ${
-                        react.users.some(
-                          (reactingUser) => reactingUser.userId === user._id,
-                        )
-                          ? 'active-emoji'
-                          : ''
-                      }`}
-                      onClick={() => onEmojiClick(react.emoji)}
-                    >
-                      <div className='user-gem__emoji'>{react.emoji}</div>
-                      <div className='user-gem__emoji-count'>
-                        {react.users.length}
-                      </div>
+                    <div key={react._id}>
+                      <Tooltip text={<ReactedUsers reactUsers={reactUsers} />}>
+                        <div
+                          onMouseEnter={() => getUsernamesByReacts(react._id)}
+                          key={react._id}
+                          className={`user-gem__emoji-wrapper user-gem__emoji-comment-wrapper ${
+                            react.users.some(
+                              (reactingUser) =>
+                                reactingUser.userId === user._id,
+                            )
+                              ? 'active-emoji'
+                              : ''
+                          }`}
+                          onClick={() => onEmojiClick(react.emoji)}
+                        >
+                          <div className='user-gem__emoji'>{react.emoji}</div>
+                          <div className='user-gem__emoji-count'>
+                            {react.users.length}
+                          </div>
+                        </div>
+                      </Tooltip>
                     </div>
                   ))}
                   <div

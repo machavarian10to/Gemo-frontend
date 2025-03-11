@@ -30,6 +30,7 @@
 @import '@/styles/components/pages/UserHome/user-gem/view-reacts-modal.css';
 @import '@/styles/components/pages/UserHome/count-down.css';
 @import '@/styles/components/pages/UserHome/featured-gem.css';
+@import '@/styles/components/pages/UserHome/reacted-users.css';
 @import '@/styles/components/shared/header.css';
 @import '@/styles/components/shared/sidebar.css';
 @import '@/styles/components/shared/user-avatar.css';

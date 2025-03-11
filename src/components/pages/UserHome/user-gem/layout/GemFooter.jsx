@@ -16,7 +16,7 @@ import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined
 import CommentSection from '@/components/pages/UserHome/user-gem/comments/CommentSection';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '@/components/UI/Tooltip';
-import UserAvatar from '@/components/shared/UserAvatar';
+import ReactedUsers from '@/components/pages/UserHome/ReactedUsers';
 
 function GemFooter({ gemInfo }) {
   const user = useSelector((state) => state.user);
@@ -147,33 +147,7 @@ function GemFooter({ gemInfo }) {
           <div className='user-gem__emoji-list'>
             {gem.reacts.map((react) => (
               <div key={react._id}>
-                <Tooltip
-                  text={
-                    <div>
-                      {reactUsers.users?.map((user) => (
-                        <div
-                          key={user._id}
-                          className='user-gem__emoji-usernames-wrapper'
-                        >
-                          <UserAvatar
-                            src={user.profilePhoto}
-                            width={17}
-                            height={17}
-                          />
-                          <div className='user-gem__emoji-username'>
-                            @{user.username}
-                          </div>
-                        </div>
-                      ))}
-                      {reactUsers.totalReacts > 3 && (
-                        <div className='user-gem__emoji-total-reacts'>
-                          and <span>{reactUsers.totalReacts - 3}</span> more
-                          reacted
-                        </div>
-                      )}
-                    </div>
-                  }
-                >
+                <Tooltip text={<ReactedUsers reactUsers={reactUsers} />}>
                   <div
                     onMouseEnter={() => getUsernamesByReacts(react._id)}
                     key={react._id}
