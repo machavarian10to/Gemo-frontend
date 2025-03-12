@@ -245,7 +245,6 @@ input:not(::placeholder-shown) {
 .outlet {
   flex: 1;
   margin-top: 100px;
-  margin-left: 200px;
   /* width: calc(100% - 230px); */
   /* height: calc(100% - 58px); */
 }

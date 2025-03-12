@@ -1,7 +1,7 @@
 .user-home {
   display: flex;
   justify-content: space-evenly;
-  gap: 10px;
+  gap: 20px;
 }
 
 .user-home__food-recommendation-wrapper {
@@ -10,16 +10,19 @@
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  margin-right: 20px;
 }
 
 .user-home__container-wrapper {
+  width: 100%;
+  max-width: 570px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .user-home__post-wrapper {
-  width: 570px;
+  width: 100%;
   gap: 15px;
   display: flex;
   align-items: center;

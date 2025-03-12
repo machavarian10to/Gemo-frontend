@@ -25,6 +25,7 @@ function App() {
 
       <div className='outlet-wrapper'>
         <Sidebar />
+        <div className='sidebar-container' />
 
         <div className='outlet'>
           <Outlet />
