@@ -5,7 +5,7 @@
   text-align: center;
 }
 
-.user-home__featured-gem-wrapper h4 {
+.user-home__featured-gem-title {
   margin-top: 20px;
   display: flex;
   align-items: center;
@@ -22,11 +22,21 @@
   opacity: 0.4;
 }
 
-.user-home__featured-gem {
-  margin-top: 10px;
+.user-home__featured-gem-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+  padding: 15px 20px;
 }
 
-.user-home__featured-gem .user-gem {
-  margin-top: 15px;
-  box-shadow: none;
+.user-home__featured-gem-titles h4 {
+  font-weight: 600;
+}
+
+.user-home__featured-gem-titles span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-main-yellow);
+  margin-left: 5px;
 }

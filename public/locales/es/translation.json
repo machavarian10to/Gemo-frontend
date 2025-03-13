@@ -96,7 +96,11 @@
     "report_gem": "Reportar gem",
     "link_title": "Ingrese el título del enlace",
     "link_url": "Ingrese la URL del enlace",
-    "invalid_link": "¡El enlace no es válido!"
+    "invalid_link": "¡El enlace no es válido!",
+    "featured_gem": "Gem del día",
+    "author": "Autor",
+    "reacts_amount": "Reacciones",
+    "featured_time_left": "Tiempo restante"
   },
   "time": {
     "day": "día",

@@ -96,7 +96,11 @@
     "report_gem": "ჯემის გაპროტესტება",
     "link_title": "შეიყვანეთ ბმულის სათაური",
     "link_url": "შეიყვანეთ ბმულის მისამართი",
-    "invalid_link": "ბმული არასწორია!"
+    "invalid_link": "ბმული არასწორია!",
+    "featured_gem": "დღის ჯემი",
+    "author": "ავტორი",
+    "reacts_amount": "რეაქციები",
+    "featured_time_left": "დარჩენილი დრო"
   },
   "time": {
     "day": "დღე",

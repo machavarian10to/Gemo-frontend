@@ -96,7 +96,11 @@
     "report_gem": "Report gem",
     "link_title": "Enter the title of the link",
     "link_url": "Enter the URL of the link",
-    "invalid_link": "Link is not valid!"
+    "invalid_link": "Link is not valid!",
+    "featured_gem": "Gem of the day",
+    "author": "Author",
+    "reacts_amount": "Reacts",
+    "featured_time_left": "Time left"
   },
   "time": {
     "day": "day",

@@ -96,7 +96,11 @@
     "report_gem": "Пожаловаться на gem",
     "link_title": "Введите заголовок ссылки",
     "link_url": "Введите URL ссылки",
-    "invalid_link": "Ссылка недействительна!"
+    "invalid_link": "Ссылка недействительна!",
+    "featured_gem": "Gem дня",
+    "author": "Автор",
+    "reacts_amount": "Реакции",
+    "featured_time_left": "Оставшееся время"
   },
   "time": {
     "day": "день",

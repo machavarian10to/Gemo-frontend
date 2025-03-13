@@ -98,10 +98,10 @@ function UserHome() {
             </div>
           </div>
 
-          <div className='user-home__food-recommendation-wrapper'>
+          <div className='user-home__right-container-wrapper'>
             <CountDown />
             <FoodRecommendation />
-            <FeaturedGem gem={gems[0]} />
+            <FeaturedGem />
             {/* <Trending /> */}
           </div>
         </div>

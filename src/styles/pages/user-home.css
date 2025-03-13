@@ -4,13 +4,14 @@
   gap: 20px;
 }
 
-.user-home__food-recommendation-wrapper {
+.user-home__right-container-wrapper {
   width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .user-home__container-wrapper {
