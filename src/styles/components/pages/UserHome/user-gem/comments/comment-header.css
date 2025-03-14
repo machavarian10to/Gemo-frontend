@@ -62,11 +62,10 @@
 }
 
 .gem-author {
-  /* background-color: var(--summer-color-1); */
   display: grid;
   place-items: center;
-  background-color: var(--bg-shade-01);
-  color: #010409;
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
   border-radius: 20px;
   padding: 3px 10px 5px 10px;
 }
@@ -78,7 +77,7 @@
 }
 
 .gem-author a {
-  color: #010409;
+  color: var(--text-main-color);
   font-size: 12px;
   margin-right: 5px;
 }

@@ -10,7 +10,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--color-grey);
   font-weight: 600;
   justify-content: center;
 }

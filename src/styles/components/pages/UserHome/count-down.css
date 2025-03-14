@@ -1,7 +1,6 @@
 .count-down-wrapper {
   width: 100%;
   padding: 15px;
-  color: var(--color-main-grey);
   border-radius: var(--border-radius-rect);
   background-color: var(--bg-secondary-color);
 }
@@ -9,10 +8,9 @@
 .countdown-title,
 .count-down-new-food-text {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 2;
   margin-left: 8px;
-  color: var(--color-grey);
   text-align: center;
 }
 
