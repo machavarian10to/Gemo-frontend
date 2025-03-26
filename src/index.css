@@ -1,7 +1,8 @@
 @import 'react-loading-skeleton/dist/skeleton.css';
 @import '@/styles/main.css';
-/* Noto Sans Georgian */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+/* font-family: "Noto Sans Georgian", sans-serif; */
+/* font-family: "Balsamiq Sans", sans-serif; */
 
 :root {
   /* spring */
@@ -209,7 +210,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', 'Roboto', sans-serif;
-  /* font-family: "Noto Sans Georgian", sans-serif; */
   caret-color: var(--color-main-yellow);
 }
 
