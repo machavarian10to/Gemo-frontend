@@ -12,10 +12,10 @@ const getToken = (name) => {
 
 const getCurrentUser = async () => {
   try {
-    const response = await axiosInstance.get('/api/users/user');
-    return response.data;
+    const { data } = await axiosInstance.get('/api/users/user');
+    return data;
   } catch (error) {
-    console.log(error.response.data.message);
+    console.error('Error fetching current user:', error.message);
   }
 };
 

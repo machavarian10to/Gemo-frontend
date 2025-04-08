@@ -42,10 +42,6 @@
   transition: 0.3s;
 }
 
-.gifs-wrapper .gif img:hover {
-  transform: scale(0.9);
-}
-
 .selected-gif-wrapper {
   margin-top: 15px;
   width: 100%;
