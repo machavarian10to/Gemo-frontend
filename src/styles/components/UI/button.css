@@ -36,24 +36,22 @@
 .button-danger {
   background-color: var(--bg-main-red);
 }
-.button-base {
-  color: var(--color-main-yellow);
-  background: none;
-}
-.button-base:hover {
-  background: rgba(251, 222, 190, 0.3);
-}
-.button-base:active {
-  background: rgba(251, 222, 190, 0.1);
-}
-
 .button-danger:hover {
   background-color: rgba(255, 0, 0, 0.5);
 }
 .button-danger:active {
   background-color: rgba(255, 0, 0, 0.4);
 }
-
+.button-base {
+  color: var(--color-main-yellow);
+  background: rgba(251, 222, 190, 0.3);
+}
+.button-base:hover {
+  background: rgba(251, 222, 190, 0.4);
+}
+.button-base:active {
+  background: rgba(251, 222, 190, 0.1);
+}
 .button-extra-small {
   padding: 6px 10px;
   font-size: 12px;

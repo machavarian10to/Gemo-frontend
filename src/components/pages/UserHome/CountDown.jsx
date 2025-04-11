@@ -6,27 +6,7 @@ import LunchDiningOutlinedIcon from '@mui/icons-material/LunchDiningOutlined';
 
 function CountDown() {
   const { t } = useTranslation();
-  const [timeLeft, setTimeLeft] = useState(24 * 60 * 60);
-  const [finished, setFinished] = useState(false);
-
-  useEffect(() => {
-    if (!timeLeft) {
-      setFinished(true);
-      return;
-    }
-    const intervalId = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev === 0) {
-          clearInterval(intervalId);
-          setFinished(true);
-          return prev;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   function formattedTime(time) {
     const hours = Math.floor(time / 3600);
@@ -38,7 +18,7 @@ function CountDown() {
 
   return (
     <div className='count-down-wrapper'>
-      {finished ? (
+      {timeLeft ? (
         <>
           <div className='count-down-new-food-wrapper'>
             <LunchDiningOutlinedIcon
@@ -53,7 +33,7 @@ function CountDown() {
             </h3>
           </div>
           <div className='count-down-new-food-button'>
-            <Button fillContainer label='Get recommendation' />
+            <Button type='base' fillContainer label='Get recommendation' />
           </div>
         </>
       ) : (

@@ -32,18 +32,42 @@ function SpeechBubble() {
 
   return (
     <>
-      <div className='speech-bubble-wrapper'>
-        <div>
-          <UserAvatar width={30} height={30} />
+      <div
+        className='speech-bubble-wrapper'
+        onClick={() => iconClickHandler('post')}
+      >
+        <div className='user-home__speech-bubble-header'>
+          <div>
+            <UserAvatar width={30} height={30} />
+          </div>
+          <div className='speech-bubble'>{t('speech_bubble')}</div>
         </div>
-        <div onClick={() => iconClickHandler('post')} className='speech-bubble'>
-          {t('speech_bubble')}
-        </div>
-        <div className='user-home__speech-bubble-icons-wrapper'>
-          <CollectionsIcon onClick={() => iconClickHandler('media')} />
-          <PollIcon onClick={() => iconClickHandler('poll')} />
+        <div
+          className='user-home__speech-bubble-icons-wrapper'
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className='user-home__speech-bubble-icon'
+            onClick={() => iconClickHandler('media')}
+          >
+            <CollectionsIcon />
+            <div>Media</div>
+          </div>
+          <div
+            className='user-home__speech-bubble-icon'
+            onClick={() => iconClickHandler('poll')}
+          >
+            <PollIcon />
+            <div>Poll</div>
+          </div>
           {/* <EditCalendarIcon onClick={() => iconClickHandler('event')} /> */}
-          <GifBoxIcon onClick={() => iconClickHandler('gif')} />
+          <div
+            className='user-home__speech-bubble-icon'
+            onClick={() => iconClickHandler('gif')}
+          >
+            <GifBoxIcon />
+            <div>Gif</div>
+          </div>
         </div>
       </div>
       {showModal && (
