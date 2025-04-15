@@ -66,21 +66,21 @@ function Translator() {
               className='language-option'
               onClick={() => onChangeLanguage('ka')}
             >
-              <span className='fi fi-ge'></span>
+              <span className='fi fi-ge flags-border'></span>
               <span>ქართული</span>
             </div>
             <div
               className='language-option'
               onClick={() => onChangeLanguage('en')}
             >
-              <span className='fi fi-gb'></span>
+              <span className='fi fi-gb flags-border'></span>
               <span>English</span>
             </div>
             <div
               className='language-option'
               onClick={() => onChangeLanguage('ru')}
             >
-              <span className='fi fi-ru'></span>
+              <span className='fi fi-ru flags-border'></span>
               <span>Русский</span>
             </div>
             <div
