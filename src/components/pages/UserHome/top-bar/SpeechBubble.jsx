@@ -40,7 +40,7 @@ function SpeechBubble() {
           <div>
             <UserAvatar width={30} height={30} />
           </div>
-          <div className='speech-bubble'>{t('speech_bubble')}</div>
+          <div className='speech-bubble'>{t('speech_bubble.eat')}</div>
         </div>
         <div
           className='user-home__speech-bubble-icons-wrapper'
@@ -51,14 +51,14 @@ function SpeechBubble() {
             onClick={() => iconClickHandler('media')}
           >
             <CollectionsIcon />
-            <div>Media</div>
+            <div>{t('speech_bubble.media')}</div>
           </div>
           <div
             className='user-home__speech-bubble-icon'
             onClick={() => iconClickHandler('poll')}
           >
             <PollIcon />
-            <div>Poll</div>
+            <div>{t('speech_bubble.poll')}</div>
           </div>
           {/* <EditCalendarIcon onClick={() => iconClickHandler('event')} /> */}
           <div
@@ -66,7 +66,7 @@ function SpeechBubble() {
             onClick={() => iconClickHandler('gif')}
           >
             <GifBoxIcon />
-            <div>Gif</div>
+            <div>{t('speech_bubble.gif')}</div>
           </div>
         </div>
       </div>

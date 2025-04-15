@@ -138,7 +138,12 @@
     "pinned_success": "Comment pinned successfully!",
     "unpinned_success": "Comment unpinned successfully!"
   },
-  "speech_bubble": "What should I eat?",
+  "speech_bubble": {
+    "eat": "What should I eat?",
+    "media": "Media",
+    "poll": "Poll",
+    "gif": "Gif"
+  },
   "or": "or",
   "add": "Add",
   "option": "Option",

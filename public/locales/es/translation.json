@@ -138,7 +138,12 @@
     "pinned_success": "¡Comentario fijado con éxito!",
     "unpinned_success": "¡Comentario desfijado con éxito!"
   },
-  "speech_bubble": "¿Qué debo comer?",
+  "speech_bubble": {
+    "eat": "¿Qué debería comer?",
+    "media": "Medios",
+    "poll": "Encuesta",
+    "gif": "Gif"
+  },
   "or": "o",
   "add": "Agregar",
   "option": "Opción",

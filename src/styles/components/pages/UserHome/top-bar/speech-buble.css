@@ -27,7 +27,7 @@
 .user-home__speech-bubble-icons-wrapper {
   display: flex;
   gap: 20px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--color-grey);
   border-top: 1px solid var(--color-grey);
   margin-top: 15px;
