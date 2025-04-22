@@ -38,7 +38,7 @@
     "achievements": "Logros",
     "help": "Ayuda y soporte",
     "logout": "Cerrar sesión",
-    "search": "Escribe @ para buscar usuarios, escribe > para buscar grupos..."
+    "search": "escribe @ para buscar usuarios, escribe > para buscar grupos"
   },
   "sidebar": {
     "home": "Inicio",

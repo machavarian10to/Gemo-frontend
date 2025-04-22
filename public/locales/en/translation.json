@@ -38,7 +38,7 @@
     "achievements": "Achievements",
     "help": "Help & Support",
     "logout": "Logout",
-    "search": "Type @ to search users, type > to search groups..."
+    "search": "type @ to search users, type > to search groups"
   },
   "sidebar": {
     "home": "Home",

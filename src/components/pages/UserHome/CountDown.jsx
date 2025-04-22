@@ -3,22 +3,45 @@ import { useTranslation } from 'react-i18next';
 import Button from '@/components/UI/Button';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import LunchDiningOutlinedIcon from '@mui/icons-material/LunchDiningOutlined';
+import axiosInstance from '@/services/axios';
 
 function CountDown() {
   const { t } = useTranslation();
-  const [timeLeft, setTimeLeft] = useState(0);
+
+  const [time, setTime] = useState({
+    left: 0,
+    canRecommend: false,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get(
+          '/api/food/recommendation-status',
+        );
+        const { timeLeft, canRecommend } = response.data;
+        setTime({
+          left: timeLeft,
+          canRecommend,
+        });
+      } catch (error) {
+        console.error('Error fetching countdown data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   function formattedTime(time) {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = Math.floor(time % 60);
-
     return `${hours}h : ${minutes}m : ${seconds}s`;
   }
 
   return (
     <div className='count-down-wrapper'>
-      {timeLeft ? (
+      {!time.canRecommend ? (
         <>
           <div className='count-down-new-food-wrapper'>
             <LunchDiningOutlinedIcon
@@ -50,7 +73,7 @@ function CountDown() {
             <h3 className='countdown-title'>{t('countdown')}</h3>
           </div>
 
-          <div className='countdown-date'>{formattedTime(timeLeft)}</div>
+          <div className='countdown-date'>{formattedTime(time.left)}</div>
         </>
       )}
     </div>
