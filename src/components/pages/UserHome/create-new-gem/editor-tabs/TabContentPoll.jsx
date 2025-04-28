@@ -178,7 +178,7 @@ function TabContentPoll({ pollTabState, setPollTabState }) {
                   <HighlightOffIcon
                     onClick={() => deleteOption(option.id)}
                     style={{
-                      color: 'var(--bg-shade-42)',
+                      color: 'var(--color-grey)',
                       cursor: 'pointer',
                       opacity: '0.5',
                     }}

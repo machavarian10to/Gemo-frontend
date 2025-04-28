@@ -61,15 +61,10 @@
   flex-direction: column;
 }
 
-.sidebar:hover .sidebar-toggle {
-  display: block;
-}
-
 .sidebar-toggle {
   position: absolute;
   top: 80px;
   right: -8px;
-  display: none;
   cursor: pointer;
 }
 

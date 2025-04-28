@@ -1,36 +1,11 @@
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@/components/UI/Button';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import LunchDiningOutlinedIcon from '@mui/icons-material/LunchDiningOutlined';
-import axiosInstance from '@/services/axios';
+import PropTypes from 'prop-types';
 
-function CountDown() {
+function CountDown({ timeLeft, onRecommendationClick }) {
   const { t } = useTranslation();
-
-  const [time, setTime] = useState({
-    left: 0,
-    canRecommend: false,
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosInstance.get(
-          '/api/food/recommendation-status',
-        );
-        const { timeLeft, canRecommend } = response.data;
-        setTime({
-          left: timeLeft,
-          canRecommend,
-        });
-      } catch (error) {
-        console.error('Error fetching countdown data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   function formattedTime(time) {
     const hours = Math.floor(time / 3600);
@@ -41,7 +16,7 @@ function CountDown() {
 
   return (
     <div className='count-down-wrapper'>
-      {!time.canRecommend ? (
+      {timeLeft === 0 ? (
         <>
           <div className='count-down-new-food-wrapper'>
             <LunchDiningOutlinedIcon
@@ -56,7 +31,12 @@ function CountDown() {
             </h3>
           </div>
           <div className='count-down-new-food-button'>
-            <Button type='base' fillContainer label='Get recommendation' />
+            <Button
+              type='base'
+              fillContainer
+              label='Get recommendation'
+              clickHandler={onRecommendationClick}
+            />
           </div>
         </>
       ) : (
@@ -73,11 +53,16 @@ function CountDown() {
             <h3 className='countdown-title'>{t('countdown')}</h3>
           </div>
 
-          <div className='countdown-date'>{formattedTime(time.left)}</div>
+          <div className='countdown-date'>{formattedTime(timeLeft)}</div>
         </>
       )}
     </div>
   );
 }
+
+CountDown.propTypes = {
+  timeLeft: PropTypes.number,
+  onRecommendationClick: PropTypes.func,
+};
 
 export default CountDown;

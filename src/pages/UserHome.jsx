@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import SpeechBubble from '@/components/pages/UserHome/top-bar/SpeechBubble';
 import GemContainer from '@/components/pages/UserHome/user-gem/GemContainer';
 import Fade from '@mui/material/Fade';
@@ -19,11 +19,13 @@ function UserHome() {
   const [loading, setLoading] = useState(true);
   const [alertBox, setAlertBox] = useState({ message: '', type: '' });
   const [hasMore, setHasMore] = useState(true);
-  const gems = useSelector((state) => state.gems);
   const [gemState, setGemState] = useState({
     limit: 20,
     skip: 0,
   });
+  const [timeLeft, setTimeLeft] = useState(null);
+  const gems = useSelector((state) => state.gems);
+  const intervalRef = useRef(null);
 
   const { t } = useTranslation();
 
@@ -57,6 +59,55 @@ function UserHome() {
         setLoading(false);
       });
   }, [dispatch, gemState.limit, gemState.skip, hasMore]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get(
+          '/api/food/recommendation-status',
+        );
+        const secondsLeft = response.data.timeLeft;
+        if (secondsLeft > 0) {
+          startCountdown(secondsLeft);
+        } else {
+          setTimeLeft(0);
+        }
+      } catch (error) {
+        console.error('Error fetching countdown data:', error);
+      }
+    };
+
+    fetchData();
+
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
+  const startCountdown = (initialTime) => {
+    setTimeLeft(initialTime);
+
+    intervalRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  const onRecommendationClick = async () => {
+    try {
+      const response = await axiosInstance.get('/api/food/recommendation');
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching food recommendation data:', error);
+      setAlertBox({
+        message: error.response.data,
+        type: 'error',
+      });
+    }
+  };
 
   return (
     <>
@@ -99,10 +150,13 @@ function UserHome() {
           </div>
 
           <div className='user-home__right-container-wrapper'>
-            <CountDown />
-            <FoodRecommendation />
+            <CountDown onRecommendationClick={onRecommendationClick} />
+
+            {timeLeft > 0 && <FoodRecommendation />}
+
             <FeaturedGem />
             {/* <Trending /> */}
+            {/* Ads */}
           </div>
         </div>
       </Fade>

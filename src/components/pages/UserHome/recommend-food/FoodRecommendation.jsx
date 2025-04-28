@@ -1,4 +1,6 @@
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
+import { useEffect } from 'react';
+import axiosInstance from '@/services/axios';
 
 function FoodRecommendation() {
   return (
