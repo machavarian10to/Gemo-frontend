@@ -3,7 +3,6 @@
   padding: 15px;
   border-radius: var(--border-radius-rect);
   background-color: var(--bg-secondary-color);
-  /* color: var(--color-main-grey); */
 }
 
 .countdown-title,
