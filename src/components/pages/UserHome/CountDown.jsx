@@ -57,14 +57,14 @@ function CountDown({ timeLeft, setTimeLeft, onRecommendationClick }) {
                 }}
               />
               <h3 className='count-down-new-food-text'>
-                click here to get new food recommendation:
+                {t('get_new_recommendation')}
               </h3>
             </div>
             <div className='count-down-new-food-button'>
               <Button
                 type='base'
                 fillContainer
-                label='Get recommendation'
+                label={t('get_recommendation')}
                 clickHandler={onRecommendationClick}
               />
             </div>
