@@ -24,6 +24,7 @@ function UserHome() {
     skip: 0,
   });
   const [timeLeft, setTimeLeft] = useState(null);
+  const [recommendation, setRecommendation] = useState(null);
   const gems = useSelector((state) => state.gems);
 
   const { t } = useTranslation();
@@ -77,7 +78,7 @@ function UserHome() {
   const onRecommendationClick = async () => {
     try {
       const response = await axiosInstance.get('/api/food/recommendation');
-      console.log(response.data);
+      setRecommendation(response.data);
 
       const statusResponse = await axiosInstance.get(
         '/api/food/recommendation-status',
@@ -139,7 +140,9 @@ function UserHome() {
               onRecommendationClick={onRecommendationClick}
             />
 
-            {timeLeft > 0 && <FoodRecommendation />}
+            {timeLeft > 0 && (
+              <FoodRecommendation recommendation={recommendation} />
+            )}
 
             <FeaturedGem />
             {/* <Trending /> */}
