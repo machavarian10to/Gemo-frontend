@@ -36,18 +36,27 @@ function FeaturedGem() {
 
       <div className='divider'></div>
       <div className='user-home__featured-gem-titles'>
-        <h4>
-          {t('gem.title')}: <span>{gemData.title}</span>
-        </h4>
-        <h4>
-          {t('gem.author')}: <span>@{gemData.username}</span>
-        </h4>
-        <h4>
-          {t('gem.reacts_amount')}: <span>{gemData.reactsAmount}</span>
-        </h4>
-        <h4>
-          {t('gem.featured_time_left')}: <span>24h</span>
-        </h4>
+        {gemData.gem && gemData.timeUntilNextCalculation && (
+          <>
+            <h4>
+              {t('gem.title')}: <span>{gemData.gem.title}</span>
+            </h4>
+            <h4>
+              {t('gem.author')}: <span>@{gemData.gem.username}</span>
+            </h4>
+            <h4>
+              {t('gem.reacts_amount')}: <span>{gemData.gem.reactsAmount}</span>
+            </h4>
+            <h4>
+              {t('gem.featured_time_left')}
+              {': '}
+              <span>
+                {gemData.timeUntilNextCalculation.hours}:
+                {gemData.timeUntilNextCalculation.minutes}
+              </span>
+            </h4>
+          </>
+        )}
       </div>
     </div>
   );
