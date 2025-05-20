@@ -39,3 +39,6 @@
   color: var(--color-main-yellow);
   margin-left: 5px;
 }
+.featured-gem-title {
+  word-break: break-all;
+}

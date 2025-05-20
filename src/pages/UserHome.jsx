@@ -145,6 +145,7 @@ function UserHome() {
             )}
 
             <FeaturedGem />
+            {/* Wallet */}
             {/* <Trending /> */}
             {/* Ads */}
           </div>

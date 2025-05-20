@@ -2,6 +2,7 @@ import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/services/axios';
 import { useTranslation } from 'react-i18next';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function FeaturedGem() {
   const [gemData, setGemData] = useState({});
@@ -36,10 +37,11 @@ function FeaturedGem() {
 
       <div className='divider'></div>
       <div className='user-home__featured-gem-titles'>
-        {gemData.gem && gemData.timeUntilNextCalculation && (
+        {gemData.gem && gemData.timeUntilNextCalculation ? (
           <>
             <h4>
-              {t('gem.title')}: <span>{gemData.gem.title}</span>
+              {t('gem.title')}:{' '}
+              <span className='featured-gem-title'>{gemData.gem.title}</span>
             </h4>
             <h4>
               {t('gem.author')}: <span>@{gemData.gem.username}</span>
@@ -51,10 +53,27 @@ function FeaturedGem() {
               {t('gem.featured_time_left')}
               {': '}
               <span>
-                {gemData.timeUntilNextCalculation.hours}:
-                {gemData.timeUntilNextCalculation.minutes}
+                {gemData.timeUntilNextCalculation.hours}h:
+                {gemData.timeUntilNextCalculation.minutes}m
               </span>
             </h4>
+          </>
+        ) : (
+          <>
+            <SkeletonTheme baseColor='var(--bg-secondary-color)'>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '20px',
+                }}
+              >
+                <Skeleton height={20} />
+                <Skeleton height={20} />
+                <Skeleton height={20} />
+                <Skeleton height={20} />
+              </div>
+            </SkeletonTheme>
           </>
         )}
       </div>
