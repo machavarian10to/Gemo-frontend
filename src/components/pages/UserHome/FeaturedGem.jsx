@@ -1,4 +1,5 @@
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/services/axios';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +10,8 @@ function FeaturedGem() {
 
   const { t } = useTranslation();
 
-  useEffect(() => {
+  const onFeaturedGemRefresh = () => {
+    setGemData({});
     axiosInstance
       .get('api/gems/featured')
       .then((response) => {
@@ -18,22 +20,32 @@ function FeaturedGem() {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    onFeaturedGemRefresh();
   }, []);
 
   return (
     <div className='user-home__featured-gem-wrapper'>
-      <h4 className='user-home__featured-gem-title'>
-        <AutoAwesomeOutlinedIcon
-          style={{
-            transform: 'rotate(180deg)',
-            color: 'var(--color-main-yellow)',
-          }}
-        />
-        {t('gem.featured_gem')}
-        <AutoAwesomeOutlinedIcon
-          style={{ color: 'var(--color-main-yellow)' }}
-        />
-      </h4>
+      <div className='user-home__featured-gem-header'>
+        <div onClick={onFeaturedGemRefresh}>
+          <RefreshIcon className='user-home__featured-gem-refresh' />
+        </div>
+
+        <h4 className='user-home__featured-gem-title'>
+          <AutoAwesomeOutlinedIcon
+            style={{
+              transform: 'rotate(180deg)',
+              color: 'var(--color-main-yellow)',
+            }}
+          />
+          {t('gem.featured_gem')}
+          <AutoAwesomeOutlinedIcon
+            style={{ color: 'var(--color-main-yellow)' }}
+          />
+        </h4>
+      </div>
 
       <div className='divider'></div>
       <div className='user-home__featured-gem-titles'>
@@ -68,10 +80,10 @@ function FeaturedGem() {
                   gap: '20px',
                 }}
               >
-                <Skeleton height={20} />
-                <Skeleton height={20} />
-                <Skeleton height={20} />
-                <Skeleton height={20} />
+                <Skeleton height={18} />
+                <Skeleton height={18} />
+                <Skeleton height={18} />
+                <Skeleton height={18} />
               </div>
             </SkeletonTheme>
           </>

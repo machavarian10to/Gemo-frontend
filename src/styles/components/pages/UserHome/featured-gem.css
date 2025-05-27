@@ -6,12 +6,12 @@
 }
 
 .user-home__featured-gem-title {
-  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
   font-weight: 600;
   justify-content: center;
+  margin-left: 7px;
 }
 
 .user-home__featured-gem-wrapper .divider {
@@ -19,6 +19,28 @@
   margin-inline: auto;
   width: 90%;
   opacity: 0.4;
+}
+
+.user-home__featured-gem-refresh {
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  cursor: pointer;
+  color: var(--color-light-grey);
+  transition: all 0.3s;
+}
+
+.user-home__featured-gem-refresh:hover {
+  color: var(--color-main-yellow);
+}
+
+.user-home__featured-gem-header {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .user-home__featured-gem-titles {
