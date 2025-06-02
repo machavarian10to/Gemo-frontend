@@ -1,0 +1,51 @@
+.diet-details-header {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.diet-details-container {
+  margin-top: 20px;
+  border-radius: var(--border-radius-rect);
+  background-color: var(--bg-secondary-color);
+  min-height: 100px;
+  display: flex;
+}
+
+.diet-details-container-tabs-wrapper {
+  border-right: 1px solid var(--color-grey);
+}
+
+.diet-details-container-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px;
+}
+
+.diet-details-container-tabs-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--color-grey);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px;
+  border-radius: var(--border-radius-rect);
+}
+
+.diet-details-container-tabs-item.active,
+.diet-details-container-tabs-item:hover {
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
+}
+
+.diet-details-container-tabs-item:hover {
+  transition: all 0.3s;
+}
+
+.diet-details-container-tabs-icon {
+  color: var(--color-grey);
+  color: var(--color-main-yellow);
+}

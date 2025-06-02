@@ -6,6 +6,7 @@ import '@/index.css';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import UserHome from '@/pages/UserHome';
 import GroupsPage from '@/pages/GroupsPage';
+import DietDetails from '@/pages/DietDetails';
 import EmailVerification from '@/components/pages/Authorization/EmailVerification';
 import GoogleCallback from '@/components/pages/Authorization/GoogleCallback';
 import ResetPassword from '@/components/pages/Authorization/ResetPassword';
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
         element: (
           <AuthRoute>
             <GroupsPage />
+          </AuthRoute>
+        ),
+      },
+      {
+        path: 'diet-details',
+        element: (
+          <AuthRoute>
+            <DietDetails />
           </AuthRoute>
         ),
       },

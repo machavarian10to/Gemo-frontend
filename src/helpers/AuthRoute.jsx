@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Authorization from '@/pages/Authorization';
 import { setLogin, setLogout } from '@/state/index';
 import PropTypes from 'prop-types';
@@ -12,6 +13,7 @@ const AuthRoute = ({ children }) => {
   const mode = useSelector((state) => state.mode);
   const language = useSelector((state) => state.language);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', mode || 'dark');
@@ -38,9 +40,12 @@ const AuthRoute = ({ children }) => {
     if (!user) {
       fetchUser();
     } else {
+      if (!user.dietDetails) {
+        navigate('/diet-details');
+      }
       setLoading(false);
     }
-  }, [user, dispatch]);
+  }, [user, dispatch, navigate]);
 
   if (loading) {
     return;
