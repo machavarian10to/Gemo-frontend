@@ -1,12 +1,18 @@
-
-.basic-information-gender-header {
-  margin-top: 20px;
+.basic-information-header {
+  margin-bottom: 10px;
   font-size: 13px;
   font-weight: 600;
 }
 
 .basic-information-radio-wrapper {
-  margin-top: 10px;
   display: flex;
   gap: 20px;
+}
+
+.basic-information-location {
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 2;
+  min-height: 80px;
 }

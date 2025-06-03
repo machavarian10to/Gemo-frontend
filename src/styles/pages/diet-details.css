@@ -8,6 +8,7 @@
   border-radius: var(--border-radius-rect);
   background-color: var(--bg-secondary-color);
   min-height: 100px;
+  width: 800px;
   display: flex;
 }
 
@@ -46,10 +47,14 @@
 }
 
 .diet-details-container-tabs-icon {
-  color: var(--color-grey);
   color: var(--color-main-yellow);
 }
 
 .diet-details-content-container {
-    padding: 20px;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  width: 500px;
 }
