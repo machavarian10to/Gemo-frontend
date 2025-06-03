@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import AccessibilityOutlinedIcon from '@mui/icons-material/AccessibilityOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
@@ -5,7 +6,14 @@ import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import OutlinedFlagOutlinedIcon from '@mui/icons-material/OutlinedFlagOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined';
-import { useState } from 'react';
+
+import ActivityTracking from '@/components/pages/DietDetails/ActivityTracking';
+import BasicInformation from '@/components/pages/DietDetails/BasicInformation';
+import FoodPreferences from '@/components/pages/DietDetails/FoodPreferences';
+import GoalsMotivation from '@/components/pages/DietDetails/GoalsMotivation';
+import HealthConditions from '@/components/pages/DietDetails/HealthConditions';
+import LifestyleHabits from '@/components/pages/DietDetails/LifestyleHabits';
+import PhysicalAttributes from '@/components/pages/DietDetails/PhysicalAttributes';
 
 function DietDetails() {
   const [activeTab, setActiveTab] = useState('basicInfo');
@@ -103,48 +111,13 @@ function DietDetails() {
         </div>
 
         <div className='diet-details-container-inputs-wrapper'>
-          {activeTab === 'basicInfo' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Basic Information</h5>
-              {/* Add input fields for basic information here */}
-            </div>
-          )}
-          {activeTab === 'physicalAttributes' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Physical Attributes</h5>
-              {/* Add input fields for physical attributes here */}
-            </div>
-          )}
-          {activeTab === 'healthConditions' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Health Conditions</h5>
-              {/* Add input fields for health conditions here */}
-            </div>
-          )}
-          {activeTab === 'foodPreferences' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Food Preferences</h5>
-              {/* Add input fields for food preferences here */}
-            </div>
-          )}
-          {activeTab === 'goalsMotivation' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Goals & Motivation</h5>
-              {/* Add input fields for goals and motivation here */}
-            </div>
-          )}
-          {activeTab === 'lifestyleHabits' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Lifestyle & Habits</h5>
-              {/* Add input fields for lifestyle and habits here */}
-            </div>
-          )}
-          {activeTab === 'activityTracking' && (
-            <div className='diet-details-container-inputs'>
-              <h5>Activity Tracking</h5>
-              {/* Add input fields for activity tracking here */}
-            </div>
-          )}
+          {activeTab === 'basicInfo' && <BasicInformation />}
+          {activeTab === 'physicalAttributes' && <PhysicalAttributes />}
+          {activeTab === 'healthConditions' && <HealthConditions />}
+          {activeTab === 'foodPreferences' && <FoodPreferences />}
+          {activeTab === 'goalsMotivation' && <GoalsMotivation />}
+          {activeTab === 'lifestyleHabits' && <LifestyleHabits />}
+          {activeTab === 'activityTracking' && <ActivityTracking />}
         </div>
       </div>
     </div>

@@ -49,3 +49,7 @@
   color: var(--color-grey);
   color: var(--color-main-yellow);
 }
+
+.diet-details-content-container {
+    padding: 20px;
+}

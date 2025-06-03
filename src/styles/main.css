@@ -31,6 +31,13 @@
 @import '@/styles/components/pages/UserHome/count-down.css';
 @import '@/styles/components/pages/UserHome/featured-gem.css';
 @import '@/styles/components/pages/UserHome/reacted-users.css';
+@import '@/styles/components/pages/DietDetails/activity-tracking.css';
+@import '@/styles/components/pages/DietDetails/basic-information.css';
+@import '@/styles/components/pages/DietDetails/food-preferences.css';
+@import '@/styles/components/pages/DietDetails/goals-motivation.css';
+@import '@/styles/components/pages/DietDetails/health-conditions.css';
+@import '@/styles/components/pages/DietDetails/lifestyle-habits.css';
+@import '@/styles/components/pages/DietDetails/physical-attributes.css';
 @import '@/styles/components/shared/header.css';
 @import '@/styles/components/shared/sidebar.css';
 @import '@/styles/components/shared/user-avatar.css';

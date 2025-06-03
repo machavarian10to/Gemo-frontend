@@ -40,9 +40,9 @@ const AuthRoute = ({ children }) => {
     if (!user) {
       fetchUser();
     } else {
-      if (!user.dietDetails) {
-        navigate('/diet-details');
-      }
+      // if (!user.dietDetails) {
+      //   navigate('/diet-details');
+      // }
       setLoading(false);
     }
   }, [user, dispatch, navigate]);
