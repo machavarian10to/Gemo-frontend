@@ -24,7 +24,9 @@ function DietDetails() {
 
   return (
     <div>
-      <h4 className='diet-details-header'>Enter details about you:</h4>
+      <h4 className='diet-details-header'>
+        Enter details about you for generating food recommendations:
+      </h4>
 
       <div className='diet-details-container'>
         <div className='diet-details-container-tabs-wrapper'>
