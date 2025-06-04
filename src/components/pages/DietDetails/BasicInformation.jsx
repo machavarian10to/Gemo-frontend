@@ -84,7 +84,7 @@ function BasicInformation() {
           />
 
           <div>
-            <h4 className='basic-information-header'>
+            <h4 className='diet-details-input-header'>
               Gender <span className='mandatory'> *</span>
             </h4>
             <div className='basic-information-radio-wrapper'>
@@ -110,7 +110,7 @@ function BasicInformation() {
           </div>
 
           <div>
-            <h4 className='basic-information-header'>Location</h4>
+            <h4 className='diet-details-input-header'>Location</h4>
 
             {location ? (
               <>

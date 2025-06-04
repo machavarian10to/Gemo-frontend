@@ -59,3 +59,9 @@
   max-height: 370px;
   overflow-y: auto;
 }
+
+.diet-details-input-header {
+  margin-bottom: 15px;
+  font-size: 13px;
+  font-weight: 600;
+}
