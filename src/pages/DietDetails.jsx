@@ -112,15 +112,13 @@ function DietDetails() {
           </div>
         </div>
 
-        <div className='diet-details-container-inputs-wrapper'>
-          {activeTab === 'basicInfo' && <BasicInformation />}
-          {activeTab === 'physicalAttributes' && <PhysicalAttributes />}
-          {activeTab === 'healthConditions' && <HealthConditions />}
-          {activeTab === 'foodPreferences' && <FoodPreferences />}
-          {activeTab === 'goalsMotivation' && <GoalsMotivation />}
-          {activeTab === 'lifestyleHabits' && <LifestyleHabits />}
-          {activeTab === 'activityTracking' && <ActivityTracking />}
-        </div>
+        {activeTab === 'basicInfo' && <BasicInformation />}
+        {activeTab === 'physicalAttributes' && <PhysicalAttributes />}
+        {activeTab === 'healthConditions' && <HealthConditions />}
+        {activeTab === 'foodPreferences' && <FoodPreferences />}
+        {activeTab === 'goalsMotivation' && <GoalsMotivation />}
+        {activeTab === 'lifestyleHabits' && <LifestyleHabits />}
+        {activeTab === 'activityTracking' && <ActivityTracking />}
       </div>
     </div>
   );

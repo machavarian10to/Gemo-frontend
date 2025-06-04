@@ -9,6 +9,7 @@ function Input({
   type = 'text', // text, password, email, number, date
   state = 'active', // danger, inactive
   size = 'medium', // extra-small, small, medium, large
+  mandatory = false,
   onInput,
   onKeyDown,
   onBlur,
@@ -29,6 +30,7 @@ function Input({
       {label && (
         <label className='input-component-label' htmlFor={name}>
           {label}
+          {mandatory && <span className='mandatory'> *</span>}
         </label>
       )}
       <div
@@ -77,6 +79,7 @@ Input.propTypes = {
   label: PropTypes.string,
   state: PropTypes.string,
   size: PropTypes.string,
+  mandatory: PropTypes.bool,
   onInput: PropTypes.func,
   onKeyDown: PropTypes.func,
   onBlur: PropTypes.func,

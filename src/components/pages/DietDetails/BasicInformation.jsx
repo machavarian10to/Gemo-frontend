@@ -10,6 +10,7 @@ function BasicInformation() {
   const [age, setAge] = useState('');
   const [alert, setAlert] = useState({ message: '' });
   const [location, setLocation] = useState('');
+  const [fullName, setFullName] = useState('');
 
   function onLocationRequest() {
     if (navigator.geolocation) {
@@ -63,17 +64,29 @@ function BasicInformation() {
       <Fade in={true} timeout={400}>
         <div className='diet-details-content-container'>
           <Input
+            name='fullName'
+            value={fullName}
+            label='Full name'
+            placeholder='Enter your full name...'
+            size='small'
+            onInput={(e) => setFullName(e.target.value)}
+          />
+
+          <Input
             name='age'
             value={age}
             label='Age'
             placeholder='Enter your age...'
             size='small'
             type='number'
+            mandatory
             onInput={(e) => setAge(e.target.value)}
           />
 
           <div>
-            <h4 className='basic-information-header'>Gender</h4>
+            <h4 className='basic-information-header'>
+              Gender <span className='mandatory'> *</span>
+            </h4>
             <div className='basic-information-radio-wrapper'>
               <RadioButton
                 label='Male'
@@ -86,6 +99,12 @@ function BasicInformation() {
                 value='Female'
                 checked={gender === 'Female'}
                 onChange={() => setGender('Female')}
+              />
+              <RadioButton
+                label='Other'
+                value='Other'
+                checked={gender === 'Other'}
+                onChange={() => setGender('Other')}
               />
             </div>
           </div>

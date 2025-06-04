@@ -255,6 +255,10 @@ input:not(::placeholder-shown) {
   flex: 1;
 }
 
+.mandatory {
+  color: var(--bg-main-red);
+}
+
 [data-title] {
   position: relative;
 }
