@@ -5,8 +5,8 @@ import Select from '@/components/UI/Select';
 import { Fade } from '@mui/material';
 
 function PhysicalAttributes() {
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('kg');
+  const [height, setHeight] = useState('cm');
   const [bodyType, setBodyType] = useState('');
   const [showOptions, setShowOptions] = useState(false);
   const [selectedActivityLevel, setSelectedActivityLevel] = useState(
@@ -16,27 +16,63 @@ function PhysicalAttributes() {
   return (
     <Fade in={true} timeout={400}>
       <div className='diet-details-content-container'>
-        <Input
-          mandatory
-          type='number'
-          name='weight'
-          label='Weight'
-          placeholder='Enter your weight...'
-          size='small'
-          value={weight}
-          onInput={(e) => setWeight(e.target.value)}
-        />
+        <div className='diet-details-physical-attributes-attributes-wrapper'>
+          <Input
+            fullWidth
+            mandatory
+            type='number'
+            name='weight'
+            label='Weight'
+            placeholder='Enter your weight...'
+            size='small'
+            value={weight}
+            onInput={(e) => setWeight(e.target.value)}
+          />
 
-        <Input
-          mandatory
-          type='number'
-          name='height'
-          label='Height'
-          placeholder='Enter your height...'
-          size='small'
-          value={height}
-          onInput={(e) => setHeight(e.target.value)}
-        />
+          <div className='diet-details-physical-radio-wrapper'>
+            <RadioButton
+              label='kg'
+              value='kg'
+              checked={weight === 'kg'}
+              onChange={() => setWeight('kg')}
+            />
+            <RadioButton
+              label='lb'
+              value='lb'
+              checked={weight === 'lb'}
+              onChange={() => setWeight('lb')}
+            />
+          </div>
+        </div>
+
+        <div className='diet-details-physical-attributes-attributes-wrapper'>
+          <Input
+            fullWidth
+            mandatory
+            type='number'
+            name='height'
+            label='Height'
+            placeholder='Enter your height...'
+            size='small'
+            value={height}
+            onInput={(e) => setHeight(e.target.value)}
+          />
+
+          <div className='diet-details-physical-radio-wrapper'>
+            <RadioButton
+              label='cm'
+              value='cm'
+              checked={height === 'cm'}
+              onChange={() => setHeight('cm')}
+            />
+            <RadioButton
+              label='ft'
+              value='ft'
+              checked={height === 'ft'}
+              onChange={() => setHeight('ft')}
+            />
+          </div>
+        </div>
 
         <div>
           <h4 className='diet-details-input-header'>

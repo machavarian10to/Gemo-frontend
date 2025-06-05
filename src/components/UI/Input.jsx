@@ -9,7 +9,7 @@ function Input({
   type = 'text', // text, password, email, number, date
   state = 'active', // danger, inactive
   size = 'medium', // extra-small, small, medium, large
-  mandatory = false,
+  mandatory,
   onInput,
   onKeyDown,
   onBlur,
@@ -17,6 +17,7 @@ function Input({
   helperText,
   focused,
   leftIcon,
+  fullWidth,
 }) {
   const inputRef = useRef(null);
   useEffect(() => {
@@ -26,7 +27,10 @@ function Input({
   }, [focused]);
 
   return (
-    <div className='input-component-container'>
+    <div
+      className='input-component-container'
+      style={{ width: fullWidth ? '100%' : 'auto' }}
+    >
       {label && (
         <label className='input-component-label' htmlFor={name}>
           {label}
@@ -87,6 +91,7 @@ Input.propTypes = {
   helperText: PropTypes.string,
   focused: PropTypes.bool,
   leftIcon: PropTypes.element,
+  fullWidth: PropTypes.bool,
 };
 
 export default Input;

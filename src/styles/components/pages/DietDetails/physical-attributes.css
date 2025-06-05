@@ -1,0 +1,11 @@
+.diet-details-physical-attributes-attributes-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.diet-details-physical-radio-wrapper {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
