@@ -1,0 +1,25 @@
+.diet-details-health-conditions-checkboxes-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.diet-details-health-conditions-others-textarea {
+  border: none;
+  resize: none;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  width: 100%;
+  min-height: 100px;
+  padding: 8px 70px 8px 10px;
+  margin-top: 8px;
+  border-radius: var(--border-radius-rect);
+  outline: 1.5px solid var(--color-grey);
+  font-weight: 500;
+  background-color: var(--bg-secondary-color);
+}
+
+.diet-details-health-conditions-others-textarea:focus {
+  outline: 1.5px solid var(--color-main-yellow);
+}

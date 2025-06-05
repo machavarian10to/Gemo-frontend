@@ -10,7 +10,7 @@ function PhysicalAttributes() {
   const [bodyType, setBodyType] = useState('');
   const [showOptions, setShowOptions] = useState(false);
   const [selectedActivityLevel, setSelectedActivityLevel] = useState(
-    'Select your activity level',
+    'Select your activity level *',
   );
 
   return (
@@ -125,7 +125,6 @@ function PhysicalAttributes() {
             showOptions={showOptions}
             setShowOptions={() => setShowOptions(!showOptions)}
             selectOption={(e) => {
-              console.log('Selected activity level:', e.target.innerText);
               setSelectedActivityLevel(e.target.innerText);
               setShowOptions(false);
             }}
