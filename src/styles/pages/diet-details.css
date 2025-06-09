@@ -47,7 +47,7 @@
 }
 
 .diet-details-container-tabs-icon {
-  /* color: var(--color-main-yellow); */
+  color: var(--color-main-yellow);
 }
 
 .diet-details-content-container {
@@ -63,5 +63,6 @@
 .diet-details-input-header {
   margin-bottom: 15px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 800;
+  color: var(--color-grey);
 }
