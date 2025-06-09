@@ -1,7 +1,179 @@
-import React from 'react';
+import { useState } from 'react';
+import Input from '@/components/UI/Input';
+import Checkbox from '@/components/UI/Checkbox';
+import Select from '@/components/UI/Select';
+import { Fade } from '@mui/material';
 
 function FoodPreferences() {
-  return <div>FoodPreferences</div>;
+  const [showOptions, setShowOptions] = useState(false);
+  const [dietType, setDietType] = useState('Select your diet type (if any)');
+  const [dislikedFoods, setDislikedFoods] = useState('');
+
+  const [otherDietType, setOtherDietType] = useState('');
+  const [otherFavoriteCuisines, setOtherFavoriteCuisines] = useState('');
+
+  const [favoriteCuisines, setFavoriteCuisines] = useState({
+    Georgian: false,
+    Italian: false,
+    Chinese: false,
+    Indian: false,
+    Mexican: false,
+    Japanese: false,
+    Mediterranean: false,
+    Thai: false,
+    French: false,
+    Spanish: false,
+    American: false,
+    Other: false,
+  });
+
+  const cuisines = [
+    { key: 'Georgian' },
+    { key: 'Italian' },
+    { key: 'Chinese' },
+    { key: 'Indian' },
+    { key: 'Mexican' },
+    { key: 'Japanese' },
+    { key: 'Mediterranean' },
+    { key: 'Thai' },
+    { key: 'French' },
+    { key: 'Spanish' },
+    { key: 'Other' },
+  ];
+
+  const dietTypeOptions = [
+    { id: 'vegetarian', name: 'Vegetarian' },
+    { id: 'vegan', name: 'Vegan' },
+    { id: 'pescatarian', name: 'Pescatarian' },
+    { id: 'omnivore', name: 'Omnivore' },
+    { id: 'keto', name: 'Keto' },
+    { id: 'paleo', name: 'Paleo' },
+    { id: 'gluten-free', name: 'Gluten-Free' },
+    { id: 'dairy-free', name: 'Dairy-Free' },
+    { id: 'other', name: 'Other' },
+  ];
+
+  return (
+    <Fade in={true} timeout={400}>
+      <div className='diet-details-content-container'>
+        <Select
+          label='Diet Type'
+          selectedOption={dietType}
+          options={dietTypeOptions}
+          showOptions={showOptions}
+          setShowOptions={() => setShowOptions(!showOptions)}
+          selectOption={(e) => {
+            setDietType(e.target.innerText);
+            setShowOptions(false);
+          }}
+        />
+
+        {dietType === 'Other' && (
+          <Input
+            fullWidth
+            name='otherDietType'
+            label='Please specify your diet type'
+            placeholder='Enter your diet type...'
+            size='small'
+            value={otherDietType}
+            onInput={(e) => setOtherDietType(e.target.value)}
+          />
+        )}
+
+        <div>
+          <h4 className='diet-details-input-header'>
+            Favorite Cuisines <span className='mandatory'>*</span>{' '}
+          </h4>
+          <div className='diet-details-health-conditions-checkboxes-wrapper'>
+            {cuisines.map((cuisine) => (
+              <Checkbox
+                key={cuisine.key}
+                label={cuisine.key}
+                checked={favoriteCuisines[cuisine.key]}
+                onChange={() => {
+                  setFavoriteCuisines((prev) => ({
+                    ...prev,
+                    [cuisine.key]: !prev[cuisine.key],
+                  }));
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {favoriteCuisines.Other && (
+          <Input
+            mandatory
+            fullWidth
+            name='otherFavoriteCuisines'
+            label='Please specify other favorite cuisines'
+            placeholder='Enter your favorite cuisines...'
+            size='small'
+            value={otherFavoriteCuisines}
+            onInput={(e) => setOtherFavoriteCuisines(e.target.value)}
+          />
+        )}
+
+        <Input
+          fullWidth
+          name='otherFavoriteCuisines'
+          label='Please specify foods you hate or refuse to eat'
+          placeholder='Enter your disliked foods...'
+          size='small'
+          value={dislikedFoods}
+          onInput={(e) => setDislikedFoods(e.target.value)}
+        />
+
+        <div>
+          <h4 className='diet-details-input-header'>Preferred Meal Times</h4>
+          <div className='diet-details-health-conditions-checkboxes-wrapper'>
+            <Input
+              type='number'
+              name='breakfastTime'
+              label='Breakfast Time'
+              placeholder='Enter breakfast time...'
+              size='small'
+            />
+            <Input
+              type='number'
+              name='lunchTime'
+              label='Lunch Time'
+              placeholder='Enter lunch time...'
+              size='small'
+            />
+            <Input
+              type='number'
+              name='dinnerTime'
+              label='Dinner Time'
+              placeholder='Enter dinner time...'
+              size='small'
+            />
+            <Input
+              type='number'
+              name='supperTime'
+              label='Supper Time'
+              placeholder='Enter supper time...'
+              size='small'
+            />
+            <Input
+              type='number'
+              name='brunchTime'
+              label='Brunch Time'
+              placeholder='Enter brunch time...'
+              size='small'
+            />
+            <Input
+              type='number'
+              name='snackTime'
+              label='Snack Time'
+              placeholder='Enter snack time...'
+              size='small'
+            />
+          </div>
+        </div>
+      </div>
+    </Fade>
+  );
 }
 
 export default FoodPreferences;

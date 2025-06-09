@@ -9,6 +9,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
+import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import { Fade } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -41,8 +42,8 @@ function OpenedSidebar() {
             </NavLink>
           </div>
           <div className='navigation-container'>
-            <NavLink to='/events'>
-              <EventIcon />
+            <NavLink to='/diet-details'>
+              <FastfoodOutlinedIcon />
               <span>{t('sidebar.events')}</span>
             </NavLink>
             <NavLink to='/notifications'>
