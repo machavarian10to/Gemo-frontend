@@ -19,7 +19,7 @@
 .diet-details-container-tabs {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   padding: 5px;
 }
 
@@ -30,9 +30,9 @@
   gap: 10px;
   cursor: pointer;
   color: var(--color-grey);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
-  padding: 10px;
+  padding: 12px;
   border-radius: var(--border-radius-rect);
 }
 
@@ -55,14 +55,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 600px;
-  max-height: 370px;
+  width: 580px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
 .diet-details-input-header {
   margin-bottom: 15px;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--color-grey);
+  font-size: 0.8rem;
+  font-weight: 600;
 }

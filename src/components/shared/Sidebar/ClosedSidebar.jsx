@@ -2,7 +2,7 @@ import React from 'react';
 import { Fade } from '@mui/material';
 import UserAvatar from '@/components/shared/UserAvatar';
 import { NavLink } from 'react-router-dom';
-import EventIcon from '@mui/icons-material/Event';
+import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import LocalDiningOutlinedIcon from '@mui/icons-material/LocalDiningOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
@@ -44,13 +44,13 @@ function ClosedSidebar() {
             </NavLink>
           </div>
           <div className='closed-sidebar-link'>
-            <NavLink to='/messages'>
-              <EmailOutlinedIcon />
+            <NavLink to='/diet-details'>
+              <FastfoodOutlinedIcon />
             </NavLink>
           </div>
           <div className='closed-sidebar-link'>
-            <NavLink to='/events'>
-              <EventIcon />
+            <NavLink to='/messages'>
+              <EmailOutlinedIcon />
             </NavLink>
           </div>
           <div className='closed-sidebar-link'>

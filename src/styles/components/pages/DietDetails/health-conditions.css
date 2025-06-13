@@ -3,6 +3,7 @@
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
+  color: var(--color-grey);
 }
 
 .diet-details-health-conditions-others-textarea {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import UserCard from '@/components/shared/UserCard';
-import EventIcon from '@mui/icons-material/Event';
 import LocalDiningOutlinedIcon from '@mui/icons-material/LocalDiningOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
@@ -36,15 +35,15 @@ function OpenedSidebar() {
               <PlayCircleOutlinedIcon />
               <span>{t('sidebar.bites')}</span>
             </NavLink>
-            <NavLink to='/messages'>
-              <EmailOutlinedIcon />
-              <span>{t('sidebar.messages')}</span>
+            <NavLink to='/diet-details'>
+              <FastfoodOutlinedIcon />
+              <span>{t('sidebar.diet')}</span>
             </NavLink>
           </div>
           <div className='navigation-container'>
-            <NavLink to='/diet-details'>
-              <FastfoodOutlinedIcon />
-              <span>{t('sidebar.events')}</span>
+            <NavLink to='/messages'>
+              <EmailOutlinedIcon />
+              <span>{t('sidebar.messages')}</span>
             </NavLink>
             <NavLink to='/notifications'>
               <NotificationsOutlinedIcon />

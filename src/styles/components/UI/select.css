@@ -6,9 +6,8 @@
 }
 
 .select-component .select-component-label {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--color-grey);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .selected-option-title {
@@ -19,10 +18,10 @@
 .selected-option {
   width: 100%;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 8px;
-  border-radius: var(--border-radius-rect) ;
+  padding: 9px 14px;
+  border-radius: var(--border-radius-rect);
   outline: 1px solid var(--color-grey);
   background: var(--bg-secondary-color);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
@@ -35,7 +34,7 @@
 
 .options-container {
   width: 100%;
-  border-radius: var(--border-radius-rect) ;
+  border-radius: var(--border-radius-rect);
   border: 1px solid var(--color-grey);
   background: var(--bg-secondary-color);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
@@ -52,11 +51,11 @@
 }
 
 .options-container ul li {
-  padding: 8px;
+  padding: 12px 8px;
   border-radius: 6px;
   cursor: pointer;
   color: #828282;
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 600;
   transition: all 0.3s ease-in-out;
 }
