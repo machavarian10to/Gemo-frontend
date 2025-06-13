@@ -77,7 +77,7 @@ function BasicInformation() {
             <h4 className='diet-details-input-header'>
               Gender <span className='mandatory'> *</span>
             </h4>
-            <div className='basic-information-radio-wrapper'>
+            <div className='diet-information-radio-wrapper'>
               <RadioButton
                 label='Male'
                 value='Male'

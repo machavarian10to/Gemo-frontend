@@ -98,7 +98,7 @@ function PhysicalAttributes() {
           <h4 className='diet-details-input-header'>
             Body Type <span className='mandatory'> *</span>
           </h4>
-          <div className='basic-information-radio-wrapper'>
+          <div className='diet-information-radio-wrapper'>
             <RadioButton
               label='Ectomorph'
               value='Ectomorph'
