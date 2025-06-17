@@ -1,7 +1,6 @@
 import Checkbox from '@/components/UI/Checkbox';
 import { Fade } from '@mui/material';
 import { useState } from 'react';
-import Input from '@/components/UI/Input';
 
 function HealthConditions() {
   const [allergies, setAllergies] = useState({

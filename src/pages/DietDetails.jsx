@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Button from '@/components/UI/Button';
+
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import AccessibilityOutlinedIcon from '@mui/icons-material/AccessibilityOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
@@ -18,8 +20,15 @@ import PhysicalAttributes from '@/components/pages/DietDetails/PhysicalAttribute
 function DietDetails() {
   const [activeTab, setActiveTab] = useState('basicInfo');
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  const [basicInfo, setBasicInfo] = useState({
+    age: '',
+    gender: '',
+    location: '',
+  });
+
+  const onSaveClick = () => {
+    // TODO: Logic to save the details
+    alert('Details saved');
   };
 
   return (
@@ -35,7 +44,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'basicInfo' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('basicInfo')}
+              onClick={() => setActiveTab('basicInfo')}
             >
               <PermIdentityOutlinedIcon className='diet-details-container-tabs-icon' />
               Basic Information
@@ -44,7 +53,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'physicalAttributes' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('physicalAttributes')}
+              onClick={() => setActiveTab('physicalAttributes')}
             >
               <AccessibilityOutlinedIcon
                 style={{ fontSize: '24px' }}
@@ -56,7 +65,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'healthConditions' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('healthConditions')}
+              onClick={() => setActiveTab('healthConditions')}
             >
               <LocalHospitalOutlinedIcon
                 style={{ fontSize: '23px' }}
@@ -68,7 +77,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'foodPreferences' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('foodPreferences')}
+              onClick={() => setActiveTab('foodPreferences')}
             >
               <RestaurantOutlinedIcon
                 style={{ fontSize: '23px' }}
@@ -80,7 +89,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'goalsMotivation' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('goalsMotivation')}
+              onClick={() => setActiveTab('goalsMotivation')}
             >
               <OutlinedFlagOutlinedIcon className='diet-details-container-tabs-icon' />
               Goals & Motivation
@@ -89,7 +98,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'lifestyleHabits' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('lifestyleHabits')}
+              onClick={() => setActiveTab('lifestyleHabits')}
             >
               <WorkOutlineOutlinedIcon
                 style={{ fontSize: '23px' }}
@@ -101,7 +110,7 @@ function DietDetails() {
               className={`diet-details-container-tabs-item ${
                 activeTab === 'activityTracking' ? 'active' : ''
               }`}
-              onClick={() => handleTabClick('activityTracking')}
+              onClick={() => setActiveTab('activityTracking')}
             >
               <FitnessCenterOutlinedIcon
                 style={{ fontSize: '23px' }}
@@ -112,13 +121,24 @@ function DietDetails() {
           </div>
         </div>
 
-        {activeTab === 'basicInfo' && <BasicInformation />}
+        {activeTab === 'basicInfo' && (
+          <BasicInformation state={basicInfo} setState={setBasicInfo} />
+        )}
         {activeTab === 'physicalAttributes' && <PhysicalAttributes />}
         {activeTab === 'healthConditions' && <HealthConditions />}
         {activeTab === 'foodPreferences' && <FoodPreferences />}
         {activeTab === 'goalsMotivation' && <GoalsMotivation />}
         {activeTab === 'lifestyleHabits' && <LifestyleHabits />}
         {activeTab === 'activityTracking' && <ActivityTracking />}
+      </div>
+
+      <div className='diet-details-container-save-button'>
+        <Button
+          size='medium'
+          label='Save'
+          type='primary'
+          clickHandler={onSaveClick}
+        />
       </div>
     </div>
   );

@@ -4,12 +4,10 @@ import RadioButton from '@/components/UI/RadioButton';
 import { Fade } from '@mui/material';
 import { useState } from 'react';
 import AlertBox from '@/components/UI/AlertBox';
+import PropTypes from 'prop-types';
 
-function BasicInformation() {
-  const [gender, setGender] = useState('');
-  const [age, setAge] = useState('');
+function BasicInformation({ state, setState }) {
   const [alert, setAlert] = useState({ message: '' });
-  const [location, setLocation] = useState('');
 
   function onLocationRequest() {
     if (navigator.geolocation) {
@@ -43,7 +41,10 @@ function BasicInformation() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setLocation(data.display_name);
+        setState((prevState) => ({
+          ...prevState,
+          location: data.display_name,
+        }));
       })
       .catch((error) => {
         setAlert({
@@ -64,13 +65,18 @@ function BasicInformation() {
         <div className='diet-details-content-container'>
           <Input
             name='age'
-            value={age}
+            value={state.age}
             label='Age'
             placeholder='Enter your age...'
             size='small'
             type='number'
             mandatory
-            onInput={(e) => setAge(e.target.value)}
+            onInput={(e) =>
+              setState((prevState) => ({
+                ...prevState,
+                age: e.target.value,
+              }))
+            }
           />
 
           <div>
@@ -81,20 +87,35 @@ function BasicInformation() {
               <RadioButton
                 label='Male'
                 value='Male'
-                checked={gender === 'Male'}
-                onChange={() => setGender('Male')}
+                checked={state.gender === 'Male'}
+                onChange={() => {
+                  setState((prevState) => ({
+                    ...prevState,
+                    gender: 'Male',
+                  }));
+                }}
               />
               <RadioButton
                 label='Female'
                 value='Female'
-                checked={gender === 'Female'}
-                onChange={() => setGender('Female')}
+                checked={state.gender === 'Female'}
+                onChange={() => {
+                  setState((prevState) => ({
+                    ...prevState,
+                    gender: 'Female',
+                  }));
+                }}
               />
               <RadioButton
                 label='Other'
                 value='Other'
-                checked={gender === 'Other'}
-                onChange={() => setGender('Other')}
+                checked={state.gender === 'Other'}
+                onChange={() => {
+                  setState((prevState) => ({
+                    ...prevState,
+                    gender: 'Other',
+                  }));
+                }}
               />
             </div>
           </div>
@@ -102,11 +123,18 @@ function BasicInformation() {
           <div>
             <h4 className='diet-details-input-header'>Location</h4>
 
-            {location ? (
+            {state.location ? (
               <>
-                <div className='basic-information-location'>{location}</div>
+                <div className='basic-information-location'>
+                  {state.location}
+                </div>
                 <Button
-                  clickHandler={() => setLocation('')}
+                  clickHandler={() => {
+                    setState((prevState) => ({
+                      ...prevState,
+                      location: '',
+                    }));
+                  }}
                   label='Clear location'
                   type='base'
                 />
@@ -124,5 +152,10 @@ function BasicInformation() {
     </>
   );
 }
+
+BasicInformation.propTypes = {
+  state: PropTypes.object.isRequired,
+  setState: PropTypes.func.isRequired,
+};
 
 export default BasicInformation;
